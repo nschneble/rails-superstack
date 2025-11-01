@@ -1,5 +1,5 @@
 # Rails Superstack
-A ready-to-go Rails instance with front-end, database, and accouterments.
+A ready-to-go Ruby on Rails instance with front-end, database, and accouterments.
 
 ## 🚧 Under Construction 🚧
 
