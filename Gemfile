@@ -62,6 +62,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Terminal-based log viewer w/ real-time monitoring [https://github.com/silva96/log_bench]
+  gem "log_bench"
 end
 
 group :test do
