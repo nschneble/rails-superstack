@@ -60,6 +60,9 @@ group :development, :test do
 
   # RSpec testing framework [https://rspec.info/]
   gem "rspec-rails", "~> 8.0.0"
+
+  # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails"
 end
 
 group :development do
