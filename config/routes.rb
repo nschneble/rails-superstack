@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  passwordless_for :users
+  passwordless_for :users, at: "/", as: :auth
 end
