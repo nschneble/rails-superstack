@@ -11,18 +11,15 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
-# Ignore all logfiles and tempfiles.
+# ignore all logs and temp files
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
 
-# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/master.key
-
-# Only include if you have production secrets in this file, which is no longer a Rails default
-# config/secrets.yml
+# ignore key files for decrypting credentials and more
+/config/initializers/secret_token.rb
+/config/*.key
 
 # dotenv, dotenv-rails (allows .env.example in version control)
 .env
@@ -31,12 +28,9 @@ config/master.key
 .env.production
 .env*.local
 
-## Environment normalization:
+# environment normalization
 /.bundle
 /vendor/bundle
-
-# these should all be checked in to normalize the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
@@ -46,32 +40,29 @@ config/master.key
 *.bowerrc
 bower.json
 
-# Ignore pow environment settings
+# ignore pow environment settings
 .powenv
 
-# Ignore Byebug command history file.
+# ignore Byebug command history file
 .byebug_history
 
-# Ignore node_modules
+# ignore node_modules
 node_modules/
 
-# Ignore precompiled javascript packs
+# ignore precompiled JavaScript packs
 /public/packs
 /public/packs-test
 /public/assets
 
-# Ignore yarn files
+# ignore Yarn files
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore uploaded files in development
+# ignore uploaded files in development
 /storage/*
 !/storage/.keep
 /public/uploads
-
-# Ignore key files for decrypting credentials and more.
-/config/*.key
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
