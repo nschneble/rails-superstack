@@ -24,9 +24,11 @@ config/master.key
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
 
-# dotenv, dotenv-rails
-# TODO Comment out these rules if environment variables can be committed
+# dotenv, dotenv-rails (allows .env.example in version control)
 .env
+.env.development
+.env.testing
+.env.production
 .env*.local
 
 ## Environment normalization:
