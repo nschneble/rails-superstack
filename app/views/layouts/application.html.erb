@@ -25,8 +25,12 @@
   </head>
 
   <body class="w-full h-full bg-slate-500">
+    <%= render "header" %>
+
     <main class="container flex max-w-[650] h-full mx-auto overflow-hidden">
       <%= yield %>
     </main>
+
+    <%= render "footer" %>
   </body>
 </html>

@@ -1,0 +1,20 @@
+<header class="fixed w-full p-4 bg-blue-900 text-white shadow-slate-600 shadow-xl">
+  <nav class="flex items-center justify-between">
+    <div class="flex items-center justify-between">
+      <%= image_tag "ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "38", alt: "Ruby on Rails" %>
+      <p class="ml-2 font-semibold text-xl tracking-tight select-none"><%= t("title") %></p>
+    </div>
+
+    <div class="flex items-center w-auto">
+      <% if Rails.env.development? %>
+        <div class="flex">
+          <a class="block text-white text-sm mr-4 select-none" href="/">Home</a>
+          <a class="block text-white text-sm mr-4 select-none" href="/sent_mail/">Sent mail</a>
+        </div>
+      <% end %>
+      <div class="flex" v-else>
+        <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_in/">Sign in</a>
+      </div>
+    </div>
+  </nav>
+</header>
