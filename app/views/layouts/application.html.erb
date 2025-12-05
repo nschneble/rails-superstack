@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html class="w-full h-full">
   <head>
     <title><%= content_for(:title) || "Rails Superstack" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Rails Superstack">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,7 +16,6 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
@@ -24,8 +24,8 @@
     <% end %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="w-full h-full bg-slate-500">
+    <main class="container flex max-w-[650] h-full mx-auto overflow-hidden">
       <%= yield %>
     </main>
   </body>

@@ -1,8 +1,18 @@
-<%= form_with(model: @session, url: url_for(action: 'update'), scope: 'passwordless', method: 'patch', data: { turbo: false }) do |f| %>
+<%# This is the Passwordless form where the user inputs the token they received %>
+
+<%= form_with(model: @session, url: url_for(action: "update"), scope: "passwordless", method: "patch", data: { turbo: false, controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+  <%= content_tag(:h1, t("title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+
+  <%# login token %>
   <%= f.label :token, t(".token") %>
   <%= f.text_field :token,
+      class: CustomFormBuilder::INPUT_CLASSES,
       required: true,
       autofocus: true,
-      autocomplete: "one-time-code" %>
-  <%= f.submit t(".confirm") %>
+      autocomplete: "one-time-code",
+      placeholder: "ABCDEF",
+      data: { "token-target": "input" } %>
+
+  <%# form submission %>
+  <%= f.submit t(".confirm"), data: { action: "click->token#submit", "token-target": "button" } %>
 <% end %>

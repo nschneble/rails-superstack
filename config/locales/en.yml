@@ -29,3 +29,10 @@
 
 en:
   hello: "Hello world"
+  passwordless:
+    sessions:
+      new:
+        email:
+          label: "Email address"
+          placeholder: "me@mydomain.net"
+        submit: "Sign in"
