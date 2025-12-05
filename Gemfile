@@ -77,6 +77,10 @@ group :development do
 
   # Terminal-based log viewer w/ real-time monitoring [https://github.com/silva96/log_bench]
   gem "log_bench"
+
+  # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
+  gem "letter_opener"
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do
