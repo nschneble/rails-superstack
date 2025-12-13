@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
+// connects to data-controller="token"
 export default class extends Controller {
 	static targets = ['input', 'button'];
 
