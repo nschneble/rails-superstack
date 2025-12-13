@@ -21,6 +21,7 @@ h3 {
 
 a:link,
 a:visited {
+  text-underline-offset: 4px;
   text-decoration: none;
 }
 
