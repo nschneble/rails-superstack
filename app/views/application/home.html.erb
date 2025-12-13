@@ -21,28 +21,20 @@
       <%= fa_stacked_icon(["square", "satellite-dish"], ["text-lime-500", "text-white"]) %>
       Try out <a class="hover:text-amber-400 underline!" href="https://github.com/silva96/log_bench">LogBench</a> for some real-time monitoring
       <div class="relative ml-12 mt-2 mb-4 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
-        <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span>log_bench log/development.log</pre>
-        <button class="absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" data-controller="clipboard" data-action="click->clipboard#copy" data-clipboard-text="log_bench log/development.log" data-clipboard-duration-value="1000">
-          <i class="fa-solid fa-copy transition-opacity duration-100" data-clipboard-target="icon"></i>
-          <span class="absolute -top-8 left-1/2 -translate-x-1/2 z-10 bg-slate-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 translate-y-1 shadow-lg transition-all duration-200" data-clipboard-target="tooltip">
-            Copied!
-            <span class="absolute left-1/2 top-full -translate-x-1/2 -mt-1 w-2 h-2 bg-slate-800 rotate-45 shadow-lg" aria-hidden="true"></span>
-          </span>
-        </button>
+        <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="log_bench">log_bench log/development.log</span></pre>
+        <%= render "shared/copy_button",
+          target: "#log_bench",
+          button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
       </div>
     </li>
     <li>
       <%= fa_stacked_icon(["square", "microscope"], ["text-lime-500", "text-white"]) %>
       Run <a class="hover:text-amber-400 underline!" href="https://rspec.info/">RSpec</a> tests with <a class="hover:text-amber-400 underline!" href="https://github.com/thoughtbot/factory_bot_rails">Factory Bot</a> and <a class="hover:text-amber-400 underline!" href="https://github.com/faker-ruby/faker">Faker</a>
       <div class="relative ml-12 mt-2 mb-4 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
-        <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span>bundle exec rspec</pre>
-        <button class="absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" data-controller="clipboard" data-action="click->clipboard#copy" data-clipboard-text="bundle exec rspec" data-clipboard-duration-value="1000">
-          <i class="fa-solid fa-copy transition-opacity duration-100" data-clipboard-target="icon"></i>
-          <span class="absolute -top-8 left-1/2 -translate-x-1/2 z-10 bg-slate-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 translate-y-1 shadow-lg transition-all duration-200" data-clipboard-target="tooltip">
-            Copied!
-            <span class="absolute left-1/2 top-full -translate-x-1/2 -mt-1 w-2 h-2 bg-slate-800 rotate-45 shadow-lg" aria-hidden="true"></span>
-          </span>
-        </button>
+        <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="rspec">bundle exec rspec</span></pre>
+        <%= render "shared/copy_button",
+          target: "#rspec",
+          button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
       </div>
     </li>
   </ul>
