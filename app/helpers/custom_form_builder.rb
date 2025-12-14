@@ -1,7 +1,8 @@
 class CustomFormBuilder < ActionView::Helpers::FormBuilder
   FORM_CLASSES = %w[
-    w-full
-    my-auto
+    max-w-[650]
+    mx-4
+    sm:mx-auto
     pt-8
     pb-16
     bg-blue-900
@@ -27,7 +28,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   LABEL_CLASSES = %w[
     block
-    w-full
+    w-3/4
+    sm:w-full
     max-w-[325]
     mx-auto
     text-sm
@@ -36,7 +38,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   INPUT_CLASSES = %w[
     block
-    w-full
+    w-3/4
+    sm:w-full
     max-w-[325]
     mx-auto
     my-1
@@ -56,7 +59,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   BUTTON_CLASSES = %w[
     block
-    w-full
+    w-3/4
+    sm:w-full
     max-w-[325]
     mx-auto
     my-4
