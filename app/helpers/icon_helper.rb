@@ -28,9 +28,9 @@ module IconHelper
   #
   # @return A span tag with the stacked Font Awesome icon.
   def fa_stacked_icon(names, options, style: "solid")
-    content_tag :span, class: "fa-stack #{options[2]&.to_s}".strip do
-      fa_icon(names[0]&.to_s, "fa-stack-2x #{options[0]&.to_s}".strip, style:) +
-      fa_icon(names[1]&.to_s, "fa-stack-1x #{options[1]&.to_s}".strip, style:)
+    content_tag :span, class: "fa-stack #{options[2]}".strip do
+      fa_icon(names[0]&.to_s, "fa-stack-2x #{options[0]}".strip, style:) +
+      fa_icon(names[1]&.to_s, "fa-stack-1x #{options[1]}".strip, style:)
     end
   end
 end

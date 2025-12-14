@@ -43,7 +43,7 @@ module TextHelper
   private
 
   def palette_for_text(text)
-    RAINBOW_COLORS[[text.length, num_colors].min - 1]
+    RAINBOW_COLORS[[ text.length, num_colors ].min - 1]
   end
 
   def num_colors
