@@ -10,4 +10,8 @@ Rails.application.routes.draw do
 
   # defines the root path route ("/")
   root "application#home"
+
+  # tests flash notices
+  get "notice" => "flash#notice", as: :flash_notice
+  get "alert"  => "flash#alert",  as: :flash_alert
 end
