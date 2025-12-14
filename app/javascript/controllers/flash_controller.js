@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 // Connects to data-controller="flash"
 export default class extends Controller {
 	static values = {
-		timeout: { type: Number, default: 3000 },
+		timeout: { type: Number, default: 10000 },
 		duration: { type: Number, default: 200 },
 	};
 

@@ -2,7 +2,7 @@
   <% flash.each do |type, message| %>
     <% next if message.blank? %>
 
-    <div class="relative flex justify-start items-center gap-x-2 mb-4 p-4 pr-8 <%= flash_message_colors(type) %> text-sm rounded shadow-lg opacity-0 -translate-y-4 transition-all duration-200" data-controller="flash" data-flash-timeout-value="30000" data-flash-duration-value="200">
+    <div class="relative flex justify-start items-center gap-x-2 mb-4 p-4 pr-8 <%= flash_message_colors(type) %> text-sm rounded shadow-lg opacity-0 -translate-y-4 transition-all duration-200" data-controller="flash" data-flash-timeout-value="10000" data-flash-duration-value="200">
       <%= fa_stacked_icon(["square", flash_icon(type)], flash_icon_colors(type)) %>
       <div class="w-full tracking-tight"><%= message %></div>
 
