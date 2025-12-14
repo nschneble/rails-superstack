@@ -13,7 +13,11 @@
           <% end %>
         </div>
       <div class="flex" v-else>
-        <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_in/"><%= fas_icon("arrow-right-to-bracket") %> Sign in</a>
+        <% if current_user %>
+          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_out/"><%= fas_icon("person-walking-arrow-loop-left") %> Sign out</a>
+        <% else %>
+          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_in/"><%= fas_icon("person-walking-arrow-right") %> Sign in</a>
+        <% end %>
       </div>
     </div>
   </nav>
