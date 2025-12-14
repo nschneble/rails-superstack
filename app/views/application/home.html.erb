@@ -1,27 +1,27 @@
-<div class="w-full ml-11 mt-[70] mb-[52] text-white overflow-y-scroll">
+<div class="w-full sm:ml-11 mt-[70] mb-[52] text-white overflow-y-scroll">
   <div class="max-w-[650] mx-auto">
-    <h1 class="mt-[50] mb-4 font-semibold text-3xl tracking-tight">Where to go from here?</h1>
+    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Where to go from here?</h1>
     <ul class="flex flex-col gap-y-3 list-none ml-2">
       <li>
         <%= fa_stacked_icon(["square", "key"], ["text-lime-500", "text-white"]) %>
-        <a class="hover:text-amber-400 underline!" href="/sign_in/">Sign in</a> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a>
+        <a class="hover:text-amber-400 underline!" href="/sign_in/">Sign in</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "paper-plane"], ["text-lime-500", "text-white"]) %>
-        <a class="hover:text-amber-400 underline!" href="/sent_mail/">Preview sent mail</a> with <a class="hover:text-amber-400 underline!" href="https://github.com/ryanb/letter_opener">Letter Opener</a> and its <a class="hover:text-amber-400 underline!" href="https://github.com/fgrehm/letter_opener_web">web interface</a>
+        <a class="hover:text-amber-400 underline!" href="/sent_mail/">Preview sent mail</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/ryanb/letter_opener">Letter Opener</a> and its <a class="hover:text-amber-400 underline!" href="https://github.com/fgrehm/letter_opener_web">web interface</a></span>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "icons"], ["text-lime-500", "text-white"]) %>
-        <a class="hover:text-amber-400 underline!" href="https://fontawesome.com/kits">Create a kit</a> to use <a class="hover:text-amber-400 underline!" href="https://fontawesome.com/">Font Awesome</a> icons
+        <a class="hover:text-amber-400 underline!" href="https://fontawesome.com/kits">Create a kit</a><span class="hidden sm:inline"> to use <a class="hover:text-amber-400 underline!" href="https://fontawesome.com/">Font Awesome</a> icons</span>
         <p class="ml-12 text-sm italic"><span class="font-semibold">Hint:</span> You'll see icons on this page!</p>
       </li>
     </ul>
-    <h2 class="mt-12 mb-4 font-semibold text-2xl tracking-tight">Prefer the console?</h2>
+    <h2 class="mx-3 sm:mx-0 mt-12 mb-4 font-semibold text-2xl tracking-tight">Prefer the console?</h2>
     <ul class="flex flex-col gap-y-2 list-none ml-2 mb-[84]">
       <li>
         <%= fa_stacked_icon(["square", "satellite-dish"], ["text-lime-500", "text-white"]) %>
-        Try out <a class="hover:text-amber-400 underline!" href="https://github.com/silva96/log_bench">LogBench</a> for some real-time monitoring
-        <div class="relative ml-12 mt-2 mb-4 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+        Try out <a class="hover:text-amber-400 underline!" href="https://github.com/silva96/log_bench">LogBench</a><span class="hidden sm:inline"> for some real-time monitoring</span>
+        <div class="relative ml-12 mr-3 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="log_bench">log_bench log/development.log</span></pre>
           <%= render "shared/copy_button",
             target: "#log_bench",
@@ -30,8 +30,8 @@
       </li>
       <li>
         <%= fa_stacked_icon(["square", "microscope"], ["text-lime-500", "text-white"]) %>
-        Run <a class="hover:text-amber-400 underline!" href="https://rspec.info/">RSpec</a> tests with <a class="hover:text-amber-400 underline!" href="https://github.com/thoughtbot/factory_bot_rails">Factory Bot</a> and <a class="hover:text-amber-400 underline!" href="https://github.com/faker-ruby/faker">Faker</a>
-        <div class="relative ml-12 mt-2 mb-4 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+        Run <a class="hover:text-amber-400 underline!" href="https://rspec.info/">RSpec</a><span class="hidden sm:inline"> tests with <a class="hover:text-amber-400 underline!" href="https://github.com/thoughtbot/factory_bot_rails">Factory Bot</a> and <a class="hover:text-amber-400 underline!" href="https://github.com/faker-ruby/faker">Faker</a></span>
+        <div class="relative ml-12 mr-3 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="rspec">bundle exec rspec</span></pre>
           <%= render "shared/copy_button",
             target: "#rspec",
