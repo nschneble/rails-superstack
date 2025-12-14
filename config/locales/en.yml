@@ -29,10 +29,40 @@
 
 en:
   title: "Rails Superstack"
+  sign_in:
+    title: "Sign in"
+  verification_code:
+    title: "Enter your verification code"
   passwordless:
     sessions:
       new:
         email:
           label: "Email address"
           placeholder: "me@mydomain.net"
-        submit: "Sign in"
+        submit: "Send login code"
+      create:
+        email_sent: "We've sent you an email with a secret token"
+        not_found: "We couldn't find a user with that email address"
+        error: "An error occurred"
+      show:
+        token: "Six-digit code"
+        confirm: "Confirm"
+      errors:
+        invalid_token: "Token is invalid"
+        session_expired: "Your session has expired, please sign in again."
+        token_claimed: "This link has already been used, try requesting the link again"
+      destroy:
+        signed_out: "Signed out successfully"
+    mailer:
+      sign_in:
+        subject: "Your Rails Superstack Login Code"
+        body: |-
+          Your Rails Superstack login code is: %{token}. This code expires in 10 minutes.
+
+          You can also sign in directly from this link:
+          %{magic_link}
+
+          ---
+
+          Did you know:
+          %{fun_fact}?

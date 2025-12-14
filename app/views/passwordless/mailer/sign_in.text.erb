@@ -1,3 +1,3 @@
 <%# the email with the token and magic link %>
 
-<%= t("passwordless.mailer.sign_in.body", token: @token, magic_link: @magic_link) %>
+<%= t("passwordless.mailer.sign_in.body", token: @token, magic_link: @magic_link, fun_fact: FunFacts.random) %>

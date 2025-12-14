@@ -1,22 +1,24 @@
 <%# This is the Passwordless form where the user inputs their email address %>
 
-<% email_field_name = :"passwordless[#{email_field}]" %>
+<div class="w-full my-auto">
+  <% email_field_name = :"passwordless[#{email_field}]" %>
 
-<%= form_with(model: @session, url: url_for(action: "new"), data: { turbo: "false", controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
-  <%= content_tag(:h1, t("title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+  <%= form_with(model: @session, url: url_for(action: "new"), data: { turbo: "false", controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+    <%= content_tag(:h1, t("sign_in.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
 
-  <%# email address %>
-  <%= f.label email_field_name,
-              t("passwordless.sessions.new.email.label"),
-              for: "passwordless_#{email_field}" %>
-  <%= email_field_tag email_field_name,
-                      params.fetch(email_field_name, nil),
-                      class: CustomFormBuilder::INPUT_CLASSES,
-                      required: true,
-                      autofocus: true,
-                      placeholder: t("passwordless.sessions.new.email.placeholder"),
-                      data: { "token-target": "input" } %>
+    <%# email address %>
+    <%= f.label email_field_name,
+                t("passwordless.sessions.new.email.label"),
+                for: "passwordless_#{email_field}" %>
+    <%= email_field_tag email_field_name,
+                        params.fetch(email_field_name, nil),
+                        class: CustomFormBuilder::INPUT_CLASSES,
+                        required: true,
+                        autofocus: true,
+                        placeholder: t("passwordless.sessions.new.email.placeholder"),
+                        data: { "token-target": "input" } %>
 
-  <%# form submission %>
-  <%= f.submit t("passwordless.sessions.new.submit"), data: { action: "click->token#submit", "token-target": "button" } %>
-<% end %>
+    <%# form submission %>
+    <%= f.submit t("passwordless.sessions.new.submit"), data: { action: "click->token#submit", "token-target": "button" } %>
+  <% end %>
+</div>
