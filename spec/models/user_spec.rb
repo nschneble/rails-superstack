@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe "#record_passwordless_login!" do
-    let(:microsecond_precision){ 6 }
+    let(:microsecond_precision) { 6 }
 
     it "sets email_confirmed_at on first login and updates last_login attributes" do
       user = create(:user)
