@@ -52,6 +52,16 @@
             button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
         </div>
       </li>
+      <li>
+        <%= fa_stacked_icon(["square", "code-merge"], ["text-lime-500", "text-white"]) %>
+        <span class="hidden sm:inline">Ready to merge? </span>Run local CI
+        <div class="relative ml-12 mr-3 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+          <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="ci">bin/ci</span></pre>
+          <%= render "shared/copy_button",
+            target: "#ci",
+            button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
+        </div>
+      </li>
     </ul>
   </div>
 </div>
