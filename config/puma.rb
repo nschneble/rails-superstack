@@ -40,16 +40,3 @@ plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
-
-# SSL on localhost
-# https://spaquet.medium.com/setting-up-ssl-on-localhost-for-rails-development-with-puma-211574dbfb87
-if Rails.env.development?
-  key_path = File.expand_path("~/.ssh/localhost.key")
-  cert_path = File.expand_path("~/.ssh/localhost.crt")
-
-  ssl_bind "127.0.0.1", "3001", {
-    key: key_path,
-    cert: cert_path,
-    verify_mode: "none"
-  }
-end

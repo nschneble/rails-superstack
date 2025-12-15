@@ -8,3 +8,30 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body {
+  font: 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+a:link,
+a:visited {
+  text-underline-offset: 4px;
+  text-decoration: none;
+}
+
+a:link:hover,
+a:visited:hover {
+  text-decoration: underline;
+}
+
+// responsive images
+img {
+  max-width: 100%;
+  height: auto;
+}

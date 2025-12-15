@@ -1,0 +1,24 @@
+<header class="fixed w-full p-4 bg-blue-900 text-white shadow-slate-600 shadow-xl">
+  <nav class="flex items-center justify-between sm:mx-11">
+    <div class="flex items-center justify-between">
+      <%= image_tag "ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "38", alt: "Ruby on Rails" %>
+      <a class="ml-2 font-semibold text-xl tracking-tight select-none hover:no-underline!" href="/"><%= t("title") %></a>
+    </div>
+
+    <div class="hidden sm:flex items-center w-auto">
+      <div class="flex">
+        <a class="block text-white text-sm mr-4 select-none" href="https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack">View README</a>
+        <% if Rails.env.development? %>
+          <a class="block text-white text-sm mr-4 select-none" href="/sent_mail/">Sent mail</a>
+        <% end %>
+      </div>
+      <div class="flex" v-else>
+        <% if current_user %>
+          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_out/"><%= fas_icon("person-walking-arrow-loop-left") %> Sign out</a>
+        <% else %>
+          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_in/"><%= fas_icon("person-walking-arrow-right") %> Sign in</a>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+</header>
