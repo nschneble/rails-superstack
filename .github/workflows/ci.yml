@@ -6,7 +6,7 @@ on:
     branches: [ "**" ]
 
 jobs:
-  scan_ruby:
+  scan:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,32 +19,21 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
+      - name: Scan for common security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
-      - name: Scan for known security vulnerabilities in gems used
+      - name: Scan for known security vulnerabilities in bundled gems
         run: bin/bundler-audit
-
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
   lint:
     runs-on: ubuntu-latest
+
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -86,8 +75,8 @@ jobs:
           --health-retries=3
 
     env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/rails_superstack_test
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/rails_superstack_test
 
     steps:
       - name: Install packages
