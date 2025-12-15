@@ -106,4 +106,4 @@ jobs:
         run: bin/rails db:prepare
 
       - name: Run RSpec tests
-        run: bundle exec rspec
+        run: bin/rspec
