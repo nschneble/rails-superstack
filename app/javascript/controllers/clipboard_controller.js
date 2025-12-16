@@ -7,6 +7,7 @@ export default class extends Controller {
 		text: String,
 		targetSelector: String,
 		duration: { type: Number, default: 1000 },
+		emojiFallback: Boolean,
 	};
 
 	async copy(event) {
@@ -17,7 +18,14 @@ export default class extends Controller {
 
 		try {
 			await navigator.clipboard.writeText(text.trim());
-			this._showCopiedIcon();
+
+			// checks if we should fallback to using emoji when Font Awesome is unavailable
+			console.log(`this.emojiFallbackValue=${this.emojiFallbackValue}`);
+			if (this.emojiFallbackValue) {
+				this._showCopiedEmojiIcon();
+			} else {
+				this._showCopiedFontAwesomeIcon();
+			}
 		} catch (error) {
 			console.error('Clipboard copy failed:', error);
 		}
@@ -42,7 +50,33 @@ export default class extends Controller {
 		return '';
 	}
 
-	_showCopiedIcon() {
+	_showCopiedEmojiIcon() {
+		const icon = this.iconTarget;
+		const tooltip = this.hasTooltipTarget ? this.tooltipTarget : null;
+
+		icon.classList.add('opacity-0');
+
+		setTimeout(() => {
+			icon.innerText = '✅';
+			icon.classList.remove('opacity-0');
+
+			if (tooltip) {
+				tooltip.classList.remove('opacity-0', 'translate-y-1');
+			}
+
+			setTimeout(() => {
+				icon.classList.add('opacity-0');
+				if (tooltip) tooltip.classList.add('opacity-0', 'translate-y-1');
+
+				setTimeout(() => {
+					icon.innerText = '📋';
+					icon.classList.remove('opacity-0');
+				}, 100);
+			}, this.durationValue);
+		}, 100);
+	}
+
+	_showCopiedFontAwesomeIcon() {
 		const icon = this.iconTarget;
 		const tooltip = this.hasTooltipTarget ? this.tooltipTarget : null;
 

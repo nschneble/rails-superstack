@@ -1,4 +1,12 @@
 module IconHelper
+  def font_awesome_available?
+    font_awesome_kit_src.present?
+  end
+
+  def font_awesome_kit_src
+    safe_script_src(ENV["FONT_AWESOME_KIT_URL"], host: /\Akit\.fontawesome\.com\z/i)
+  end
+
   def fas_icon(name, options = "")
     fa_icon(name, options)
   end

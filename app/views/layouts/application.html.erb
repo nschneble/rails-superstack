@@ -19,8 +19,8 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
-    <% if (src = safe_script_src(ENV["FONT_AWESOME_KIT_URL"], host: /\Akit\.fontawesome\.com\z/i)) %>
-      <script src="<%= src %>" crossorigin="anonymous"></script>
+    <% if font_awesome_available? %>
+      <script src="<%= font_awesome_kit_src %>" crossorigin="anonymous"></script>
     <% end %>
   </head>
 

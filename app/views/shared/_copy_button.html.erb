@@ -12,9 +12,16 @@
   <% if local_assigns.key?(:target) && target.present? %>
     data-clipboard-target-selector-value="<%= target %>"
   <% end %>
+  <% unless font_awesome_available? %>
+    data-clipboard-emoji-fallback-value="true"
+  <% end %>
   class="<%= button_classes %>"
 >
-  <i class="<%= icon_classes %>" data-clipboard-target="icon"></i>
+  <% if font_awesome_available? %>
+    <i class="<%= icon_classes %>" data-clipboard-target="icon"></i>
+  <% else %>
+    <span class="transition-opacity duration-100" data-clipboard-target="icon">📋</span>
+  <% end %>
 
   <% if label.present? %>
     <span class="ml-1"><%= label %></span>
