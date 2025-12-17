@@ -1,3 +1,4 @@
+# Rails Superstack
 _Author's Note: This is a work-in-progress. I wouldn't recommend using it just yet._
 ---
 
