@@ -5,6 +5,7 @@ OLD_TITLE="Rails Superstack"
 OLD_SNAKE="rails_superstack"
 OLD_KEBAB="rails-superstack"
 OLD_CAMEL="RailsSuperstack"
+OLD_AUTHOR="nschneble"
 
 die() { echo "❌ $*" >&2; exit 1; }
 
@@ -122,6 +123,7 @@ replace_all "$OLD_TITLE" "$title_name"
 replace_all "$OLD_SNAKE" "$snake_name"
 replace_all "$OLD_KEBAB" "$kebab_name"
 replace_all "$OLD_CAMEL" "$camel_name"
+replace_all "$OLD_AUTHOR" "$owner"
 
 echo "✅ Done."
 echo
