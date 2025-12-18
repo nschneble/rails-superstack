@@ -1,6 +1,6 @@
-# Rails Superstack
-_Author's Note: This is a work-in-progress. I wouldn't recommend using it just yet._
----
+![Repo Status](https://img.shields.io/badge/Status-work_in_progress-yellow) ![Recommendation](https://img.shields.io/badge/Recommendation-be_chill-blue)
+
+> _**Author's Note:** This is a work-in-progress. I wouldn't recommend using it just yet._
 
 <p align="center">
   <img src="public/icon.png" alt="Rails Superstack" />
@@ -41,7 +41,7 @@ With your shiny new repo in hand, here's what you need to get cooking:
 * Ruby 3.4.7
 * [Bundler](https://bundler.io/) 2.7.2
 
-The house recommends [Homebrew](https://brew.sh) and [rbenv](https://rbenv.org) to install these prerequisites:
+I'd personally recommend [Homebrew](https://brew.sh) and [rbenv](https://rbenv.org) to install these prerequisites:
 
 ```bash
 cd /path/to/your/repo
@@ -62,8 +62,10 @@ Unless you want your app to be called "Rails Superstack", you'll probably want t
 
 ```bash
 cd /path/to/your/repo
-bin/rename_to "Your App"
+script/rename
 ```
+
+The script should be smart enough to detect your new repo's origin url, and if not, it'll prompt you for your GitHub username and repository name.
 
 ### Set up Font Awesome
 This one's easy. Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and create a free icon kit. Then create a file for your environment variables using the included `.env.example` file, then plug it your shiny new kit:
