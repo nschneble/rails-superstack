@@ -1,0 +1,84 @@
+[![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0)
+
+Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments.
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Set Up Font Awesome](#set-up-font-awesome)
+  - [Build and Run](#build-and-run)
+- [Under the Hood](#under-the-hood)
+  - [Tech Stack](#tech-stack)
+  - [Gems and Resources](#gems-and-resources)
+  - [Routes](#routes)
+- [Linting, Testing, and CI](#linting-testing-and-ci)
+  - [Linting](#linting)
+  - [Testing](#testing)
+  - [Local CI](#local-ci)
+
+## Getting Started
+
+### Prerequisites
+* PostgreSQL 14.20
+* Ruby 3.4.7
+* [Bundler](https://bundler.io/) 2.7.2
+
+### Set Up Font Awesome
+Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create a file for your environment variables using the included `.env.example` file, then plug in your new kit:
+
+```bash
+cd /path/to/your/repo
+cp .env.example .env
+```
+
+Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
+
+### Build and Run
+
+```bash
+cd /path/to/your/repo
+bin/setup
+```
+
+## Under the Hood
+
+### Tech Stack
+* [Ruby on Rails](https://rubyonrails.org)
+* [Hotwire](https://hotwired.dev)
+* [Postgres](https://www.postgresql.org)
+* [Puma](https://puma.io)
+* [Rubocop](https://rubocop.org)
+* [Tailwind](https://tailwindcss.com)
+
+### Gems and Resources
+* [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
+* [LogBench](https://github.com/silva96/log_bench) (log viewer)
+* [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
+* [Passwordless](https://github.com/mikker/passwordless) (auth)
+* [Letter Opener](https://github.com/ryanb/letter_opener) + [web interface](https://github.com/fgrehm/letter_opener_web) (preview emails)
+* [Font Awesome](https://fontawesome.com) (icons)
+
+### Routes
+| Endpoint    | Description               |
+| ----------- | ------------------------- |
+| `/sign_in`  | Sign in as a new user     |
+| `/sign_out` | Sign out the current user |
+
+## Linting, Testing, and CI
+
+### Linting
+```bash
+cd /path/to/your/repo
+bin/rubocop
+```
+
+### Testing
+```bash
+cd /path/to/your/repo
+bin/rspec
+```
+
+### Local CI
+```bash
+cd /path/to/your/repo
+bin/ci
+```
