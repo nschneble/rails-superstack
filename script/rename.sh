@@ -1,68 +1,109 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# guarantees we're running from the project root
-SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_PATH/.." && pwd)"
-cd "$PROJECT_ROOT"
+SCRIPT_VERSION="1.0"
 
+# exit statuses
+SUCCESS=0
+FAILURE=1
+
+# files referenced in the script
 SENTINEL_FILE=".renamed_from_template"
-RENAME_SCRIPT="script/rename.sh"
-README="README.md"
-README_TEMPLATE="script/README.md.template"
+SCRIPT_FILE="script/rename.sh"
+README_FILE="README.md"
+README_TEMPLATE_FILE="script/README.md.template"
 
-TEMPLATE_TITLE="Rails Superstack"
-TEMPLATE_SNAKE="rails_superstack"
-TEMPLATE_KEBAB="rails-superstack"
-TEMPLATE_CAMEL="RailsSuperstack"
-TEMPLATE_OWNER="nschneble"
-
-die() { echo "(⌐■_■) $*" >&2; exit 1; }
-
-# options
+# script arguments
 DRY_RUN=false
 NO_CONFIRMATION=false
 
-for arg in "$@"; do
-  case "$arg" in
-    --dry-run|-d) DRY_RUN=true ;;
-    --no-confirmation|-n) NO_CONFIRMATION=true ;;
-    --help|-h)
-      echo "The Rails Superstack template rename script. Pretty self explanatory."
-      echo
-      echo "Usage:"
-      echo "  script/rename.sh [--dry-run] [--no-confirmation]"
-      echo
-      echo "Options:"
-      echo "  -d, --dry-run            print changes, don't modify anything, then exit"
-      echo "  -n, --no-confirmation    skip all confirmation prompts"
-      echo "  -h, --help               show this help, then exit"
-      echo
-      echo "For more information, consult the README in the repository root."
-      echo
-      echo "Report issues on GitHub: <https://github.com/nschneble/rails-superstack/issues>"
-      echo "Rails Superstack home page: <https://superstack.fancyenchiladas.net/rails>"
-      exit 0
-      ;;
-  esac
-done
-
+# helpers
 confirm() {
-  local msg="$1"
+  local message="$1"
+
   if [[ "$NO_CONFIRMATION" == true ]]; then
-    return 0
+    return $SUCCESS
   fi
-  read -r -p "$msg [y/N] " ans
-  [[ "$ans" =~ ^[Yy]$ ]]
+
+  echo
+  read -r -p "$message [y/N] " response
+
+  [[ "$response" =~ ^[Yy]$ ]]
 }
 
-# repo name helpers
-title_case() {
+log() {
+  VAR=
+  local message="$1"
+  local newline="${2:-false}"
+
+  if [[ "$newline" == true ]]; then
+    echo -e "\n$message"
+  else
+    echo "$message"
+  fi
+}
+
+die() {
+  local message="$1"
+
+  log "$message"
+  echo
+
+  exit $FAILURE
+}
+
+show_help_and_exit() {
+  echo "Rails Superstack template rename script."
+  echo
+  echo "Usage:"
+  echo "  script/rename.sh [--dry-run] [--no-confirmation]"
+  echo
+  echo "Options:"
+  echo "  -d, --dry-run            print changes, don't modify anything, then exit"
+  echo "  -n, --no-confirmation    skip all confirmation prompts"
+  echo "  -h, --help               show this help, then exit"
+  echo
+  echo "For more information, consult the README in the repo root."
+  echo
+  echo "Report issues: <https://github.com/nschneble/rails-superstack/issues>"
+  echo "Rails Superstack homepage: <https://superstack.fancyenchiladas.net/rails>"
+  echo
+
+  exit $SUCCESS
+}
+
+get_git_remote_url() {
+  git remote get-url origin 2>/dev/null || true
+}
+
+# Accepts:
+#   https://github.com/owner/repo(.git)?
+#   git@github.com:owner/repo(.git)?
+#
+# Outputs:
+#   "user repo"
+parse_git_remote_url() {
+  local url="$1"
+  url="${url%.git}"
+
+  if [[ "$url" =~ ^https?://github\.com/([^/]+)/([^/]+)$ ]]; then
+    echo "${BASH_REMATCH[1]} ${BASH_REMATCH[2]}"
+    return $SUCCESS
+  fi
+
+  if [[ "$url" =~ ^git@github\.com:([^/]+)/([^/]+)$ ]]; then
+    echo "${BASH_REMATCH[1]} ${BASH_REMATCH[2]}"
+    return $SUCCESS
+  fi
+
+  return $FAILURE
+}
+
+to_title_case() {
   local slug="$1"
   slug="${slug//_/ }"
   slug="${slug//-/ }"
 
-  # "rails-superstack" / "rails_superstack" -> "Rails Superstack"
   echo "$slug" | awk '{
     for (i=1; i<=NF; i++) {
       $i = toupper(substr($i,1,1)) tolower(substr($i,2))
@@ -71,12 +112,11 @@ title_case() {
   }'
 }
 
-camel_case() {
+to_pascal_case() {
   local slug="$1"
   slug="${slug//_/ }"
   slug="${slug//-/ }"
 
-  # "rails-superstack" / "rails_superstack" -> "RailsSuperstack"
   echo "$slug" | awk '{
     out=""
     for (i=1; i<=NF; i++) {
@@ -86,187 +126,210 @@ camel_case() {
   }'
 }
 
-# git remote parsing
-get_origin_url() {
-  git remote get-url origin 2>/dev/null || true
-}
-
-# Accept:
-#   https://github.com/owner/repo(.git)?
-#   git@github.com:owner/repo(.git)?
-#
-# Output: "owner repo"
-parse_github_origin_url() {
-  local url="$1"
-  url="${url%.git}"
-
-  if [[ "$url" =~ ^https?://github\.com/([^/]+)/([^/]+)$ ]]; then
-    echo "${BASH_REMATCH[1]} ${BASH_REMATCH[2]}"
-    return 0
-  fi
-
-  if [[ "$url" =~ ^git@github\.com:([^/]+)/([^/]+)$ ]]; then
-    echo "${BASH_REMATCH[1]} ${BASH_REMATCH[2]}"
-    return 0
-  fi
-
-  return 1
-}
-
-# replacement engine
 replace_all() {
   local find="$1"
-  local repl="$2"
+  local replace="$2"
 
-  if [[ "$DRY_RUN" == true ]]; then
-    echo "DRY RUN: would replace '$find' -> '$repl' in matching files (excluding $README and $RENAME_SCRIPT)"
-    return 0
-  fi
-
-  # gather matching files, null-delimited, so paths with spaces are handled safely
   local files=()
-  while IFS= read -r -d '' f; do
+  while IFS= read -r -d "" f; do
     files+=("$f")
   done < <(
-    # rg exits 1 when it finds zero matches, so we `|| true` to avoid `set -e` aborts
-    rg -0 -l --hidden \
-      --glob '!.git/**' \
-      --glob '!node_modules/**' \
-      --glob '!vendor/**' \
-      --glob '!log/**' \
-      --glob '!tmp/**' \
-      --glob '!storage/**' \
-      --glob '!.bundle/**' \
-      --glob '!public/assets/**' \
-      --glob '!app/assets/builds/**' \
-      --glob '!coverage/**' \
-      --glob '!dist/**' \
-      --glob '!build/**' \
-      --glob '!*.png' \
-      --glob '!*.jpg' \
-      --glob '!*.jpeg' \
-      --glob '!*.gif' \
-      --glob '!*.webp' \
-      --glob '!*.pdf' \
-      --glob '!*.ico' \
-      --glob '!*.zip' \
-      --glob '!*.gz' \
-      --glob '!*.tgz' \
-      --glob "!${README}" \
-      --glob "!${RENAME_SCRIPT}" \
-      "$find" . || true
+    rg -0 -l --hidden "$find" . || true
   )
 
-  if (( ${#files[@]} == 0 )); then
-    return 0
+  log "Replacing instances of \"$find\" with \"$replace\"" true
+  for file in "${files[@]}"; do
+    log "  ✓ ${file#./}"
+  done
+
+  if [[ ${#files[@]} == 0 || "$DRY_RUN" == true ]]; then
+    return $SUCCESS
   fi
 
-  perl -pi -e "s/\Q$find\E/$repl/g" "${files[@]}"
+  perl -pi -e "s/\Q$find\E/$replace/g" "${files[@]}"
 }
 
-# sentinel check
-if [[ -f "$SENTINEL_FILE" ]]; then
-  die "This template has already been renamed (found $SENTINEL_FILE). No second chances."
-fi
+# methods
+process_arguments() {
+  local arguments="$1"
+  for argument in "$arguments"; do
+    case "$argument" in
+      --dry-run|-d) DRY_RUN=true ;;
+      --no-confirmation|-n) NO_CONFIRMATION=true ;;
+      --help|-h) show_help_and_exit ;;
+    esac
+  done
+}
 
-# checks for prerequisites
-if ! command -v rg >/dev/null 2>&1; then
-  die "ripgrep (rg) is required. Install it first with `brew install ripgrep`."
-fi
+cd_to_project_root() {
+  local script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  local project_root="$(cd "$script_path/.." && pwd)"
 
-if [[ ! -f "$README_TEMPLATE" ]]; then
-  die "Missing $README_TEMPLATE. Why'd you delete it?"
-fi
+  # guarantees we're running from the project root
+  cd "$project_root"
+}
 
-origin_url="$(get_origin_url)"
+show_welcome_message() {
+  clear
 
-if [[ -z "$origin_url" ]]; then
-  echo "(Ծ‸Ծ) Could not find git remote 'origin'."
-  read -r -p "Enter GitHub url (https://github.com/owner/repo): " origin_url
-fi
+  log "────────────────────────────────────────────────────────────────────────────────"
+  log "Rails Superstack template rename script"
+  log "v$SCRIPT_VERSION"
+  log "────────────────────────────────────────────────────────────────────────────────"
 
-if ! parsed="$(parse_github_origin_url "$origin_url")"; then
-  echo "(Ծ‸Ծ) Url not recognized as a GitHub repo:"
-  echo "  $origin_url"
-  read -r -p "Enter GitHub owner name (e.g. nschneble): " owner_name
-  read -r -p "Enter repository (e.g. rails-superstack): " repository
-else
-  owner_name="$(echo "$parsed" | awk '{print $1}')"
-  repository="$(echo "$parsed" | awk '{print $2}')"
-fi
-
-repository="${repository%.git}"
-title_name="$(title_case "$repository")"
-snake_name="${repository//-/_}"
-kebab_name="${repository//_/-}"
-camel_name="$(camel_case "$repository")"
-
-echo "٩(^‿^)۶ New values detected/inferred/user-defined:"
-echo "  Origin url: $origin_url"
-echo "  Owner name: $owner_name"
-echo "  Repository: $repository"
-echo "  Title case: $title_name"
-echo "  Snake case: $snake_name"
-echo "  Kebab case: $kebab_name"
-echo "  Camel case: $camel_name"
-echo
-
-if ! confirm "Proceed with string replacements across the repo?"; then
-  die "Aborted."
-fi
-
-echo "(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧ Replacing template strings (excluding $README and $RENAME_SCRIPT)…"
-replace_all "$TEMPLATE_TITLE" "$title_name"
-replace_all "$TEMPLATE_SNAKE" "$snake_name"
-replace_all "$TEMPLATE_KEBAB" "$kebab_name"
-replace_all "$TEMPLATE_CAMEL" "$camel_name"
-replace_all "$TEMPLATE_OWNER" "$owner_name"
-
-echo "(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧ Generating $README from $README_TEMPLATE…"
-if [[ "$DRY_RUN" == true ]]; then
-  echo "DRY RUN: would rm -f '$README' and mv '$README_TEMPLATE' -> '$README'"
-else
-  rm -f "$README"
-  mv "$README_TEMPLATE" "$README"
-fi
-
-echo "(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧ Writing sentinel file $SENTINEL_FILE…"
-if [[ "$DRY_RUN" == true ]]; then
-  echo "DRY RUN: would write sentinel metadata"
-else
-  cat > "$SENTINEL_FILE" <<EOF
-renamed_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-origin_url=$origin_url
-owner_name=$owner_name
-repository=$repository
-EOF
-fi
-
-echo "※\(^o^)/※ Done."
-echo
-echo "Next steps:"
-echo "  - Review changes: git diff"
-echo "  - Run tests:      bin/rspec"
-echo "  - Commit:         git commit -am \"renamed template to $title_name\""
-
-# self-destruct sequence
-echo
-if [[ "$DRY_RUN" == true ]]; then
-  echo "DRY RUN: would self-destruct '$RENAME_SCRIPT'"
-  exit 0
-fi
-
-if confirm "Delete $RENAME_SCRIPT now? (recommended)"; then
-  rm -f "$RENAME_SCRIPT"
-
-  if [[ -f "$RENAME_SCRIPT" ]]; then
-    echo "(Ծ‸Ծ) Could not delete $RENAME_SCRIPT."
-    echo "  This can happen due when absolute f*ckery is afoot."
-    echo "  Delete it manually or suffer the consequences."
-    exit 1
+  if [[ "$DRY_RUN" == true ]]; then
+    log "This is a dry run with no changes" true
+  else
+    log "This is a live run with destructive changes" true
   fi
 
-  echo "(ʘ‿ʘ)╯ Self-destruct complete."
-else
-  echo "(Ծ‸Ծ) Skipped deleting $RENAME_SCRIPT. Feels like a mistake. I'd delete it manually if I were you."
-fi
+  if [[ "$NO_CONFIRMATION" == true ]]; then
+    log "Script actions will be performed automatically"
+  else
+    log "You'll be prompted to confirm all script actions"
+  fi
+
+  log "( •͡˘ _•͡˘)ノ🔎" true
+}
+
+check_sentinel() {
+  log "1) Sentinel check…" true
+
+  if [[ -f "$SENTINEL_FILE" ]]; then
+    die "This template has already been renamed (found $SENTINEL_FILE)"
+  fi
+}
+
+check_prerequisites() {
+  log "2) Prerequisites check…"
+
+  if ! command -v rg >/dev/null 2>&1; then
+    die "ripgrep (rg) is required. Install it first with `brew install ripgrep`"
+  fi
+}
+
+check_readme_template() {
+  log "3) Template check…"
+
+  if [[ ! -f "$README_TEMPLATE_FILE" ]]; then
+    die "Missing $README_TEMPLATE_FILE"
+  fi
+}
+
+get_user_and_repo() {
+  log "4) Looking for a git remote url…"
+
+  # first checks for a remote repository url
+  remote_url="$(get_git_remote_url)"
+  if [[ -z "$remote_url" ]]; then
+    log "   Could not locate"
+
+    echo
+    read -r -p "Enter remote url (https://github.com/owner/repo): " remote_url
+  fi
+
+  # tries to parse the remote url, and – failing that – prompts for the user and repo
+  result="$(parse_git_remote_url "$remote_url")"
+  if [[ result == $FAILURE ]]; then
+    log "   Could not parse remote url" true
+    read -r -p "Enter GitHub user (e.g. nschneble): " user
+    read -r -p "Enter repo (e.g. rails-superstack): " repo
+  else
+    user="$(echo "$result" | awk '{print $1}')"
+    repo="$(echo "$result" | awk '{print $2}')"
+  fi
+}
+
+define_replacement_strings() {
+  repo="${repo%.git}"
+  repo_title="$(to_title_case "$repo")"
+  repo_snake="${repo//-/_}"
+  repo_kebab="${repo//_/-}"
+  repo_pascal="$(to_pascal_case "$repo")"
+
+  log "Replacement Strings:" true
+  log "  - remote url             $remote_url"
+  log "  - GitHub username        $user"
+  log "  - GitHub repo name       $repo"
+  log "  - repo → Title Case      $repo_title"
+  log "  - repo → snake_case      $repo_snake"
+  log "  - repo → kebab-case      $repo_kebab"
+  log "  - repo → PascalCase      $repo_pascal"
+
+  if ! confirm "Proceed with string replacements across the repo?"; then
+    die "Script aborted."
+  fi
+}
+
+replace_template_strings() {
+  log "5) Replacing template strings…" true
+
+  replace_all "Rails Superstack" "$repo_title"
+  replace_all "rails_superstack" "$repo_snake"
+  replace_all "rails-superstack" "$repo_kebab"
+  replace_all "RailsSuperstack"  "$repo_pascal"
+  replace_all "nschneble"        "$user"
+}
+
+generate_readme() {
+  log "6) Generating README…" true
+
+  if [[ "$DRY_RUN" == false ]]; then
+    rm -f "$README_FILE"
+    mv "$README_TEMPLATE_FILE" "$README_FILE"
+  fi
+}
+
+write_sentinel_file() {
+  log "7) Writing sentinel file…"
+
+  if [[ "$DRY_RUN" == false ]]; then
+    cat > "$SENTINEL_FILE" \
+<<EOF
+renamed_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+remote_url=$remote_url
+user=$user
+repo=$repo
+EOF
+  fi
+}
+
+show_next_steps() {
+  log "Done!" true
+  log "Next Steps:" true
+  log "  - Review modified files  git diff"
+  log "  - Run tests              bin/rspec"
+  log "  - Commit changes         git commit -am \"renamed template"
+}
+
+self_destruct() {
+  if confirm "Delete ${SCRIPT_FILE}? (recommended)"; then
+    if [[ "$DRY_RUN" == false ]]; then
+      result=$(rm -f "$SCRIPT_FILE")
+
+      if [[ -f "$SCRIPT_FILE" ]]; then
+        log "$result"
+      fi
+    fi
+  fi
+
+  log "Rename complete."
+  echo
+
+  exit $SUCCESS
+}
+
+# script execution flow
+process_arguments "$@"
+cd_to_project_root
+show_welcome_message
+check_sentinel
+check_prerequisites
+check_readme_template
+get_user_and_repo
+define_replacement_strings
+replace_template_strings
+generate_readme
+write_sentinel_file
+show_next_steps
+self_destruct
