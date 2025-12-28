@@ -84,4 +84,18 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "roles" do
+    it "defaults to regulars users" do
+      user = build(:user)
+      expect(user.role).to eq("user")
+      expect(user).not_to be_admin
+    end
+
+    it "enables admin users" do
+      user = build(:user, :admin)
+      expect(user.role).to eq("admin")
+      expect(user).to be_admin
+    end
+  end
 end
