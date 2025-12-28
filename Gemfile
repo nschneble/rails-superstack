@@ -51,6 +51,9 @@ gem "faker"
 # Authentication without the icky-ness of passwords [https://github.com/mikker/passwordless]
 gem "passwordless"
 
+# The authorization Gem for Ruby on Rails [https://github.com/CanCanCommunity/cancancan]
+gem "cancancan"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
