@@ -11,7 +11,7 @@ class MacGuffin < ApplicationRecord
     if user&.admin?
       all
     elsif user&.persisted?
-      where(visibility: :open).or(where(visibility: :user, user_id: user.id))
+      where(visibility: [ :open, :user ])
     else
       where(visibility: :open)
     end

@@ -7,9 +7,9 @@ class Ability
 
     return unless user.present?
     can :read, MacGuffin, visibility: :user
-    can :manage, MacGuffin, user: :user
+    can :manage, MacGuffin, user: user
 
     return unless user.admin?
-    can :read, MacGuffin, visibility: :admin
+    can :manage, MacGuffin
   end
 end
