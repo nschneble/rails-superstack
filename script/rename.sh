@@ -32,7 +32,6 @@ confirm() {
 }
 
 log() {
-  VAR=
   local message="$1"
   local newline="${2:-false}"
 
@@ -70,6 +69,20 @@ show_help_and_exit() {
   echo
 
   exit $SUCCESS
+}
+
+require_read() {
+  local prompt="$1"
+  local value=""
+
+  while true; do
+    read -r -p "$prompt: " value
+    value="${value:-}"
+
+    [[ -n "$value" ]] && break
+  done
+
+  echo "$value"
 }
 
 get_git_remote_url() {
@@ -151,7 +164,7 @@ replace_all() {
 
 # methods
 process_arguments() {
-  local arguments="$1"
+  local arguments="${1:-}"
   for argument in "$arguments"; do
     case "$argument" in
       --dry-run|-d) DRY_RUN=true ;;
@@ -178,17 +191,18 @@ show_welcome_message() {
   log "────────────────────────────────────────────────────────────────────────────────"
 
   if [[ "$DRY_RUN" == true ]]; then
-    log "This is a dry run with no changes" true
+    log "This is a dry run with no saved changes." true
   else
-    log "This is a live run with destructive changes" true
+    log "This is a live run with destructive changes!" true
   fi
 
   if [[ "$NO_CONFIRMATION" == true ]]; then
-    log "Script actions will be performed automatically"
+    log "Script actions will be performed automatically."
   else
-    log "You'll be prompted to confirm all script actions"
+    log "You'll be prompted to confirm all script actions."
   fi
 
+  log "Use Ctrl+C to abort at any time."
   log "( •͡˘ _•͡˘)ノ🔎" true
 }
 
@@ -222,18 +236,18 @@ get_user_and_repo() {
   # first checks for a remote repository url
   remote_url="$(get_git_remote_url)"
   if [[ -z "$remote_url" ]]; then
-    log "   Could not locate"
-
-    echo
-    read -r -p "Enter remote url (https://github.com/owner/repo): " remote_url
+    log "Git remote url not found" true
+    remote_url="$(require_read "Enter remote url (e.g. https://github.com/owner/repo)")"
   fi
 
   # tries to parse the remote url, and – failing that – prompts for the user and repo
-  result="$(parse_git_remote_url "$remote_url")"
-  if [[ result == $FAILURE ]]; then
-    log "   Could not parse remote url" true
-    read -r -p "Enter GitHub user (e.g. nschneble): " user
-    read -r -p "Enter repo (e.g. rails-superstack): " repo
+  if ! result="$(parse_git_remote_url "$remote_url")"; then
+    log "Could not parse remote url" true
+
+    user="$(require_read "Enter GitHub username (e.g. nschneble)")"
+    repo="$(require_read "Enter repository name (e.g. rails-superstack)")"
+
+    remote_url="https://github.com/$user/$repo"
   else
     user="$(echo "$result" | awk '{print $1}')"
     repo="$(echo "$result" | awk '{print $2}')"
@@ -248,7 +262,11 @@ define_replacement_strings() {
   repo_pascal="$(to_pascal_case "$repo")"
 
   log "Replacement Strings:" true
-  log "  - remote url             $remote_url"
+
+  if result="$(parse_git_remote_url "$remote_url")"; then
+    log "  - remote url             $remote_url"
+  fi
+
   log "  - GitHub username        $user"
   log "  - GitHub repo name       $repo"
   log "  - repo → Title Case      $repo_title"
@@ -299,7 +317,7 @@ show_next_steps() {
   log "Next Steps:" true
   log "  - Review modified files  git diff"
   log "  - Run tests              bin/rspec"
-  log "  - Commit changes         git commit -am \"renamed template"
+  log "  - Commit changes         git commit -am \"rename template\""
 }
 
 self_destruct() {
