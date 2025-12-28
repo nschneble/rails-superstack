@@ -14,6 +14,7 @@ README_FILE="README.md"
 README_TEMPLATE_FILE="script/README.md.template"
 
 # script arguments
+ARGUMENTS=$@
 DRY_RUN=false
 NO_CONFIRMATION=false
 
@@ -164,12 +165,12 @@ replace_all() {
 
 # methods
 process_arguments() {
-  local arguments="${1:-}"
-  for argument in "$arguments"; do
+  for argument in $ARGUMENTS; do
     case "$argument" in
       --dry-run|-d) DRY_RUN=true ;;
       --no-confirmation|-n) NO_CONFIRMATION=true ;;
       --help|-h) show_help_and_exit ;;
+      *) die "Unknown argument: $argument (try --help)" ;;
     esac
   done
 }
@@ -338,7 +339,7 @@ self_destruct() {
 }
 
 # script execution flow
-process_arguments "$@"
+process_arguments
 cd_to_project_root
 show_welcome_message
 check_sentinel
