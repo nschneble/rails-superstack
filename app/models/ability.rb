@@ -3,11 +3,13 @@ class Ability
 
   def initialize(user)
     can :read, :home
+    can :read, MacGuffin, visibility: :open
 
     return unless user.present?
-    # add user abilities
+    can :read, MacGuffin, visibility: :user
+    can :manage, MacGuffin, user: :user
 
     return unless user.admin?
-    # add admin abilities
+    can :read, MacGuffin, visibility: :admin
   end
 end
