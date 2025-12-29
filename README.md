@@ -1,9 +1,9 @@
-# Rails Superstack
-
 <p align="center">
   <img src="public/icon.png" alt="Rails Superstack" />
   <br />
 </p>
+
+# Rails Superstack
 
 Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments. __A majestic monolith with a f*ckton of useful gems.__ It's a free public template anyone can use to hit the ground running with their own app ideas.
 
@@ -27,8 +27,9 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 
 ## Getting Started
 First things first. [Create a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template) from this template. It's only two steps!
+
 1. Click on "Use this template" above the file list
-1. Select "Create a new repository"
+2. Select "Create a new repository"
 
 Clone the new repo to your local machine, and you're done! (I suppose that's _technically_ three steps)
 
@@ -60,6 +61,9 @@ Unless you want your app to be called "Rails Superstack", you'll probably want t
 
 ```bash
 cd /path/to/your/repo
+
+# Get help
+script/rename.sh —help
 
 # Preview changes
 script/rename.sh --dry-run
@@ -108,8 +112,8 @@ Rails Superstack is installed by default with:
 * [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
-
 Rails Superstack has been preloaded and configured with the following:
+
 * [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 * [LogBench](https://github.com/silva96/log_bench) (log viewer)
 * [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
@@ -120,11 +124,12 @@ Rails Superstack has been preloaded and configured with the following:
 ### Code Features
 | Feature            | Description |
 | ------------------ | ----------- |
-| Models             | [User](app/models/user.rb) |
+| Abilities (Roles)  | [Ability](app/models/ability.rb) |
+| Models             | [User](app/models/user.rb), [MacGuffin](app/models/mac_guffin.rb) |
 | Helpers            | Text, web urls, forms, Font Awesome icons |
 | Normalizers        | Email addresses |
 | Validators         | Email addresses, web urls |
-| View Components    | Static header + footer, clipboard button, toast notifications |
+| View Components    | Clipboard button, toast notifications |
 
 ### Routes
 | Endpoint     | Description                              |
