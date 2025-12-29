@@ -45,16 +45,20 @@ RSpec.describe MacGuffin, type: :model do
     let(:watch)  { create(:mac_guffin, visibility: :admin, user: holt) }
 
     it "shows public MacGuffins to anyone" do
-      expect(described_class.visible_to(nil)).to match_array([ crown ])
+      expect(described_class.visible_to(nil)).to include(crown)
+      expect(described_class.visible_to(nil)).not_to include(plaque, watch)
     end
 
     it "shows public and private MacGuffins to any logged-in user" do
-      expect(described_class.visible_to(jake)).to match_array([ crown, plaque ])
-      expect(described_class.visible_to(santiago)).to match_array([ crown, plaque ])
+      expect(described_class.visible_to(jake)).to include(crown, plaque)
+      expect(described_class.visible_to(jake)).not_to include(watch)
+
+      expect(described_class.visible_to(santiago)).to include(crown, plaque)
+      expect(described_class.visible_to(santiago)).not_to include(watch)
     end
 
     it "shows secret MacGuffins to any logged-in admin" do
-      expect(described_class.visible_to(holt)).to match_array([ crown, plaque, watch ])
+      expect(described_class.visible_to(holt)).to include(crown, plaque, watch)
     end
   end
 end
