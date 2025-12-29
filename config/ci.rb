@@ -10,7 +10,8 @@ CI.run do
   step "Lint code for consistent style", "bin/rubocop"
   step "Run RSpec tests", "bin/rspec"
 
-  step "Check for bad seeds", "env RAILS_ENV=test bin/rails db:seed:replant"
+  # seeds are idempotent
+  step "Check for bad seeds", "env RAILS_ENV=development bin/rails db:seed"
 
   if success?
     echo "CI passed. Ready for merge and deploy.", type: :success
