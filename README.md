@@ -34,6 +34,7 @@ Clone the new repo to your local machine, and you're done! (I suppose that's _te
 
 ### Prerequisites
 With your shiny new repo in hand, here's what you need to get cooking:
+
 * PostgreSQL 14.20
 * Ruby 3.4.7
 * [Bundler](https://bundler.io/) 2.7.2
@@ -98,6 +99,7 @@ That's it! Code away my sweet angelic butterfly.
 
 ### Tech Stack
 Rails Superstack is installed by default with:
+
 * [Ruby on Rails](https://rubyonrails.org)
 * [Hotwire](https://hotwired.dev)
 * [Postgres](https://www.postgresql.org)
@@ -106,6 +108,7 @@ Rails Superstack is installed by default with:
 * [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
+
 Rails Superstack has been preloaded and configured with the following:
 * [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 * [LogBench](https://github.com/silva96/log_bench) (log viewer)
