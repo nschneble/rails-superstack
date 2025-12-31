@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/nschneble/gravatar_image_tag.git
+  revision: 71b32fcffe461252aa4bb4fb9586ca0797af09ff
+  specs:
+    gravatar_image_tag (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -465,6 +471,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
+  gravatar_image_tag!
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
