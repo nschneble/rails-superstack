@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   # tests flash notices
   get "notice" => "flash#notice", as: :flash_notice
   get "alert"  => "flash#alert",  as: :flash_alert
+
+  get "profile" => "users#show", as: :user_profile
 end
