@@ -1,23 +1,60 @@
 <header class="fixed w-full p-4 bg-blue-900 text-white shadow-slate-600 shadow-xl">
   <nav class="flex items-center justify-between sm:mx-11">
     <div class="flex items-center justify-between">
-      <%= image_tag "ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "38", alt: "Ruby on Rails" %>
+      <%= image_tag "ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "44", alt: "Ruby on Rails" %>
       <a class="ml-2 font-semibold text-xl tracking-tight select-none hover:no-underline!" href="/"><%= t("title") %></a>
     </div>
 
-    <div class="hidden sm:flex items-center w-auto">
-      <div class="flex">
-        <a class="block text-white text-sm mr-4 select-none" href="https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack">View README</a>
-        <% if Rails.env.development? %>
-          <a class="block text-white text-sm mr-4 select-none" href="/sent_mail/">Sent mail</a>
-        <% end %>
-      </div>
-      <div class="flex" v-else>
+    <div class="relative flex items-center" data-controller="dropdown">
+      <% if current_user %>
+        <button class="w-[42] h-[42] ring-1 ring-slate-300 rounded-md cursor-pointer" type="button" data-dropdown-target="button" data-action="dropdown#toggle" aria-haspopup="true" aria-expanded="false">
+          <%= gravatar_image_tag(current_user.email, :alt => current_user.email, :class => "rounded-md") %>
+        </button>
+      <% else %>
+        <button class="w-[42] h-[42] p-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 ring-1 ring-slate-800 hover:ring-slate-900 active:ring-slate-950 text-sm rounded-md cursor-pointer" type="button" data-dropdown-target="button" data-action="dropdown#toggle" aria-haspopup="true" aria-expanded="false">
+          <%= fas_icon("bars") %>
+        </button>
+      <% end %>
+
+      <div class="hidden absolute top-12 right-0 mt-1 w-72 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-md origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1" role="menu" data-dropdown-target="menu">
         <% if current_user %>
-          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_out/"><%= fas_icon("person-walking-arrow-loop-left") %> Sign out</a>
-        <% else %>
-          <a class="px-6 py-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-sm leading-none hover:no-underline! select-none rounded-md" href="/sign_in/"><%= fas_icon("person-walking-arrow-right") %> Sign in</a>
+          <div class="px-4 py-2 text-xs text-slate-600 select-none">
+            Signed in as <span class="font-medium text-slate-700 break-all"><%= current_user.email %></span>
+          </div>
+          <div class="border-t border-slate-300"></div>
         <% end %>
+
+        <div class="py-2">
+          <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
+            Navigation
+          </div>
+          <%= render "shared/menu_item", path: "/", icon: "code", text: "So, What Now?" %>
+          <%= render "shared/menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
+          <% if current_user %>
+            <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "Profile" %>
+            <% if current_user.admin? %>
+              <%= render "shared/menu_item", path: "/admin/", icon: "user-shield", text: "SuperAdmin" %>
+              <% end %>
+          <% end %>
+
+          <div class="my-2 border-t border-slate-300"></div>
+
+          <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
+            Resources
+          </div>
+          <%= render "shared/menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
+          <% if Rails.env.development? %>
+            <%= render "shared/menu_item", path: "/sent_mail/", icon: "envelopes-bulk", text: "Sent Mail" %>
+          <% end %>
+
+          <div class="my-2 border-t border-slate-300"></div>
+
+          <% if current_user %>
+            <%= render "shared/menu_item", path: "/sign_out/", icon: "person-walking-arrow-loop-left", text: "Sign out" %>
+          <% else %>
+            <%= render "shared/menu_item", path: "/sign_in/", icon: "person-walking-arrow-right", text: "Sign in" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </nav>
