@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   get "alert"  => "flash#alert",  as: :flash_alert
 
   get "profile" => "users#show", as: :user_profile
+  get "admin" => "admin#main", as: :super_admin
 end
