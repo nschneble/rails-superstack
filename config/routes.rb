@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get "alert"  => "flash#alert",  as: :flash_alert
 
   # models
-  resources :mac_guffins, only: [:index]
+  resources :mac_guffins, only: [ :index ]
 
   get "profile" => "users#show", as: :user_profile
   get "admin" => "admin#main", as: :super_admin
