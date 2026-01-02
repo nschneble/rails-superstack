@@ -60,6 +60,9 @@ gem "gravatar_image_tag", git: "https://github.com/nschneble/gravatar_image_tag.
 # A full-featured admin interface inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
 gem "super_admin", "~> 0.2.0"
 
+# Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
+gem "commonmarker"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
