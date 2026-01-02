@@ -18,4 +18,10 @@ module Authentication
     save_passwordless_redirect_location!(User)
     redirect_to root_path, alert: "You must be logged in"
   end
+
+  def require_admin!
+    return if current_user.admin?
+    save_passwordless_redirect_location!(User)
+    redirect_to root_path, alert: "You must be logged in as an admin"
+  end
 end

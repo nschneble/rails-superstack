@@ -58,6 +58,7 @@ bin/setup
 * [Passwordless](https://github.com/mikker/passwordless) (auth)
 * [Letter Opener](https://github.com/ryanb/letter_opener) + [web interface](https://github.com/fgrehm/letter_opener_web) (preview emails)
 * [Font Awesome](https://fontawesome.com) (icons)
+* [SuperAdmin](https://github.com/ThibautBaissac/super_admin) (admin interface)
 
 ### Routes
 | Endpoint    | Description               |

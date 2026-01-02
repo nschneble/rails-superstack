@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # preview emails in development
   mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
 
+  # admin interface
+  mount SuperAdmin::Engine => "/admin"
+
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 
@@ -19,5 +22,4 @@ Rails.application.routes.draw do
   resources :mac_guffins, only: [ :index ]
 
   get "profile" => "users#show", as: :user_profile
-  get "admin" => "admin#main", as: :super_admin
 end
