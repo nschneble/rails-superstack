@@ -28,7 +28,8 @@
           <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
             Navigation
           </div>
-          <%= render "shared/menu_item", path: "/", icon: "code", text: "So, What Now?" %>
+          <%= render "shared/menu_item", path: "/#next_steps", icon: "shoe-prints", text: "Next Steps" %>
+          <%= render "shared/menu_item", path: "/#terminal_commands", icon: "terminal", text: "Terminal Commands" %>
           <%= render "shared/menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
           <% if current_user %>
             <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "Profile" %>

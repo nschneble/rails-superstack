@@ -1,6 +1,7 @@
-<div class="w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll">
+<div class="w-full sm:ml-11 mt-[76] mb-[52] pb-[92] text-white overflow-y-scroll">
   <div class="max-w-[650] mx-auto">
-    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Where to go from here?</h1>
+    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Welcome to your superstack!</h1>
+    <h2 class="mx-3 sm:mx-0 mt-12 mb-4 font-semibold text-2xl tracking-tight" id="next_steps">Next Steps</h2>
     <ul class="flex flex-col gap-y-3 list-none ml-2">
       <li>
         <%= fa_stacked_icon(["square", "key"], ["text-lime-500", "text-white"]) %>
@@ -12,18 +13,13 @@
         <% end %>
       </li>
       <li>
-        <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
-        Check out the <a class="hover:text-amber-400 underline!" href="/mac_guffins/">MacGuffins</a>
-        <p class="ml-12 text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
-      </li>
-      <li>
         <%= fa_stacked_icon(["square", "paper-plane"], ["text-lime-500", "text-white"]) %>
         <a class="hover:text-amber-400 underline!" href="/sent_mail/">Preview sent mail</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/ryanb/letter_opener">Letter Opener</a> and <a class="hover:text-amber-400 underline!" href="https://github.com/fgrehm/letter_opener_web">Letter Opener Web</a></span>
       </li>
       <li>
-        <%= fa_stacked_icon(["square", "icons"], ["text-lime-500", "text-white"]) %>
-        <a class="hover:text-amber-400 underline!" href="https://github.com/nschneble/rails-superstack#set-up-font-awesome">Create an icon kit</a><span class="hidden sm:inline"> to use <a class="hover:text-amber-400 underline!" href="https://fontawesome.com/">Font Awesome</a></span>
-        <p class="ml-12 text-sm italic"><span class="font-semibold">Hint:</span> You'll see icons on this page!</p>
+        <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
+        Check out <a class="hover:text-amber-400 underline!" href="/mac_guffins/">MacGuffins</a> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules
+        <p class="ml-12 text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "user-shield"], ["text-lime-500", "text-white"]) %>
@@ -31,8 +27,8 @@
         <p class="ml-12 text-sm italic">You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to do this!
       </li>
     </ul>
-    <h2 class="mx-3 sm:mx-0 mt-12 mb-4 font-semibold text-2xl tracking-tight">Prefer the terminal?</h2>
-    <ul class="flex flex-col gap-y-2 list-none ml-2 mb-[84]">
+    <h2 class="mx-3 sm:mx-0 mt-12 mb-4 font-semibold text-2xl tracking-tight" id="terminal_commands">Terminal Commands</h2>
+    <ul class="flex flex-col gap-y-3 list-none ml-2">
       <li>
         <%= fa_stacked_icon(["square", "satellite-dish"], ["text-lime-500", "text-white"]) %>
         Try out <a class="hover:text-amber-400 underline!" href="https://github.com/silva96/log_bench">LogBench</a><span class="hidden sm:inline"> for some real-time monitoring</span>
