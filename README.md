@@ -108,7 +108,7 @@ Rails Superstack is installed by default with:
 * [Hotwire](https://hotwired.dev)
 * [Postgres](https://www.postgresql.org)
 * [Puma](https://puma.io)
-* [Rubocop](https://rubocop.org)
+* [RuboCop](https://rubocop.org)
 * [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
@@ -117,10 +117,11 @@ Rails Superstack has been preloaded and configured with the following:
 * [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 * [LogBench](https://github.com/silva96/log_bench) (log viewer)
 * [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
-* [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth)
+* [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
 * [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) (admin interface)
+* [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 
 ### Code Features
 | Feature            | Description |
@@ -130,19 +131,22 @@ Rails Superstack has been preloaded and configured with the following:
 | Helpers            | Text, web urls, forms, Font Awesome icons |
 | Normalizers        | Email addresses |
 | Validators         | Email addresses, web urls |
-| View Components    | Clipboard button, toast notifications |
+| View Components    | Clipboard button, toast notifications, code snippets |
 
 ### Routes
-| Endpoint     | Description                              |
-| ------------ | ---------------------------------------- |
-| `/sign_in`   | Sign in as a new user                    |
-| `/sign_out`  | Sign out the current user                |
-| `/sent_mail` | Preview sent mail in development         |
-| `/notice`    | Sample endpoint for notice notifications |
-| `/alert`     | Sample endpoint for alert notifications  |
+| Endpoint       | Description                              |
+| -------------- | ---------------------------------------- |
+| `/sign_in`     | Sign in as a new user                    |
+| `/sign_out`    | Sign out the current user                |
+| `/sent_mail`   | Preview sent mail in development         |
+| `/notice`      | Sample endpoint for notice notifications |
+| `/alert`       | Sample endpoint for alert notifications  |
+| `/admin`       | SuperAdmin dashboard                     |
+| `/mac_guffins` | Items visible to the current user |
+| `/profile`     | Change current user email |
 
 ## Linting, Testing, and CI
-There's handy binstubs for RSpec and Rubocop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
+There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
 
 ### Linting
 ```bash
