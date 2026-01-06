@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   class NotAuthorized < StandardError; end
 
+  has_many :email_change_requests, dependent: :destroy
+
   normalizes        :email, with: EmailNormalizer
   validates         :email, presence: true, uniqueness: true, email: true
   passwordless_with :email

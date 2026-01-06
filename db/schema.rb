@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_200243) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_02_183646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "email_change_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.string "new_email", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["token"], name: "index_email_change_requests_on_token", unique: true
+    t.index ["user_id", "new_email"], name: "index_email_change_requests_on_user_id_and_new_email"
+    t.index ["user_id"], name: "index_email_change_requests_on_user_id"
+  end
 
   create_table "mac_guffins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -96,5 +108,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_31_200243) do
     t.index ["role"], name: "index_users_on_role"
   end
 
+  add_foreign_key "email_change_requests", "users"
   add_foreign_key "mac_guffins", "users"
 end
