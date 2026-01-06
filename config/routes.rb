@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
 
   # admin interface
-  mount SuperAdmin::Engine => "/admin"
+  mount SuperAdmin::Engine, at: "/admin"
 
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
