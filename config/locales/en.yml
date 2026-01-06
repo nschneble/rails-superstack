@@ -31,6 +31,12 @@ en:
   title: "Rails Superstack"
   sign_in:
     title: "Sign in"
+  user_profile:
+    email:
+      label: "Email address"
+      placeholder: "me@mydomain.net"
+    submit: "Update email"
+    title: "User profile"
   verification_code:
     title: "Enter your verification code"
   passwordless:

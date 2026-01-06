@@ -1,5 +1,24 @@
-<div class="w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll">
-  <div class="max-w-[650] mx-auto">
-    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Profile</h1>
-  </div>
+<div class="w-full my-auto">
+  <%= form_with(url: email_change_path, scope: :email_change, data: { turbo: "false", controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+    <%= content_tag(:h1, t("user_profile.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+
+    <%= f.label :new_email, t("user_profile.email.label") %>
+    <%= f.email_field :new_email,
+                      placeholder: t("user_profile.email.placeholder"),
+                      value: current_user.email,
+                      required: true,
+                      autofocus: true,
+                      data: {
+                        action: "input->token#toggle",
+                        "token-current-email-param": current_user.email,
+                        "token-target": "input"
+                      } %>
+
+    <%= f.submit t("user_profile.submit"),
+                 disabled: true,
+                 data: {
+                   action: "click->token#submit",
+                   "token-target": "button"
+                 } %>
+  <% end %>
 </div>

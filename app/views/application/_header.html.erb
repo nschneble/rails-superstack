@@ -32,7 +32,7 @@
           <%= render "shared/menu_item", path: "/#terminal_commands", icon: "terminal", text: "Terminal Commands" %>
           <%= render "shared/menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
           <% if current_user %>
-            <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "Profile" %>
+            <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
             <% if current_user.admin? %>
               <%= render "shared/menu_item", path: "/admin/", icon: "user-shield", text: "SuperAdmin" %>
               <% end %>
