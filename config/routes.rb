@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   # models
   resources :mac_guffins, only: [ :index ]
+  resource :email_change, only: [ :new, :create ]
 
   get "profile" => "users#show", as: :user_profile
+  get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
 end
