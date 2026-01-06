@@ -66,3 +66,17 @@ en:
 
           Did you know:
           %{fun_fact}?
+  users:
+    mailer:
+      email_change:
+        subject: "Confirm Your New Email Address"
+        body: |-
+          Click here to confirm your new email address:
+          %{magic_link}
+
+          This link is valid for the next 10 minutes.
+
+          ---
+
+          Did you know:
+          %{fun_fact}?
