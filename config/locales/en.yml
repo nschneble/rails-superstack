@@ -28,17 +28,6 @@
 #       enabled: "ON"
 
 en:
-  title: "Rails Superstack"
-  sign_in:
-    title: "Sign in"
-  user_profile:
-    email:
-      label: "Email address"
-      placeholder: "me@mydomain.net"
-    submit: "Update email"
-    title: "User profile"
-  verification_code:
-    title: "Enter your verification code"
   passwordless:
     sessions:
       new:
@@ -72,9 +61,18 @@ en:
 
           Did you know:
           %{fun_fact}?
+  sign_in:
+    title: "Sign in"
   super_admin:
     flash:
       access_denied: "You do not have permission to access SuperAdmin"
+  title: "Rails Superstack"
+  user_profile:
+    email:
+      label: "Email address"
+      placeholder: "me@mydomain.net"
+    submit: "Update email"
+    title: "User profile"
   users:
     mailer:
       email_change:
@@ -89,3 +87,5 @@ en:
 
           Did you know:
           %{fun_fact}?
+  verification_code:
+    title: "Enter your verification code"
