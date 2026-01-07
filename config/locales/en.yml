@@ -72,6 +72,9 @@ en:
 
           Did you know:
           %{fun_fact}?
+  super_admin:
+    flash:
+      access_denied: "You do not have permission to access SuperAdmin"
   users:
     mailer:
       email_change:

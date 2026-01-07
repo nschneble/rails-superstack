@@ -15,7 +15,7 @@ SuperAdmin.configure do |config|
 
   # Authentication
   # Configure how to authenticate users accessing SuperAdmin
-  config.authenticate_with = proc { require_admin! }
+  config.authenticate_with = proc { authenticate_user! }
 
   # Current user method
   # Method to call to get the current user

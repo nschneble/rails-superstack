@@ -1,5 +1,5 @@
 class EmailChangesController < ApplicationController
-  before_action :require_user!, except: :confirm
+  before_action :authenticate_user!, except: :confirm
 
   def new; end
 

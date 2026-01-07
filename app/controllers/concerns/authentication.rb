@@ -13,15 +13,13 @@ module Authentication
     @current_user ||= authenticate_by_session(User)
   end
 
-  def require_user!
+  def authenticate_user!
     return if current_user
     save_passwordless_redirect_location!(User)
-    redirect_to root_path, alert: "You must be logged in"
+    redirect_to passwordless_sign_in_path, alert: "You must be logged in"
   end
 
-  def require_admin!
-    return if current_user.admin?
-    save_passwordless_redirect_location!(User)
-    redirect_to root_path, alert: "You must be logged in as an admin"
+  def passwordless_sign_in_path
+    Rails.application.routes.url_helpers.auth_sign_in_path
   end
 end
