@@ -18,10 +18,11 @@ Rails.application.routes.draw do
   get "notice" => "flash#notice", as: :flash_notice
   get "alert"  => "flash#alert",  as: :flash_alert
 
-  # models
+  # models and resources
   resources :mac_guffins, only: [ :index ]
-  resource :email_change, only: [ :new, :create ]
+  resource :email_change, only: [ :create ]
 
+  # all other paths
   get "profile" => "users#show", as: :user_profile
   get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
 end

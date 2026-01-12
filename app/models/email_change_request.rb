@@ -10,7 +10,12 @@ class EmailChangeRequest < ApplicationRecord
   before_validation :ensure_token, on: :create
   before_validation :set_expiry, on: :create
 
-  scope :active, -> { where("expires_at > ?", Time.current) }
+  scope :active,  -> { where("expires_at > ?",  Time.current) }
+  scope :expired, -> { where("expires_at <= ?", Time.current) }
+
+  def self.latest_active_for(user)
+    where(user: user).active.order(created_at: :desc).first
+  end
 
   def expired?
     expires_at <= Time.current

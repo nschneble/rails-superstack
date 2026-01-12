@@ -65,7 +65,7 @@ en:
     title: "Sign in"
   super_admin:
     flash:
-      access_denied: "You do not have permission to access SuperAdmin"
+      access_denied: "You do not have permission to visit this page"
   title: "Rails Superstack"
   user_profile:
     email:
