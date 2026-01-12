@@ -63,6 +63,10 @@ gem "super_admin", "~> 0.2.0"
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
 gem "commonmarker"
 
+# Beautiful, performant feature flags for Ruby [https://github.com/flippercloud/flipper]
+gem "flipper"
+gem "flipper-active_record"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
