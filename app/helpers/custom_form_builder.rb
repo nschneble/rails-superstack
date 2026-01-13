@@ -73,7 +73,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     disabled:text-black/50
     rounded-md
     cursor-pointer
-    disabled:cursor-wait
+    disabled:cursor-default
   ]
 
   def label(method, text = nil, options = {}, &block)
@@ -81,6 +81,10 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def text_field(method, options = {})
+    super(method, options.merge(class: INPUT_CLASSES))
+  end
+
+  def email_field(method, options = {})
     super(method, options.merge(class: INPUT_CLASSES))
   end
 

@@ -28,11 +28,6 @@
 #       enabled: "ON"
 
 en:
-  title: "Rails Superstack"
-  sign_in:
-    title: "Sign in"
-  verification_code:
-    title: "Enter your verification code"
   passwordless:
     sessions:
       new:
@@ -66,3 +61,31 @@ en:
 
           Did you know:
           %{fun_fact}?
+  sign_in:
+    title: "Sign in"
+  super_admin:
+    flash:
+      access_denied: "You are not authorized to access this page"
+  title: "Rails Superstack"
+  user_profile:
+    email:
+      label: "Email address"
+      placeholder: "me@mydomain.net"
+    submit: "Update email"
+    title: "User profile"
+  users:
+    mailer:
+      email_change:
+        subject: "Confirm Your New Email Address"
+        body: |-
+          Click here to confirm your new email address:
+          %{magic_link}
+
+          This link is valid for the next 10 minutes.
+
+          ---
+
+          Did you know:
+          %{fun_fact}?
+  verification_code:
+    title: "Enter your verification code"

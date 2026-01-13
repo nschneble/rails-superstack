@@ -51,6 +51,23 @@ gem "faker"
 # Authentication without the icky-ness of passwords [https://github.com/mikker/passwordless]
 gem "passwordless"
 
+# The authorization Gem for Ruby on Rails [https://github.com/CanCanCommunity/cancancan]
+gem "cancancan"
+
+# A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
+gem "gravatar_image_tag", git: "https://github.com/nschneble/gravatar_image_tag.git"
+
+# A full-featured admin interface inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
+gem "super_admin", "~> 0.2.0"
+
+# Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
+gem "commonmarker"
+
+# Beautiful, performant feature flags for Ruby [https://github.com/flippercloud/flipper]
+gem "flipper"
+gem "flipper-active_record"
+gem "flipper-ui"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -87,4 +104,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Simple one-liner tests for common Rails functionality [https://github.com/thoughtbot/shoulda-matchers]
+  gem "shoulda-matchers", "~> 6.0"
 end

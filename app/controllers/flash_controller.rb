@@ -3,10 +3,10 @@ class FlashController < ApplicationController
   after_action  -> { flash.discard }
 
   def notice
-    flash.notice = "Something just succeeded with a very long message"
+    flash.notice = "Hello, world!"
   end
 
   def alert
-    flash.alert = "Something just failed… badly"
+    flash.alert = "Something bad happened"
   end
 end

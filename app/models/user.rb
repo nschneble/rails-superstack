@@ -1,9 +1,13 @@
 class User < ApplicationRecord
-  normalizes :email, with: EmailNormalizer
+  class NotAuthorized < StandardError; end
 
-  validates :email, presence: true, uniqueness: true, email: true
+  has_many :email_change_requests, dependent: :destroy
 
+  normalizes        :email, with: EmailNormalizer
+  validates         :email, presence: true, uniqueness: true, email: true
   passwordless_with :email
+
+  enum :role, { user: 0, admin: 1 }
 
   def record_passwordless_login!(request)
     now = Time.current

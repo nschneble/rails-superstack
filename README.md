@@ -1,9 +1,9 @@
-# Rails Superstack
-
 <p align="center">
   <img src="public/icon.png" alt="Rails Superstack" />
   <br />
 </p>
+
+# Rails Superstack
 
 Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments. __A majestic monolith with a f*ckton of useful gems.__ It's a free public template anyone can use to hit the ground running with their own app ideas.
 
@@ -27,13 +27,15 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 
 ## Getting Started
 First things first. [Create a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template) from this template. It's only two steps!
+
 1. Click on "Use this template" above the file list
-1. Select "Create a new repository"
+2. Select "Create a new repository"
 
 Clone the new repo to your local machine, and you're done! (I suppose that's _technically_ three steps)
 
 ### Prerequisites
 With your shiny new repo in hand, here's what you need to get cooking:
+
 * PostgreSQL 14.20
 * Ruby 3.4.7
 * [Bundler](https://bundler.io/) 2.7.2
@@ -59,6 +61,9 @@ Unless you want your app to be called "Rails Superstack", you'll probably want t
 
 ```bash
 cd /path/to/your/repo
+
+# Get help
+script/rename.sh —help
 
 # Preview changes
 script/rename.sh --dry-run
@@ -98,42 +103,51 @@ That's it! Code away my sweet angelic butterfly.
 
 ### Tech Stack
 Rails Superstack is installed by default with:
+
 * [Ruby on Rails](https://rubyonrails.org)
 * [Hotwire](https://hotwired.dev)
 * [Postgres](https://www.postgresql.org)
 * [Puma](https://puma.io)
-* [Rubocop](https://rubocop.org)
+* [RuboCop](https://rubocop.org)
 * [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
 Rails Superstack has been preloaded and configured with the following:
+
 * [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 * [LogBench](https://github.com/silva96/log_bench) (log viewer)
 * [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
-* [Passwordless](https://github.com/mikker/passwordless) (auth)
-* [Letter Opener](https://github.com/ryanb/letter_opener) + [web interface](https://github.com/fgrehm/letter_opener_web) (preview emails)
-* [Font Awesome](https://fontawesome.com) (icons)
+* [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
+* [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
+* [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
+* [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
+* [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 
 ### Code Features
 | Feature            | Description |
 | ------------------ | ----------- |
-| Models             | [User](app/models/user.rb) |
+| Abilities (Roles)  | [Ability](app/models/ability.rb) |
+| Models             | [User](app/models/user.rb), [MacGuffin](app/models/mac_guffin.rb) |
 | Helpers            | Text, web urls, forms, Font Awesome icons |
 | Normalizers        | Email addresses |
 | Validators         | Email addresses, web urls |
-| View Components    | Static header + footer, clipboard button, toast notifications |
+| View Components    | Clipboard button, toast notifications, code snippets |
 
 ### Routes
-| Endpoint     | Description                              |
-| ------------ | ---------------------------------------- |
-| `/sign_in`   | Sign in as a new user                    |
-| `/sign_out`  | Sign out the current user                |
-| `/sent_mail` | Preview sent mail in development         |
-| `/notice`    | Sample endpoint for notice notifications |
-| `/alert`     | Sample endpoint for alert notifications  |
+| Endpoint       | Description                              |
+| -------------- | ---------------------------------------- |
+| `/sign_in`     | Sign in as a new user                    |
+| `/sign_out`    | Sign out the current user                |
+| `/sent_mail`   | Preview sent mail in development         |
+| `/notice`      | Sample endpoint for notice notifications |
+| `/alert`       | Sample endpoint for alert notifications  |
+| `/admin`       | SuperAdmin dashboard                     |
+| `/flipper`     | Flipper feature flags                    |
+| `/mac_guffins` | Items visible to the current user        |
+| `/profile`     | Change current user email                |
 
 ## Linting, Testing, and CI
-There's handy binstubs for RSpec and Rubocop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
+There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
 
 ### Linting
 ```bash

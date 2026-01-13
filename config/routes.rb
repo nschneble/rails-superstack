@@ -5,6 +5,15 @@ Rails.application.routes.draw do
   # preview emails in development
   mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
 
+  # admin interface
+  mount SuperAdmin::Engine, at: "/admin"
+
+  # feature flags
+  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
+    mount Flipper::UI.app(Flipper), at: "/flipper"
+  end
+  match "/flipper(/*path)" => "not_authorized#denied", via: :all
+
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 
@@ -14,4 +23,12 @@ Rails.application.routes.draw do
   # tests flash notices
   get "notice" => "flash#notice", as: :flash_notice
   get "alert"  => "flash#alert",  as: :flash_alert
+
+  # models and resources
+  resources :mac_guffins, only: [ :index ]
+  resource :email_change, only: [ :create ]
+
+  # all other paths
+  get "profile" => "users#show", as: :user_profile
+  get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
 end

@@ -5,5 +5,10 @@ FactoryBot.define do
     last_login_at { nil }
     last_login_ip { nil }
     login_count { 0 }
+    role { :user }
+
+    trait :admin do
+      role { :admin }
+    end
   end
 end
