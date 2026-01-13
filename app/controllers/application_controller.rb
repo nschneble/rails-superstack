@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   private
 
   def deny_access
-    head :forbidden
+    redirect_to root_path, alert: t("super_admin.flash.access_denied")
   end
 
   def show_record_errors(exception)
