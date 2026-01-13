@@ -58,7 +58,7 @@ bin/setup
 * [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
 * [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
-* [SuperAdmin](https://github.com/ThibautBaissac/super_admin) (admin interface)
+* [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 
 ### Routes
@@ -67,6 +67,7 @@ bin/setup
 | `/sign_in`  | Sign in as a new user     |
 | `/sign_out` | Sign out the current user |
 | `/admin`    | SuperAdmin dashboard      |
+| `/flipper`  | Flipper feature flags     |
 
 ## Linting, Testing, and CI
 

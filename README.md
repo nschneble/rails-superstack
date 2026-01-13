@@ -142,8 +142,9 @@ Rails Superstack has been preloaded and configured with the following:
 | `/notice`      | Sample endpoint for notice notifications |
 | `/alert`       | Sample endpoint for alert notifications  |
 | `/admin`       | SuperAdmin dashboard                     |
-| `/mac_guffins` | Items visible to the current user |
-| `/profile`     | Change current user email |
+| `/flipper`     | Flipper feature flags                    |
+| `/mac_guffins` | Items visible to the current user        |
+| `/profile`     | Change current user email                |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
