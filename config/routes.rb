@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   # admin interface
   mount SuperAdmin::Engine, at: "/admin"
 
+  # feature flags
+  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
+    mount Flipper::UI.app(Flipper), at: "/flipper"
+  end
+  match "/flipper(/*path)" => "not_authorized#denied", via: :all
+
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 

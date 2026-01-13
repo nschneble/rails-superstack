@@ -66,6 +66,7 @@ gem "commonmarker"
 # Beautiful, performant feature flags for Ruby [https://github.com/flippercloud/flipper]
 gem "flipper"
 gem "flipper-active_record"
+gem "flipper-ui"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
