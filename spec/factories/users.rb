@@ -7,6 +7,13 @@ FactoryBot.define do
     login_count { 0 }
     role { :user }
 
+    trait :confirmed do
+      email_confirmed_at { 1.day.ago }
+      last_login_at { 1.day.ago }
+      last_login_ip { Faker::Internet.public_ip_v4_address }
+      login_count { 1 }
+    end
+
     trait :admin do
       role { :admin }
     end

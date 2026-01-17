@@ -25,4 +25,5 @@ vendor
 *.zip
 
 README.md
+app/views/application/_footer.html.erb
 script/rename.sh

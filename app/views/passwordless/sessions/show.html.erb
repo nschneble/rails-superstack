@@ -1,7 +1,7 @@
 <%# This is the Passwordless form where the user inputs the token they received %>
 
 <div class="w-full my-auto">
-  <%= form_with(model: @session, url: url_for(action: "update"), scope: "passwordless", method: "patch", data: { turbo: false, controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+  <%= form_with(model: @session, url: url_for(action: "update"), scope: "passwordless", method: "patch", data: { turbo: false, controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
     <%= content_tag(:h1, t("verification_code.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
 
     <%# login token %>
@@ -12,9 +12,9 @@
         autofocus: true,
         autocomplete: "one-time-code",
         placeholder: "e.g. ABCDEF",
-        data: { "token-target": "input" } %>
+        data: { "email-target": "input" } %>
 
     <%# form submission %>
-    <%= f.submit t(".confirm"), data: { action: "click->token#submit", "token-target": "button" } %>
+    <%= f.submit t(".confirm"), data: { action: "click->email#submit", "email-target": "button" } %>
   <% end %>
 </div>

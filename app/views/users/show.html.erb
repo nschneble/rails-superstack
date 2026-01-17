@@ -1,5 +1,5 @@
 <div class="w-full my-auto">
-  <%= form_with(url: email_change_path, data: { turbo: "false", controller: "token" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+  <%= form_with(url: email_change_path, data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
     <%= content_tag(:h1, t("user_profile.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
 
     <%= f.label :new_email, t("user_profile.email.label") %>
@@ -10,16 +10,16 @@
                       autofocus: true,
                       disabled: @request.present?,
                       data: {
-                        action: "input->token#toggle",
-                        "token-current-email-param": current_user.email,
-                        "token-target": "input"
+                        action: "input->email#toggle",
+                        "email-current-email-param": current_user.email,
+                        "email-target": "input"
                       } %>
 
     <%= f.submit t("user_profile.submit"),
                  disabled: true,
                  data: {
-                  action: "click->token#submit",
-                  "token-target": "button"
+                  action: "click->email#submit",
+                  "email-target": "button"
                  } %>
   <% end %>
 </div>

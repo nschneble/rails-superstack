@@ -122,6 +122,7 @@ Rails Superstack has been preloaded and configured with the following:
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
+* [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Code Features
 | Feature            | Description |
@@ -143,6 +144,7 @@ Rails Superstack has been preloaded and configured with the following:
 | `/alert`       | Sample endpoint for alert notifications  |
 | `/admin`       | SuperAdmin dashboard                     |
 | `/flipper`     | Flipper feature flags                    |
+| `/resque`      | Resque jobs dashboard                    |
 | `/mac_guffins` | Items visible to the current user        |
 | `/profile`     | Change current user email                |
 

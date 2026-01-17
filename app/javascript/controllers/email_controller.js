@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-// connects to data-controller="token"
+// connects to data-controller="email"
 export default class extends Controller {
 	static targets = ['input', 'button'];
 

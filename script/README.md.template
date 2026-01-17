@@ -60,6 +60,7 @@ bin/setup
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
+* [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Routes
 | Endpoint    | Description               |
@@ -68,6 +69,7 @@ bin/setup
 | `/sign_out` | Sign out the current user |
 | `/admin`    | SuperAdmin dashboard      |
 | `/flipper`  | Flipper feature flags     |
+| `/resque`   | Resque jobs dashboard     |
 
 ## Linting, Testing, and CI
 
