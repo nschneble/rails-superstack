@@ -28,9 +28,10 @@
           <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
             Navigation
           </div>
-          <%= render "shared/menu_item", path: "/#next_steps", icon: "shoe-prints", text: "Next Steps" %>
-          <%= render "shared/menu_item", path: "/#terminal_commands", icon: "terminal", text: "Terminal Commands" %>
+
+          <%= render "shared/menu_item", path: "/", icon: "house", text: "Home" %>
           <%= render "shared/menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
+
           <% if current_user %>
             <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
             <% if current_user.admin? %>
@@ -43,10 +44,14 @@
           <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
             Resources
           </div>
+
           <%= render "shared/menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
+
           <% if Rails.env.development? %>
             <%= render "shared/menu_item", path: "/sent_mail/", icon: "paper-plane", text: "Sent Mail" %>
           <% end %>
+
+          <%= render "shared/menu_item", path: "/terminal_commands/", icon: "terminal", text: "Terminal Commands" %>
 
           <div class="my-2 border-t border-slate-300"></div>
 

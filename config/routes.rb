@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 
   # defines the root path route ("/")
-  root "application#home"
+  root "application#welcome"
 
   # tests flash notices
   get "notice" => "flash#notice", as: :flash_notice
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resource :email_change, only: [ :create ]
 
   # all other paths
-  get "profile" => "users#show", as: :user_profile
   get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
+  get "profile" => "users#show", as: :user_profile
+  get "terminal_commands" => "application#terminal", as: :terminal_commands
 end
