@@ -57,7 +57,7 @@ gem "cancancan"
 # A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
 gem "gravatar_image_tag", git: "https://github.com/nschneble/gravatar_image_tag.git"
 
-# A full-featured admin interface inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
+# A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
 gem "super_admin", "~> 0.2.0"
 
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]

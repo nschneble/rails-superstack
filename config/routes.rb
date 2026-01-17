@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # preview emails in development
   mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
 
-  # admin interface
+  # admin dashboard
   mount SuperAdmin::Engine, at: "/admin"
 
   # feature flags
