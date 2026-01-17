@@ -1,0 +1,5 @@
+# runs every 10 minutes
+cleanup_expired_email_change_requests:
+  cron: "*/10 * * * *"
+  class: "CleanupExpiredEmailChangeRequestsJob"
+  queue: maintenance
