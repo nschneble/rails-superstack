@@ -285,6 +285,10 @@ GEM
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
+    pom-component (1.0.2)
+      rails (>= 7.1.0, < 8.2)
+      tailwind_merge (~> 1.0)
+      view_component (~> 4.0)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -446,6 +450,7 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
+    sin_lru_redux (2.5.2)
     sinatra (4.2.1)
       logger (>= 1.6.0)
       mustermann (~> 3.0)
@@ -488,6 +493,8 @@ GEM
       rails (>= 7.1, < 9.0)
       stimulus-rails (>= 1.3)
       turbo-rails (>= 2.0)
+    tailwind_merge (1.3.2)
+      sin_lru_redux (~> 2.5)
     tailwindcss-rails (4.4.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -515,6 +522,10 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
+    view_component (4.2.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
+      concurrent-ruby (~> 1)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -564,6 +575,7 @@ DEPENDENCIES
   log_bench
   passwordless
   pg (~> 1.1)
+  pom-component
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.1)
