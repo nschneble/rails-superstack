@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     get SecureRandom.uuid => "application#secret", as: :secret_menu
   end
 
+  # background jobs
+  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
+    mount Resque::Server.new, at: "/resque"
+  end
+  match "/resque(/*path)" => "not_authorized#denied", via: :all
+
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 
