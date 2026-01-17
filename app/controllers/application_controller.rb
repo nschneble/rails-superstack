@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: exception.message
   end
 
+  def secret;   end
   def terminal; end
   def welcome;  end
 

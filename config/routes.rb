@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   end
   match "/flipper(/*path)" => "not_authorized#denied", via: :all
 
+  # `secret_menu` feature flag
+  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? && Flipper.enabled?(:secret_menu, user) })) do
+    get SecureRandom.uuid => "application#secret", as: :secret_menu
+  end
+
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
 

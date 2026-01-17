@@ -34,12 +34,28 @@
 
           <% if current_user %>
             <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
-            <% if current_user.admin? %>
-              <%= render "shared/menu_item", path: "/admin/", icon: "user-shield", text: "SuperAdmin" %>
-              <% end %>
+          <% end %>
+
+          <% if Flipper.enabled?(:secret_menu, current_user) %>
+            <%= render "shared/menu_item",
+                       item_classes: "flex items-center gap-2 px-4 py-2 text-sm text-pink-600 hover:bg-pink-100 hover:no-underline!",
+                       path: secret_menu_path,
+                       icon: "user-secret",
+                       text: "Secret Menu" %>
           <% end %>
 
           <div class="my-2 border-t border-slate-300"></div>
+
+          <% if current_user&.admin? %>
+            <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
+              Admin
+            </div>
+
+            <%= render "shared/menu_item", path: "/admin/", icon: "user-shield", text: "Admin Dashboard" %>
+            <%= render "shared/menu_item", path: "/flipper/", icon: "fish-fins", text: "Feature Flags" %>
+
+            <div class="my-2 border-t border-slate-300"></div>
+          <% end %>
 
           <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
             Resources
