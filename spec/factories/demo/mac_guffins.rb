@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :mac_guffin do
+  factory :mac_guffin, class: Demo::MacGuffin do
     name { Faker::Lorem.word }
     description { Faker::Lorem.paragraph }
     visibility { :open }

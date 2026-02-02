@@ -1,0 +1,23 @@
+<!-- replace this with your homepage content -->
+
+<% lorem_ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+                  sed do eiusmod tempor incididunt ut labore et dolore magna \
+                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation \
+                  ullamco laboris nisi ut aliquip ex ea commodo consequat. \
+                  Duis aute irure dolor in reprehenderit in voluptate velit \
+                  esse cillum dolore eu fugiat nulla pariatur. Excepteur sint \
+                  occaecat cupidatat non proident, sunt in culpa qui officia \
+                  deserunt mollit anim id est laborum." %>
+
+<%= content_tag :div,
+                class: "max-w-[650] m-0 sm:mx-auto sm:my-28 pt-8 pb-16 px-10 sm:px-20 bg-white sm:bg-slate-100 sm:shadow-xl sm:rounded-lg" do %>
+  <%= content_tag :h1,
+                  "Hello, world!",
+                  class: "font-semibold text-3xl text-slate-800 tracking-tight" %>
+
+  <%= content_tag :hr, "", class: "mt-2 mb-4 text-slate-300" %>
+
+  <%= content_tag :p,
+                  lorem_ipsum,
+                  class: "text-justify text-slate-700" %>
+<% end %>

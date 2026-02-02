@@ -8,7 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# seeds a user and admin
 user = User.find_or_create_by!(
   email: "user@superstack.dev",
   role: :user
@@ -19,24 +18,6 @@ admin = User.find_or_create_by!(
   role: :admin
 )
 
-# seeds a few MacGuffins
-MacGuffin.find_or_create_by!(
-  name: "Unobtainium",
-  description: "An ideal material that's impractically difficult or impossible to obtain.",
-  visibility: :open,
-  user: user
-)
-
-MacGuffin.find_or_create_by!(
-  name: "Letters of Transit",
-  description: "What you need to get out of Casablanca.",
-  visibility: :user,
-  user: user
-)
-
-MacGuffin.find_or_create_by!(
-  name: "The Infinity Stones",
-  description: "How else will you reshape the universe?",
-  visibility: :admin,
-  user: admin
-)
+Dir[Rails.root.join("db/seeds/demo/*.rb")].each do |seed|
+  load seed
+end

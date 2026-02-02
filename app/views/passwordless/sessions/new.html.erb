@@ -1,6 +1,6 @@
 <%# This is the Passwordless form where the user inputs their email address %>
 
-<div class="w-full my-auto">
+<div class="w-full my-28">
   <% email_field_name = :"passwordless[#{email_field}]" %>
 
   <%= form_with(model: @session, url: url_for(action: "new"), data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>

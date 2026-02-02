@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="w-full h-full">
   <head>
     <title><%= content_for(:title) || "Rails Superstack" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,13 +24,13 @@
     <% end %>
   </head>
 
-  <body>
-    <header>
-      <%= render "shared/flash" %>
-    </header>
+  <body class="w-full h-full bg-slate-500">
+    <%= render "header" %>
 
-    <main class="container flex mx-auto">
+    <main class="container flex w-full h-full mx-auto overflow-hidden">
       <%= yield %>
     </main>
+
+    <%= render "footer" %>
   </body>
 </html>

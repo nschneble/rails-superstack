@@ -14,11 +14,6 @@ Rails.application.routes.draw do
   end
   match "/flipper(/*path)" => "not_authorized#denied", via: :all
 
-  # `secret_menu` feature flag
-  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? && Flipper.enabled?(:secret_menu, user) })) do
-    get SecureRandom.uuid => "application#secret", as: :secret_menu
-  end
-
   # background jobs
   constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
     mount Resque::Server.new, at: "/resque"
@@ -27,20 +22,15 @@ Rails.application.routes.draw do
 
   # authentication
   passwordless_for :users, at: "/", as: :auth, controller: "sessions"
-
-  # defines the root path route ("/")
-  root "application#welcome"
-
-  # tests flash notices
-  get "notice" => "flash#notice", as: :flash_notice
-  get "alert"  => "flash#alert",  as: :flash_alert
-
-  # models and resources
-  resources :mac_guffins, only: [ :index ]
   resource :email_change, only: [ :create ]
 
-  # all other paths
+  # user profile
   get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
   get "profile" => "users#show", as: :user_profile
-  get "terminal_commands" => "application#terminal", as: :terminal_commands
+
+  # defines the root path route ("/")
+  root "application#root"
+
+  # config/routes/demo.rb
+  draw(:demo)
 end
