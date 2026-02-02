@@ -1,0 +1,13 @@
+<%= tag.div(**merge_options(default_options, extra_options)) do %>
+  <% if variant.eql? :alert %>
+    <%= helpers.fa_stacked_icon(["square", "radiation"], [ "text-white", "text-pink-800" ]) %>
+  <% else %>
+    <%= helpers.fa_stacked_icon(["square", "thumbs-up"], [ "text-white", "text-emerald-800" ]) %>
+  <% end %>
+
+  <div class="w-full tracking-tight"><%= content %></div>
+
+  <button type="button" class="absolute top-0 right-0 text-slate-50/80 hover:text-slate-50/100 transform -translate-x-1/4 translate-y-1/4 cursor-pointer" aria-label="Dismiss" data-action="flash#dismiss">
+    <%= helpers.fas_icon("circle-xmark") %>
+  </button>
+<% end %>
