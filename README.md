@@ -19,6 +19,9 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Gems and Resources](#gems-and-resources)
   - [Code Features](#code-features)
   - [Routes](#routes)
+    - [User Routes](#user-routes)
+	- [Admin Routes](#admin-routes)
+	- [Demo Routes](#demo-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
@@ -125,28 +128,42 @@ Rails Superstack has been preloaded and configured with the following:
 * [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Code Features
-| Feature            | Description |
-| ------------------ | ----------- |
-| Abilities (Roles)  | [Ability](app/models/ability.rb) |
-| Models             | [User](app/models/user.rb), [MacGuffin](app/models/mac_guffin.rb) |
+
+| Feature            | Description                               |
+| ------------------ | ----------------------------------------- |
+| Abilities (Roles)  | [Ability](app/models/ability.rb)          |
+| Models             | [User](app/models/user.rb)                |
 | Helpers            | Text, web urls, forms, Font Awesome icons |
-| Normalizers        | Email addresses |
-| Validators         | Email addresses, web urls |
-| View Components    | Clipboard button, toast notifications, code snippets |
+| Normalizers        | Email addresses                           |
+| Validators         | Email addresses, web urls                 |
+| View Components    | Clipboard, flash alerts, code snippets    |
 
 ### Routes
-| Endpoint       | Description                              |
-| -------------- | ---------------------------------------- |
-| `/sign_in`     | Sign in as a new user                    |
-| `/sign_out`    | Sign out the current user                |
-| `/sent_mail`   | Preview sent mail in development         |
-| `/notice`      | Sample endpoint for notice notifications |
-| `/alert`       | Sample endpoint for alert notifications  |
-| `/admin`       | SuperAdmin dashboard                     |
-| `/flipper`     | Flipper feature flags                    |
-| `/resque`      | Resque jobs dashboard                    |
-| `/mac_guffins` | Items visible to the current user        |
-| `/profile`     | Change current user email                |
+
+#### User Routes
+
+| Endpoint    | Description               |
+| ----------- | ------------------------- |
+| `/profile`  | Change current user email |
+| `/sign_in`  | Sign in as a new user     |
+| `/sign_out` | Sign out the current user |
+
+#### Admin Routes
+
+| Endpoint   | Description           |
+| ---------- | --------------------- |
+| `/admin`   | SuperAdmin dashboard  |
+| `/flipper` | Flipper feature flags |
+| `/resque`  | Resque jobs           |
+
+#### Demo Routes
+(The [cleanup script](#cleanup-script) will remove these endpoints)
+
+| Endpoint        | Description                            |
+| --------------- | -------------------------------------- |
+| `/flash_alert`  | Sample endpoint for flash alerts       |
+| `/flash_notice` | Sample endpoint for flash notices      |
+| `/mac_guffins`  | Demo items accessible by the current user |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.

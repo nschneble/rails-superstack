@@ -12,6 +12,8 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
   - [Routes](#routes)
+    - [User Routes](#user-routes)
+	- [Admin Routes](#admin-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
@@ -63,13 +65,22 @@ bin/setup
 * [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Routes
+
+#### User Routes
+
 | Endpoint    | Description               |
 | ----------- | ------------------------- |
+| `/profile`  | Change current user email |
 | `/sign_in`  | Sign in as a new user     |
 | `/sign_out` | Sign out the current user |
-| `/admin`    | SuperAdmin dashboard      |
-| `/flipper`  | Flipper feature flags     |
-| `/resque`   | Resque jobs dashboard     |
+
+#### Admin Routes
+
+| Endpoint    | Description           |
+| ----------- | --------------------- |
+| `/admin`    | SuperAdmin dashboard  |
+| `/flipper`  | Flipper feature flags |
+| `/resque`   | Resque jobs           |
 
 ## Linting, Testing, and CI
 
