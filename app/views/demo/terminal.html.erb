@@ -7,9 +7,7 @@
         Try out <a class="hover:text-amber-400 underline!" href="https://github.com/silva96/log_bench">LogBench</a><span class="hidden sm:inline"> for some real-time monitoring</span>
         <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="log_bench">log_bench log/development.log</span></pre>
-          <%= render "shared/copy_button",
-            target: "#log_bench",
-            button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
+          <%= pom_copy_to_clipboard(align: :right, target: "#log_bench") %>
         </div>
       </li>
       <li>
@@ -17,9 +15,7 @@
         Lint <span class="hidden sm:inline">and format your code</span> with <a class="hover:text-amber-400 underline!" href="https://rubocop.org/">RuboCop</a>
         <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="rubocop">bin/rubocop</span></pre>
-          <%= render "shared/copy_button",
-            target: "#rubocop",
-            button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
+          <%= pom_copy_to_clipboard(align: :right, target: "#rubocop") %>
         </div>
       </li>
       <li>
@@ -27,9 +23,7 @@
         Run <a class="hover:text-amber-400 underline!" href="https://rspec.info/">RSpec</a><span class="hidden sm:inline"> tests with <a class="hover:text-amber-400 underline!" href="https://github.com/thoughtbot/factory_bot_rails">Factory Bot</a> and <a class="hover:text-amber-400 underline!" href="https://github.com/faker-ruby/faker">Faker</a></span>
         <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="rspec">bin/rspec</span></pre>
-          <%= render "shared/copy_button",
-            target: "#rspec",
-            button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
+          <%= pom_copy_to_clipboard(align: :right, target: "#rspec") %>
         </div>
       </li>
       <li>
@@ -37,9 +31,7 @@
         <span class="hidden sm:inline">Ready to merge? </span><a class="hover:text-amber-400 underline!" href="https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-ci">Run local CI</a>
         <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
           <pre class="p-2 pr-[42] truncate"><span class="text-white select-none">% </span><span id="ci">bin/ci</span></pre>
-          <%= render "shared/copy_button",
-            target: "#ci",
-            button_classes: "absolute right-0 top-0 p-2 bg-slate-800 hover:bg-slate-950 text-white rounded-tr-sm rounded-br-sm cursor-pointer" %>
+          <%= pom_copy_to_clipboard(align: :right, target: "#ci") %>
         </div>
       </li>
     </ul>
