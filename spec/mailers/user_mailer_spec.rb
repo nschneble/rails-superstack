@@ -9,7 +9,7 @@ RSpec.describe UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Confirm Your New Email Address")
       expect(mail.to).to eq([ request.new_email ])
-      expect(mail.from).to eq([ "no-reply@superstack.dev" ])
+      expect(mail.from).to eq([ "no-reply@rails-superstack.dev" ])
     end
 
     it "renders the body" do

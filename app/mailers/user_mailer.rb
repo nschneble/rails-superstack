@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: "no-reply@superstack.dev"
+  default from: "no-reply@rails-superstack.dev"
 
   def email_change_confirmation
     @request = params[:request]
