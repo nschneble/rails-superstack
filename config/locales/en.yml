@@ -28,6 +28,18 @@
 #       enabled: "ON"
 
 en:
+  authentication:
+    login_required: "You must be logged in to visit this page"
+  email:
+    confirmation:
+      link_expired: "That confirmation link has expired"
+      link_sent: "We've sent a confirmation link to %{new_email}"
+      updated: "Your email address has been updated"
+    validation:
+      invalid: "That is not a valid email address"
+      unavailable: "That email address is already in use"
+  errors:
+      method_not_implemented: "This method must be implemented in a subclass"
   passwordless:
     sessions:
       new:
@@ -37,6 +49,7 @@ en:
         submit: "Send login code"
       create:
         email_sent: "We've sent a verification code to your email address"
+        logging: "Creating new user for email `%{email}`"
         not_found: "We couldn't find a user with that email address"
         error: "An error occurred and now everything is ruined"
       show:
@@ -44,6 +57,7 @@ en:
         confirm: "Confirm"
       errors:
         invalid_token: "That's definitely NOT the verification code we emailed you"
+        session_exists: "You're already signed in, sillypants"
         session_expired: "Your session has expired, so you're going to need to sign in again"
         token_claimed: "Nice try, but that verification code has already been used"
       destroy:
@@ -89,3 +103,4 @@ en:
           %{fun_fact}?
   verification_code:
     title: "Enter your verification code"
+    placeholder: "e.g. ABCDEF"

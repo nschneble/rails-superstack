@@ -16,7 +16,7 @@ module Authentication
   def authenticate_user!
     return if current_user
     save_passwordless_redirect_location!(User)
-    redirect_to passwordless_sign_in_path, alert: "You must be logged in to visit this page"
+    redirect_to passwordless_sign_in_path, alert: t("authentication.login_required")
   end
 
   def passwordless_sign_in_path
