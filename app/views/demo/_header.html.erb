@@ -29,15 +29,15 @@
             Navigation
           </div>
 
-          <%= render "shared/menu_item", path: "/welcome/", icon: "house", text: "Home" %>
-          <%= render "shared/menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
+          <%= render "menu_item", path: "/welcome/", icon: "house", text: "Home" %>
+          <%= render "menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
 
           <% if current_user %>
-            <%= render "shared/menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
+            <%= render "menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
           <% end %>
 
           <% if Flipper.enabled?(:secrets, current_user) %>
-            <%= render "shared/menu_item",
+            <%= render "menu_item",
                        item_classes: "flex items-center gap-2 px-4 py-2 text-sm text-pink-600 hover:bg-pink-100 hover:no-underline!",
                        path: "/secret/",
                        icon: "user-secret",
@@ -51,9 +51,9 @@
               Admin
             </div>
 
-            <%= render "shared/menu_item", path: "/admin/", icon: "user-shield", text: "Admin Dashboard" %>
-            <%= render "shared/menu_item", path: "/resque/", icon: "life-ring", text: "Background Jobs" %>
-            <%= render "shared/menu_item", path: "/flipper/", icon: "fish-fins", text: "Feature Flags" %>
+            <%= render "menu_item", path: "/admin/", icon: "user-shield", text: "Admin Dashboard" %>
+            <%= render "menu_item", path: "/resque/", icon: "life-ring", text: "Background Jobs" %>
+            <%= render "menu_item", path: "/flipper/", icon: "fish-fins", text: "Feature Flags" %>
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>
@@ -62,20 +62,20 @@
             Resources
           </div>
 
-          <%= render "shared/menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
+          <%= render "menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
 
           <% if Rails.env.development? %>
-            <%= render "shared/menu_item", path: "/sent_mail/", icon: "paper-plane", text: "Sent Mail" %>
+            <%= render "menu_item", path: "/sent_mail/", icon: "paper-plane", text: "Sent Mail" %>
           <% end %>
 
-          <%= render "shared/menu_item", path: "/terminal/", icon: "terminal", text: "Terminal Commands" %>
+          <%= render "menu_item", path: "/terminal/", icon: "terminal", text: "Terminal Commands" %>
 
           <div class="my-2 border-t border-slate-300"></div>
 
           <% if current_user %>
-            <%= render "shared/menu_item", path: "/sign_out/", icon: "person-walking-arrow-loop-left", text: "Sign out" %>
+            <%= render "menu_item", path: "/sign_out/", icon: "person-walking-arrow-loop-left", text: "Sign out" %>
           <% else %>
-            <%= render "shared/menu_item", path: "/sign_in/", icon: "person-walking-arrow-right", text: "Sign in" %>
+            <%= render "menu_item", path: "/sign_in/", icon: "person-walking-arrow-right", text: "Sign in" %>
           <% end %>
         </div>
       </div>
