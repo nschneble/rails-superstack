@@ -22,6 +22,6 @@ class SessionsController < Passwordless::SessionsController
 
   def no_users_allowed!
     return unless current_user
-    redirect_to "/", notice: t("passwordless.sessions.errors.session_exists")
+    redirect_back fallback_location: root_path, notice: t("passwordless.sessions.errors.session_exists")
   end
 end
