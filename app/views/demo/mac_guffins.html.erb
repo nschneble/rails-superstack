@@ -1,15 +1,15 @@
 <div class="w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll z-0">
   <div class="max-w-[650] mx-auto">
     <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">MacGuffins</h1>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mx-4 sm:mx-0">
       <% @mac_guffins.each_with_index do |mac_guffin, index| %>
-        <div class="flex group bg-white text-slate-900 shadow-slate-600 hover:shadow-slate-700 shadow-xl rounded-md transform transition duration-150 ease-out scale-95 -translate-y-1 hover:scale-100 hover:translate-y-1">
+        <div class="flex group bg-white text-slate-900 shadow-slate-600 shadow-xl rounded-md">
           <div class="w-24 flex-none p-3 bg-slate-900 border border-r-0 border-slate-950 rounded-l-md">
             <%= image_tag "https://picsum.photos/96?random=#{index}", class: "bg-white p-1 pb-4 shadow-slate-700 shadow-md rounded-xs sepia-50 rotate-2", size: "96x96", alt: mac_guffin.name %>
           </div>
 
           <div class="relative flex-1 p-2 border border-l-0 border-slate-300 rounded-r-md">
-            <p class="text-slate-600 group-hover:text-pink-600 tracking-tight font-semibold select-none"><%= mac_guffin.name %></p>
+            <p class="text-slate-600 tracking-tight font-semibold select-none"><%= mac_guffin.name %></p>
             <div class="mb-2 border-t border-slate-300"></div>
             <p class="mb-10 text-sm justified select-none"><%= mac_guffin.description %></p>
 
