@@ -28,7 +28,7 @@ class DemoController < ApplicationController
   # app/views/demo/secrets.html.erb
   def secrets
     return if Flipper.enabled?(:secrets, current_user)
-    raise ActionController::RoutingError
+    raise ActionController::RoutingError, %(No route matches [#{request.request_method}] "#{request.path}")
 
     # a "secret" route gated behind a feature flag
   end
