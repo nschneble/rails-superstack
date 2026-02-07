@@ -6,8 +6,8 @@ module Pom
     define_styles(
       base: "relative flex justify-start items-center rounded opacity-0 transition-all duration-200",
       variant: {
-        alert: "bg-pink-700 text-white shadow-slate-800",
-        notice: "bg-emerald-700 text-white shadow-slate-800"
+        alert: "bg-pink-700 text-white shadow-slate-800/30",
+        notice: "bg-emerald-700 text-white shadow-slate-800/25"
       },
       size: {
         md: "gap-x-2 mb-4 p-4 pr-8 text-sm shadow-lg -translate-y-4"
