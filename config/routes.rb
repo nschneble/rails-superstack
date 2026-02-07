@@ -3,20 +3,20 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # preview emails in development
-  mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/sent_mail", as: :letter_opener if Rails.env.development?
 
   # admin dashboard
-  mount SuperAdmin::Engine, at: "/admin"
+  mount SuperAdmin::Engine, at: "/admin", as: :admin
 
   # feature flags
   constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
-    mount Flipper::UI.app(Flipper), at: "/flipper"
+    mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper
   end
   match "/flipper(/*path)" => "not_authorized#denied", via: :all
 
   # background jobs
   constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
-    mount Resque::Server.new, at: "/resque"
+    mount Resque::Server.new, at: "/resque", as: :resque
   end
   match "/resque(/*path)" => "not_authorized#denied", via: :all
 
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
   get "profile" => "users#show", as: :user_profile
 
-  # defines the root path route ("/")
+  # defines the root path route
   root "application#root"
 
   # config/routes/demo.rb

@@ -5,24 +5,26 @@
       <li>
         <%= fa_stacked_icon(["square", "key"], ["text-lime-500", "text-white"]) %>
         <% if current_user %>
-          <a class="hover:text-amber-400 underline!" href="/sign_out/">Sign out</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
+          <%= link_to "Sign out", auth_sign_out_path, class: "hover:text-amber-400 underline!" %>
+          <span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
         <% else %>
-          <a class="hover:text-amber-400 underline!" href="/sign_in/">Sign in</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
+          <%= link_to "Sign in", auth_sign_in_path, class: "hover:text-amber-400 underline!" %>
+          <span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
           <p class="ml-12 text-sm italic">Try <span class="text-amber-200 font-semibold">user@superstack.dev</span> for a regular user or <span class="text-amber-200 font-semibold">admin@superstack.dev</span> for an admin!</p>
         <% end %>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
-        Check out <a class="hover:text-amber-400 underline!" href="/mac_guffins/">MacGuffins</a> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules
+        Check out <%= link_to "MacGuffins", mac_guffins_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules</span>
         <p class="ml-12 text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "user-shield"], ["text-lime-500", "text-white"]) %>
-        Open the <a class="hover:text-amber-400 underline!" href="/admin/">admin dashboard</a> with <a class="hover:text-amber-400 underline!" href="https://github.com/ThibautBaissac/super_admin">SuperAdmin</a>
+        Open the <%= link_to "admin dashboard", admin_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/ThibautBaissac/super_admin">SuperAdmin</a></span>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "fish-fins"], ["text-lime-500", "text-white"]) %>
-        Enable <a class="hover:text-amber-400 underline!" href="/flipper/">feature flags</a> with <a class="hover:text-amber-400 underline!" href="https://github.com/flippercloud/flipper">Flipper</a>
+        Enable <%= link_to "feature flags", flipper_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/flippercloud/flipper">Flipper</a></span>
         <p class="ml-12 text-sm italic">You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to do this!
       </li>
     </ul>

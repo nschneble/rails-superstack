@@ -2,7 +2,7 @@
   <nav class="flex items-center justify-between sm:mx-11">
     <div class="flex items-center justify-between">
       <%= image_tag "demo/ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "44", alt: "Ruby on Rails" %>
-      <a class="ml-2 font-semibold text-xl tracking-tight select-none hover:no-underline!" href="/welcome/"><%= t("title") %></a>
+      <%= link_to t("title"), welcome_path, class: "ml-2 font-semibold text-xl tracking-tight select-none hover:no-underline!"%>
     </div>
 
     <div class="relative flex items-center" data-controller="dropdown">
@@ -29,17 +29,17 @@
             Navigation
           </div>
 
-          <%= render "menu_item", path: "/welcome/", icon: "house", text: "Home" %>
-          <%= render "menu_item", path: "/mac_guffins/", icon: "trophy", text: "MacGuffins" %>
+          <%= render "menu_item", path: welcome_path, icon: "house", text: "Home" %>
+          <%= render "menu_item", path: mac_guffins_path, icon: "trophy", text: "MacGuffins" %>
 
           <% if current_user %>
-            <%= render "menu_item", path: "/profile/", icon: "user", text: "User Profile" %>
+            <%= render "menu_item", path: user_profile_path, icon: "user", text: "User Profile" %>
           <% end %>
 
           <% if Flipper.enabled?(:secrets, current_user) %>
             <%= render "menu_item",
                        item_classes: "flex items-center gap-2 px-4 py-2 text-sm text-pink-600 hover:bg-pink-100 hover:no-underline!",
-                       path: "/secret/",
+                       path: secrets_path,
                        icon: "user-secret",
                        text: "Secrets" %>
           <% end %>
@@ -51,9 +51,9 @@
               Admin
             </div>
 
-            <%= render "menu_item", path: "/admin/", icon: "user-shield", text: "Admin Dashboard" %>
-            <%= render "menu_item", path: "/resque/", icon: "life-ring", text: "Background Jobs" %>
-            <%= render "menu_item", path: "/flipper/", icon: "fish-fins", text: "Feature Flags" %>
+            <%= render "menu_item", path: admin_path, icon: "user-shield", text: "Admin Dashboard" %>
+            <%= render "menu_item", path: resque_path, icon: "life-ring", text: "Background Jobs" %>
+            <%= render "menu_item", path: flipper_path, icon: "fish-fins", text: "Feature Flags" %>
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>
@@ -65,17 +65,17 @@
           <%= render "menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
 
           <% if Rails.env.development? %>
-            <%= render "menu_item", path: "/sent_mail/", icon: "paper-plane", text: "Sent Mail" %>
+            <%= render "menu_item", path: letter_opener_path, icon: "paper-plane", text: "Sent Mail" %>
           <% end %>
 
-          <%= render "menu_item", path: "/terminal/", icon: "terminal", text: "Terminal Commands" %>
+          <%= render "menu_item", path: terminal_path, icon: "terminal", text: "Terminal Commands" %>
 
           <div class="my-2 border-t border-slate-300"></div>
 
           <% if current_user %>
-            <%= render "menu_item", path: "/sign_out/", icon: "person-walking-arrow-loop-left", text: "Sign out" %>
+            <%= render "menu_item", path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", text: "Sign out" %>
           <% else %>
-            <%= render "menu_item", path: "/sign_in/", icon: "person-walking-arrow-right", text: "Sign in" %>
+            <%= render "menu_item", path: auth_sign_in_path, icon: "person-walking-arrow-right", text: "Sign in" %>
           <% end %>
         </div>
       </div>

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   # app/views/application/root.html.erb
   def root
-    # the root path route ("/")
+    # the root path route
   end
 
   private
