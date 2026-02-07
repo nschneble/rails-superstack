@@ -35,9 +35,9 @@ SuperAdmin.configure do |config|
   # }
 
   # What to do when authorization fails
-  config.on_unauthorized = proc { |controller|
-    redirect_back fallback_location: root_path, alert: t("super_admin.flash.access_denied")
-  }
+  # config.on_unauthorized = proc { |controller|
+  #   redirect_to main_app.root_path, alert: "You are not authorized to access this page."
+  # }
 
   # Super admin check
   # Additional check to determine if current user is a super admin
