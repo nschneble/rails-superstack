@@ -143,11 +143,12 @@ Rails Superstack has been preloaded and configured with the following:
 
 #### User Routes
 
-| Endpoint    | Description               |
-| ----------- | ------------------------- |
-| `/profile`  | Change current user email |
-| `/sign_in`  | Sign in as a new user     |
-| `/sign_out` | Sign out the current user |
+| Endpoint     | Description                     |
+| ------------ | ------------------------------- |
+| `/sign_in`   | Sign in as a new user           |
+| `/sign_out`  | Sign out the current user       |
+| `/profile`   | Set current user email          |
+| `/sent_mail` | Preview sent mail (login codes) |
 
 #### Admin Routes
 
@@ -160,11 +161,14 @@ Rails Superstack has been preloaded and configured with the following:
 #### Demo Routes
 (The [cleanup script](#cleanup-script) will remove these endpoints)
 
-| Endpoint        | Description                            |
-| --------------- | -------------------------------------- |
-| `/flash_alert`  | Sample endpoint for flash alerts       |
-| `/flash_notice` | Sample endpoint for flash notices      |
-| `/mac_guffins`  | Demo items accessible by the current user |
+| Endpoint       | Description                            |
+| -------------- | -------------------------------------- |
+| `/welcome`     | Starter page with helpful links        |
+| `/alert`       | Example for flash alerts               |
+| `/notice`      | Example for flash notices              |
+| `/mac_guffins` | Items accessible by current user       |
+| `/secrets`     | A "secret" route behind a feature flag |
+| `/terminal`    | Lists useful Terminal commands         |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.

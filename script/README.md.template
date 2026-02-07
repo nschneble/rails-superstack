@@ -69,11 +69,12 @@ bin/setup
 
 #### User Routes
 
-| Endpoint    | Description               |
-| ----------- | ------------------------- |
-| `/profile`  | Change current user email |
-| `/sign_in`  | Sign in as a new user     |
-| `/sign_out` | Sign out the current user |
+| Endpoint     | Description                     |
+| ------------ | ------------------------------- |
+| `/sign_in`   | Sign in as a new user           |
+| `/sign_out`  | Sign out the current user       |
+| `/profile`   | Set current user email          |
+| `/sent_mail` | Preview sent mail (login codes) |
 
 #### Admin Routes
 
