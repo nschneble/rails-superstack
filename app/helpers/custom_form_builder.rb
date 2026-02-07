@@ -4,7 +4,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     mx-4
     sm:mx-auto
     pt-8
-    pb-16
+    pb-12
+    sm:pb-16
     bg-blue-900
     border
     border-slate-600
@@ -20,7 +21,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     mb-8
     font-semibold
     text-center
-    text-3xl
+    text-2xl
+    sm:text-3xl
     tracking-tight
     cursor-default
     select-none
@@ -28,7 +30,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   LABEL_CLASSES = %w[
     block
-    w-3/4
+    w-4/5
     sm:w-full
     max-w-[325]
     mx-auto
@@ -38,7 +40,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   INPUT_CLASSES = %w[
     block
-    w-3/4
+    w-4/5
     sm:w-full
     max-w-[325]
     mx-auto
@@ -59,7 +61,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
 
   BUTTON_CLASSES = %w[
     block
-    w-3/4
+    w-4/5
     sm:w-full
     max-w-[325]
     mx-auto
