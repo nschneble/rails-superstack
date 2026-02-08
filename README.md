@@ -26,6 +26,8 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Linting](#linting)
   - [Testing](#testing)
   - [Local CI](#local-ci)
+- [Ephemera](#ephemera)
+  - [Cleanup Script](#cleanup-script)
 - [Acknowledgements](#acknowledgements)
 
 ## Getting Started
@@ -201,6 +203,31 @@ bin/rspec
 cd /path/to/your/repo
 bin/ci
 ```
+
+## Ephemera
+
+### Cleanup Script
+Dislike the demo code with a passion? Easy! Burn it with 🔥 fire 🔥 by running the cleanup script:
+
+```bash
+cd /path/to/your/repo
+
+# Get help
+script/wipedemo.sh —help
+
+# Preview changes
+script/wipedemo.sh --dry-run
+
+# Run interactively
+script/wipedemo.sh
+
+# Run without prompts
+script/wipedemo.sh --no-confirmation
+```
+
+The script should remove all trace of demo code: assets, controllers, models, views, routes, seeds, factories, and specs.
+
+After the script runs successfully, it'll delete itself and you’ll be left with a pristine Superstack template.
 
 ## Acknowledgements
 The Rails Superstack logo was crafted from an illustration by [Muhammad Afandi](https://unsplash.com/@kertiaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/illustrations/three-stacked-geometric-shapes-on-white-background-VxU_akYKA8Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
