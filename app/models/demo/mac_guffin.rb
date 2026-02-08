@@ -1,5 +1,12 @@
 module Demo
   class MacGuffin < ApplicationRecord
+    include Indexable
+    include Typesense
+
+    typesense enqueue: :index_async do
+      attributes :name, :description
+    end
+
     belongs_to :user
 
     validates :name, presence: true
