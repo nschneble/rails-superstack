@@ -8,12 +8,25 @@ SUCCESS=0
 FAILURE=1
 
 # files referenced in the script
-SCRIPT_FILE="script/wipdemo.sh"
+SCRIPT_FILE="script/wipedemo.sh"
 
 # script arguments
 ARGUMENTS=$@
 DRY_RUN=false
 NO_CONFIRMATION=false
+
+# demo paths to clean up
+DEMO_PATHS=(
+  "app/assets/images/demo"
+  "app/controllers/demo"
+  "app/models/demo" "app/views/demo"
+  "app/views/layouts/demo"
+  "config/routes/development/demo"
+  "db/seeds/development/demo"
+  "lib/abilities/demo"
+  "spec/factories/demo"
+  "spec/models/demo"
+)
 
 # helpers
 confirm() {
@@ -116,16 +129,11 @@ show_welcome_message() {
 locate_demo_files() {
   log "Locating demo files…" true
 
-  find "app/assets/images/demo"         -depth -name "*" -print
-  find "app/controllers/demo"           -depth -name "*" -print
-  find "app/models/demo"                -depth -name "*" -print
-  find "app/views/demo"                 -depth -name "*" -print
-  find "app/views/layouts/demo"         -depth -name "*" -print
-  find "config/routes/development/demo" -depth -name "*" -print
-  find "db/seeds/development/demo"      -depth -name "*" -print
-  find "lib/abilities/demo"             -depth -name "*" -print
-  find "spec/factories/demo"            -depth -name "*" -print
-  find "spec/models/demo"               -depth -name "*" -print
+  for path in "${DEMO_PATHS[@]}"; do
+    if [[ -e "$path" ]]; then
+      find "$path" -depth -name "*" -print
+    fi
+  done
 
   if ! confirm "Remove files?"; then
     die "Script aborted."
@@ -136,16 +144,11 @@ remove_demo_files() {
   log "Removing demo files…" true
 
   if [[ "$DRY_RUN" == false ]]; then
-    find "app/assets/images/demo"         -depth -name "*" -delete
-    find "app/controllers/demo"           -depth -name "*" -delete
-    find "app/models/demo"                -depth -name "*" -delete
-    find "app/views/demo"                 -depth -name "*" -delete
-    find "app/views/layouts/demo"         -depth -name "*" -delete
-    find "config/routes/development/demo" -depth -name "*" -delete
-    find "db/seeds/development/demo"      -depth -name "*" -delete
-    find "lib/abilities/demo"             -depth -name "*" -delete
-    find "spec/factories/demo"            -depth -name "*" -delete
-    find "spec/models/demo"               -depth -name "*" -delete
+    for path in "${DEMO_PATHS[@]}"; do
+      if [[ -e "$path" ]]; then
+        find "$path" -depth -name "*" -delete
+      fi
+    done
   fi
 }
 
