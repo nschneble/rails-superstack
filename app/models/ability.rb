@@ -1,31 +1,39 @@
 class Ability
   include CanCan::Ability
 
+  ABILITIES_RELATIVE_PATH = "lib/abilities/**/*.rb"
+
   def initialize(user)
-    define_demo_abilities(user)
+    @user = user
 
-    # define any generic permissions here
-    # can :read, Post, public: true
-
-    return unless user.present?
-    # define any additional permissions for signed-in users here
-    # can :read, Post, user: user
-
-    nil unless user.admin?
-    # define any additional permissions for administrators here
-    # can :read, Post
+    define_base_rules
+    load_ability_fragments
   end
 
   private
 
-  def define_demo_abilities(user)
-    can :read, Demo::MacGuffin, visibility: :open
+  def define_base_rules
+    # define any generic permissions here
+    # can :read, Post, public: true
+  end
 
-    return unless user.present?
-    can :read, Demo::MacGuffin, visibility: :user
-    can :manage, Demo::MacGuffin, user: user
+  def load_ability_fragments
+    Dir[Rails.root.join(ABILITIES_RELATIVE_PATH)].sort.each do |file|
+      require_dependency file
+    end
 
-    return unless user.admin?
-    can :manage, Demo::MacGuffin
+    self.class.fragments.each do |fragment|
+      fragment.apply(self, @user)
+    end
+  end
+
+  class << self
+    def fragments
+      @fragments ||= []
+    end
+
+    def register(fragment)
+      fragments << fragment
+    end
   end
 end
