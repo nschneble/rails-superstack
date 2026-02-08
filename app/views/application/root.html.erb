@@ -16,10 +16,12 @@
                   "app/views/application/root.html.erb",
                   class: "mt-2 sm:mt-0 mb-4 text-blue-700 text-xs sm:text-lg" %>
   <%= content_tag :p,
-                  "You can also check out the welcome page, which demonstrates many of the features of the superstack, and suggests a few next steps if you're unsure where to begin:",
+                  "You can also check out the welcome page, which demonstrates many of the features of the superstack, and suggests a few next steps if you're unsure where to begin.",
                   class: "mb-4 text-slate-700" %>
 
-  <%= link_to "Welcome Page w/ Next Steps",
-              welcome_path,
-              class: "hover:text-blue-700 underline!" %>
+  <% if respond_to?(:demo_welcome_path) %>
+    <%= link_to "Welcome Page w/ Next Steps",
+                demo_welcome_path,
+                class: "hover:text-blue-700 underline!" %>
+  <% end %>
 <% end %>
