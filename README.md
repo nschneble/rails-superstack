@@ -136,6 +136,7 @@ Rails Superstack has been preloaded and configured with the following:
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
+* [Typesense](https://github.com/typesense/typesense-rails) + [Pagy](https://github.com/ddnexus/pagy) (search + pagination)
 
 ### Code Features
 
