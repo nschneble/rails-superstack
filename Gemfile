@@ -113,7 +113,7 @@ group :test do
   gem "selenium-webdriver"
 
   # Simple one-liner tests for common Rails functionality [https://github.com/thoughtbot/shoulda-matchers]
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
 
   # Redis-backed Ruby library for creating background jobs [https://github.com/resque/resque]
   gem "resque_spec"
