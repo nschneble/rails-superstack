@@ -1,5 +1,5 @@
 class SessionsController < Passwordless::SessionsController
-  before_action :no_users_allowed!, only: %i[new show]
+  before_action :no_users_allowed!, only: %i[new create show update confirm]
   after_action -> { flash.discard(:alert) }
 
   def new
@@ -22,6 +22,6 @@ class SessionsController < Passwordless::SessionsController
 
   def no_users_allowed!
     return unless current_user
-    redirect_back fallback_location: root_path, notice: t("passwordless.sessions.errors.session_exists")
+    redirect_to root_path, notice: t("passwordless.sessions.errors.session_exists")
   end
 end
