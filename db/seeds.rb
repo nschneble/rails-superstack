@@ -8,16 +8,23 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.find_or_create_by!(
-  email: "user@superstack.dev",
-  role: :user
-)
+puts "Seeding started…" unless Rails.env.test?
+start = Time.current
 
-admin = User.find_or_create_by!(
-  email: "admin@superstack.dev",
-  role: :admin
-)
+paths = [
+  "db/seeds/shared/**/*.rb",
+  "db/seeds/#{Rails.env}/**/*.rb"
+]
 
-Dir[Rails.root.join("db/seeds/demo/*.rb")].each do |seed|
-  load seed
+paths.each do |pattern|
+  Dir[Rails.root.join(pattern)].sort.each do |seed|
+    relative_path = Pathname.new(seed).relative_path_from(Rails.root)
+    puts "  ✓ Loading #{relative_path}" unless Rails.env.test?
+    load seed
+  rescue => exception
+    puts "  ✗ Error loading #{relative_path}" unless Rails.env.test?
+    raise exception
+  end
 end
+
+puts "Seeding complete in #{(Time.current - start).round(2)}s" unless Rails.env.test?
