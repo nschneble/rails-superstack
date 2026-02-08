@@ -1,19 +1,21 @@
 Typesense.configuration = {
   # Typesense Cloud configuration
-  # nodes: [{
-  #   host: "xxx.a1.typesense.net",
-  #   port: "443",
-  #   protocol: "https"
-  # }],
+  # host:     "xxx.a1.typesense.net"
+  # port:     "443"
+  # protocol: "https"
 
   # local machine / self-hosting configuration
+  # host:     "localhost"
+  # port:     "8108"
+  # protocol: "http"
+
   nodes: [ {
-    host: "localhost",
-    port: "8108",
-    protocol: "http"
+    host:     ENV.fetch("TYPESENSE_HOST",     "localhost"),
+    port:     ENV.fetch("TYPESENSE_PORT",     "8108"),
+    protocol: ENV.fetch("TYPESENSE_PROTOCOL", "http")
   } ],
 
-  api_key: "xyz",
+  api_key: ENV.fetch("TYPESENSE_API_KEY", "xyz"),
   connection_timeout_seconds: 2,
 
   # pagination support
