@@ -40,8 +40,15 @@ Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
 
 ```bash
 cd /path/to/your/repo
+
+# Builds everything, then starts up the dev server
 bin/setup
+
+# Only starts up the dev server
+bin/dev
 ```
+
+Open [localhost:3000](http://localhost:3000) in your web browser.
 
 ## Under the Hood
 

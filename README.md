@@ -93,14 +93,21 @@ cp .env.example .env
 Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
 
 ### Build and Run
-You can install dependencies, set up the database, run migrations – etc. etc. – or you can live on the wild side and just run the `setup` script:
+You can install dependencies, set up the database, run migrations – etc. etc. – or you can live on the wild side and run the `setup` script:
 
 ```bash
 cd /path/to/your/repo
 bin/setup
 ```
 
-That's it! Code away my sweet angelic butterfly.
+Done this song-and-dance before? If you just need to start up the development server, you can skip straight to the end and run the `dev` script:
+
+```bash
+cd /path/to/your/repo
+bin/dev
+```
+
+Open [localhost:3000](http://localhost:3000) in your web browser and you're good to go!
 
 ## What's in a Superstack, Exactly?
 
@@ -168,7 +175,7 @@ Rails Superstack has been preloaded and configured with the following:
 | `/notice`      | Example for flash notices              |
 | `/mac_guffins` | Items accessible by current user       |
 | `/secrets`     | A "secret" route behind a feature flag |
-| `/terminal`    | Lists useful Terminal commands         |
+| `/terminal`    | Lists useful terminal commands         |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
