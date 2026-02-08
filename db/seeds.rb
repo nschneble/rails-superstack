@@ -8,35 +8,23 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# seeds a user and admin
-user = User.find_or_create_by!(
-  email: "user@superstack.dev",
-  role: :user
-)
+puts "Seeding started…" unless Rails.env.test?
+start = Time.current
 
-admin = User.find_or_create_by!(
-  email: "admin@superstack.dev",
-  role: :admin
-)
+paths = [
+  "db/seeds/shared/**/*.rb",
+  "db/seeds/#{Rails.env}/**/*.rb"
+]
 
-# seeds a few MacGuffins
-MacGuffin.find_or_create_by!(
-  name: "Unobtainium",
-  description: "An ideal material that's impractically difficult or impossible to obtain.",
-  visibility: :open,
-  user: user
-)
+paths.each do |pattern|
+  Dir[Rails.root.join(pattern)].sort.each do |seed|
+    relative_path = Pathname.new(seed).relative_path_from(Rails.root)
+    puts "  ✓ Loading #{relative_path}" unless Rails.env.test?
+    load seed
+  rescue => exception
+    puts "  ✗ Error loading #{relative_path}" unless Rails.env.test?
+    raise exception
+  end
+end
 
-MacGuffin.find_or_create_by!(
-  name: "Letters of Transit",
-  description: "What you need to get out of Casablanca.",
-  visibility: :user,
-  user: user
-)
-
-MacGuffin.find_or_create_by!(
-  name: "The Infinity Stones",
-  description: "How else will you reshape the universe?",
-  visibility: :admin,
-  user: admin
-)
+puts "Seeding complete in #{(Time.current - start).round(2)}s" unless Rails.env.test?

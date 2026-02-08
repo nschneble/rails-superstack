@@ -1,0 +1,27 @@
+<%# Replace this page with your homepage content %>
+
+<%= content_tag :div,
+                class: "max-w-[650] m-0 sm:mx-auto sm:my-28 pt-8 pb-16 px-4 sm:px-20 bg-white sm:bg-slate-100 sm:shadow-xl sm:rounded-lg" do %>
+
+  <%= content_tag :h1,
+                  "Ready to get started?",
+                  class: "font-semibold text-3xl text-slate-800 tracking-tight" %>
+  <%= content_tag :hr,
+                  "",
+                  class: "mt-2 mb-4 text-slate-300" %>
+  <%= content_tag :p,
+                  "Replace this page with your homepage content! It lives at:",
+                  class: "text-slate-700" %>
+  <%= content_tag :pre,
+                  "app/views/application/root.html.erb",
+                  class: "mt-2 sm:mt-0 mb-4 text-blue-700 text-xs sm:text-lg" %>
+  <%= content_tag :p,
+                  "You can also check out the welcome page, which demonstrates many of the features of the superstack, and suggests a few next steps if you're unsure where to begin.",
+                  class: "mb-4 text-slate-700" %>
+
+  <% if respond_to?(:demo_welcome_path) %>
+    <%= link_to "Welcome Page w/ Next Steps",
+                demo_welcome_path,
+                class: "hover:text-blue-700 underline!" %>
+  <% end %>
+<% end %>

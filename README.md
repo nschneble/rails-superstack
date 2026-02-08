@@ -19,10 +19,15 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Gems and Resources](#gems-and-resources)
   - [Code Features](#code-features)
   - [Routes](#routes)
+    - [User Routes](#user-routes)
+	- [Admin Routes](#admin-routes)
+	- [Demo Routes](#demo-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
   - [Local CI](#local-ci)
+- [Ephemera](#ephemera)
+  - [Cleanup Script](#cleanup-script)
 - [Acknowledgements](#acknowledgements)
 
 ## Getting Started
@@ -90,14 +95,21 @@ cp .env.example .env
 Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
 
 ### Build and Run
-You can install dependencies, set up the database, run migrations – etc. etc. – or you can live on the wild side and just run the `setup` script:
+You can install dependencies, set up the database, run migrations – etc. etc. – or you can live on the wild side and run the `setup` script:
 
 ```bash
 cd /path/to/your/repo
 bin/setup
 ```
 
-That's it! Code away my sweet angelic butterfly.
+Done this song-and-dance before? If you just need to start up the development server, you can skip straight to the end and run the `dev` script:
+
+```bash
+cd /path/to/your/repo
+bin/dev
+```
+
+Open [localhost:3000](http://localhost:3000) in your web browser and you're good to go!
 
 ## What's in a Superstack, Exactly?
 
@@ -119,34 +131,53 @@ Rails Superstack has been preloaded and configured with the following:
 * [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 * [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
 * [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
+* [Pom Component](https://github.com/pom-io/pom-component) (view components)
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Code Features
-| Feature            | Description |
-| ------------------ | ----------- |
-| Abilities (Roles)  | [Ability](app/models/ability.rb) |
-| Models             | [User](app/models/user.rb), [MacGuffin](app/models/mac_guffin.rb) |
+
+| Feature            | Description                               |
+| ------------------ | ----------------------------------------- |
+| Abilities (Roles)  | [Ability](app/models/ability.rb)          |
+| Models             | [User](app/models/user.rb)                |
 | Helpers            | Text, web urls, forms, Font Awesome icons |
-| Normalizers        | Email addresses |
-| Validators         | Email addresses, web urls |
-| View Components    | Clipboard button, toast notifications, code snippets |
+| Normalizers        | Email addresses                           |
+| Validators         | Email addresses, web urls                 |
+| View Components    | Clipboard, flash alerts, code snippets    |
 
 ### Routes
-| Endpoint       | Description                              |
-| -------------- | ---------------------------------------- |
-| `/sign_in`     | Sign in as a new user                    |
-| `/sign_out`    | Sign out the current user                |
-| `/sent_mail`   | Preview sent mail in development         |
-| `/notice`      | Sample endpoint for notice notifications |
-| `/alert`       | Sample endpoint for alert notifications  |
-| `/admin`       | SuperAdmin dashboard                     |
-| `/flipper`     | Flipper feature flags                    |
-| `/resque`      | Resque jobs dashboard                    |
-| `/mac_guffins` | Items visible to the current user        |
-| `/profile`     | Change current user email                |
+
+#### User Routes
+
+| Endpoint     | Description                     |
+| ------------ | ------------------------------- |
+| `/sign_in`   | Sign in as a new user           |
+| `/sign_out`  | Sign out the current user       |
+| `/profile`   | Set current user email          |
+| `/sent_mail` | Preview sent mail (login codes) |
+
+#### Admin Routes
+
+| Endpoint   | Description           |
+| ---------- | --------------------- |
+| `/admin`   | SuperAdmin dashboard  |
+| `/flipper` | Flipper feature flags |
+| `/resque`  | Resque jobs           |
+
+#### Demo Routes
+(The [cleanup script](#cleanup-script) will remove these endpoints)
+
+| Endpoint       | Description                            |
+| -------------- | -------------------------------------- |
+| `/welcome`     | Starter page with helpful links        |
+| `/alert`       | Example for flash alerts               |
+| `/notice`      | Example for flash notices              |
+| `/mac_guffins` | Items accessible by current user       |
+| `/secrets`     | A "secret" route behind a feature flag |
+| `/terminal`    | Lists useful terminal commands         |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
@@ -172,6 +203,31 @@ bin/rspec
 cd /path/to/your/repo
 bin/ci
 ```
+
+## Ephemera
+
+### Cleanup Script
+Dislike the demo code with a passion? Easy! Burn it with 🔥 fire 🔥 by running the cleanup script:
+
+```bash
+cd /path/to/your/repo
+
+# Get help
+script/wipedemo.sh —help
+
+# Preview changes
+script/wipedemo.sh --dry-run
+
+# Run interactively
+script/wipedemo.sh
+
+# Run without prompts
+script/wipedemo.sh --no-confirmation
+```
+
+The script should remove all trace of demo code: assets, controllers, models, views, routes, seeds, factories, and specs.
+
+After the script runs successfully, it'll delete itself and you’ll be left with a pristine Superstack template.
 
 ## Acknowledgements
 The Rails Superstack logo was crafted from an illustration by [Muhammad Afandi](https://unsplash.com/@kertiaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/illustrations/three-stacked-geometric-shapes-on-white-background-VxU_akYKA8Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).

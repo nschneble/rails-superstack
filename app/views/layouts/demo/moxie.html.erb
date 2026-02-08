@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="w-full h-full">
+  <head>
+    <title><%= content_for(:title) || "Rails Superstack" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Rails Superstack">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <% if font_awesome_available? %>
+      <script src="<%= font_awesome_kit_src %>" crossorigin="anonymous"></script>
+    <% end %>
+  </head>
+
+  <body class="w-full h-full bg-slate-500">
+    <%= render "demo/shared/header" %>
+
+    <main class="container flex w-full h-full mx-auto overflow-hidden">
+      <%= yield %>
+    </main>
+
+    <%= render "demo/shared/footer" %>
+  </body>
+</html>

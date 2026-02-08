@@ -20,14 +20,13 @@ export default class extends Controller {
 			await navigator.clipboard.writeText(text.trim());
 
 			// checks if we should fallback to using emoji when Font Awesome is unavailable
-			console.log(`this.emojiFallbackValue=${this.emojiFallbackValue}`);
 			if (this.emojiFallbackValue) {
 				this._showCopiedEmojiIcon();
 			} else {
 				this._showCopiedFontAwesomeIcon();
 			}
 		} catch (error) {
-			console.error('Clipboard copy failed:', error);
+			console.error(`Could not copy to the clipboard: ${error}`);
 		}
 	}
 

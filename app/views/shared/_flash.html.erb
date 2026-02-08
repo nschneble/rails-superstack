@@ -1,14 +1,9 @@
-<div class="absolute top-14 left-1/2 transform -translate-x-1/2 w-3/4 sm:w-full max-w-[325] z-20">
+<div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
   <% flash.each do |type, message| %>
     <% next if message.blank? %>
 
-    <div class="relative flex justify-start items-center gap-x-2 mb-4 p-4 pr-8 <%= flash_message_colors(type) %> text-sm rounded shadow-lg opacity-0 -translate-y-4 transition-all duration-200" data-controller="flash" data-flash-timeout-value="10000" data-flash-duration-value="200">
-      <%= fa_stacked_icon(["square", flash_icon(type)], flash_icon_colors(type)) %>
-      <div class="w-full tracking-tight"><%= message %></div>
-
-      <button type="button" class="absolute top-0 right-0 text-slate-50/80 hover:text-slate-50/100 transform -translate-x-1/4 translate-y-1/4 cursor-pointer" aria-label="Dismiss" data-action="flash#dismiss">
-        <%= fas_icon("circle-xmark", "") %>
-      </button>
-    </div>
+    <%= pom_flash(variant: type.to_sym) do %>
+      <%= message %>
+    <% end %>
   <% end %>
 </div>

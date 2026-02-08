@@ -1,46 +1,27 @@
 Rails.application.routes.draw do
-  # returns 200 if the app boots with no exceptions
-  get "up" => "rails/health#show", as: :rails_health_check
+  Rails.logger.debug { "Loading routes…" }
+  start = Time.current
 
-  # preview emails in development
-  mount LetterOpenerWeb::Engine, at: "/sent_mail" if Rails.env.development?
+  paths = [
+    "config/routes/shared/**/*.rb",
+    "config/routes/#{Rails.env}/**/*.rb"
+  ]
 
-  # admin dashboard
-  mount SuperAdmin::Engine, at: "/admin"
+  paths.each do |pattern|
+    Dir[Rails.root.join(pattern)].sort.each do |path|
+      relative_path = Pathname.new(path).relative_path_from(Rails.root)
+      Rails.logger.debug { "  ✓ Loading routes from #{relative_path}" }
 
-  # feature flags
-  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
-    mount Flipper::UI.app(Flipper), at: "/flipper"
+      name = relative_path.sub("config/routes/", "").sub(".rb", "")
+      draw name
+    rescue => exception
+      Rails.logger.error { "  ✗ Error loading routes from #{relative_path}" }
+      raise exception
+    end
   end
-  match "/flipper(/*path)" => "not_authorized#denied", via: :all
 
-  # `secret_menu` feature flag
-  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? && Flipper.enabled?(:secret_menu, user) })) do
-    get SecureRandom.uuid => "application#secret", as: :secret_menu
-  end
+  # defines the root path route
+  root "application#root"
 
-  # background jobs
-  constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
-    mount Resque::Server.new, at: "/resque"
-  end
-  match "/resque(/*path)" => "not_authorized#denied", via: :all
-
-  # authentication
-  passwordless_for :users, at: "/", as: :auth, controller: "sessions"
-
-  # defines the root path route ("/")
-  root "application#welcome"
-
-  # tests flash notices
-  get "notice" => "flash#notice", as: :flash_notice
-  get "alert"  => "flash#alert",  as: :flash_alert
-
-  # models and resources
-  resources :mac_guffins, only: [ :index ]
-  resource :email_change, only: [ :create ]
-
-  # all other paths
-  get "email_change/confirm" => "email_changes#confirm", as: :confirm_email_change
-  get "profile" => "users#show", as: :user_profile
-  get "terminal_commands" => "application#terminal", as: :terminal_commands
+  Rails.logger.debug { "Loading complete in #{(Time.current - start).round(2)}s" }
 end

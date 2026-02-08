@@ -1,64 +1,48 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Ability do
-  def ability_for(user)
-    described_class.new(user)
+  it "initializes without errors" do
+    expect { described_class.new(nil) }.not_to raise_error
   end
 
-  let(:jake)     { create(:user) }
-  let(:santiago) { create(:user) }
-  let(:holt)     { create(:user, :admin) }
+  describe "MacGuffin rules" do
+    let!(:open_mac_guffin) { create(:mac_guffin, visibility: :open) }
+    let!(:user_mac_guffin) { create(:mac_guffin, :user) }
+    let!(:admin_mac_guffin) { create(:mac_guffin, :admin) }
 
-  let(:crown)  { create(:mac_guffin, visibility: :open,  user: jake) }
-  let(:plaque) { create(:mac_guffin, visibility: :user,  user: jake) }
-  let(:watch)  { create(:mac_guffin, visibility: :admin, user: holt) }
+    it "lets guests read open MacGuffins only" do
+      ability = described_class.new(nil)
+      visible_ids = Demo::MacGuffin.accessible_by(ability).pluck(:id)
 
-  describe "#read" do
-    it "allows anyone to view public MacGuffins" do
-      ability = ability_for(nil)
-      expect(ability.can?(:read, crown)).to be(true)
-      expect(ability.can?(:read, plaque)).to be(false)
-      expect(ability.can?(:read, watch)).to be(false)
+      expect(visible_ids).to contain_exactly(open_mac_guffin.id)
     end
 
-    it "allows logged-in users to view public and private MacGuffins" do
-      ability = ability_for(santiago)
-      expect(ability.can?(:read, crown)).to be(true)
-      expect(ability.can?(:read, plaque)).to be(true)
-      expect(ability.can?(:read, watch)).to be(false)
+    it "lets users read open and user MacGuffins" do
+      ability = described_class.new(create(:user))
+      visible_ids = Demo::MacGuffin.accessible_by(ability).pluck(:id)
+
+      expect(visible_ids).to include(open_mac_guffin.id, user_mac_guffin.id)
+      expect(visible_ids).not_to include(admin_mac_guffin.id)
     end
 
-    it "allows logged-in admins to view public, private, and secret MacGuffins" do
-      ability = ability_for(holt)
-      expect(ability.can?(:read, crown)).to be(true)
-      expect(ability.can?(:read, plaque)).to be(true)
-      expect(ability.can?(:read, watch)).to be(true)
-    end
-  end
+    it "lets users manage their own MacGuffins only" do
+      owner = create(:user)
+      own_mac_guffin = create(:mac_guffin, user: owner)
+      other_mac_guffin = create(:mac_guffin)
+      ability = described_class.new(owner)
 
-  describe "#manage" do
-    it "disallows anonymous users from managing any MacGuffins" do
-      ability = ability_for(nil)
-      expect(ability.can?(:manage, crown)).to be(false)
+      expect(ability.can?(:manage, own_mac_guffin)).to be(true)
+      expect(ability.can?(:manage, other_mac_guffin)).to be(false)
     end
 
-    it "allows logged-in users to manage their own MacGuffins" do
-      ability = ability_for(jake)
-      expect(ability.can?(:manage, crown)).to be(true)
-      expect(ability.can?(:manage, plaque)).to be(true)
-    end
+    it "lets admins manage any MacGuffin and read admin MacGuffins" do
+      ability = described_class.new(create(:user, :admin))
+      visible_ids = Demo::MacGuffin.accessible_by(ability).pluck(:id)
 
-    it "disallows logged-in users from managing other user's MacGuffins" do
-      ability = ability_for(santiago)
-      expect(ability.can?(:manage, crown)).to be(false)
-      expect(ability.can?(:manage, plaque)).to be(false)
-    end
-
-    it "allows logged-in admins to manage all MacGuffins" do
-      ability = ability_for(holt)
-      expect(ability.can?(:manage, crown)).to be(true)
-      expect(ability.can?(:manage, plaque)).to be(true)
-      expect(ability.can?(:manage, watch)).to be(true)
+      expect(visible_ids).to include(admin_mac_guffin.id)
+      expect(ability.can?(:manage, open_mac_guffin)).to be(true)
+      expect(ability.can?(:manage, user_mac_guffin)).to be(true)
+      expect(ability.can?(:manage, admin_mac_guffin)).to be(true)
     end
   end
 end

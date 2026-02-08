@@ -12,6 +12,8 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
   - [Routes](#routes)
+    - [User Routes](#user-routes)
+	- [Admin Routes](#admin-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
@@ -38,8 +40,15 @@ Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
 
 ```bash
 cd /path/to/your/repo
+
+# Builds everything, then starts up the dev server
 bin/setup
+
+# Only starts up the dev server
+bin/dev
 ```
+
+Open [localhost:3000](http://localhost:3000) in your web browser.
 
 ## Under the Hood
 
@@ -57,19 +66,30 @@ bin/setup
 * [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 * [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
 * [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
+* [Pom Component](https://github.com/pom-io/pom-component) (view components)
 * [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
 
 ### Routes
-| Endpoint    | Description               |
-| ----------- | ------------------------- |
-| `/sign_in`  | Sign in as a new user     |
-| `/sign_out` | Sign out the current user |
-| `/admin`    | SuperAdmin dashboard      |
-| `/flipper`  | Flipper feature flags     |
-| `/resque`   | Resque jobs dashboard     |
+
+#### User Routes
+
+| Endpoint     | Description                     |
+| ------------ | ------------------------------- |
+| `/sign_in`   | Sign in as a new user           |
+| `/sign_out`  | Sign out the current user       |
+| `/profile`   | Set current user email          |
+| `/sent_mail` | Preview sent mail (login codes) |
+
+#### Admin Routes
+
+| Endpoint    | Description           |
+| ----------- | --------------------- |
+| `/admin`    | SuperAdmin dashboard  |
+| `/flipper`  | Flipper feature flags |
+| `/resque`   | Resque jobs           |
 
 ## Linting, Testing, and CI
 

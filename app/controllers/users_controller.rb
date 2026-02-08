@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     if @request.present?
-      flash.notice = "We've sent a confirmation link to #{@request.new_email}"
+      flash.notice = t("email.confirmation.link_sent", new_email: @request.new_email)
       flash.discard
     end
   end

@@ -10,7 +10,7 @@ CI.run do
   step "Lint code for consistent style", "bin/rubocop"
   step "Run RSpec tests", "bin/rspec"
 
-  # seeds are idempotent
+  # seeds should be idempotent
   step "Check for bad seeds", "env RAILS_ENV=development bin/rails db:seed"
 
   if success?
