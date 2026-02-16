@@ -1,0 +1,25 @@
+<div class="w-full my-28">
+  <%= form_with(url: email_change_path, data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+    <%= content_tag(:h1, t("user_profile.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+
+    <%= f.label :new_email, t("user_profile.email.label") %>
+    <%= f.email_field :new_email,
+                      placeholder: t("user_profile.email.placeholder"),
+                      value: @request.present? ? @request.new_email : current_user.email,
+                      required: true,
+                      autofocus: true,
+                      disabled: @request.present?,
+                      data: {
+                        action: "input->email#toggle",
+                        "email-current-email-param": current_user.email,
+                        "email-target": "input"
+                      } %>
+
+    <%= f.submit t("user_profile.submit"),
+                 disabled: true,
+                 data: {
+                  action: "click->email#submit",
+                  "email-target": "button"
+                 } %>
+  <% end %>
+</div>
