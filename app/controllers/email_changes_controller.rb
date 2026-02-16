@@ -16,7 +16,7 @@ class EmailChangesController < ApplicationController
     end
   end
 
-  def confirm
+  def update
     request = EmailChangeRequest.find_by!(token: params[:token])
     if request.expired?
       request.destroy
