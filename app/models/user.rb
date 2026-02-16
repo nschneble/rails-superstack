@@ -6,6 +6,15 @@ class User < ApplicationRecord
 
   typesense enqueue: :index_async do
     attributes :email
+    default_sorting_field "email"
+
+    predefined_fields [
+      {
+        "name" => "email",
+        "type" => "string",
+        "sort" => true
+      }
+    ]
   end
 
   has_many :email_change_requests, dependent: :destroy
