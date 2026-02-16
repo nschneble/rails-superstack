@@ -3,6 +3,12 @@
     <p class="mx-4 sm:mx-0 mt-2 text-sm text-amber-200">Search index isn't ready. Run <code>bin/rails typesense:reindex</code>.</p>
   <% end %>
 
+  <% if @pagy.pages > 1 %>
+    <div class="mx-4 sm:mx-0 mt-4 mb-4 flex justify-center">
+      <%== @pagy.series_nav %>
+    </div>
+  <% end %>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-4 mx-4 sm:mx-0">
     <% @mac_guffins.each_with_index do |mac_guffin, index| %>
       <div class="flex group bg-white text-slate-900 shadow-slate-600 shadow-xl rounded-md hover:no-underline! focus:outline-hidden focus:ring-2 focus:ring-amber-400">
@@ -27,9 +33,8 @@
   <% if @mac_guffins.empty? %>
     <p class="mx-4 sm:mx-0 mt-8 text-sm text-center text-white italic">No MacGuffins matched your search</p>
   <% elsif @pagy.pages > 1 %>
-    <div class="mx-4 sm:mx-0 mt-8">
+    <div class="mx-4 sm:mx-0 mt-4 flex justify-center">
       <%== @pagy.series_nav %>
-      <%== @pagy.info_tag(item_name: "MacGuffins") %>
     </div>
   <% end %>
 <% end %>
