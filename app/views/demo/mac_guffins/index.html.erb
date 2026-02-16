@@ -1,0 +1,27 @@
+<div class="w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll">
+  <div class="max-w-[650] mx-auto">
+    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">MacGuffins</h1>
+
+    <div class="mx-4 sm:mx-0 mb-4">
+      <%= form_with url: demo_mac_guffins_path,
+                    method: :get,
+                    data: {
+                      controller: "search-form",
+                      turbo_frame: "mac-guffin-search"
+                    },
+                    class: "relative" do %>
+
+        <input id="mac-guffin-search"
+               type="search"
+               name="q"
+               value="<%= params[:q].presence %>"
+               placeholder="Search by name or description"
+               autocomplete="off"
+               class="w-full px-3 py-2 bg-white text-slate-900 border border-slate-300 rounded-md shadow-md focus:outline-hidden focus:ring-2 focus:ring-amber-400"
+               data-action="input->search-form#submit">
+      <% end %>
+    </div>
+
+    <%= render "search" %>
+  </div>
+</div>
