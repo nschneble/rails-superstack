@@ -15,7 +15,7 @@ module Demo
 
     def call
       link_to path, **html_options do
-        safe_join([helpers.fas_icon(icon), content_tag(:span, label || content)])
+        safe_join([ helpers.fas_icon(icon), content_tag(:span, label || content) ])
       end
     end
 
