@@ -1,3 +1,3 @@
 namespace :demo do
-  resources :mac_guffins, only: [ :index, :show ]
+  resources :mac_guffins, only: [ :index ]
 end
