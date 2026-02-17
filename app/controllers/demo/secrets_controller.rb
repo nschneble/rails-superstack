@@ -1,5 +1,4 @@
-module Demo
-  class SecretsController < ApplicationController
+  class Demo::SecretsController < ApplicationController
     layout "demo/moxie"
 
     # app/views/demo/secrets.html.erb
@@ -10,4 +9,3 @@ module Demo
         %(No route matches [#{request.request_method}] "#{request.path}")
     end
   end
-end
