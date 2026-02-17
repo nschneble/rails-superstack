@@ -81,6 +81,9 @@ gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
 gem "pagy", "~> 43.2"
 
+# A fresh, new GraphQL server designed for Rails [https://github.com/virtualshield/rails-graphql]
+gem "rails-graphql"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
