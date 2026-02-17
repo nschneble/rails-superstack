@@ -41,9 +41,11 @@ Clone the new repo to your local machine, and you're done! (I suppose that's _te
 ### Prerequisites
 With your shiny new repo in hand, here's what you need to get cooking:
 
-* PostgreSQL 14.20
-* Ruby 3.4.7
 * [Bundler](https://bundler.io/) 2.7.2
+* PostgreSQL 18.1
+* Redis 8.4.1
+* Ruby 3.4.7
+* Typesense 30.1
 
 I'd personally recommend [Homebrew](https://brew.sh) and [rbenv](https://rbenv.org) to install these prerequisites:
 
@@ -52,7 +54,11 @@ cd /path/to/your/repo
 
 # Install Homebrew + Postgres
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install postgresql@14
+brew install postgresql@18
+
+# Install Redis + Typesense
+brew install redis
+brew install typesense/tap/typesense-server@30.1
 
 # Install rbenv + Ruby
 curl -fsSL https://rbenv.org/install.sh | bash
@@ -60,6 +66,11 @@ rbenv install 3.4.7
 
 # Install Bundler
 gem install bundler -v 2.7.2
+
+# start up the services
+brew services start postgresql@18
+brew services start redis
+brew services start typesense-server@30.1
 ```
 ### Run Rename Script
 Unless you want your app to be called "Rails Superstack", you'll probably want to run this script:
@@ -136,6 +147,7 @@ Rails Superstack has been preloaded and configured with the following:
 * [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
+* [Typesense](https://github.com/typesense/typesense-rails) + [Pagy](https://github.com/ddnexus/pagy) (search + pagination)
 
 ### Code Features
 
@@ -170,14 +182,14 @@ Rails Superstack has been preloaded and configured with the following:
 #### Demo Routes
 (The [cleanup script](#cleanup-script) will remove these endpoints)
 
-| Endpoint       | Description                            |
-| -------------- | -------------------------------------- |
-| `/welcome`     | Starter page with helpful links        |
-| `/alert`       | Example for flash alerts               |
-| `/notice`      | Example for flash notices              |
-| `/mac_guffins` | Items accessible by current user       |
-| `/secrets`     | A "secret" route behind a feature flag |
-| `/terminal`    | Lists useful terminal commands         |
+| Endpoint            | Description                            |
+| ------------------- | -------------------------------------- |
+| `/demo/welcome`     | Starter page with helpful links        |
+| `/demo/alert`       | Example for flash alerts               |
+| `/demo/notice`      | Example for flash notices              |
+| `/demo/mac_guffins` | Items accessible by current user       |
+| `/demo/secrets`     | A "secret" route behind a feature flag |
+| `/demo/terminal`    | Lists useful terminal commands         |
 
 ## Linting, Testing, and CI
 There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.

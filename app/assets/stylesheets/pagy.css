@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+.pagy {
+  --text: var(--color-white);
+  --text-muted: var(--color-slate-300);
+  --text-hover: var(--color-slate-600);
+  --text-current: var(--color-slate-900);
+  --background: var(--color-slate-900);
+  --background-hover: var(--color-amber-200);
+  --background-current: var(--color-amber-400);
+  --border-color: transparent;
+  --ring-color: transparent;
+  --spacing: 0.25rem;
+  --padding: 1.25rem;
+  --rounding: 8px;
+  --border-width: 0;
+  --font-size: 0.875rem;
+  --font-weight: 600;
+  --line-height: 1.5;
+
+  color: var(--text);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  font-weight: var(--font-weight);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pagy > :not([hidden]) ~ :not([hidden]) {
+  margin-inline-start: var(--spacing);
+}
+
+.pagy a:not([role="separator"]) {
+  display: block;
+  text-decoration: none;
+  background-color: var(--background);
+  padding: calc(var(--padding) * 0.4) var(--padding);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--rounding);
+  color: inherit;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.pagy a[href]:hover {
+  background-color: var(--background-hover);
+  color: var(--text-hover);
+}
+
+.pagy a:not([href]) {
+  cursor: default;
+}
+
+.pagy a[role="link"]:not([aria-current]) {
+  opacity: 0.5;
+}
+
+.pagy a[aria-current] {
+  background-color: var(--background-current);
+  color: var(--text-current);
+}
+
+.pagy.series-nav > a:first-child,
+.pagy.series-nav > a:last-child {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: 0;
+}
+
+.pagy.series-nav > a:first-child::before,
+.pagy.series-nav > a:last-child::before {
+  font-family: "Font Awesome 7 Free";
+  font-weight: 900;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.pagy.series-nav > a:first-child::before {
+  content: "\f053";
+}
+
+.pagy.series-nav > a:last-child::before {
+  content: "\f054";
+}

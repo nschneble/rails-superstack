@@ -72,8 +72,14 @@ gem "flipper-ui"
 gem "resque"
 gem "resque-scheduler"
 
-#  Base component for building ViewComponents [https://github.com/pom-io/pom-component]
+# Base component for building ViewComponents [https://github.com/pom-io/pom-component]
 gem "pom-component"
+
+# Cutting-edge, in-memory search engine for mere mortals [https://github.com/typesense/typesense-rails]
+gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
+
+# The best pagination Ruby gem [https://github.com/ddnexus/pagy]
+gem "pagy", "~> 43.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

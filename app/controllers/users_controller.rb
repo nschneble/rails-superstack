@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :check_for_email_change_request
 
-  def show
+  def me
     if @request.present?
       flash.notice = t("email.confirmation.link_sent", new_email: @request.new_email)
       flash.discard

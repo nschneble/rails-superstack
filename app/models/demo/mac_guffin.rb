@@ -1,5 +1,26 @@
 module Demo
   class MacGuffin < ApplicationRecord
+    include Indexable
+    include Typesense
+
+    typesense enqueue: :index_async do
+      attributes :name, :description
+      default_sorting_field "name"
+
+      predefined_fields [
+        {
+          "name" => "name",
+          "type" => "string",
+          "sort" => true
+        },
+        {
+          "name" => "description",
+          "type" => "string",
+          "optional" => true
+        }
+      ]
+    end
+
     belongs_to :user
 
     validates :name, presence: true

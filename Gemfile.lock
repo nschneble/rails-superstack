@@ -4,6 +4,15 @@ GIT
   specs:
     gravatar_image_tag (1.2.0)
 
+GIT
+  remote: https://github.com/typesense/typesense-rails.git
+  revision: ab7308e1debd4e88c222a53b36060c47aeaa919d
+  tag: v1.0.0.rc5
+  specs:
+    typesense-rails (1.0.0.rc5)
+      json (>= 1.5.1)
+      typesense (>= 0.13.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,6 +140,8 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
+    ethon (0.15.0)
+      ffi (>= 1.15.0)
     factory_bot (6.5.6)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
@@ -267,6 +278,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-linux-musl)
       racc (~> 1.4)
+    oj (3.16.15)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     ostruct (0.6.3)
     pagy (43.2.9)
       json
@@ -516,6 +530,11 @@ GEM
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    typesense (2.1.0)
+      oj (~> 3.16)
+      typhoeus (~> 1.4)
+    typhoeus (1.5.0)
+      ethon (>= 0.9.0, < 0.16.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -546,6 +565,7 @@ PLATFORMS
   aarch64-linux
   aarch64-linux-gnu
   aarch64-linux-musl
+  arm-linux
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin-25
@@ -574,6 +594,7 @@ DEPENDENCIES
   letter_opener
   letter_opener_web (~> 3.0)
   log_bench
+  pagy (~> 43.2)
   passwordless
   pg (~> 1.1)
   pom-component
@@ -596,6 +617,7 @@ DEPENDENCIES
   tailwindcss-rails
   thruster
   turbo-rails
+  typesense-rails!
   tzinfo-data
   web-console
 

@@ -14,7 +14,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     it "renders the body" do
       expect(mail.body.encoded).to include("Click here to confirm your new email address:")
-      expect(mail.body.encoded).to include(confirm_email_change_url(token: request.token))
+      expect(mail.body.encoded).to include(email_change_url(token: request.token))
       expect(mail.body.encoded).to include("This link is valid for the next 10 minutes.")
     end
   end

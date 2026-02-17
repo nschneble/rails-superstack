@@ -29,19 +29,15 @@
             Navigation
           </div>
 
-          <%= render "demo/shared/menu_item", path: demo_welcome_path, icon: "house", text: "Home" %>
-          <%= render "demo/shared/menu_item", path: demo_mac_guffins_path, icon: "trophy", text: "MacGuffins" %>
+          <%= render Demo::MenuItemComponent.new(path: demo_welcome_path, icon: "house", label: "Home") %>
+          <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
 
           <% if current_user %>
-            <%= render "demo/shared/menu_item", path: user_profile_path, icon: "user", text: "User Profile" %>
+            <%= render Demo::MenuItemComponent.new(path: user_profile_path, icon: "user", label: "User Profile") %>
           <% end %>
 
           <% if Flipper.enabled?(:secrets, current_user) %>
-            <%= render "demo/shared/menu_item",
-                       item_classes: "flex items-center gap-2 px-4 py-2 text-sm text-pink-600 hover:bg-pink-100 hover:no-underline!",
-                       path: demo_secrets_path,
-                       icon: "user-secret",
-                       text: "Secrets" %>
+            <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secrets") %>
           <% end %>
 
           <div class="my-2 border-t border-slate-300"></div>
@@ -51,9 +47,9 @@
               Admin
             </div>
 
-            <%= render "demo/shared/menu_item", path: admin_path, icon: "user-shield", text: "Admin Dashboard" %>
-            <%= render "demo/shared/menu_item", path: resque_path, icon: "life-ring", text: "Background Jobs" %>
-            <%= render "demo/shared/menu_item", path: flipper_path, icon: "fish-fins", text: "Feature Flags" %>
+            <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "Admin Dashboard") %>
+            <%= render Demo::MenuItemComponent.new(path: resque_path, icon: "life-ring", label: "Background Jobs") %>
+            <%= render Demo::MenuItemComponent.new(path: flipper_path, icon: "fish-fins", label: "Feature Flags") %>
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>
@@ -62,20 +58,20 @@
             Resources
           </div>
 
-          <%= render "demo/shared/menu_item", path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", text: "Project README" %>
+          <%= render Demo::MenuItemComponent.new(path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", label: "Project README") %>
 
           <% if Rails.env.development? %>
-            <%= render "demo/shared/menu_item", path: letter_opener_path, icon: "paper-plane", text: "Sent Mail" %>
+            <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") %>
           <% end %>
 
-          <%= render "demo/shared/menu_item", path: demo_terminal_path, icon: "terminal", text: "Terminal Commands" %>
+          <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Commands") %>
 
           <div class="my-2 border-t border-slate-300"></div>
 
           <% if current_user %>
-            <%= render "demo/shared/menu_item", path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", text: "Sign out" %>
+            <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign out") %>
           <% else %>
-            <%= render "demo/shared/menu_item", path: auth_sign_in_path, icon: "person-walking-arrow-right", text: "Sign in" %>
+            <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign in") %>
           <% end %>
         </div>
       </div>
