@@ -11,8 +11,8 @@ RSpec.describe "GraphQL queries", type: :request do
       expect(response).to have_http_status(:ok)
       expect(parsed_body.dig("data", "users")).to eq(
         [
-          { "id" => user_1.id.to_s, "email" => user_1.email, "role" => user_1.role },
-          { "id" => user_2.id.to_s, "email" => user_2.email, "role" => user_2.role }
+          { id: user_a.id.to_s, email: user_a.email, role: user_a.role },
+          { id: user_b.id.to_s, email: user_b.email, role: user_b.role }
         ]
       )
     end

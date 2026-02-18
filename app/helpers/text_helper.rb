@@ -10,13 +10,13 @@ module TextHelper
   ]
 
   COLOR_CLASSES = {
-    "red"    => { "500" => "text-red-500"    },
-    "orange" => { "500" => "text-orange-500" },
-    "yellow" => { "500" => "text-yellow-500" },
-    "green"  => { "500" => "text-green-500"  },
-    "blue"   => { "500" => "text-blue-500"   },
-    "indigo" => { "500" => "text-indigo-500" },
-    "violet" => { "500" => "text-violet-500" }
+    red:    { 500: "text-red-500"    },
+    orange: { 500: "text-orange-500" },
+    yellow: { 500: "text-yellow-500" },
+    green:  { 500: "text-green-500"  },
+    blue:   { 500: "text-blue-500"   },
+    indigo: { 500: "text-indigo-500" },
+    violet: { 500: "text-violet-500" }
   }
 
   def c(text, color, shade = "500")

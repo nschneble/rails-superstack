@@ -10,9 +10,9 @@ class User < ApplicationRecord
 
     predefined_fields [
       {
-        "name" => "email",
-        "type" => "string",
-        "sort" => true
+        name: "email",
+        type: "string",
+        sort: true
       }
     ]
   end

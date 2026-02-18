@@ -13,16 +13,16 @@ RSpec.describe "GraphQL queries", type: :request do
       expect(parsed_body.dig("data", "macGuffins")).to eq(
         [
           {
-            "id" => mac_guffin_1.id.to_s,
-            "name" => mac_guffin_1.name,
-            "visibility" => mac_guffin_1.visibility,
-            "userId" => user.id.to_s
+            id:         mac_guffin_a.id.to_s,
+            name:       mac_guffin_a.name,
+            visibility: mac_guffin_a.visibility,
+            userId:     user.id.to_s
           },
           {
-            "id" => mac_guffin_2.id.to_s,
-            "name" => mac_guffin_2.name,
-            "visibility" => mac_guffin_2.visibility,
-            "userId" => user.id.to_s
+            id:         mac_guffin_b.id.to_s,
+            name:       mac_guffin_b.name,
+            visibility: mac_guffin_b.visibility,
+            userId:     user.id.to_s
           }
         ]
       )

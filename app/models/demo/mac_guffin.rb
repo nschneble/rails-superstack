@@ -8,14 +8,14 @@ class Demo::MacGuffin < ApplicationRecord
 
     predefined_fields [
       {
-        "name" => "name",
-        "type" => "string",
-        "sort" => true
+        name: "name",
+        type: "string",
+        sort: true
       },
       {
-        "name" => "description",
-        "type" => "string",
-        "optional" => true
+        name: "description",
+        type: "string",
+        optional: true
       }
     ]
   end
