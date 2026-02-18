@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GraphQL::UsersController < ApplicationController
   include Rails::GraphQL::Controller
 

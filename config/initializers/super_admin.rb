@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 SuperAdmin.configure do |config|
   # Maximum depth for nested associations when displaying resources
   # config.max_nested_depth = 2

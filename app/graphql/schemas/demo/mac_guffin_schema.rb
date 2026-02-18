@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GraphQL::Schemas::Demo::MacGuffinSchema < GraphQL::Schema
   namespace :demo_mac_guffins
 

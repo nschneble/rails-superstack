@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GraphQL::Schemas::UserSchema < GraphQL::Schema
   namespace :users
 

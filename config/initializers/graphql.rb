@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails::GraphQL.configure do |config|
   # This helps to keep track of when things were cached and registered. Cached
   # objects with mismatching versions need to be upgraded or simply reloaded.
