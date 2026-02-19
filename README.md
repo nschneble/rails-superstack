@@ -148,6 +148,7 @@ Rails Superstack has been preloaded and configured with the following:
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
 * [Typesense](https://github.com/typesense/typesense-rails) + [Pagy](https://github.com/ddnexus/pagy) (search + pagination)
+* [GraphQL](https://github.com/virtualshield/rails-graphql) (API)
 
 ### Code Features
 

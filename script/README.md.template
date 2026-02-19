@@ -75,6 +75,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 * [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
 * [Resque](https://github.com/resque/resque) (background jobs)
 * [Typesense](https://github.com/typesense/typesense-rails) + [Pagy](https://github.com/ddnexus/pagy) (search + pagination)
+* [GraphQL](https://github.com/virtualshield/rails-graphql) (API)
 
 ### Routes
 
