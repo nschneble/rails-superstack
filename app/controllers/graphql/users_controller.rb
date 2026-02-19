@@ -1,7 +1,7 @@
-class GraphQL::UsersController < ApplicationController
-  include Rails::GraphQL::Controller
+module GraphQL
+  class UsersController < ApiController
+    self.gql_schema = "GraphQL::Schemas::UserSchema"
 
-  self.gql_schema = "GraphQL::Schemas::UserSchema"
-
-  skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
+  end
 end

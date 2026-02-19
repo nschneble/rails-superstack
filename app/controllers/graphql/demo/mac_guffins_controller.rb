@@ -1,7 +1,7 @@
-class GraphQL::Demo::MacGuffinsController < ApplicationController
-  include Rails::GraphQL::Controller
+module GraphQL
+  class Demo::MacGuffinsController < ApiController
+    self.gql_schema = "GraphQL::Schemas::Demo::MacGuffinSchema"
 
-  self.gql_schema = "GraphQL::Schemas::Demo::MacGuffinSchema"
-
-  skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
+  end
 end
