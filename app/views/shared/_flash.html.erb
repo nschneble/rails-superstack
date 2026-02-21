@@ -6,4 +6,10 @@
       <%= message %>
     <% end %>
   <% end %>
+
+  <% Array(@toast_notifications).each do |notification| %>
+    <%= pom_flash(variant: :notice) do %>
+      <%= notification.message %>
+    <% end %>
+  <% end %>
 </div>

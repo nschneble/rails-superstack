@@ -28,6 +28,10 @@
 #       enabled: "ON"
 
 en:
+  notifiers:
+    like_notifier:
+      notification:
+        message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\""
   api:
     authentication:
       unauthorized: "Unauthorized"
@@ -104,6 +108,13 @@ en:
 
           Did you know:
           %{fun_fact}?
+      mac_guffin_liked:
+        subject: "%{actor_email} liked your MacGuffin"
+        body: |-
+          %{actor_email} liked your MacGuffin "%{mac_guffin_name}".
+
+          View MacGuffins:
+          %{mac_guffins_url}
   verification_code:
     title: "Enter your verification code"
     placeholder: "e.g. ABCDEF"

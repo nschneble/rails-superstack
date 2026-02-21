@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Method
 
   before_action :set_search_query
+  before_action :set_notification_toasts
 
   rescue_from User::NotAuthorized, with: :deny_access
 
@@ -24,6 +25,16 @@ class ApplicationController < ActionController::Base
 
   def set_search_query
     @query ||= params[:q].presence || "*"
+  end
+
+  def set_notification_toasts
+    @toast_notifications = []
+
+    if current_user
+      unread_notifications = current_user.notifications.unread.newest_first.limit(3)
+      @toast_notifications = unread_notifications.to_a
+      unread_notifications.mark_as_read if @toast_notifications.any?
+    end
   end
 
   def deny_access
