@@ -12,4 +12,10 @@
       <%= notification.message %>
     <% end %>
   <% end %>
+
+  <% if @system_notification_toast.present? %>
+    <%= pom_flash(variant: :notice) do %>
+      <%= @system_notification_toast %>
+    <% end %>
+  <% end %>
 </div>

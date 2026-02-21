@@ -50,6 +50,7 @@
             <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "Admin Dashboard") %>
             <%= render Demo::MenuItemComponent.new(path: resque_path, icon: "life-ring", label: "Background Jobs") %>
             <%= render Demo::MenuItemComponent.new(path: flipper_path, icon: "fish-fins", label: "Feature Flags") %>
+            <%= render Demo::MenuItemComponent.new(path: demo_system_notifications_path, icon: "bell", label: "System Notifications") if respond_to?(:demo_system_notifications_path) %>
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>

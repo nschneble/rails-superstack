@@ -35,6 +35,16 @@ class ApplicationController < ActionController::Base
       @toast_notifications = unread_notifications.to_a
       unread_notifications.mark_as_read if @toast_notifications.any?
     end
+
+    latest_system_notification = SystemNotificationNotifier.newest_first.first
+    return unless latest_system_notification
+    return if cookies.signed[:last_system_notification_id].to_i == latest_system_notification.id
+
+    @system_notification_toast = latest_system_notification.params[:message]
+    cookies.signed[:last_system_notification_id] = {
+      value: latest_system_notification.id,
+      expires: 1.year.from_now
+    }
   end
 
   def deny_access
