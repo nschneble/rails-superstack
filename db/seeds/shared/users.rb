@@ -9,13 +9,19 @@
 #   end
 
 # standard user
-user = User.find_or_create_by!(
+User.find_or_create_by!(
   email: "user@superstack.dev",
   role: :user
 )
 
+# used by default to access GraphQL API queries
+User.find_or_create_by!(
+  email: "api@superstack.dev",
+  role: :user
+)
+
 # used to access SuperAdmin, Flipper, and Resque
-admin = User.find_or_create_by!(
+User.find_or_create_by!(
   email: "admin@superstack.dev",
   role: :admin
 )

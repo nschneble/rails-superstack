@@ -8,6 +8,8 @@ class GraphQL::Schemas::UserSchema < GraphQL::Schema
   end
 
   query_fields do
-    field(:users, "User", array: true, null: false).resolve { ::User.order(:id) }
+    field(:users, "User", array: true, null: false) .resolve {
+      ::User.accessible_by(request.controller.current_ability).order(:id)
+    }
   end
 end

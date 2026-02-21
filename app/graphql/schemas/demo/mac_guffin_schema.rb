@@ -10,7 +10,8 @@ class GraphQL::Schemas::Demo::MacGuffinSchema < GraphQL::Schema
   end
 
   query_fields do
-    field(:mac_guffins, "MacGuffin", array: true, null: false)
-      .resolve { ::Demo::MacGuffin.order(:id) }
+    field(:mac_guffins, "MacGuffin", array: true, null: false).resolve {
+      ::Demo::MacGuffin.accessible_by(request.controller.current_ability).order(:id)
+    }
   end
 end
