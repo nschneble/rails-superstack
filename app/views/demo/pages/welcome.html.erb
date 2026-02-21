@@ -15,8 +15,12 @@
       </li>
       <li>
         <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
-        Check out <%= link_to "MacGuffins", demo_mac_guffins_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules</span>
+        Search <%= link_to "MacGuffins", demo_mac_guffins_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules</span>
         <p class="ml-12 text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
+      </li>
+      <li>
+        <%= fa_stacked_icon(["square", "share-nodes"], ["text-lime-500", "text-white"]) %>
+        <%= link_to "Make API calls", demo_api_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://rails-graphql.dev">Rails GraphQL</a></span>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "user-shield"], ["text-lime-500", "text-white"]) %>
@@ -24,7 +28,7 @@
       </li>
       <li>
         <%= fa_stacked_icon(["square", "fish-fins"], ["text-lime-500", "text-white"]) %>
-        Enable <%= link_to "feature flags", flipper_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/flippercloud/flipper">Flipper</a></span>
+        Enable <%= link_to "feature flags", flipper_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://www.flippercloud.io">Flipper</a></span>
         <p class="ml-12 text-sm italic">You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to access feature flags
       </li>
     </ul>

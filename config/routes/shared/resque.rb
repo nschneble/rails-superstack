@@ -4,4 +4,4 @@ constraints(Passwordless::Constraint.new(User, if: ->(user) { user.admin? })) do
 end
 
 # denies access to anonymous and non-admin users
-match "/resque(/*path)" => "not_authorized#denied", via: :all
+match "/resque(/*path)", to: "not_authorized#denied", via: :all

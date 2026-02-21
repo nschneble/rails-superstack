@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateSuperAdminAuditLogs < ActiveRecord::Migration[7.1]
   def change
     return if table_exists?(:super_admin_audit_logs)

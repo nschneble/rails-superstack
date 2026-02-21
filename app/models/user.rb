@@ -10,13 +10,14 @@ class User < ApplicationRecord
 
     predefined_fields [
       {
-        "name" => "email",
-        "type" => "string",
-        "sort" => true
+        name: "email",
+        type: "string",
+        sort: true
       }
     ]
   end
 
+  has_many :api_tokens, dependent: :destroy
   has_many :email_change_requests, dependent: :destroy
 
   normalizes        :email, with: EmailNormalizer

@@ -1,5 +1,4 @@
-module Pom
-  class FlashComponent < Pom::Component
+  class Pom::FlashComponent < Pom::Component
     option :variant, enums: [ :alert, :notice ], default: :notice
     option :size, enums: [ :md ], default: :md
 
@@ -25,4 +24,3 @@ module Pom
       }
     end
   end
-end

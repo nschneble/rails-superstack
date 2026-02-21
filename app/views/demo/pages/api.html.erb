@@ -1,0 +1,68 @@
+<div class="w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll">
+  <div class="max-w-[650] mx-auto">
+    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">GraphQL API</h1>
+    <ul class="flex flex-col gap-y-3 list-none ml-2">
+      <li>
+        <%= fa_stacked_icon(["square", "heart-pulse"], ["text-lime-500", "text-white"]) %>
+        Health Check
+        <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+          <pre class="p-2 pr-[42] text-sm truncate">
+            <span class="text-white select-none">POST </span>
+            <span>
+              /graphql/health<br><br>
+              Content Type: application/json<br>
+              Payload Data: { query: { apiHealth { status } } }<br><br>
+              200 Response:<br>
+              { data: { apiHealth: { status: "ok" } } }
+            </span>
+          </pre>
+          <%= pom_copy_to_clipboard(align: :right, text: "curl -s -H 'Content-Type: application/json' -X POST http://localhost:3000/graphql/health -d '{\"query\":\"{ apiHealth { status } }\"}' | jq") %>
+        </div>
+      </li>
+      <li>
+        <%= fa_stacked_icon(["square", "users"], ["text-lime-500", "text-white"]) %>
+        Users
+        <p class="ml-12 text-sm italic">Requires <span class="text-amber-200 font-semibold">authentication</span>
+        <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+          <pre class="p-2 pr-[42] text-sm truncate">
+            <span class="text-white select-none">POST </span>
+            <span>
+              /graphql<br><br>
+              Authorization: Bearer TOKEN<br>
+              Content Type: &nbsp;application/json<br>
+              Payload Data: &nbsp;{ query: { users { id email } } }<br><br>
+              200 Response:<br>
+              { data: { users: [<br>
+              &nbsp;&nbsp;{ id: 1, email: "user@superstack.dev" },<br>
+              &nbsp;&nbsp;{ id: 2, email: "api@superstack.dev" }<br>
+              ] } }
+            </span>
+          </pre>
+          <%= pom_copy_to_clipboard(align: :right, text: "bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' -H 'Authorization: %' -X POST http://localhost:3000/graphql -d '{\"query\":\"{ users { id email role } }\"}' | jq") %>
+        </div>
+      </li>
+      <li>
+        <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
+        MacGuffins
+        <p class="ml-12 text-sm italic">Requires <span class="text-amber-200 font-semibold">authentication</span>
+        <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+          <pre class="p-2 pr-[42] text-sm truncate">
+            <span class="text-white select-none">POST </span>
+            <span>
+              /demo/graphql<br><br>
+              Authorization: Bearer TOKEN<br>
+              Content-Type: &nbsp;application/json<br>
+              Payload Data: &nbsp;{ query: { macGuffins { id name } } }<br><br>
+              200 Response:<br>
+              { data: { macGuffins: [<br>
+              &nbsp;&nbsp;{ id: 1, name: "Unobtainium" },<br>
+              &nbsp;&nbsp;{ id: 2, name: "The Holy Grail" }<br>
+              ] } }
+            </span>
+          </pre>
+          <%= pom_copy_to_clipboard(align: :right, text: "bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' -H 'Authorization: %' -X POST http://localhost:3000/demo/graphql -d '{\"query\":\"{ macGuffins { id name description visibility userId } }\"}' | jq") %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -55,7 +55,7 @@ gem "passwordless"
 gem "cancancan"
 
 # A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
-gem "gravatar_image_tag", git: "https://github.com/nschneble/gravatar_image_tag.git"
+gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag"
 
 # A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
 gem "super_admin", "~> 0.2.0"
@@ -80,6 +80,9 @@ gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
 gem "pagy", "~> 43.2"
+
+# A fresh, new GraphQL server designed for Rails [https://github.com/virtualshield/rails-graphql]
+gem "rails-graphql", github: "nschneble/rails-graphql", branch: "rails-8.2-compatibility"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

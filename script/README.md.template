@@ -12,24 +12,28 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
   - [Routes](#routes)
-    - [User Routes](#user-routes)
-	- [Admin Routes](#admin-routes)
+     - [User Routes](#user-routes)
+     - [Admin Routes](#admin-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
   - [Local CI](#local-ci)
+- [GraphQL API](#graphql-api)
+  - [Getting Auth Tokens](#getting-auth-tokens)
+  - [Making Queries](#making-queries)
 
 ## Getting Started
 
 ### Prerequisites
 
-* [Bundler](https://bundler.io/) 2.7.2
-* PostgreSQL 18.1
-* Redis 8.4.1
-* Ruby 3.4.7
-* Typesense 30.1
+- [Bundler](https://bundler.io/) 2.7.2
+- PostgreSQL 18.1
+- Redis 8.4.1
+- Ruby 3.4.7
+- Typesense 30.1
 
 ### Set Up Font Awesome
+
 Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create a file for your environment variables using the included `.env.example` file, then plug in your new kit:
 
 ```bash
@@ -56,25 +60,28 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 ## Under the Hood
 
 ### Tech Stack
-* [Ruby on Rails](https://rubyonrails.org)
-* [Hotwire](https://hotwired.dev)
-* [Postgres](https://www.postgresql.org)
-* [Puma](https://puma.io)
-* [RuboCop](https://rubocop.org)
-* [Tailwind](https://tailwindcss.com)
+
+- [Ruby on Rails](https://rubyonrails.org)
+- [Hotwire](https://hotwired.dev)
+- [Postgres](https://www.postgresql.org)
+- [Puma](https://puma.io)
+- [RuboCop](https://rubocop.org)
+- [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
-* [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
-* [LogBench](https://github.com/silva96/log_bench) (log viewer)
-* [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
-* [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
-* [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
-* [Pom Component](https://github.com/pom-io/pom-component) (view components)
-* [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
-* [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://github.com/flippercloud/flipper) (admin + feature flags)
-* [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
-* [Resque](https://github.com/resque/resque) (background jobs)
-* [Typesense](https://github.com/typesense/typesense-rails) + [Pagy](https://github.com/ddnexus/pagy) (search + pagination)
+
+- [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
+- [LogBench](https://github.com/silva96/log_bench) (log viewer)
+- [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
+- [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
+- [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
+- [Pom Component](https://pom-io.github.io/pom-component) (view components)
+- [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
+- [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://www.flippercloud.io) (admin + feature flags)
+- [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
+- [Resque](http://resque.github.io) (background jobs)
+- [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
+- [GraphQL](https://rails-graphql.dev) (API)
 
 ### Routes
 
@@ -89,28 +96,61 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 
 #### Admin Routes
 
-| Endpoint    | Description           |
-| ----------- | --------------------- |
-| `/admin`    | SuperAdmin dashboard  |
-| `/flipper`  | Flipper feature flags |
-| `/resque`   | Resque jobs           |
+| Endpoint   | Description           |
+| ---------- | --------------------- |
+| `/admin`   | SuperAdmin dashboard  |
+| `/flipper` | Flipper feature flags |
+| `/resque`  | Resque jobs           |
 
 ## Linting, Testing, and CI
 
 ### Linting
+
 ```bash
 cd /path/to/your/repo
 bin/rubocop
 ```
 
 ### Testing
+
 ```bash
 cd /path/to/your/repo
 bin/rspec
 ```
 
 ### Local CI
+
 ```bash
 cd /path/to/your/repo
 bin/ci
+```
+
+- [GraphQL API](#graphql-api)
+  - [Getting Auth Tokens](#getting-auth-tokens)
+  - [Making Queries](#making-queries)
+
+## GraphQL API
+
+### Getting Auth Tokens
+
+You can use `ApiToken.issue!(user:, name:)` to get a bearer auth token in Rails. There's also a binstub to pipe auth tokens directly into your GraphQL queries:
+
+```bash
+cd /path/to/your/repo
+bin/api-token api@superstack.dev
+```
+
+### Making Queries
+
+```bash
+cd /path/to/your/repo
+
+curl -s -H 'Content-Type: application/json' \
+  -X POST http://localhost:3000/graphql/health \
+  -d '{"query":"{ apiHealth { status } }"}'
+
+bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
+  -H 'Authorization: %' \
+  -X POST http://localhost:3000/graphql \
+  -d '{"query":"{ users { id email role } }"}'
 ```

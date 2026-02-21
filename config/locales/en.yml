@@ -28,6 +28,9 @@
 #       enabled: "ON"
 
 en:
+  api:
+    authentication:
+      unauthorized: "Unauthorized"
   authentication:
     login_required: "You must be logged in to visit this page"
   email:
@@ -39,7 +42,7 @@ en:
       invalid: "That is not a valid email address"
       unavailable: "That email address is already in use"
   errors:
-      method_not_implemented: "This method must be implemented in a subclass"
+    method_not_implemented: "This method must be implemented in a subclass"
   passwordless:
     sessions:
       new:

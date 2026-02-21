@@ -20,6 +20,8 @@ DEMO_PATHS=(
   "app/assets/images/demo"
   "app/components/demo"
   "app/controllers/demo"
+  "app/controllers/graphql/demo"
+  "app/graphql/schemas/demo"
   "app/models/demo" "app/views/demo"
   "app/views/layouts/demo"
   "config/routes/development/demo"
@@ -27,6 +29,7 @@ DEMO_PATHS=(
   "lib/abilities/demo"
   "spec/factories/demo"
   "spec/models/demo"
+  "spec/requests/demo"
 )
 
 # helpers

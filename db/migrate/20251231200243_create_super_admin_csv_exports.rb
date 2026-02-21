@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateSuperAdminCsvExports < ActiveRecord::Migration[7.1]
   def change
     return if table_exists?(:super_admin_csv_exports)

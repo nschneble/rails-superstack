@@ -1,4 +1,4 @@
-module UrlRules
+module URLRules
   module_function
 
   def parse_https_url(value, host: nil)
