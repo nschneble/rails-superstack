@@ -12,6 +12,19 @@ RSpec.describe "GraphQL queries", type: :request do
     end
   end
 
+  describe "Health queries" do
+    it "returns ok without authentication" do
+      post "/graphql/health", params: { query: "{ apiHealth { status } }" }
+
+      expect(response).to have_http_status(:ok)
+      expect(parsed_body).to eq(
+        "data" => {
+          "apiHealth" => { "status" => "ok" }
+        }
+      )
+    end
+  end
+
   describe "User queries" do
     it "returns users (ordered by id) for an authenticated Passwordless session" do
       user_a = create(:user)
