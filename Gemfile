@@ -84,6 +84,9 @@ gem "pagy", "~> 43.2"
 # A fresh, new GraphQL server designed for Rails [https://github.com/virtualshield/rails-graphql]
 gem "rails-graphql", github: "nschneble/rails-graphql", branch: "rails-8.2-compatibility"
 
+# Notifications for Ruby on Rails applications [https://github.com/excid3/noticed]
+gem "noticed"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
