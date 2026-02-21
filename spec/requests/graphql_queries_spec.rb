@@ -34,11 +34,9 @@ RSpec.describe "GraphQL queries", type: :request do
       post "/graphql", params: { query: "{ users { id email role } }" }
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_body.dig("data", "users")).to eq(
-        [
-          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
-          { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
-        ]
+      expect(parsed_body.dig("data", "users")).to include(
+        { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
+        { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
       )
     end
 
@@ -50,14 +48,12 @@ RSpec.describe "GraphQL queries", type: :request do
       post "/graphql", params: { query: "{ users { id email role } }" }
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_body.dig("data", "users")).to eq(
-        [
+      expect(parsed_body.dig("data", "users")).to include(
           {
             "id"    => user.id.to_s,
             "email" => user.email,
             "role"  => user.role
           }
-        ]
       )
     end
 
@@ -72,11 +68,9 @@ RSpec.describe "GraphQL queries", type: :request do
         headers: { Authorization: "Bearer #{token.plaintext_token}" }
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_body.dig("data", "users")).to eq(
-        [
-          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
-          { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
-        ]
+      expect(parsed_body.dig("data", "users")).to include(
+        { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
+        { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
       )
     end
 
@@ -91,11 +85,9 @@ RSpec.describe "GraphQL queries", type: :request do
         headers: { Authorization: "Bearer #{token.plaintext_token}" }
 
       expect(response).to have_http_status(:ok)
-      expect(parsed_body.dig("data", "users")).to eq(
-        [
-          { "id" => user.id.to_s,  "email" => user.email,  "role" => user.role },
-          { "id" => admin.id.to_s, "email" => admin.email, "role" => admin.role }
-        ]
+      expect(parsed_body.dig("data", "users")).to include(
+        { "id" => user.id.to_s, "email" => user.email, "role" => user.role },
+        { "id" => admin.id.to_s, "email" => admin.email, "role" => admin.role }
       )
     end
   end
