@@ -19,6 +19,9 @@ class User < ApplicationRecord
 
   has_many :api_tokens, dependent: :destroy
   has_many :email_change_requests, dependent: :destroy
+  has_many :mac_guffin_likes, class_name: "Demo::MacGuffinLike", dependent: :destroy
+  has_many :liked_mac_guffins, through: :mac_guffin_likes, source: :mac_guffin
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
 
   normalizes        :email, with: EmailNormalizer
   validates         :email, presence: true, uniqueness: true, email: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_184500) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_184500) do
     t.index ["revoked_at"], name: "index_api_tokens_on_revoked_at"
     t.index ["token_digest"], name: "index_api_tokens_on_token_digest", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "demo_mac_guffin_likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "mac_guffin_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["mac_guffin_id"], name: "index_demo_mac_guffin_likes_on_mac_guffin_id"
+    t.index ["user_id", "mac_guffin_id"], name: "index_demo_mac_guffin_likes_on_user_id_and_mac_guffin_id", unique: true
+    t.index ["user_id"], name: "index_demo_mac_guffin_likes_on_user_id"
   end
 
   create_table "email_change_requests", force: :cascade do |t|
@@ -65,6 +75,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_184500) do
     t.bigint "user_id", null: false
     t.integer "visibility"
     t.index ["user_id"], name: "index_mac_guffins_on_user_id"
+  end
+
+  create_table "noticed_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "notifications_count"
+    t.jsonb "params"
+    t.bigint "record_id"
+    t.string "record_type"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
+  end
+
+  create_table "noticed_notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.datetime "read_at", precision: nil
+    t.bigint "recipient_id", null: false
+    t.string "recipient_type", null: false
+    t.datetime "seen_at", precision: nil
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
   create_table "passwordless_sessions", force: :cascade do |t|
@@ -140,6 +174,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_184500) do
   end
 
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "demo_mac_guffin_likes", "mac_guffins"
+  add_foreign_key "demo_mac_guffin_likes", "users"
   add_foreign_key "email_change_requests", "users"
   add_foreign_key "mac_guffins", "users"
 end

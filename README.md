@@ -162,6 +162,7 @@ Rails Superstack has been preloaded and configured with the following:
 - [Resque](http://resque.github.io) (background jobs)
 - [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
 - [GraphQL](https://rails-graphql.dev) (API)
+- [Noticed](https://github.com/excid3/noticed) (notifications)
 
 ### Code Features
 
