@@ -82,6 +82,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 - [Resque](http://resque.github.io) (background jobs)
 - [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
 - [GraphQL](https://rails-graphql.dev) (API)
+- [Noticed](https://github.com/excid3/noticed) (notifications)
 
 ### Routes
 
