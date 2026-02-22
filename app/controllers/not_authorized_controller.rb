@@ -1,6 +1,4 @@
-class NotAuthorizedController < ApplicationController
-  before_action :authenticate_user!
-
+class NotAuthorizedController < AuthenticatedController
   def denied
     raise User::NotAuthorized
   end

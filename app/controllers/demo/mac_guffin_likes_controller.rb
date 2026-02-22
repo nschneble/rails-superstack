@@ -1,5 +1,4 @@
-class Demo::MacGuffinLikesController < ApplicationController
-  before_action :authenticate_user!
+class Demo::MacGuffinLikesController < AuthenticatedController
   before_action :set_mac_guffin
 
   def create

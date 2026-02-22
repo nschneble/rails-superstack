@@ -1,5 +1,4 @@
-class Demo::NotificationsController < ApplicationController
-  before_action :authenticate_user!
+class Demo::NotificationsController < AuthenticatedController
   before_action :ensure_admin!
 
   layout "demo/moxie"
