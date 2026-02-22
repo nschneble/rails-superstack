@@ -1,21 +1,26 @@
+<%= turbo_stream_from "global_toasts" %>
+<%= turbo_stream_from [ current_user, :toasts ] if current_user %>
+
 <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
-  <% flash.each do |type, message| %>
-    <% next if message.blank? %>
+  <div id="live-toasts">
+    <% flash.each do |type, message| %>
+      <% next if message.blank? %>
 
-    <%= pom_flash(variant: type.to_sym) do %>
-      <%= message %>
+      <%= pom_flash(variant: type.to_sym) do %>
+        <%= message %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <% Array(@toast_notifications).each do |notification| %>
-    <%= pom_flash(variant: :notice) do %>
-      <%= notification.message %>
+    <% Array(@toast_notifications).each do |notification| %>
+      <%= pom_flash(variant: :notice) do %>
+        <%= notification.message %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <% if @system_notification_toast.present? %>
-    <%= pom_flash(variant: :notice) do %>
-      <%= @system_notification_toast %>
+    <% if @system_notification_toast.present? %>
+      <%= pom_flash(variant: :notice) do %>
+        <%= @system_notification_toast %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>

@@ -14,6 +14,10 @@ RSpec.describe "MacGuffin likes", type: :request do
   it "creates a like and notifies the owner" do
     liker = create(:user)
     passwordless_sign_in(liker)
+    expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with(
+      [ owner, :toasts ],
+      hash_including(target: "live-toasts", partial: "shared/live_toast")
+    )
 
     post demo_mac_guffin_like_path(mac_guffin), headers: { HTTP_REFERER: demo_mac_guffins_path }
 

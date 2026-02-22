@@ -14,6 +14,10 @@ RSpec.describe "System notifications", type: :request do
   it "allows admins to send a system notification" do
     admin = create(:user, :admin)
     passwordless_sign_in(admin)
+    expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with(
+      "global_toasts",
+      hash_including(target: "live-toasts", partial: "shared/live_toast")
+    )
 
     post demo_system_notifications_path,
       params: { system_notification: { message: "Deployment in 5 minutes." } }
