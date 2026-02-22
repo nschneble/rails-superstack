@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
       unread_notifications.mark_as_read if @toast_notifications.any?
     end
 
-    latest_system_notification = SystemNotificationNotifier.newest_first.first
+    latest_system_notification = GlobalAlertNotifier.newest_first.first
     return unless latest_system_notification
     return if cookies.signed[:last_system_notification_id].to_i == latest_system_notification.id
 

@@ -29,9 +29,10 @@
 
 en:
   notifiers:
-    like_notifier:
-      notification:
-        message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\""
+    demo:
+      mac_guffin_like_notifier:
+        notification:
+          message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\""
   api:
     authentication:
       unauthorized: "Unauthorized"

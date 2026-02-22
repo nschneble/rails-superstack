@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "System notifications", type: :request do
+  include ActiveJob::TestHelper
+
   it "denies access to non-admin users" do
     user = create(:user)
     passwordless_sign_in(user)
@@ -19,13 +21,15 @@ RSpec.describe "System notifications", type: :request do
       hash_including(target: "live-toasts", partial: "shared/live_toast")
     )
 
-    post demo_system_notifications_path,
-      params: { system_notification: { message: "Deployment in 5 minutes." } }
+    perform_enqueued_jobs do
+      post demo_system_notifications_path,
+        params: { system_notification: { message: "Deployment in 5 minutes." } }
+    end
 
     expect(response).to redirect_to(demo_system_notifications_path)
     expect(flash[:notice]).to eq("System notification sent")
 
-    event = SystemNotificationNotifier.last
+    event = GlobalAlertNotifier.last
     expect(event).to be_present
     expect(event.params[:message]).to eq("Deployment in 5 minutes.")
   end
@@ -42,7 +46,7 @@ RSpec.describe "System notifications", type: :request do
   end
 
   it "shows a system notification toast to anonymous users once" do
-    SystemNotificationNotifier.with(message: "Heads up!").deliver([])
+    GlobalAlertNotifier.with(message: "Heads up!").deliver([])
 
     get root_path
     expect(response.body).to include("Heads up!")

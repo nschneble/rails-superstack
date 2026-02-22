@@ -23,7 +23,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:owner) { create(:user) }
     let(:actor) { create(:user) }
     let(:mac_guffin) { create(:mac_guffin, user: owner, name: "Golden Idol") }
-    let(:notification) { LikeNotifier.with(record: mac_guffin, actor: actor).deliver(owner).notifications.last }
+    let(:notification) { Demo::MacGuffinLikeNotifier.with(record: mac_guffin, actor: actor).deliver(owner).notifications.last }
     let(:mail) { UserMailer.with(notification: notification, record: mac_guffin, actor: actor, recipient: owner).mac_guffin_liked }
 
     it "renders the headers" do
