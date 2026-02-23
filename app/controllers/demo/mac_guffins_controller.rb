@@ -5,7 +5,7 @@ class Demo::MacGuffinsController < ApplicationController
 
   def index
     @pagy, @mac_guffins = search_for_mac_guffins
-    set_like_data
+
     return unless turbo_frame_request?
 
     render partial: "search"
@@ -49,18 +49,5 @@ class Demo::MacGuffinsController < ApplicationController
 
   def pagy_with_request(pagy)
     pagy.tap { |p| p.instance_variable_set(:@request, request) }
-  end
-
-  def set_like_data
-    @liked_mac_guffin_ids = []
-    @mac_guffin_like_counts = {}
-
-    mac_guffin_ids = @mac_guffins.map(&:id)
-    return if mac_guffin_ids.empty?
-
-    @mac_guffin_like_counts = Demo::MacGuffinLike.where(mac_guffin_id: mac_guffin_ids).group(:mac_guffin_id).count
-    return unless current_user
-
-    @liked_mac_guffin_ids = current_user.mac_guffin_likes.where(mac_guffin_id: mac_guffin_ids).pluck(:mac_guffin_id)
   end
 end

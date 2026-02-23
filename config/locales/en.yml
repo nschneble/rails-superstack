@@ -28,11 +28,6 @@
 #       enabled: "ON"
 
 en:
-  notifiers:
-    demo:
-      mac_guffin_like_notifier:
-        notification:
-          message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\""
   api:
     authentication:
       unauthorized: "Unauthorized"
@@ -48,6 +43,16 @@ en:
       unavailable: "That email address is already in use"
   errors:
     method_not_implemented: "This method must be implemented in a subclass"
+  notifications:
+    success:
+      sent: "Notification sent"
+    failure:
+      blank: "Message can't be blank"
+  notifiers:
+    demo:
+      mac_guffin_like_notifier:
+        notification:
+          message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\"."
   passwordless:
     sessions:
       new:

@@ -36,8 +36,4 @@ class Demo::MacGuffin < ApplicationRecord
     return "Anyone" if visibility == "open"
     visibility.pluralize
   end
-
-  def to_s
-    name
-  end
 end

@@ -15,7 +15,7 @@ class Demo::NotificationsController < AuthenticatedController
       return
     end
 
-    GlobalAlertNotifier.with(message: message, actor: current_user).deliver([])
+    GlobalAlertNotifier.with(message:, actor: current_user).deliver([])
     redirect_to demo_system_notifications_path, notice: "System notification sent"
   end
 

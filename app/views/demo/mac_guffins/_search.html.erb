@@ -26,33 +26,30 @@
             <span class="ml-1 capitalize"><%= mac_guffin.pretty_visibility %></span>
           </span>
 
-          <% likes_count = @mac_guffin_like_counts.fetch(mac_guffin.id, 0) %>
-          <% liked = @liked_mac_guffin_ids.include?(mac_guffin.id) %>
-
           <div class="absolute bottom-2 right-2">
             <% if current_user.nil? %>
               <%= link_to auth_sign_in_path, class: "inline-flex items-center gap-1 rounded-md bg-rose-50 px-2 py-1 text-xs font-medium text-rose-700 ring-1 ring-rose-300 hover:no-underline hover:bg-rose-100", title: "Sign in to like" do %>
                 <%= fas_icon("heart") %>
-                <span><%= likes_count %></span>
+                <span><%= mac_guffin.likes.count %></span>
               <% end %>
             <% elsif current_user == mac_guffin.user %>
               <span class="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-300 select-none" title="You can't like your own MacGuffin">
                 <%= fas_icon("heart") %>
-                <span><%= likes_count %></span>
+                <span><%= mac_guffin.likes.count %></span>
               </span>
-            <% elsif liked %>
+            <% elsif current_user.mac_guffin_likes.exists?(mac_guffin.id) %>
               <%= button_to demo_mac_guffin_like_path(mac_guffin),
                             method: :delete,
                             class: "inline-flex items-center gap-1 rounded-md bg-rose-600 px-2 py-1 text-xs font-medium text-white ring-1 ring-rose-700 cursor-pointer hover:bg-rose-700" do %>
                 <%= fas_icon("heart") %>
-                <span><%= likes_count %></span>
+                <span><%= mac_guffin.likes.count %></span>
               <% end %>
             <% else %>
               <%= button_to demo_mac_guffin_like_path(mac_guffin),
                             method: :post,
                             class: "inline-flex items-center gap-1 rounded-md bg-white px-2 py-1 text-xs font-medium text-rose-700 ring-1 ring-rose-300 cursor-pointer hover:bg-rose-50" do %>
                 <%= far_icon("heart") %>
-                <span><%= likes_count %></span>
+                <span><%= mac_guffin.likes.count %></span>
               <% end %>
             <% end %>
           </div>
