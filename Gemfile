@@ -98,7 +98,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # RSpec testing framework [https://rspec.info/]
-  gem "rspec-rails", "~> 8.0.0"
+  gem "rspec-rails", "~> 8.0.3"
 
   # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
