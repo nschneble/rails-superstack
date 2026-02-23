@@ -292,8 +292,9 @@ GEM
     nokogiri (1.19.1-x86_64-linux-musl)
       racc (~> 1.4)
     ostruct (0.6.3)
-    pagy (43.2.9)
+    pagy (43.3.0)
       json
+      uri
       yaml
     parallel (1.27.0)
     parser (3.3.10.2)
@@ -603,7 +604,7 @@ DEPENDENCIES
   letter_opener
   letter_opener_web (~> 3.0)
   log_bench
-  pagy (~> 43.2)
+  pagy (~> 43.3)
   passwordless
   pg (~> 1.1)
   pom-component
