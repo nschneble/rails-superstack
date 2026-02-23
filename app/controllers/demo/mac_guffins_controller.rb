@@ -5,6 +5,7 @@ class Demo::MacGuffinsController < ApplicationController
 
   def index
     @pagy, @mac_guffins = search_for_mac_guffins
+
     return unless turbo_frame_request?
 
     render partial: "search"

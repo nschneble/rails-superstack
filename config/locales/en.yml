@@ -43,6 +43,16 @@ en:
       unavailable: "That email address is already in use"
   errors:
     method_not_implemented: "This method must be implemented in a subclass"
+  notifications:
+    success:
+      sent: "Notification sent"
+    failure:
+      blank: "Message can't be blank"
+  notifiers:
+    demo:
+      mac_guffin_like_notifier:
+        notification:
+          message: "%{actor_email} liked your MacGuffin \"%{mac_guffin_name}\"."
   passwordless:
     sessions:
       new:
@@ -104,6 +114,13 @@ en:
 
           Did you know:
           %{fun_fact}?
+      mac_guffin_liked:
+        subject: "%{actor_email} liked your MacGuffin"
+        body: |-
+          %{actor_email} liked your MacGuffin "%{mac_guffin_name}".
+
+          View MacGuffins:
+          %{mac_guffins_url}
   verification_code:
     title: "Enter your verification code"
     placeholder: "e.g. ABCDEF"

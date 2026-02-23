@@ -22,6 +22,7 @@ DEMO_PATHS=(
   "app/controllers/demo"
   "app/controllers/graphql/demo"
   "app/graphql/schemas/demo"
+  "app/notifiers/demo"
   "app/models/demo" "app/views/demo"
   "app/views/layouts/demo"
   "config/routes/development/demo"

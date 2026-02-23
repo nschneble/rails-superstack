@@ -1,9 +1,12 @@
-<div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
-  <% flash.each do |type, message| %>
-    <% next if message.blank? %>
+<%= turbo_stream_from "global_toasts" %>
+<%= turbo_stream_from [ current_user, :toasts ] if current_user %>
 
-    <%= pom_flash(variant: type.to_sym) do %>
-      <%= message %>
+<div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
+  <div id="live-toasts">
+    <% Array(notifications).each do |notification| %>
+      <%= pom_flash(variant: (notification.type == "alert" ? :alert : :notice)) do %>
+        <%= notification.message %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
