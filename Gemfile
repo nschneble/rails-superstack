@@ -79,7 +79,7 @@ gem "pom-component"
 gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
-gem "pagy", "~> 43.2"
+gem "pagy", "~> 43.3"
 
 # A fresh, new GraphQL server designed for Rails [https://github.com/virtualshield/rails-graphql]
 gem "rails-graphql", github: "nschneble/rails-graphql", branch: "rails-8.2-compatibility"
