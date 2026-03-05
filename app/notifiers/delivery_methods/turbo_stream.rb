@@ -1,15 +1,15 @@
 module DeliveryMethods
-  class TurboStream < ApplicationDeliveryMethod
+  class TurboStream < Noticed::DeliveryMethod
     required_options :stream
 
     def deliver
       Turbo::StreamsChannel.broadcast_append_to(
         evaluate_option(:stream),
-        target: "live-toasts",
-        partial: "shared/live_toast",
+        target: "notifications",
+        partial: "shared/notification",
         locals: {
           message: resolve_message,
-          variant: evaluate_option(:variant) || :notice
+          variant: evaluate_option(:variant) || :info
         }
       )
     end
