@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Authentication
+  include Authenticatable
   include Notifiable
   include Pagy::Method
 
