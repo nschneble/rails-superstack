@@ -88,7 +88,7 @@ Unless you want your app to be called "Rails Superstack", you'll probably want t
 cd /path/to/your/repo
 
 # Get help
-script/rename.sh —help
+script/rename.sh --help
 
 # Preview changes
 script/rename.sh --dry-run
@@ -313,7 +313,7 @@ Dislike the demo code with a passion? Easy! Burn it with 🔥 fire 🔥 by runni
 cd /path/to/your/repo
 
 # Get help
-script/wipedemo.sh —help
+script/wipedemo.sh --help
 
 # Preview changes
 script/wipedemo.sh --dry-run
@@ -327,7 +327,7 @@ script/wipedemo.sh --no-confirmation
 
 The script should remove all trace of demo code: assets, controllers, models, views, routes, seeds, factories, and specs.
 
-After the script runs successfully, it'll delete itself and you’ll be left with a pristine Superstack template.
+After the script runs successfully, it deletes itself and you’ll be left with a pristine Superstack template.
 
 ## Acknowledgements
 

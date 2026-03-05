@@ -1,11 +1,10 @@
 class Demo::MacGuffinsController < ApplicationController
-  MAC_GUFFINS_PER_PAGE = 4
-
   layout "demo/moxie"
+
+  MAC_GUFFINS_PER_PAGE = 4.freeze
 
   def index
     @pagy, @mac_guffins = search_for_mac_guffins
-
     return unless turbo_frame_request?
 
     render partial: "search"
