@@ -19,17 +19,17 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Gems and Resources](#gems-and-resources)
   - [Code Features](#code-features)
   - [Routes](#routes)
-     - [User Routes](#user-routes)
-     - [Admin Routes](#admin-routes)
-     - [Demo Routes](#demo-routes)
+    - [User Routes](#user-routes)
+    - [Admin Routes](#admin-routes)
+    - [Demo Routes](#demo-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
   - [Local CI](#local-ci)
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
-     - [In Rails](#in-rails)
-     - [In Terminal](#in-terminal)
+    - [In Rails](#in-rails)
+    - [In Terminal](#in-terminal)
   - [Making Queries](#making-queries)
 - [Ephemera](#ephemera)
   - [Cleanup Script](#cleanup-script)
@@ -325,7 +325,9 @@ script/wipedemo.sh
 script/wipedemo.sh --no-confirmation
 ```
 
-The script should remove all trace of demo code: assets, controllers, models, views, routes, seeds, factories, and specs.
+The script removes all trace of demo code and database artifacts: assets, controllers, models, views, routes, seeds, factories, specs, and demo migrations.
+
+Cleanup also replaces migration history with a single non-demo baseline and regenerates the schema by dropping and recreating the local database.
 
 After the script runs successfully, it deletes itself and you’ll be left with a pristine Superstack template.
 
