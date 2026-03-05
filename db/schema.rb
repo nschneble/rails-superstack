@@ -29,16 +29,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
-  create_table "demo_mac_guffin_likes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "mac_guffin_id", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["mac_guffin_id"], name: "index_demo_mac_guffin_likes_on_mac_guffin_id"
-    t.index ["user_id", "mac_guffin_id"], name: "index_demo_mac_guffin_likes_on_user_id_and_mac_guffin_id", unique: true
-    t.index ["user_id"], name: "index_demo_mac_guffin_likes_on_user_id"
-  end
-
   create_table "email_change_requests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
@@ -65,6 +55,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
     t.datetime "updated_at", null: false
     t.text "value"
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
+  end
+
+  create_table "mac_guffin_likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "mac_guffin_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["mac_guffin_id"], name: "index_mac_guffin_likes_on_mac_guffin_id"
+    t.index ["user_id", "mac_guffin_id"], name: "index_mac_guffin_likes_on_user_id_and_mac_guffin_id", unique: true
+    t.index ["user_id"], name: "index_mac_guffin_likes_on_user_id"
   end
 
   create_table "mac_guffins", force: :cascade do |t|
@@ -174,8 +174,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
   end
 
   add_foreign_key "api_tokens", "users"
-  add_foreign_key "demo_mac_guffin_likes", "mac_guffins"
-  add_foreign_key "demo_mac_guffin_likes", "users"
   add_foreign_key "email_change_requests", "users"
+  add_foreign_key "mac_guffin_likes", "mac_guffins"
+  add_foreign_key "mac_guffin_likes", "users"
   add_foreign_key "mac_guffins", "users"
 end

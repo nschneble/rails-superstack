@@ -1,0 +1,16 @@
+en:
+  mac_guffins:
+    mailer:
+      liked:
+        subject: "Someone Liked Your MacGuffin!"
+        body: |-
+          %{actor} liked your "%{mac_guffin}" MacGuffin.
+
+          View MacGuffins:
+          %{mac_guffins_url}
+  notifiers:
+    mac_guffin_like:
+      message: '%{actor} liked your "%{mac_guffin}" MacGuffin.'
+  validations:
+    mac_guffins:
+      no_self_promotion: "can't like your own MacGuffin"
