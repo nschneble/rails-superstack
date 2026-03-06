@@ -313,16 +313,16 @@ Dislike the demo code with a passion? Easy! Burn it with 🔥 fire 🔥 by runni
 cd /path/to/your/repo
 
 # Get help
-script/wipedemo.sh --help
+script/cleanup.sh --help
 
 # Preview changes
-script/wipedemo.sh --dry-run
+script/cleanup.sh --dry-run
 
 # Run interactively
-script/wipedemo.sh
+script/cleanup.sh
 
 # Run without prompts
-script/wipedemo.sh --no-confirmation
+script/cleanup.sh --no-confirmation
 ```
 
 The script removes all trace of demo code and database artifacts: assets, controllers, models, views, routes, seeds, factories, specs, and demo migrations.

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_VERSION="1.0"
+SCRIPT_VERSION="1.1"
 
 # exit statuses
 SUCCESS=0
@@ -10,8 +10,8 @@ FAILURE=1
 # files referenced in the script
 SENTINEL_FILE=".renamed_from_template"
 SCRIPT_FILE="script/rename.sh"
+README_TEMPLATE="script/templates/README.md.template"
 README_FILE="README.md"
-README_TEMPLATE_FILE="script/README.md.template"
 
 # script arguments
 ARGUMENTS=$@
@@ -184,7 +184,7 @@ cd_to_project_root() {
 }
 
 show_welcome_message() {
-  clear
+  clear || true
 
   log "────────────────────────────────────────────────────────────────────────────────"
   log "Rails Superstack template rename script"
@@ -226,8 +226,8 @@ check_prerequisites() {
 check_readme_template() {
   log "3) Template check…"
 
-  if [[ ! -f "$README_TEMPLATE_FILE" ]]; then
-    die "Missing $README_TEMPLATE_FILE"
+  if [[ ! -f "$README_TEMPLATE" ]]; then
+    die "Missing $README_TEMPLATE"
   fi
 }
 
@@ -295,7 +295,7 @@ generate_readme() {
 
   if [[ "$DRY_RUN" == false ]]; then
     rm -f "$README_FILE"
-    mv "$README_TEMPLATE_FILE" "$README_FILE"
+    mv "$README_TEMPLATE" "$README_FILE"
   fi
 }
 

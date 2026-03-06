@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_VERSION="1.0"
+SCRIPT_VERSION="1.1"
 
 # exit statuses
 SUCCESS=0
 FAILURE=1
 
 # files referenced in the script
-SCRIPT_FILE="script/wipedemo.sh"
+SCRIPT_FILE="script/cleanup.sh"
+SCHEMA_TEMPLATE="script/templates/schema.rb.template"
+SCHEMA_FILE="db/schema.rb"
 
 # script arguments
 ARGUMENTS=$@
@@ -74,7 +76,7 @@ show_help_and_exit() {
   echo "Rails Superstack demo cleanup script."
   echo
   echo "Usage:"
-  echo "  script/wipedemo.sh [--dry-run] [--no-confirmation]"
+  echo "  script/cleanup.sh [--dry-run] [--no-confirmation]"
   echo
   echo "Options:"
   echo "  -d, --dry-run            print changes, don't clean anything, then exit"
@@ -111,7 +113,7 @@ cd_to_project_root() {
 }
 
 show_welcome_message() {
-  clear
+  clear || true
 
   log "────────────────────────────────────────────────────────────────────────────────"
   log "Rails Superstack demo cleanup script"
@@ -160,6 +162,25 @@ remove_demo_files() {
   fi
 }
 
+reset_database() {
+  if ! confirm "Remove demo tables from database?"; then
+    die "Script aborted."
+  fi
+
+  if [[ ! -f "$SCHEMA_TEMPLATE" ]]; then
+    die "Missing $SCHEMA_TEMPLATE"
+  fi
+
+  log "Resetting database…" true
+
+  if [[ "$DRY_RUN" == false ]]; then
+    rm -f "$SCHEMA_FILE"
+    mv "$SCHEMA_TEMPLATE" "$SCHEMA_FILE"
+
+    bin/rails db:reset
+  fi
+}
+
 self_destruct() {
   if confirm "Delete ${SCRIPT_FILE}? (recommended)"; then
     if [[ "$DRY_RUN" == false ]]; then
@@ -183,4 +204,5 @@ cd_to_project_root
 show_welcome_message
 locate_demo_files
 remove_demo_files
+reset_database
 self_destruct
