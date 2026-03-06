@@ -1,7 +1,5 @@
-module EmailRules
-  module_function
-
-  def parse_email(value, domain: nil)
+class EmailParser < BaseParser
+  def call(value, domain: nil)
     return nil if value.blank?
 
     email = EmailNormalizer.call(value)

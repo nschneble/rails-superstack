@@ -1,5 +1,4 @@
-class UsersController < ApplicationController
-  before_action :authenticate_user!
+class UsersController < AuthenticatedController
   before_action :check_for_email_change_request
 
   def me

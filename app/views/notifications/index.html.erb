@@ -1,0 +1,19 @@
+<div class="w-full my-28">
+  <%= form_with(url: notifications_path, scope: :global_notification, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
+    <%= content_tag(:h1, t("notifications.form.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+
+    <%= form.label :message,
+                   t("notifications.form.label",
+                   max: Notification::TWITTER_STYLEZ),
+                   class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
+    <%= form.text_area :message,
+                       required: true,
+                       autofocus: true,
+                       placeholder: t("notifications.form.placeholder"),
+                       rows: 5,
+                       maxlength: Notification::TWITTER_STYLEZ,
+                       class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
+
+    <%= form.submit t("notifications.form.submit") %>
+  <% end %>
+</div>

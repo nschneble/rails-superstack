@@ -1,8 +1,13 @@
 <%= tag.div(**merge_options(default_options, extra_options)) do %>
-  <% if variant.eql? :alert %>
-    <%= helpers.fa_stacked_icon(["square", "radiation"], [ "text-white", "text-pink-800" ]) %>
-  <% else %>
+  <% case variant %>
+  <% when :alert %>
+    <%= helpers.fa_stacked_icon(["square", "skull-crossbones"], [ "text-white", "text-pink-800" ]) %>
+  <% when :info %>
+    <%= helpers.fa_stacked_icon(["square", "info"], [ "text-white", "text-blue-800" ]) %>
+  <% when :notice %>
     <%= helpers.fa_stacked_icon(["square", "thumbs-up"], [ "text-white", "text-emerald-800" ]) %>
+  <% else %>
+    <%= helpers.fa_stacked_icon(["square", "question"], [ "text-white", "text-amber-800" ]) %>
   <% end %>
 
   <div class="w-full tracking-tight"><%= content %></div>

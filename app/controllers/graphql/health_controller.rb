@@ -1,9 +1,7 @@
 module GraphQL
-  class HealthController < ApplicationController
-    include Rails::GraphQL::Controller
-
+  class HealthController < ApiController
     self.gql_schema = "GraphQL::Schemas::HealthSchema"
 
-    skip_before_action :verify_authenticity_token
+    skip_before_action :authenticate_user!
   end
 end

@@ -19,17 +19,17 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Gems and Resources](#gems-and-resources)
   - [Code Features](#code-features)
   - [Routes](#routes)
-     - [User Routes](#user-routes)
-     - [Admin Routes](#admin-routes)
-     - [Demo Routes](#demo-routes)
+    - [User Routes](#user-routes)
+    - [Admin Routes](#admin-routes)
+    - [Demo Routes](#demo-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
   - [Local CI](#local-ci)
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
-     - [In Rails](#in-rails)
-     - [In Terminal](#in-terminal)
+    - [In Rails](#in-rails)
+    - [In Terminal](#in-terminal)
   - [Making Queries](#making-queries)
 - [Ephemera](#ephemera)
   - [Cleanup Script](#cleanup-script)
@@ -88,7 +88,7 @@ Unless you want your app to be called "Rails Superstack", you'll probably want t
 cd /path/to/your/repo
 
 # Get help
-script/rename.sh —help
+script/rename.sh --help
 
 # Preview changes
 script/rename.sh --dry-run
@@ -162,6 +162,7 @@ Rails Superstack has been preloaded and configured with the following:
 - [Resque](http://resque.github.io) (background jobs)
 - [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
 - [GraphQL](https://rails-graphql.dev) (API)
+- [Noticed](https://github.com/excid3/noticed) (notifications)
 
 ### Code Features
 
@@ -312,21 +313,23 @@ Dislike the demo code with a passion? Easy! Burn it with 🔥 fire 🔥 by runni
 cd /path/to/your/repo
 
 # Get help
-script/wipedemo.sh —help
+script/cleanup.sh --help
 
 # Preview changes
-script/wipedemo.sh --dry-run
+script/cleanup.sh --dry-run
 
 # Run interactively
-script/wipedemo.sh
+script/cleanup.sh
 
 # Run without prompts
-script/wipedemo.sh --no-confirmation
+script/cleanup.sh --no-confirmation
 ```
 
-The script should remove all trace of demo code: assets, controllers, models, views, routes, seeds, factories, and specs.
+The script removes all trace of demo code and database artifacts: assets, controllers, models, views, routes, seeds, factories, specs, and demo migrations.
 
-After the script runs successfully, it'll delete itself and you’ll be left with a pristine Superstack template.
+Cleanup also replaces migration history with a single non-demo baseline and regenerates the schema by dropping and recreating the local database.
+
+After the script runs successfully, it deletes itself and you’ll be left with a pristine Superstack template.
 
 ## Acknowledgements
 

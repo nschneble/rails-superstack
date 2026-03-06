@@ -9,6 +9,6 @@ class UserMailerPreview < ActionMailer::Preview
     user = create(:user)
     request = create(:email_change_request)
 
-    UserMailer.with(request: request).email_change_confirmation
+    UserMailer.with(request:).email_change_confirmation
   end
 end

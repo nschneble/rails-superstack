@@ -43,6 +43,15 @@ en:
       unavailable: "That email address is already in use"
   errors:
     method_not_implemented: "This method must be implemented in a subclass"
+  notifications:
+    form:
+      label: "Message (max %{max} characters)"
+      placeholder: "Hello, world!"
+      submit: "Send notification"
+      title: "Broadcast to all users"
+    status:
+      failure: Message can't be blank"
+      success: "Notification sent"
   passwordless:
     sessions:
       new:
@@ -104,6 +113,9 @@ en:
 
           Did you know:
           %{fun_fact}?
+  validations:
+    notifications:
+      bad_type: "%{value} is not a valid notification type"
   verification_code:
     title: "Enter your verification code"
     placeholder: "e.g. ABCDEF"

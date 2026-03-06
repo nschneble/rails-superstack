@@ -59,6 +59,28 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     rounded-md
   ]
 
+  TEXT_AREA_CLASSES = %w[
+    block
+    w-4/5
+    sm:w-full
+    max-w-[325]
+    mx-auto
+    my-1
+    px-2
+    py-1
+    bg-white
+    disabled:bg-slate-100
+    border-2
+    border-white
+    disabled:border-slate-100
+    focus:border-slate-800
+    text-slate-800
+    disabled:text-slate-500
+    outline-none
+    resize-none
+    rounded-md
+  ]
+
   BUTTON_CLASSES = %w[
     block
     w-4/5
@@ -78,19 +100,27 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     disabled:cursor-default
   ]
 
-  def label(method, text = nil, options = {}, &block)
-    super(method, text, options.merge(class: LABEL_CLASSES), &block)
-  end
+  EXTRA_WIDE_CLASSES = %w[
+    max-w-[525]
+  ]
 
-  def text_field(method, options = {})
-    super(method, options.merge(class: INPUT_CLASSES))
+  def label(method, text = nil, options = {}, &block)
+    super(method, text, options.merge(class: [ LABEL_CLASSES, options[:class] ]), &block)
   end
 
   def email_field(method, options = {})
-    super(method, options.merge(class: INPUT_CLASSES))
+    super(method, options.merge(class: [ INPUT_CLASSES, options[:class] ]))
+  end
+
+  def text_field(method, options = {})
+    super(method, options.merge(class: [ INPUT_CLASSES, options[:class] ]))
+  end
+
+  def text_area(method, options = {})
+    super(method, options.merge(class: [ TEXT_AREA_CLASSES, options[:class] ]))
   end
 
   def submit(value = nil, options = {})
-    super(value, options.merge(class: BUTTON_CLASSES))
+    super(value, options.merge(class: [ BUTTON_CLASSES, options[:class] ]))
   end
 end

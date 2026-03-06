@@ -1,12 +1,10 @@
-module URLRules
-  module_function
-
-  def parse_https_url(value, host: nil)
+class URLParser < BaseParser
+  def call(value, scheme: "https", host: nil)
     return nil if value.blank?
 
     uri = URI.parse(value)
 
-    return nil unless uri.scheme == "https"
+    return nil unless uri.scheme == scheme
     return nil unless host.nil? || uri.host =~ host
 
     uri

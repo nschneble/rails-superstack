@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include Authentication
+  include Authenticatable
+  include Notifiable
   include Pagy::Method
 
   before_action :set_search_query
@@ -16,9 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   # app/views/application/root.html.erb
-  def root
-    # the root path route
-  end
+  def root; end
 
   private
 

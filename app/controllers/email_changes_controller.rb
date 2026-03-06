@@ -1,8 +1,6 @@
-class EmailChangesController < ApplicationController
-  before_action :authenticate_user!, only: :create
-
+class EmailChangesController < AuthenticatedController
   def create
-    new_email = EmailRules.parse_email(params[:new_email])
+    new_email = EmailParser.call(params[:new_email])
     EmailChangeRequest.where(new_email:).expired.delete_all
 
     if new_email.nil?

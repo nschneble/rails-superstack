@@ -1,9 +1,9 @@
 <div class="w-full my-28">
-  <%= form_with(url: email_change_path, data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |f| %>
+  <%= form_with(url: email_change_path, data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
     <%= content_tag(:h1, t("user_profile.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
 
-    <%= f.label :new_email, t("user_profile.email.label") %>
-    <%= f.email_field :new_email,
+    <%= form.label :new_email, t("user_profile.email.label") %>
+    <%= form.email_field :new_email,
                       placeholder: t("user_profile.email.placeholder"),
                       value: @request.present? ? @request.new_email : current_user.email,
                       required: true,
@@ -15,7 +15,7 @@
                         "email-target": "input"
                       } %>
 
-    <%= f.submit t("user_profile.submit"),
+    <%= form.submit t("user_profile.submit"),
                  disabled: true,
                  data: {
                   action: "click->email#submit",
