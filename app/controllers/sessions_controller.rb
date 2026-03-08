@@ -21,7 +21,8 @@ class SessionsController < Passwordless::SessionsController
   private
 
   def no_users_allowed!
-    return unless current_user
+    return unless authenticate_by_session(User)
+
     redirect_to root_path, notice: t("passwordless.sessions.errors.session_exists")
   end
 end
