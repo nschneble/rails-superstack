@@ -10,13 +10,13 @@
         <% else %>
           <%= link_to "Sign in", auth_sign_in_path, class: "hover:text-amber-400 underline!" %>
           <span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>
-          <p class="ml-12 text-sm italic">Try <span class="text-amber-200 font-semibold">user@superstack.dev</span> for a regular user or <span class="text-amber-200 font-semibold">admin@superstack.dev</span> for an admin</p>
+          <p class="ml-[50] text-sm italic">Try <span class="text-amber-200 font-semibold">user@superstack.dev</span> for a regular user or <span class="text-amber-200 font-semibold">admin@superstack.dev</span> for an admin</p>
         <% end %>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
         Search <%= link_to "MacGuffins", demo_mac_guffins_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules</span>
-        <p class="ml-12 text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
+        <p class="ml-[50] text-sm italic">Try visiting the page when you're <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You'll see different items!</p>
       </li>
       <li>
         <%= fa_stacked_icon(["square", "share-nodes"], ["text-lime-500", "text-white"]) %>
@@ -33,7 +33,7 @@
       <li>
         <%= fa_stacked_icon(["square", "bell"], ["text-lime-500", "text-white"]) %>
         Test <%= link_to "sending notifications", notifications_path, class: "hover:text-amber-400 underline!" %><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/excid3/noticed">Noticed</a></span>
-        <p class="ml-12 text-sm italic">You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to access feature flags or send notifications
+        <p class="ml-[50] text-sm italic">You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to access feature flags or send notifications
       </li>
     </ul>
   </div>
