@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ "**" ]
+    branches: ["**"]
 
 jobs:
   scan:
@@ -77,6 +77,10 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/rails_superstack_test
+      typesense_api_key: xyz
+      typesense_host: localhost
+      typesense_port: 8108
+      typesense_protocol: http
 
     steps:
       - name: Install packages

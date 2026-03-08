@@ -7,8 +7,8 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
-/.env*
+# Ignore app configuration.
+/config/application.yml
 
 # Ignore all default key files.
 /config/master.key

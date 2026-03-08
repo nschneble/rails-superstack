@@ -4,7 +4,7 @@ module IconHelper
   end
 
   def font_awesome_kit_src
-    safe_script_src(ENV["FONT_AWESOME_KIT_URL"], host: /\Akit\.fontawesome\.com\z/i)
+    safe_script_src(Figaro.env.font_awesome_kit_url, host: /\Akit\.fontawesome\.com\z/i)
   end
 
   def fas_icon(name, options = "")
