@@ -29,16 +29,12 @@
             Navigation
           </div>
 
-          <%= render Demo::MenuItemComponent.new(path: demo_welcome_path, icon: "house", label: "Home") %>
+          <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
           <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
-
-          <% if current_user %>
-            <%= render Demo::MenuItemComponent.new(path: user_profile_path, icon: "user", label: "User Profile") %>
-          <% end %>
-
-          <% if Flipper.enabled?(:secrets, current_user) %>
-            <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secrets") %>
-          <% end %>
+          <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") if Rails.env.development? %>
+          <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secrets") if Flipper.enabled?(:secrets, current_user) %>
+          <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Commands") %>
+          <%= render Demo::MenuItemComponent.new(path: user_profile_path, icon: "user", label: "User Profile") if current_user %>
 
           <div class="my-2 border-t border-slate-300"></div>
 
@@ -54,21 +50,6 @@
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>
-
-          <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
-            Resources
-          </div>
-
-          <%= render Demo::MenuItemComponent.new(path: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#rails-superstack", icon: "file-lines", label: "Project README") %>
-
-          <% if Rails.env.development? %>
-            <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") %>
-          <% end %>
-
-          <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Commands") %>
-          <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
-
-          <div class="my-2 border-t border-slate-300"></div>
 
           <% if current_user %>
             <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign out") %>
