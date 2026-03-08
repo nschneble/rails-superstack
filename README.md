@@ -106,14 +106,14 @@ After the script runs successfully, it'll delete itself and create a new README.
 
 ### Set Up Font Awesome
 
-This one's easy. Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create a file for your environment variables using the included `.env.example` file, then plug in your shiny new kit:
+This one's easy. Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create an app configuration using the included `config/application.yml.example` file, then plug in your shiny new kit:
 
 ```bash
 cd /path/to/your/repo
-cp .env.example .env
+cp config/application.yml.example config/application.yml
 ```
 
-Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
+Open `config/application.yml` and replace `font_awesome_kit_url` with your kit's url.
 
 ### Build and Run
 
@@ -163,6 +163,7 @@ Rails Superstack has been preloaded and configured with the following:
 - [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
 - [GraphQL](https://rails-graphql.dev) (API)
 - [Noticed](https://github.com/excid3/noticed) (notifications)
+- [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 
 ### Code Features
 

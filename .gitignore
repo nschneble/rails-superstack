@@ -21,13 +21,6 @@ pickle-email-*.html
 /config/initializers/secret_token.rb
 /config/*.key
 
-# dotenv, dotenv-rails (allows .env.example in version control)
-.env
-.env.development
-.env.testing
-.env.production
-.env*.local
-
 # environment normalization
 /.bundle
 /vendor/bundle
@@ -68,3 +61,6 @@ yarn-debug.log*
 !/app/assets/builds/.keep
 
 .renamed_from_template
+
+# Ignore app configuration
+/config/application.yml

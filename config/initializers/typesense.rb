@@ -1,21 +1,21 @@
 Typesense.configuration = {
   # Typesense Cloud configuration
-  # host:     "xxx.a1.typesense.net"
-  # port:     "443"
+  # host: "xxx.a1.typesense.net"
+  # port: "443"
   # protocol: "https"
 
   # local machine / self-hosting configuration
-  # host:     "localhost"
-  # port:     "8108"
+  # host: "localhost"
+  # port: "8108"
   # protocol: "http"
 
   nodes: [ {
-    host:     ENV.fetch("TYPESENSE_HOST",     "localhost"),
-    port:     ENV.fetch("TYPESENSE_PORT",     "8108"),
-    protocol: ENV.fetch("TYPESENSE_PROTOCOL", "http")
+    host: Figaro.env.typesense_host,
+    port: Figaro.env.typesense_port,
+    protocol: Figaro.env.typesense_protocol
   } ],
 
-  api_key: ENV.fetch("TYPESENSE_API_KEY", "xyz"),
+  api_key: Figaro.env.typesense_api_key,
   connection_timeout_seconds: 2,
 
   # pagination support

@@ -1,0 +1,14 @@
+# Font Awesome
+font_awesome_kit_url: https://kit.fontawesome.com/UNIQUE_STRING_OF_CHARS.js
+
+# Typesense Cloud configuration
+# typesense_api_key:
+# typesense_host: xxx.a1.typesense.net
+# typesense_port: "443"
+# typesense_protocol: https
+
+# Typesense local machine / self-hosting configuration
+typesense_api_key: xyz
+typesense_host: localhost
+typesense_port: "8108"
+typesense_protocol: http

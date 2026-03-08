@@ -34,14 +34,14 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 
 ### Set Up Font Awesome
 
-Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create a file for your environment variables using the included `.env.example` file, then plug in your new kit:
+Navigate to [Get Started with Font Awesome](https://fontawesome.com/start) to sign up and add a new icon kit. Create an app configuration using the included `config/application.yml.example` file, then plug in your new kit:
 
 ```bash
 cd /path/to/your/repo
-cp .env.example .env
+cp config/application.yml.example config/application.yml
 ```
 
-Open `.env` and replace `FONT_AWESOME_KIT_URL` with your kit's url.
+Open `config/application.yml` and replace `font_awesome_kit_url` with your kit's url.
 
 ### Build and Run
 
@@ -83,6 +83,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 - [Typesense](https://typesense.org) + [Pagy](https://ddnexus.github.io/pagy) (search + pagination)
 - [GraphQL](https://rails-graphql.dev) (API)
 - [Noticed](https://github.com/excid3/noticed) (notifications)
+- [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 
 ### Routes
 

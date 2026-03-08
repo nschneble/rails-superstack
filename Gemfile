@@ -90,6 +90,9 @@ gem "noticed"
 # ActiveRecord models without database tables [https://github.com/hardpixel/tableless]
 gem "tableless"
 
+# Simple Rails app configuration [https://github.com/laserlemon/figaro]
+gem "figaro"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
