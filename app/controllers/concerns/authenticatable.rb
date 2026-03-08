@@ -16,19 +16,8 @@ module Authenticatable
   def authenticate_user!
     return if current_user
 
-    if browser_auth_request?
-      save_passwordless_redirect_location!(User)
-      redirect_to passwordless_sign_in_path, alert: t("authentication.login_required")
-    else
-      render json: {
-        errors: [ { message: t("api.authentication.unauthorized") } ]
-      }, status: :unauthorized
-    end
-  end
-
-  # can be overridden in individual controllers
-  def browser_auth_request?
-    true
+    save_passwordless_redirect_location!(User)
+    redirect_to passwordless_sign_in_path, alert: t("authentication.login_required")
   end
 
   def authenticate_by_token(token)

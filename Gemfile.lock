@@ -6,8 +6,8 @@ GIT
 
 GIT
   remote: https://github.com/nschneble/rails-graphql.git
-  revision: ae76dd1fc9bb4ecee58d622c390bcfc0cf96f937
-  branch: rails-8.2-compatibility
+  revision: 195a6398136aceb7d26d6d16462ecc88fa4783ed
+  branch: fix-graphiql-404s
   specs:
     rails-graphql (1.0.6)
       rails (>= 6.0)

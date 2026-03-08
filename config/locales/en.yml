@@ -43,6 +43,8 @@ en:
       unavailable: "That email address is already in use"
   errors:
     method_not_implemented: "This method must be implemented in a subclass"
+  graphql:
+    unknown_schema: "Unknown schema '%{schema}'"
   notifications:
     form:
       label: "Message (max %{max} characters)"

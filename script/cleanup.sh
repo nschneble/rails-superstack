@@ -22,7 +22,6 @@ DEMO_PATHS=(
   "app/assets/images/demo"
   "app/components/demo"
   "app/controllers/demo"
-  "app/controllers/graphql/demo"
   "app/graphql/schemas/demo"
   "app/mailers/demo"
   "app/models/demo"
