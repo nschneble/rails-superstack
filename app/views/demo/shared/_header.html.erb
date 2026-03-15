@@ -16,7 +16,7 @@
         </button>
       <% end %>
 
-      <div class="hidden absolute top-12 right-0 mt-1 w-72 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-md origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1" role="menu" data-dropdown-target="menu">
+      <div class="hidden absolute top-12 right-0 mt-1 w-64 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-md origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1" role="menu" data-dropdown-target="menu">
         <% if current_user %>
           <div class="px-4 py-2 text-xs text-slate-600 select-none">
             Signed in as <span class="font-medium text-slate-700 break-all"><%= current_user.email %></span>
@@ -34,7 +34,6 @@
           <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") if Rails.env.development? %>
           <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secrets") if Flipper.enabled?(:secrets, current_user) %>
           <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Commands") %>
-          <%= render Demo::MenuItemComponent.new(path: user_profile_path, icon: "user", label: "User Profile") if current_user %>
 
           <div class="my-2 border-t border-slate-300"></div>
 
@@ -43,18 +42,19 @@
               Admin
             </div>
 
-            <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "Admin Dashboard") %>
             <%= render Demo::MenuItemComponent.new(path: resque_path, icon: "life-ring", label: "Background Jobs") %>
             <%= render Demo::MenuItemComponent.new(path: flipper_path, icon: "fish-fins", label: "Feature Flags") %>
-            <%= render Demo::MenuItemComponent.new(path: notifications_path, icon: "bell", label: "Notifications") %>
+            <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "SuperAdmin Dashboard") %>
+            <%= render Demo::MenuItemComponent.new(path: notifications_path, icon: "bell", label: "System Notifications") %>
 
             <div class="my-2 border-t border-slate-300"></div>
           <% end %>
 
           <% if current_user %>
-            <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign out") %>
+            <%= render Demo::MenuItemComponent.new(path: settings_root_path, icon: "cog", label: "User Settings") %>
+            <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign Out") %>
           <% else %>
-            <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign in") %>
+            <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign In") %>
           <% end %>
         </div>
       </div>

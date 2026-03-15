@@ -1,0 +1,47 @@
+<%= form_with url: settings_create_api_token_path,
+              scope: :api_token,
+              id: "settings-panel-api",
+              aria_labelledby: "settings-tab-api",
+              role: "tabpanel",
+              class: CustomFormBuilder::FORM_CLASSES do |form| %>
+
+  <%= content_tag :h1,
+                  t("user_profile.api_tokens.title"),
+                  class: CustomFormBuilder::TITLE_CLASSES %>
+
+  <%= form.label :name, t("user_profile.api_tokens.label") %>
+  <%= form.text_field :name,
+                      placeholder: t("user_profile.api_tokens.placeholder"),
+                      required: true,
+                      autofocus: true %>
+
+  <%= form.submit t("user_profile.api_tokens.submit") %>
+
+  <%= content_tag :p,
+                  t("user_profile.api_tokens.collection.title"),
+                  class: [ CustomFormBuilder::LABEL_CLASSES, "mt-8 font-semibold" ] %>
+  <% if @new_api_token_plaintext.present? %>
+    <div class="w-4/5 sm:w-full max-w-[325] mx-auto my-4 p-3 bg-slate-100 text-slate-900 rounded-md">
+      <p class="text-sm font-semibold"><%= t("user_profile.api_tokens.reveal.title") %></p>
+      <p class="mt-1 text-xs"><%= t("user_profile.api_tokens.reveal.hint") %></p>
+      <code class="block mt-2 p-2 bg-white rounded break-all">Bearer <%= @new_api_token_plaintext %></code>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="w-4/5 sm:w-full max-w-[325] mx-auto my-4">
+  <% if @api_tokens.present? %>
+    <% @api_tokens.each do |token| %>
+      <div class="mb-2 p-3 bg-slate-100 text-slate-900 rounded-md">
+        <p class="font-semibold break-all"><%= token.name %></p>
+        <p class="text-xs mt-1"><%= t("user_profile.api_tokens.active.created_at", time: token.created_at.to_fs(:long)) %></p>
+        <p class="text-xs"><%= t("user_profile.api_tokens.active.last_used_at", time: token.last_used_at&.to_fs(:long) || t("user_profile.api_tokens.active.never_used")) %></p>
+        <%= form_with(url: settings_delete_api_token_path(token), method: :delete, class: "mt-2") do |revoke_form| %>
+          <%= revoke_form.submit t("user_profile.api_tokens.active.revoke"), class: [ CustomFormBuilder::BUTTON_CLASSES, "w-auto max-w-none mx-0 my-0 px-3 py-1 text-sm text-white" ] %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-xs"><%= t("user_profile.api_tokens.active.empty") %></p>
+  <% end %>
+</div>

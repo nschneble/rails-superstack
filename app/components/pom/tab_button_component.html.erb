@@ -1,0 +1,4 @@
+<%= link_to path, **merge_options(default_options, extra_options) do %>
+  <%= helpers.fa_stacked_icon(["square", icon], ["text-inherit", "text-white"]) %>
+  <span class="mr-[5]"><%= t("user_profile.tabs.#{tab.to_s}") %></span>
+<% end %>

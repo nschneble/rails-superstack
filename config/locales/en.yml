@@ -58,19 +58,19 @@ en:
     sessions:
       new:
         email:
-          label: "Email address"
+          label: "Email Address"
           placeholder: "me@mydomain.net"
-        submit: "Send login code"
+        submit: "Send Login Code"
       create:
         email_sent: "We've sent a verification code to your email address"
         logging: "Creating new user for email `%{email}`"
         not_found: "We couldn't find a user with that email address"
         error: "An error occurred and now everything is ruined"
       show:
-        token: "Six-digit code"
+        token: "Six-Digit Code"
         confirm: "Confirm"
       errors:
-        invalid_token: "That's definitely NOT the verification code we emailed you"
+        invalid_token: "That's definitely not the verification code we emailed you"
         session_exists: "You're already signed in, sillypants"
         session_expired: "Your session has expired, so you're going to need to sign in again"
         token_claimed: "Nice try, but that verification code has already been used"
@@ -90,17 +90,39 @@ en:
           Did you know:
           %{fun_fact}?
   sign_in:
-    title: "Sign in"
+    title: "Sign In"
   super_admin:
     flash:
       access_denied: "You are not authorized to access this page"
   title: "Rails Superstack"
   user_profile:
+    api_tokens:
+      collection:
+        title: "Your active tokens"
+      label: "Token name"
+      placeholder: "e.g. Local development"
+      submit: "Create token"
+      title: "API tokens"
+      active:
+        created_at: "Created: %{time}"
+        empty: "No active API tokens yet"
+        last_used_at: "Last used: %{time}"
+        never_used: "Never"
+        revoke: "Revoke"
+      notices:
+        created: "API token created"
+        revoked: "API token revoked"
+      reveal:
+        hint: "Copy this now. You will not be able to see this token again."
+        title: "Your new API token"
     email:
       label: "Email address"
       placeholder: "me@mydomain.net"
-    submit: "Update email"
-    title: "User profile"
+      submit: "Update email"
+      title: "User profile"
+    tabs:
+      api: "API tokens"
+      profile: "User profile"
   users:
     mailer:
       email_change:
@@ -119,5 +141,5 @@ en:
     notifications:
       bad_type: "%{value} is not a valid notification type"
   verification_code:
-    title: "Enter your verification code"
+    title: "Enter Your Verification Code"
     placeholder: "e.g. ABCDEF"

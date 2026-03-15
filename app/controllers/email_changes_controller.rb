@@ -14,7 +14,7 @@ class EmailChangesController < AuthenticatedController
       flash.notice = t("email.confirmation.link_sent", new_email:)
     end
 
-    redirect_to user_profile_path(tab:)
+    redirect_to settings_profile_path
   end
 
   def update
@@ -34,15 +34,5 @@ class EmailChangesController < AuthenticatedController
     end
 
     redirect_back fallback_location: root_path
-  end
-
-  private
-
-  def tab
-    if helpers.valid_tab?(params[:tab])
-      params[:tab]
-    else
-      "email"
-    end
   end
 end
