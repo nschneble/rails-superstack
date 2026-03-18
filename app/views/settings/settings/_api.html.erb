@@ -4,13 +4,8 @@
                     t("settings.api_tokens.title"),
                     class: CustomFormBuilder::TITLE_CLASSES %>
 
-    <div id="api_token_reveal">
-      <%= render "settings/api_tokens/reveal", plaintext_token: @api_token_plaintext %>
-    </div>
-
-    <div id="api_token_form">
-      <%= render "settings/api_tokens/form", error_message: nil %>
-    </div>
+    <%= render "settings/api_tokens/reveal", plaintext_token: @api_token_plaintext %>
+    <%= render "settings/api_tokens/form", error_message: nil %>
 
     <%= content_tag :p,
                     t("settings.api_tokens.active.title"),

@@ -11,11 +11,7 @@ class Settings::ApiTokensController < AuthenticatedController
       format.turbo_stream do
         render turbo_stream: [
           render_api_token_form,
-          turbo_stream.replace(
-            "api_token_reveal",
-            partial: "settings/api_tokens/reveal",
-            locals: { plaintext_token: api_token.plaintext_token }
-          ),
+          render_api_token_reveal(api_token.plaintext_token),
           turbo_stream.prepend(
             "api_tokens_collection",
             partial: "settings/api_tokens/api_token",
@@ -52,6 +48,7 @@ class Settings::ApiTokensController < AuthenticatedController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove(api_token),
+          render_api_token_reveal,
           render_api_tokens_empty(current_user.api_tokens.active.exists?),
           render_notification(t("settings.api_tokens.flash.revoked"))
         ]
@@ -70,6 +67,14 @@ class Settings::ApiTokensController < AuthenticatedController
       "api_token_form",
       partial: "settings/api_tokens/form",
       locals: { error_message: }
+    )
+  end
+
+  def render_api_token_reveal(plaintext_token = nil)
+    turbo_stream.replace(
+      "api_token_reveal",
+      partial: "settings/api_tokens/reveal",
+      locals: { plaintext_token: }
     )
   end
 
