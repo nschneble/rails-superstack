@@ -7,7 +7,7 @@ class Demo::MacGuffinsController < ApplicationController
     @pagy, @mac_guffins = search_for_mac_guffins
     return unless turbo_frame_request?
 
-    render partial: "search"
+    render "search"
   end
 
   private

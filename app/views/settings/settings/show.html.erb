@@ -5,6 +5,6 @@
       <%= pom_tab_button(icon: "key", tab: :api, active: @current_settings_tab == :api, path: settings_api_path) %>
     </nav>
 
-    <%= render partial: @current_settings_tab.to_s %>
+    <%= render @current_settings_tab.to_s %>
   <% end %>
 </div>
