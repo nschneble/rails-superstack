@@ -107,6 +107,7 @@ en:
         created_at: "Created: %{time}"
         empty: "No active API tokens yet"
         last_used_at: "Last used: %{time}"
+        last_used_at: "Last used: %{timestamp}"
         never_used: "Never"
         revoke: "Revoke"
       notices:
