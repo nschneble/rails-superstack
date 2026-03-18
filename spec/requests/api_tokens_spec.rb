@@ -37,7 +37,7 @@ RSpec.describe "API tokens", type: :request do
       follow_redirect!
       expect(response.body).to include("API tokens")
       expect(response.body).to include("Spec Token")
-      expect(response.body).to include("Bearer #{plaintext}")
+      expect(response.body).to include("#{plaintext}")
 
       get settings_api_path
       expect(response.body).not_to include("Bearer #{plaintext}")
@@ -53,6 +53,41 @@ RSpec.describe "API tokens", type: :request do
 
       expect(response).to redirect_to(settings_api_path)
       expect(flash[:alert]).to include("Name can't be blank")
+    end
+
+    it "streams a new token into the list for turbo requests" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      expect do
+        post settings_create_api_token_path,
+          params: { api_token: { name: "Turbo Token" } },
+          headers: { "Accept" => "text/vnd.turbo-stream.html" }
+      end.to change(user.api_tokens, :count).by(1)
+
+      token = user.api_tokens.order(:created_at).last
+
+      expect(response).to have_http_status(:ok)
+      expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+      expect(response.body).to include(%(action="prepend" target="api_tokens_collection"))
+      expect(response.body).to include(%(id="#{ActionView::RecordIdentifier.dom_id(token)}"))
+      expect(response.body).to include("Turbo Token")
+      expect(response.body).to include("#{token.plaintext_token}")
+      expect(response.body).to include(%(action="replace" target="api_token_form"))
+    end
+
+    it "returns an unprocessable turbo stream when invalid" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      post settings_create_api_token_path,
+        params: { api_token: { name: " " } },
+        headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+      expect(response.body).to include(%(action="replace" target="api_token_form"))
+      expect(response.body).to include("Name can&#39;t be blank")
     end
   end
 
@@ -76,6 +111,30 @@ RSpec.describe "API tokens", type: :request do
       expect(response).to redirect_to(settings_api_path)
       expect(flash[:notice]).to eq("API token revoked")
       expect(token.reload.revoked_at).to be_present
+    end
+
+    it "streams a removal for turbo requests" do
+      user = create(:user)
+      token = create(:api_token, user:, revoked_at: nil)
+      passwordless_sign_in(user)
+
+      delete settings_delete_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+      expect(response.body).to include(%(action="remove" target="#{ActionView::RecordIdentifier.dom_id(token)}"))
+      expect(token.reload.revoked_at).to be_present
+    end
+
+    it "restores the empty state after removing the last token with turbo" do
+      user = create(:user)
+      token = create(:api_token, user:, revoked_at: nil)
+      passwordless_sign_in(user)
+
+      delete settings_delete_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+      expect(response.body).to include(%(action="replace" target="api_tokens_empty"))
+      expect(response.body).to include("No tokens")
     end
 
     it "returns not found when the token belongs to another user" do
@@ -126,6 +185,9 @@ RSpec.describe "API tokens", type: :request do
       expect(response.body).to include("API tokens")
       expect(response.body).to include("Create token")
       expect(response.body).to include(active_token.name)
+      expect(response.body).to include(%(id="api_tokens_collection"))
+      expect(response.body).to include(%(id="#{ActionView::RecordIdentifier.dom_id(active_token)}"))
+      expect(response.body).to include(%(data-turbo-confirm="Delete Active Token? There&#39;s no undo."))
       expect(response.body).to include("Last used: Never")
       expect(response.body).not_to include("Revoked Token")
       expect(response.body).not_to include("Expired Token")
@@ -137,7 +199,8 @@ RSpec.describe "API tokens", type: :request do
 
       get settings_api_path
 
-      expect(response.body).to include("No active API tokens yet")
+      parsed_html = Nokogiri::HTML.parse(response.body)
+      expect(parsed_html.text).to include("No tokens")
     end
 
     it "marks the api tab as selected" do

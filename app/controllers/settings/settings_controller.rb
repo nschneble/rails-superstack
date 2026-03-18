@@ -25,6 +25,6 @@ class Settings::SettingsController < AuthenticatedController
 
   def load_api_tokens
     @api_tokens ||= current_user.api_tokens.active.order(last_used_at: :desc)
-    @new_api_token_plaintext ||= session.delete(:api_token_plaintext)
+    @api_token_plaintext ||= session.delete(:api_token_plaintext)
   end
 end

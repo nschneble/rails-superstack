@@ -1,0 +1,14 @@
+<% if plaintext_token.present? %>
+  <div class="relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md">
+    <p class="flex-1 leading-none select-none">
+      <span class="font-semibold"><%= t("user_profile.api_tokens.reveal.title") %></span><br>
+      <span class="pl-[1] text-slate-600 text-xs"><%= t("user_profile.api_tokens.reveal.hint") %></span>
+    </p>
+
+    <%= pom_copy_to_clipboard align: :right,
+                              target: "#token",
+                              class: "bg-slate-100 hover:bg-slate-100 text-slate-900 hover:text-slate-950" %>
+
+    <code class="block mt-2 p-2 bg-white rounded break-all" id="token"><%= plaintext_token %></code>
+  </div>
+<% end %>

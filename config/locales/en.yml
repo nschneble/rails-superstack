@@ -107,7 +107,7 @@ en:
         empty: "No tokens"
         last_used_at: "Last used: %{timestamp}"
         never_used: "Never"
-        revoke: "Revoke"
+      confirm_destroy: "Delete %{name}? There's no undo."
       notices:
         created: "API token created"
         revoked: "API token revoked"
