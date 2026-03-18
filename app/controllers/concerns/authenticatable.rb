@@ -16,8 +16,12 @@ module Authenticatable
   def authenticate_user!
     return if current_user
 
-    save_passwordless_redirect_location!(User)
+    save_passwordless_redirect_location!(User) if navigable_request?
     redirect_to passwordless_sign_in_path, alert: t("authentication.login_required")
+  end
+
+  def navigable_request?
+    request.get? && request.format.html? && !turbo_frame_request?
   end
 
   def authenticate_by_token(token)
