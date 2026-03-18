@@ -89,39 +89,40 @@ en:
 
           Did you know:
           %{fun_fact}?
+  settings:
+    api_tokens:
+      active:
+        last_used_at: "Last used: %{timestamp}"
+        never_used: "Never"
+        title: "Your active tokens"
+      confirm:
+        destroy: "Delete %{name}? There's no undo."
+      created:
+        hint: "Copy this now! You won't be able to see it again."
+        title: "Your new API token"
+      empty:
+        message: "No tokens"
+      flash:
+        created: "API token created"
+        revoked: "API token revoked"
+      label: "Token name"
+      placeholder: "e.g. Local development"
+      submit: "Create token"
+      title: "API tokens"
+    tabs:
+      api: "API tokens"
+      profile: "User profile"
+    user_profile:
+      label: "Email address"
+      placeholder: "me@mydomain.net"
+      submit: "Update email"
+      title: "User profile"
   sign_in:
     title: "Sign In"
   super_admin:
     flash:
       access_denied: "You are not authorized to access this page"
   title: "Rails Superstack"
-  user_profile:
-    api_tokens:
-      collection:
-        title: "Your active tokens"
-      label: "Token name"
-      placeholder: "e.g. Local development"
-      submit: "Create token"
-      title: "API tokens"
-      active:
-        empty: "No tokens"
-        last_used_at: "Last used: %{timestamp}"
-        never_used: "Never"
-      confirm_destroy: "Delete %{name}? There's no undo."
-      notices:
-        created: "API token created"
-        revoked: "API token revoked"
-      reveal:
-        hint: "Copy this now! You won't be able to see it again."
-        title: "Your new API token"
-    email:
-      label: "Email address"
-      placeholder: "me@mydomain.net"
-      submit: "Update email"
-      title: "User profile"
-    tabs:
-      api: "API tokens"
-      profile: "User profile"
   users:
     mailer:
       email_change:

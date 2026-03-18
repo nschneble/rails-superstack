@@ -11,7 +11,7 @@
                 method: :delete,
                 class: "flex-none",
                 data: {
-                  turbo_confirm: t("user_profile.api_tokens.confirm_destroy", name: api_token.name)
+                  turbo_confirm: t("settings.api_tokens.confirm.destroy", name: api_token.name)
                 } do |revoke_form| %>
 
     <%= revoke_form.button type: "submit", class: "group cursor-pointer" do %>

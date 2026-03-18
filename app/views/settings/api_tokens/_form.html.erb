@@ -7,11 +7,11 @@
     </div>
   <% end %>
 
-  <%= form.label :name, t("user_profile.api_tokens.label") %>
+  <%= form.label :name, t("settings.api_tokens.label") %>
   <%= form.text_field :name,
-                      placeholder: t("user_profile.api_tokens.placeholder"),
+                      placeholder: t("settings.api_tokens.placeholder"),
                       required: true,
                       autofocus: true %>
 
-  <%= form.submit t("user_profile.api_tokens.submit") %>
+  <%= form.submit t("settings.api_tokens.submit") %>
 <% end %>

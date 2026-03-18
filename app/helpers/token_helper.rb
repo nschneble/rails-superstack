@@ -1,9 +1,9 @@
 module TokenHelper
   def format_last_used_at(token)
     timestamp = last_used_at_in_words(token) ||
-      t("user_profile.api_tokens.active.never_used")
+      t("settings.api_tokens.active.never_used")
 
-    t("user_profile.api_tokens.active.last_used_at", timestamp:)
+    t("settings.api_tokens.active.last_used_at", timestamp:)
   end
 
   def last_used_at_in_words(token)

@@ -5,7 +5,7 @@ class Settings::ApiTokensController < AuthenticatedController
     respond_to do |format|
       format.html do
         session[:api_token_plaintext] = api_token.plaintext_token
-        redirect_to settings_api_path, notice: t("user_profile.api_tokens.notices.created")
+        redirect_to settings_api_path, notice: t("settings.api_tokens.flash.created")
       end
 
       format.turbo_stream do
@@ -22,7 +22,7 @@ class Settings::ApiTokensController < AuthenticatedController
             locals: { api_token: }
           ),
           render_api_tokens_empty,
-          render_notification(t("user_profile.api_tokens.notices.created"))
+          render_notification(t("settings.api_tokens.flash.created"))
         ]
       end
     end
@@ -46,14 +46,14 @@ class Settings::ApiTokensController < AuthenticatedController
 
     respond_to do |format|
       format.html do
-        redirect_to settings_api_path, notice: t("user_profile.api_tokens.notices.revoked")
+        redirect_to settings_api_path, notice: t("settings.api_tokens.flash.revoked")
       end
 
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove(api_token),
           render_api_tokens_empty(current_user.api_tokens.active.exists?),
-          render_notification(t("user_profile.api_tokens.notices.revoked"))
+          render_notification(t("settings.api_tokens.flash.revoked"))
         ]
       end
     end
