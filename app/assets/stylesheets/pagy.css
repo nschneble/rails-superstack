@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 .pagy {
   --text: var(--color-white);
   --text-muted: var(--color-slate-300);
