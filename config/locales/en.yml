@@ -121,7 +121,7 @@ en:
     title: "Sign In"
   super_admin:
     flash:
-      access_denied: "You are not authorized to access this page"
+      access_denied: "You are not authorized to access this resource"
   title: "Rails Superstack"
   users:
     mailer:

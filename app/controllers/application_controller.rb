@@ -5,16 +5,14 @@ class ApplicationController < ActionController::Base
 
   before_action :set_search_query
 
-  rescue_from User::NotAuthorized, with: :deny_access
-
   default_form_builder CustomFormBuilder
   allow_browser versions: :modern
 
   stale_when_importmap_changes
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_back fallback_location: root_path, alert: exception.message
-  end
+  rescue_from ActiveRecord::RecordNotFound,
+              CanCan::AccessDenied,
+              User::NotAuthorized, with: :deny_access
 
   # app/views/application/root.html.erb
   def root; end
@@ -25,7 +23,8 @@ class ApplicationController < ActionController::Base
     @query ||= params[:q].presence || "*"
   end
 
-  def deny_access
-    redirect_back fallback_location: root_path, alert: t("super_admin.flash.access_denied")
+  def deny_access(exception)
+    alert = exception.message.presence || t("super_admin.flash.access_denied")
+    redirect_back fallback_location: root_path, alert:
   end
 end
