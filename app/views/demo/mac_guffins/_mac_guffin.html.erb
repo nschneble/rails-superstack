@@ -1,0 +1,25 @@
+<div class="flex group bg-white text-slate-900 shadow-slate-600 shadow-xl rounded-md">
+  <div class="w-24 flex-none p-3 bg-slate-900 border border-r-0 border-slate-950 rounded-l-md">
+    <%= image_tag "https://picsum.photos/96?random=#{mac_guffin.id}",
+                  class: "bg-white p-1 pb-4 shadow-slate-700 shadow-md rounded-xs sepia-50 rotate-2",
+                  size: "96x96",
+                  alt: mac_guffin.name %>
+  </div>
+
+  <div class="relative flex-1 p-2 border border-l-0 border-slate-300 rounded-r-md">
+    <p class="text-slate-600 tracking-tight font-semibold select-none"><%= mac_guffin.name %></p>
+    <div class="mb-2 border-t border-slate-300"></div>
+    <p class="mb-10 text-sm justified select-none"><%= mac_guffin.description %></p>
+
+    <%= render Demo::VisibilityComponent.new(visibility: mac_guffin.pretty_visibility) %>
+
+    <div class="absolute bottom-2 right-2">
+      <%= render Demo::LikeButtonComponent.new(
+        path: demo_mac_guffin_like_path(mac_guffin, page: params[:page], q: params[:q]),
+        count: mac_guffin.likes.count,
+        selected: Demo::MacGuffinLike.accessible_by(current_ability).find_by(user: current_user, mac_guffin:).present?,
+        disabled: current_user.nil? || current_user == mac_guffin.user
+      ) %>
+    </div>
+  </div>
+</div>

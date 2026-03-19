@@ -1,0 +1,13 @@
+<ul class="flex flex-col gap-y-3 list-none ml-2">
+  <% items.each do |item| %>
+    <% next if item.hidden? %>
+    <li>
+      <%= fa_stacked_icon(["square", item.avatar], ["text-lime-500", "text-white"]) %>
+      <%= content_tag :span, item.html_header %>
+
+      <% if item.byline.present? %>
+        <p class="ml-[50] text-sm italic"><%= item.html_byline %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,25 @@
+<%= fa_stacked_icon(["square", "heart-pulse"], ["text-lime-500", "text-white"]) %>
+Health Check
+<%= content_tag :p, class: "ml-[50] mb-1 text-sm" do %>
+  <%= link_to "Run Health Query with GraphiQL",
+              graphiql_path,
+              class: "hover:text-amber-400 underline!" %>
+<% end %>
+<%= content_tag :p, class: "ml-[50] mb-4 text-sm" do %>
+  <%= link_to "Inspect Schema",
+              graphql_describe_path,
+              class: "hover:text-amber-400 underline!" %>
+<% end %>
+<div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+  <pre class="p-2 pr-[42] text-sm truncate">
+    <span class="text-white select-none">POST </span>
+    <span>
+      /graphql<br><br>
+      Content Type: application/json<br>
+      Payload Data: { query: { health { status } } }<br><br>
+      200 Response:<br>
+      { data: { health: { status: "ok" } } }
+    </span>
+  </pre>
+  <%= pom_copy_to_clipboard(align: :right, text: "curl -s -H 'Content-Type: application/json' -X POST http://localhost:3000/graphql -d '{\"query\":\"{ health { status } }\"}' | jq") %>
+</div>

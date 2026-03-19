@@ -3,13 +3,11 @@ class Settings::SettingsController < AuthenticatedController
   before_action :load_api_tokens, only: :api
 
   def profile
-    @current_settings_tab = :profile
-    render :show
+    render :show, locals: { tab: "profile" }
   end
 
   def api
-    @current_settings_tab = :api
-    render :show
+    render :show, locals: { tab: "api" }
   end
 
   private

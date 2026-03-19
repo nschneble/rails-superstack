@@ -1,0 +1,17 @@
+<ul class="flex flex-col gap-y-3 list-none ml-2">
+  <% commands.each do |command| %>
+    <li>
+      <%= fa_stacked_icon(["square", command.icon], ["text-lime-500", "text-white"]) %>
+      <%= content_tag :span, command.html_text %>
+
+      <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+        <pre class="p-2 pr-[42] truncate">
+          <span class="text-white select-none">% </span>
+          <%= content_tag :span, command.code, id: command.name %>
+        </pre>
+
+        <%= pom_copy_to_clipboard(align: :right, target: command.name) %>
+      </div>
+    </li>
+  <% end %>
+</ul>

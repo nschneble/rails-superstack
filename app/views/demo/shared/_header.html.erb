@@ -6,57 +6,14 @@
     </div>
 
     <div class="relative flex items-center" data-controller="dropdown">
-      <% if current_user %>
-        <button class="w-[42] h-[42] ring-1 ring-slate-300 rounded-md cursor-pointer" type="button" data-dropdown-target="button" data-action="dropdown#toggle" aria-haspopup="true" aria-expanded="false">
-          <%= gravatar_image_tag(current_user.email, :alt => current_user.email, :class => "rounded-md") %>
-        </button>
-      <% else %>
-        <button class="w-[42] h-[42] p-3 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 ring-1 ring-slate-800 hover:ring-slate-900 active:ring-slate-950 text-sm rounded-md cursor-pointer" type="button" data-dropdown-target="button" data-action="dropdown#toggle" aria-haspopup="true" aria-expanded="false">
-          <%= fas_icon("bars") %>
-        </button>
-      <% end %>
+      <%= render "demo/shared/menus/dropdown_button" %>
 
-      <div class="hidden absolute top-12 right-0 mt-1 w-64 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-md origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1" role="menu" data-dropdown-target="menu">
-        <% if current_user %>
-          <div class="px-4 py-2 text-xs text-slate-600 select-none">
-            Signed in as <span class="font-medium text-slate-700 break-all"><%= current_user.email %></span>
-          </div>
-          <div class="border-t border-slate-300"></div>
-        <% end %>
+      <div class="hidden absolute top-12 right-0 mt-1 w-64 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-md origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1"
+           role="menu"
+           data-dropdown-target="menu">
 
-        <div class="py-2">
-          <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
-            Navigation
-          </div>
-
-          <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
-          <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
-          <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secret Page") if Flipper.enabled?(:secrets, current_user) %>
-          <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") if Rails.env.development? %>
-          <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Guide") %>
-
-          <div class="my-2 border-t border-slate-300"></div>
-
-          <% if current_user&.admin? %>
-            <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
-              Admin
-            </div>
-
-            <%= render Demo::MenuItemComponent.new(path: resque_path, icon: "life-ring", label: "Background Jobs") %>
-            <%= render Demo::MenuItemComponent.new(path: flipper_path, icon: "fish-fins", label: "Feature Flags") %>
-            <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "SuperAdmin Dashboard") %>
-            <%= render Demo::MenuItemComponent.new(path: notifications_path, icon: "bell", label: "System Notifications") %>
-
-            <div class="my-2 border-t border-slate-300"></div>
-          <% end %>
-
-          <% if current_user %>
-            <%= render Demo::MenuItemComponent.new(path: settings_root_path, icon: "cog", label: "User Settings") %>
-            <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign Out") %>
-          <% else %>
-            <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign In") %>
-          <% end %>
-        </div>
+        <%= render "demo/shared/menus/user_info" %>
+        <%= render "demo/shared/menus/navigation" %>
       </div>
     </div>
   </nav>

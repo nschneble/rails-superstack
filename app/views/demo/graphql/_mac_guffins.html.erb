@@ -1,0 +1,35 @@
+<%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
+MacGuffins
+<p class="ml-[50] -mt-2 mb-2 text-sm italic">Requires <span class="text-amber-200 font-semibold">authentication</span></p>
+<%= content_tag :p, class: "ml-[50] mb-1 text-sm" do %>
+  <%= link_to "Create API Token",
+              settings_api_path,
+              class: "hover:text-amber-400 underline!" %>
+<% end %>
+<%= content_tag :p, class: "ml-[50] mb-1 text-sm" do %>
+  <%= link_to "Run MacGuffin Query with GraphiQL",
+              graphiql_path(schema: "demo"),
+              class: "hover:text-amber-400 underline!" %>
+<% end %>
+<%= content_tag :p, class: "ml-[50] mb-4 text-sm" do %>
+  <%= link_to "Inspect Demo Schema",
+              graphql_describe_path(schema: "demo"),
+              class: "hover:text-amber-400 underline!" %>
+<% end %>
+<div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+  <pre class="p-2 pr-[42] text-sm truncate">
+    <span class="text-white select-none">POST </span>
+    <span>
+      /graphql/demo<br><br>
+      Authorization: Bearer TOKEN<br>
+      Content-Type: &nbsp;application/json<br>
+      Payload Data: &nbsp;{ query: { macGuffins { id name } } }<br><br>
+      200 Response:<br>
+      { data: { macGuffins: [<br>
+      &nbsp;&nbsp;{ id: 1, name: "Unobtainium" },<br>
+      &nbsp;&nbsp;{ id: 2, name: "The Holy Grail" }<br>
+      ] } }
+    </span>
+  </pre>
+  <%= pom_copy_to_clipboard(align: :right, text: "bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' -H 'Authorization: %' -X POST http://localhost:3000/graphql/demo -d '{\"query\":\"{ macGuffins { id name description visibility userId } }\"}' | jq") %>
+</div>
