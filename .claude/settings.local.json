@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle show:*)",
+      "Bash(xargs ls:*)",
+      "Bash(find /Users/nickschneble/Developer/Repos/rails-superstack/app/views -type f -name *session* -o -name *auth*)",
+      "Bash(grep -r \"redirect_to\\\\|redirect_back\" /Users/nickschneble/Developer/Repos/rails-superstack/app/controllers/*.rb)",
+      "Bash(find /Users/nickschneble/Developer/Repos/rails-superstack -type f -path */lib/* -name *.rb)",
+      "Bash(grep -r \"session\\\\|cookie\" /Users/nickschneble/Developer/Repos/rails-superstack/config/initializers/*.rb)",
+      "Bash(grep -A 20 create_table.*passwordless /Users/nickschneble/Developer/Repos/rails-superstack/db/schema.rb)",
+      "Bash(grep -A 15 create_table.*users /Users/nickschneble/Developer/Repos/rails-superstack/db/schema.rb)",
+      "Bash(grep:*)",
+      "Bash(ruby --version)"
+    ]
+  }
+}
