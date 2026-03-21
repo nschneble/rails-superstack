@@ -87,9 +87,6 @@ gem "rails-graphql", github: "nschneble/rails-graphql", branch: "fix-graphiql-40
 # Notifications for Ruby on Rails applications [https://github.com/excid3/noticed]
 gem "noticed"
 
-# ActiveRecord models without database tables [https://github.com/hardpixel/tableless]
-gem "tableless"
-
 # Simple Rails app configuration [https://github.com/laserlemon/figaro]
 gem "figaro"
 
