@@ -3,7 +3,7 @@ class Demo::GraphQLController < ApplicationController
 
   layout "demo/moxie"
 
-  skip_before_action :verify_authenticity_token, except: %i[show]
+  skip_before_action :verify_authenticity_token, only: %i[execute]
 
   self.gql_schema = "GraphQL::Schemas::Demo::AppSchema"
 
