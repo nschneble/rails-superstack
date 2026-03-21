@@ -1,34 +1,25 @@
 class EmailChangesController < AuthenticatedController
   def create
-    new_email = EmailParser.call(params[:new_email])
-    EmailChangeRequest.where(new_email:).expired.delete_all
+    result = Email::RequestService.call(user: current_user, new_email: params[:new_email])
 
-    if new_email.nil?
-      redirect_to user_profile_path, alert: t("email.validation.invalid")
-    elsif User.where(email: new_email).exists? || EmailChangeRequest.where(new_email:).active.exists?
-      redirect_to user_profile_path, alert: t("email.validation.unavailable")
+    if result.success?
+      flash.notice = t("email.confirmation.link_sent", new_email: result.payload.new_email)
     else
-      request = current_user.email_change_requests.create!(new_email: new_email)
-      UserMailer.with(request: request).email_change_confirmation.deliver_later
-      redirect_to user_profile_path, notice: t("email.confirmation.link_sent", new_email:)
+      flash.alert = t("email.validation.#{result.error}")
     end
+
+    redirect_to settings_profile_path
   end
 
   def update
-    request = EmailChangeRequest.find_by!(token: params[:token])
-    if request.expired?
-      request.destroy
-      redirect_back fallback_location: root_path, alert: t("email.confirmation.link_expired")
-    elsif User.where(email: request.new_email).where.not(id: request.user_id).exists?
-      request.destroy
-      redirect_back fallback_location: root_path, alert: t("email.validation.unavailable")
+    result = Email::ConfirmService.call(token: params[:token])
+
+    if result.success?
+      flash.notice = t("email.confirmation.updated")
     else
-      request.user.update!(
-        email: request.new_email,
-        email_confirmed_at: Time.current
-      )
-      request.user.email_change_requests.delete_all
-      redirect_back fallback_location: root_path, notice: t("email.confirmation.updated")
+      flash.alert = t("email.confirmation.#{result.error}")
     end
+
+    redirect_back_or_to root_path
   end
 end

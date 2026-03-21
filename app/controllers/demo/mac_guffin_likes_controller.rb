@@ -1,21 +1,13 @@
 module Demo
   class MacGuffinLikesController < AuthenticatedController
     def create
-      like = MacGuffinLike.accessible_by(current_ability).find_or_initialize_by(user: current_user, mac_guffin:)
-
-      if like.save
-        NewMacGuffinLikeNotifier.with(record: mac_guffin, actor: current_user).deliver(mac_guffin.user)
-      else
-        flash.alert = like.errors.full_messages.to_sentence
-      end
-
+      result = MacGuffinLikes::CreateService.call(user: current_user, mac_guffin:, ability: current_ability)
+      flash.alert = result.error unless result.success?
       redirect_to redirect_location
     end
 
     def destroy
-      like = MacGuffinLike.accessible_by(current_ability).find_by(user: current_user, mac_guffin:)
-      like&.destroy
-
+      MacGuffinLikes::DestroyService.call(user: current_user, mac_guffin:, ability: current_ability)
       redirect_to redirect_location
     end
 

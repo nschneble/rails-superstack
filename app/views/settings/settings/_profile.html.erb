@@ -1,0 +1,34 @@
+<%= form_with url: email_change_path,
+              data: {
+                turbo: "false",
+                controller: "email"
+              },
+              id: "settings-panel-profile",
+              aria_labelledby: "settings-tab-profile",
+              role: "tabpanel",
+              class: CustomFormBuilder::FORM_CLASSES do |form| %>
+
+  <%= content_tag :h1,
+                  t("settings.user_profile.title"),
+                  class: CustomFormBuilder::TITLE_CLASSES %>
+
+  <%= form.label :new_email, t("settings.user_profile.label") %>
+  <%= form.email_field :new_email,
+                       placeholder: t("settings.user_profile.placeholder"),
+                       value: @email_change_request&.new_email.presence || current_user.email,
+                       required: true,
+                       autofocus: true,
+                       disabled: @email_change_request.present?,
+                       data: {
+                         action: "input->email#toggle",
+                         email_current_email_param: current_user.email,
+                         email_target: "input"
+                       } %>
+
+  <%= form.submit t("settings.user_profile.submit"),
+                  disabled: true,
+                  data: {
+                    action: "click->email#submit",
+                    email_target: "button"
+                  } %>
+<% end %>

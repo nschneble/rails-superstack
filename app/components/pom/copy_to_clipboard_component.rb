@@ -25,7 +25,7 @@ class Pom::CopyToClipboardComponent < Pom::Component
         action: "click->clipboard#copy",
         clipboard_duration_value: "1000",
         clipboard_emoji_fallback_value: !helpers.font_awesome_available?,
-        clipboard_target_selector_value: target,
+        clipboard_target_selector_value: "##{target}",
         clipboard_text_value: text
       }
     }

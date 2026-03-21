@@ -15,7 +15,7 @@ RSpec.describe "Flipper feature flags", type: :request do
     get flipper_path
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq("You are not authorized to access this page")
+    expect(flash[:alert]).to eq("You are not authorized to access this resource")
   end
 
   it "allows admin users to view the Flipper UI" do

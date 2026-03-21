@@ -1,5 +1,5 @@
-user  = User.find_by!(email: "user@superstack.dev")
-admin = User.find_by!(email: "admin@superstack.dev")
+user  = User.find_or_create_by!(email: "user@superstack.dev", role: :user)
+admin = User.find_or_create_by!(email: "admin@superstack.dev", role: :admin)
 
 Demo::MacGuffin.find_or_create_by!(
   name: "Unobtainium",

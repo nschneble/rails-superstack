@@ -19,7 +19,7 @@ class Ability
 
   def load_ability_fragments
     Dir[Rails.root.join(ABILITIES_RELATIVE_PATH)].sort.each do |file|
-      require_dependency file
+      require file
     end
 
     self.class.fragments.each do |fragment|

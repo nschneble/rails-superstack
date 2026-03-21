@@ -1,0 +1,22 @@
+<%= content_tag :div, class: CustomFormBuilder::FORM_CLASSES do %>
+  <div id="settings-panel-api" aria_labelledby="settings-tab-api" role="tabpanel">
+    <%= content_tag :h1,
+                    t("settings.api_tokens.title"),
+                    class: CustomFormBuilder::TITLE_CLASSES %>
+
+    <%= render "settings/api_tokens/reveal", plaintext_token: @api_token_plaintext %>
+    <%= render "settings/api_tokens/form", error_message: nil %>
+
+    <%= content_tag :p,
+                    t("settings.api_tokens.active.title"),
+                    class: [ CustomFormBuilder::LABEL_CLASSES, "mt-8 mb-2 font-semibold" ] %>
+
+    <div class="w-4/5 sm:w-full max-w-[325] mx-auto">
+      <div id="api_tokens_collection" class="flex flex-col gap-4">
+        <%= render @api_tokens %>
+      </div>
+
+      <%= render "settings/api_tokens/empty", hidden: @api_tokens.present? %>
+    </div>
+  </div>
+<% end %>

@@ -23,7 +23,7 @@ module Notifiable
   def user_notifications
     return [] unless current_user
 
-    unread = current_user.notifications.unread.newest_first.limit(3)
+    unread = current_user.notifications.unread.newest_first.limit(3).load
     unread.mark_as_read if unread.any?
     unread.map { Notification.new(type: "info", message: _1.message) }
   end

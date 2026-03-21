@@ -16,8 +16,6 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -39,14 +37,8 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
-
 # Catch unsafe migrations in development [https://github.com/ankane/strong_migrations]
 gem "strong_migrations"
-
-# A library for generating fake data [https://github.com/faker-ruby/faker]
-gem "faker"
 
 # Authentication without the icky-ness of passwords [https://github.com/mikker/passwordless]
 gem "passwordless"
@@ -55,10 +47,10 @@ gem "passwordless"
 gem "cancancan"
 
 # A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
-gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag"
+gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag", ref: "71b32fcffe461252aa4bb4fb9586ca0797af09ff"
 
 # A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
-gem "super_admin", "~> 0.2.0"
+gem "super_admin"
 
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
 gem "commonmarker"
@@ -79,16 +71,13 @@ gem "pom-component"
 gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
-gem "pagy", "~> 43.2"
+gem "pagy", "~> 43"
 
 # A fresh, new GraphQL server designed for Rails [https://github.com/virtualshield/rails-graphql]
-gem "rails-graphql", github: "nschneble/rails-graphql", branch: "fix-graphiql-404s"
+gem "rails-graphql", github: "nschneble/rails-graphql", ref: "164b858226d1348e7a2d4cfaa7a12e601ada2c58"
 
 # Notifications for Ruby on Rails applications [https://github.com/excid3/noticed]
 gem "noticed"
-
-# ActiveRecord models without database tables [https://github.com/hardpixel/tableless]
-gem "tableless"
 
 # Simple Rails app configuration [https://github.com/laserlemon/figaro]
 gem "figaro"
@@ -111,6 +100,9 @@ group :development, :test do
 
   # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
+
+  # A library for generating fake data [https://github.com/faker-ruby/faker]
+  gem "faker"
 end
 
 group :development do

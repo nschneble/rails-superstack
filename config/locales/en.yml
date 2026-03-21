@@ -37,6 +37,7 @@ en:
     confirmation:
       link_expired: "That confirmation link has expired"
       link_sent: "We've sent a confirmation link to %{new_email}"
+      unavailable: "That email address is already in use"
       updated: "Your email address has been updated"
     validation:
       invalid: "That is not a valid email address"
@@ -52,25 +53,26 @@ en:
       submit: "Send notification"
       title: "Broadcast to all users"
     status:
-      failure: Message can't be blank"
+      blank: "Message can't be blank"
       success: "Notification sent"
+      too_long: "Message is too long"
   passwordless:
     sessions:
       new:
         email:
-          label: "Email address"
+          label: "Email Address"
           placeholder: "me@mydomain.net"
-        submit: "Send login code"
+        submit: "Send Login Code"
       create:
         email_sent: "We've sent a verification code to your email address"
         logging: "Creating new user for email `%{email}`"
         not_found: "We couldn't find a user with that email address"
         error: "An error occurred and now everything is ruined"
       show:
-        token: "Six-digit code"
+        token: "Six-Digit Code"
         confirm: "Confirm"
       errors:
-        invalid_token: "That's definitely NOT the verification code we emailed you"
+        invalid_token: "That's definitely not the verification code we emailed you"
         session_exists: "You're already signed in, sillypants"
         session_expired: "Your session has expired, so you're going to need to sign in again"
         token_claimed: "Nice try, but that verification code has already been used"
@@ -89,18 +91,40 @@ en:
 
           Did you know:
           %{fun_fact}?
-  sign_in:
-    title: "Sign in"
-  super_admin:
-    flash:
-      access_denied: "You are not authorized to access this page"
-  title: "Rails Superstack"
-  user_profile:
-    email:
+  settings:
+    api_tokens:
+      active:
+        last_used_at: "Last used: %{timestamp}"
+        never_used: "Never"
+        title: "Your active tokens"
+      confirm:
+        destroy: "Delete %{name}? There's no undo."
+      created:
+        hint: "Copy this now! You won't be able to see it again."
+        title: "Your new API token"
+      empty:
+        message: "No tokens"
+      flash:
+        created: "API token created"
+        revoked: "API token revoked"
+      label: "Token name"
+      placeholder: "e.g. Local development"
+      submit: "Create token"
+      title: "API tokens"
+    tabs:
+      api: "API tokens"
+      profile: "User profile"
+    user_profile:
       label: "Email address"
       placeholder: "me@mydomain.net"
-    submit: "Update email"
-    title: "User profile"
+      submit: "Update email"
+      title: "User profile"
+  sign_in:
+    title: "Sign In"
+  super_admin:
+    flash:
+      access_denied: "You are not authorized to access this resource"
+  title: "Rails Superstack"
   users:
     mailer:
       email_change:
@@ -119,5 +143,5 @@ en:
     notifications:
       bad_type: "%{value} is not a valid notification type"
   verification_code:
-    title: "Enter your verification code"
+    title: "Enter Your Verification Code"
     placeholder: "e.g. ABCDEF"

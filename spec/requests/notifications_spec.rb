@@ -11,7 +11,7 @@ RSpec.describe "Global notifications", type: :request do
     get notifications_path, headers: { HTTP_REFERER: root_path }
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq("You are not authorized to access this page")
+    expect(flash[:alert]).to eq("You are not authorized to access this resource")
   end
 
   it "allows admins to send a global notification" do

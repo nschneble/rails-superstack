@@ -2,7 +2,7 @@
     layout "demo/moxie"
 
     # app/views/demo/secrets.html.erb
-    def sssssh
+    def sssh
       return if Flipper.enabled?(:secrets, current_user)
 
       raise ActionController::RoutingError,

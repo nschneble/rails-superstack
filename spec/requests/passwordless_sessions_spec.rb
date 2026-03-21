@@ -22,4 +22,18 @@ RSpec.describe "Passwordless sessions", type: :request do
     expect(response).to redirect_to(root_path)
     expect(flash[:notice]).to eq("You're already signed in, sillypants")
   end
+
+  it "does not treat bearer token authentication as an existing passwordless session" do
+    user = create(:user)
+    token = ApiToken.issue!(user:, name: "Spec Token")
+
+    get auth_sign_in_path,
+      headers: {
+        HTTP_REFERER: auth_sign_in_path,
+        Authorization: "Bearer #{token.plaintext_token}"
+      }
+
+    expect(response).to have_http_status(:ok)
+    expect(flash[:notice]).to be_nil
+  end
 end

@@ -1,0 +1,12 @@
+<ul class="flex flex-col gap-y-3 list-none ml-2">
+  <% items.each do |item| %>
+    <li>
+      <%= fa_stacked_icon(["square", item.avatar], ["text-lime-500", "text-white"]) %>
+      <span><%= render_segments(item.description) %></span>
+
+      <% if item.byline %>
+        <p class="ml-[50] text-sm italic"><%= render_segments(item.byline) %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

@@ -4,14 +4,14 @@
 
     <%= form.label :message,
                    t("notifications.form.label",
-                   max: Notification::TWITTER_STYLEZ),
+                   max: Notification::MAX_MESSAGE_LENGTH),
                    class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
     <%= form.text_area :message,
                        required: true,
                        autofocus: true,
                        placeholder: t("notifications.form.placeholder"),
                        rows: 5,
-                       maxlength: Notification::TWITTER_STYLEZ,
+                       maxlength: Notification::MAX_MESSAGE_LENGTH,
                        class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
 
     <%= form.submit t("notifications.form.submit") %>
