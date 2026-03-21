@@ -1,4 +1,4 @@
-module EmailChanges
+module Email
   class RequestService < BaseService
     def call(user:, new_email:)
       new_email = EmailParser.call(new_email)

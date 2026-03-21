@@ -1,6 +1,6 @@
 class EmailChangesController < AuthenticatedController
   def create
-    result = EmailChanges::RequestService.call(user: current_user, new_email: params[:new_email])
+    result = Email::RequestService.call(user: current_user, new_email: params[:new_email])
 
     if result.success?
       flash.notice = t("email.confirmation.link_sent", new_email: result.payload.new_email)
@@ -12,7 +12,7 @@ class EmailChangesController < AuthenticatedController
   end
 
   def update
-    result = EmailChanges::ConfirmService.call(token: params[:token])
+    result = Email::ConfirmService.call(token: params[:token])
 
     if result.success?
       flash.notice = t("email.confirmation.updated")

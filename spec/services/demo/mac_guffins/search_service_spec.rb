@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::MacGuffinSearch, type: :service do
+RSpec.describe Demo::MacGuffins::SearchService, type: :service do
   subject(:result) do
     described_class.call(
       ability: Ability.new(user),

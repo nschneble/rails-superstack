@@ -1,12 +1,12 @@
-module Queries
-  class MacGuffinSearch < BaseService
+module Demo
+  class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 
     def call(ability:, query:, page:, request:)
-      searchable_ids = Demo::MacGuffin.accessible_by(ability).pluck(:id)
+      searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
       return ServiceResult.ok(empty_result(page, request)) if searchable_ids.empty?
 
-      pagy, results = Demo::MacGuffin.search(
+      pagy, results = MacGuffin.search(
         query,
         "name,description",
         page:,

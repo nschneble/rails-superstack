@@ -1,4 +1,4 @@
-module EmailChanges
+module Email
   class ConfirmService < BaseService
     def call(token:)
       request = EmailChangeRequest.find_by!(token:)

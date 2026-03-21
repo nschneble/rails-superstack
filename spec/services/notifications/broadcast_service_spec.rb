@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe GlobalNotifications::BroadcastService, type: :service do
+RSpec.describe Notifications::BroadcastService, type: :service do
   subject(:result) { described_class.call(message:, actor: user) }
 
   let(:user) { create(:user, :admin) }

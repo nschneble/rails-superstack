@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe EmailChanges::ConfirmService, type: :service do
+RSpec.describe Email::ConfirmService, type: :service do
   subject(:result) { described_class.call(token: ecr.token) }
 
   let(:user) { create(:user, email: "old@example.com") }

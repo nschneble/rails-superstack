@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe EmailChanges::RequestService, type: :service do
+RSpec.describe Email::RequestService, type: :service do
   subject(:result) { described_class.call(user:, new_email:) }
 
   let(:user) { create(:user) }

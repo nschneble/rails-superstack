@@ -4,7 +4,7 @@ class NotificationsController < AuthenticatedController
 
   def create
     message = params.dig(:global_notification, :message).to_s.strip
-    result = GlobalNotifications::BroadcastService.call(message:, actor: current_user)
+    result = Notifications::BroadcastService.call(message:, actor: current_user)
 
     if result.success?
       redirect_to notifications_path, notice: t("notifications.status.success")

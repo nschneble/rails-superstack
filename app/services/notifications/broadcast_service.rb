@@ -1,4 +1,4 @@
-module GlobalNotifications
+module Notifications
   class BroadcastService < BaseService
     def call(message:, actor:)
       return ServiceResult.fail(:blank) if message.blank?
