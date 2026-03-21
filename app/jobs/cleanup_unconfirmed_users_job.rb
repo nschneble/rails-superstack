@@ -8,8 +8,6 @@ class CleanupUnconfirmedUsersJob
     User
       .where(email_confirmed_at: nil)
       .where("created_at < ?", cutoff)
-      .find_each do |user|
-        user.destroy!
-      end
+      .destroy_all
   end
 end
