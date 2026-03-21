@@ -37,6 +37,7 @@ en:
     confirmation:
       link_expired: "That confirmation link has expired"
       link_sent: "We've sent a confirmation link to %{new_email}"
+      unavailable: "That email address is already in use"
       updated: "Your email address has been updated"
     validation:
       invalid: "That is not a valid email address"
@@ -52,8 +53,9 @@ en:
       submit: "Send notification"
       title: "Broadcast to all users"
     status:
-      failure: Message can't be blank"
+      blank: "Message can't be blank"
       success: "Notification sent"
+      too_long: "Message is too long"
   passwordless:
     sessions:
       new:

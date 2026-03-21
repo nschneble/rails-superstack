@@ -5,9 +5,9 @@ module Demo
     def show
       @commands = [
         TerminalCommand.new(
-          code: "log_bench log/development.log",
           icon: "satellite-dish",
           name: "log_bench",
+          code: "log_bench log/development.log",
           description: [
             "Try out",
             { link: "LogBench", to: "https://github.com/silva96/log_bench" },
@@ -15,9 +15,9 @@ module Demo
           ]
         ),
         TerminalCommand.new(
-          code: "bin/rubocop",
           icon: "spell-check",
           name: "rubocop",
+          code: "bin/rubocop",
           description: [
             "Lint",
             { hidden: [ "and format your code" ] },
@@ -26,9 +26,9 @@ module Demo
           ]
         ),
         TerminalCommand.new(
-          code: "bin/rspec",
           icon: "microscope",
           name: "rspec",
+          code: "bin/rspec",
           description: [
             "Run",
             { link: "RSpec", to: "https://rspec.info/" },
@@ -41,9 +41,9 @@ module Demo
           ]
         ),
         TerminalCommand.new(
-          code: "bin/ci",
           icon: "code-merge",
           name: "ci",
+          code: "bin/ci",
           description: [
             { hidden: [ "Ready to merge?" ] },
             { link: "Run local CI", to: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-ci" }

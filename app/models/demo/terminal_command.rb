@@ -1,1 +1,1 @@
-Demo::TerminalCommand = Data.define(:code, :icon, :name, :description)
+Demo::TerminalCommand = Data.define(:icon, :name, :code, :description)

@@ -28,6 +28,7 @@ DEMO_PATHS=(
   "app/mailers/demo"
   "app/models/demo"
   "app/notifiers/demo"
+  "app/services/demo"
   "app/views/demo"
   "app/views/layouts/demo"
   "config/locales/demo"
