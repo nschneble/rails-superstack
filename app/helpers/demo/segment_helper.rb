@@ -1,6 +1,6 @@
-module SegmentHelper
+module Demo::SegmentHelper
   def render_segments(segments)
-    safe_join segments.map do |part|
+    safe_join(segments.map do |part|
       case part
       when String
         part
@@ -13,6 +13,6 @@ module SegmentHelper
           content_tag(:span, part[:highlight], class: "text-amber-200 font-semibold")
         end
       end
-    end, " "
+    end, " ")
   end
 end

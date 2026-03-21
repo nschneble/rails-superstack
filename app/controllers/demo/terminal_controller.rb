@@ -11,7 +11,7 @@ module Demo
           description: [
             "Try out",
             { link: "LogBench", to: "https://github.com/silva96/log_bench" },
-            { hidden: ["for some real-time monitoring"] }
+            { hidden: [ "for some real-time monitoring" ] }
           ]
         ),
         TerminalCommand.new(
@@ -20,7 +20,7 @@ module Demo
           name: "rubocop",
           description: [
             "Lint",
-            { hidden: ["and format your code"] },
+            { hidden: [ "and format your code" ] },
             "with",
             { link: "RuboCop", to: "https://rubocop.org/" }
           ]
@@ -45,7 +45,7 @@ module Demo
           icon: "code-merge",
           name: "ci",
           description: [
-            { hidden: ["Ready to merge?"] },
+            { hidden: [ "Ready to merge?" ] },
             { link: "Run local CI", to: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-ci" }
           ]
         )

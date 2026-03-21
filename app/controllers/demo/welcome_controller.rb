@@ -14,7 +14,7 @@ module Demo
           avatar: "key",
           description: [
             { link: "Sign out", to: auth_sign_out_path },
-            { hidden: ["with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" }] }
+            { hidden: [ "with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" } ] }
           ],
           hidden: current_user.nil?
         ),
@@ -22,7 +22,7 @@ module Demo
           avatar: "key",
           description: [
             { link: "Sign in", to: auth_sign_in_path },
-            { hidden: ["with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" }] }
+            { hidden: [ "with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" } ] }
           ],
           byline: [
             "Try",
@@ -38,7 +38,7 @@ module Demo
           description: [
             "Search",
             { link: "MacGuffins", to: demo_mac_guffins_path },
-            { hidden: ["defined with", { link: "CanCanCan", to: "https://github.com/CanCanCommunity/cancancan" }, "access rules"] }
+            { hidden: [ "defined with", { link: "CanCanCan", to: "https://github.com/CanCanCommunity/cancancan" }, "access rules" ] }
           ],
           byline: [
             "Try visiting the page while",
@@ -54,7 +54,7 @@ module Demo
           avatar: "share-nodes",
           description: [
             { link: "Make API calls", to: demo_api_path },
-            { hidden: ["with", { link: "Rails GraphQL", to: "https://rails-graphql.dev" }] }
+            { hidden: [ "with", { link: "Rails GraphQL", to: "https://rails-graphql.dev" } ] }
           ]
         ),
         WelcomeItem.new(
@@ -62,7 +62,7 @@ module Demo
           description: [
             "Open the",
             { link: "admin dashboard", to: admin_path },
-            { hidden: ["with", { link: "SuperAdmin", to: "https://github.com/ThibautBaissac/super_admin" }] }
+            { hidden: [ "with", { link: "SuperAdmin", to: "https://github.com/ThibautBaissac/super_admin" } ] }
           ]
         ),
         WelcomeItem.new(
@@ -70,7 +70,7 @@ module Demo
           description: [
             "Enable",
             { link: "feature flags", to: flipper_path },
-            { hidden: ["with", { link: "Flipper", to: "https://www.flippercloud.io" }] }
+            { hidden: [ "with", { link: "Flipper", to: "https://www.flippercloud.io" } ] }
           ]
         ),
         WelcomeItem.new(
@@ -78,7 +78,7 @@ module Demo
           description: [
             "Test",
             { link: "sending notifications", to: notifications_path },
-            { hidden: ["with", { link: "Noticed", to: "https://github.com/excid3/noticed" }] }
+            { hidden: [ "with", { link: "Noticed", to: "https://github.com/excid3/noticed" } ] }
           ],
           byline: [
             "You need to be signed in as an",
