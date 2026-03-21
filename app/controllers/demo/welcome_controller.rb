@@ -3,39 +3,88 @@ module Demo
     layout "demo/moxie"
 
     def show
-      @items = [
+      @items = build_items.reject(&:hidden)
+    end
+
+    private
+
+    def build_items
+      [
         WelcomeItem.new(
           avatar: "key",
-          header: '<a class="hover:text-amber-400 underline!" href="' + auth_sign_out_path + '">Sign out</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>',
+          description: [
+            { link: "Sign out", to: auth_sign_out_path },
+            { hidden: ["with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" }] }
+          ],
           hidden: current_user.nil?
         ),
         WelcomeItem.new(
           avatar: "key",
-          header: '<a class="hover:text-amber-400 underline!" href="' + auth_sign_in_path + '">Sign in</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/mikker/passwordless">Passwordless</a></span>',
-          byline: 'Try <span class="text-amber-200 font-semibold">user@superstack.dev</span> for a regular user or <span class="text-amber-200 font-semibold">admin@superstack.dev</span> for an admin',
+          description: [
+            { link: "Sign in", to: auth_sign_in_path },
+            { hidden: ["with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" }] }
+          ],
+          byline: [
+            "Try",
+            { highlight: "user@superstack.dev" },
+            "for a regular user or",
+            { highlight: "admin@superstack.dev" },
+            "for an admin"
+          ],
           hidden: current_user.present?
         ),
         WelcomeItem.new(
           avatar: "trophy",
-          header: 'Search <a class="hover:text-amber-400 underline!" href="' + demo_mac_guffins_path + '">MacGuffins</a><span class="hidden sm:inline"> defined with <a class="hover:text-amber-400 underline!" href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a> access rules</span>',
-          byline: 'Try visiting the page while <span class="text-amber-200 font-semibold">signed out</span>, signed in as a <span class="text-amber-200 font-semibold">regular user</span>, and signed in as an <span class="text-amber-200 font-semibold">admin</span>. You will see different items!'
+          description: [
+            "Search",
+            { link: "MacGuffins", to: demo_mac_guffins_path },
+            { hidden: ["defined with", { link: "CanCanCan", to: "https://github.com/CanCanCommunity/cancancan" }, "access rules"] }
+          ],
+          byline: [
+            "Try visiting the page while",
+            { highlight: "signed out" },
+            ", signed in as a",
+            { highlight: "regular user" },
+            ", and signed in as an",
+            { highlight: "admin" },
+            ". You will see different items!"
+          ]
         ),
         WelcomeItem.new(
           avatar: "share-nodes",
-          header: '<a class="hover:text-amber-400 underline!" href="' + demo_api_path + '">Make API calls</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://rails-graphql.dev">Rails GraphQL</a></span>'
+          description: [
+            { link: "Make API calls", to: demo_api_path },
+            { hidden: ["with", { link: "Rails GraphQL", to: "https://rails-graphql.dev" }] }
+          ]
         ),
         WelcomeItem.new(
           avatar: "user-shield",
-          header: 'Open the <a class="hover:text-amber-400 underline!" href="' + admin_path + '">admin dashboard</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/ThibautBaissac/super_admin">SuperAdmin</a></span>'
+          description: [
+            "Open the",
+            { link: "admin dashboard", to: admin_path },
+            { hidden: ["with", { link: "SuperAdmin", to: "https://github.com/ThibautBaissac/super_admin" }] }
+          ]
         ),
         WelcomeItem.new(
           avatar: "fish-fins",
-          header: 'Enable <a class="hover:text-amber-400 underline!" href="' + flipper_path + '">feature flags</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://www.flippercloud.io">Flipper</a></span>'
+          description: [
+            "Enable",
+            { link: "feature flags", to: flipper_path },
+            { hidden: ["with", { link: "Flipper", to: "https://www.flippercloud.io" }] }
+          ]
         ),
         WelcomeItem.new(
           avatar: "bell",
-          header: 'Test <a class="hover:text-amber-400 underline!" href="' + notifications_path + '">sending notifications</a><span class="hidden sm:inline"> with <a class="hover:text-amber-400 underline!" href="https://github.com/excid3/noticed">Noticed</a></span>',
-          byline: 'You need to be signed in as an <span class="text-amber-200 font-semibold">admin</span> to access feature flags or send notifications'
+          description: [
+            "Test",
+            { link: "sending notifications", to: notifications_path },
+            { hidden: ["with", { link: "Noticed", to: "https://github.com/excid3/noticed" }] }
+          ],
+          byline: [
+            "You need to be signed in as an",
+            { highlight: "admin" },
+            "to access feature flags or send notifications"
+          ]
         )
       ]
     end
