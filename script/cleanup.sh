@@ -24,6 +24,7 @@ DEMO_PATHS=(
   "app/controllers/demo"
   "app/dashboards/super_admin/demo"
   "app/graphql/schemas/demo"
+  "app/helpers/demo"
   "app/mailers/demo"
   "app/models/demo"
   "app/notifiers/demo"
