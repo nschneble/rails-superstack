@@ -9,6 +9,8 @@ module Billing
     :stripe_price_yearly_id,
     :features
   ) do
+    include Draper::Decoratable
+
     def initialize(
       key:,
       name:,
