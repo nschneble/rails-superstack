@@ -19,9 +19,9 @@ module Billing
 
       session = stripe_client.v1.checkout.sessions.create(session_params)
       ServiceResult.ok(session)
-    rescue Stripe::StripeError => e
-      Rails.logger.error("[Billing] Checkout error: #{e.message}")
-      ServiceResult.fail(:stripe_error, e.message)
+    rescue Stripe::StripeError => error
+      Rails.logger.error("[Billing] Checkout error: #{error.message}")
+      ServiceResult.fail(:stripe_error, error.message)
     end
 
     private

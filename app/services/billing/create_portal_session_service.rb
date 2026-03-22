@@ -10,9 +10,9 @@ module Billing
       )
 
       ServiceResult.ok(session)
-    rescue Stripe::StripeError => e
-      Rails.logger.error("[Billing] Portal error: #{e.message}")
-      ServiceResult.fail(:stripe_error, e.message)
+    rescue Stripe::StripeError => error
+      Rails.logger.error("[Billing] Portal error: #{error.message}")
+      ServiceResult.fail(:stripe_error, error.message)
     end
   end
 end

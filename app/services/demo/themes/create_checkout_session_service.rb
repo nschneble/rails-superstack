@@ -29,10 +29,10 @@ module Demo
 
         purchase.update!(stripe_checkout_session_id: session.id)
         ServiceResult.ok(session)
-      rescue Stripe::StripeError => e
+      rescue Stripe::StripeError => error
         purchase&.update!(status: :failed)
-        Rails.logger.error("[Demo::Themes] Checkout error: #{e.message}")
-        ServiceResult.fail(:stripe_error, e.message)
+        Rails.logger.error("[Demo::Themes] Checkout error: #{error.message}")
+        ServiceResult.fail(:stripe_error, error.message)
       end
     end
   end

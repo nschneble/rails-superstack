@@ -10,9 +10,9 @@ module Demo
 
         purchase.update!(status: :completed, stripe_payment_intent_id: payment_intent_id)
         ServiceResult.ok(purchase)
-      rescue ActiveRecord::RecordInvalid => e
-        Rails.logger.error("[Demo::Themes] Failed to complete purchase: #{e.message}")
-        ServiceResult.fail(:record_invalid, e.message)
+      rescue ActiveRecord::RecordInvalid => error
+        Rails.logger.error("[Demo::Themes] Failed to complete purchase: #{error.message}")
+        ServiceResult.fail(:record_invalid, error.message)
       end
     end
   end
