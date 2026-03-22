@@ -79,11 +79,14 @@ gem "rails-graphql", github: "nschneble/rails-graphql", ref: "164b858226d1348e7a
 # Notifications for Ruby on Rails applications [https://github.com/excid3/noticed]
 gem "noticed"
 
+# Simple Rails app configuration [https://github.com/laserlemon/figaro]
+gem "figaro"
+
 # Stripe payments [https://github.com/stripe/stripe-ruby]
 gem "stripe"
 
-# Simple Rails app configuration [https://github.com/laserlemon/figaro]
-gem "figaro"
+# Decorators for Rails apps [https://github.com/drapergem/draper]
+gem "draper"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
