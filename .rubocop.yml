@@ -1,8 +1,59 @@
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  NewCops: enable
+
+plugins:
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-factory_bot
+
+# ── Metrics ──────────────────────────────────────────────────────────────────
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 7
+
+# ── Rails Safety ─────────────────────────────────────────────────────────────
+Rails/TimeZone:
+  Enabled: true
+
+Rails/Date:
+  Enabled: true
+
+Rails/Output:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: true
+
+Rails/FindEach:
+  Enabled: true
+
+# ── RSpec ─────────────────────────────────────────────────────────────────────
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/LetSetup:
+  Enabled: true
+
+# ── FactoryBot ────────────────────────────────────────────────────────────────
+FactoryBot/ConsistentParenthesesStyle:
+  Enabled: true
+
+FactoryBot/FactoryNameStyle:
+  Enabled: true
