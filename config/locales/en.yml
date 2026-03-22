@@ -37,6 +37,26 @@ en:
     checkout:
       error: "Something went wrong during checkout"
       invalid_plan: "Invalid plan selected"
+    plans:
+      display:
+        annual_savings: "Save %{percent}%"
+        free: "Free"
+        monthly: "$%{price}/month"
+        yearly: "$%{price}/year"
+      free:
+        name: "Free"
+        description: "Everything you need to get started"
+        features:
+          - "1 project"
+          - "Up to 3 users"
+          - "API access"
+      pro:
+        name: "Pro"
+        description: "No limits on what you can achieve"
+        features:
+          - "Unlimited projects"
+          - "Unlimited users"
+          - "Higher API rate limits"
     portal:
       error: "Unable to open billing portal"
   email:

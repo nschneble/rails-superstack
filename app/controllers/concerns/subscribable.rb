@@ -2,7 +2,7 @@ module Subscribable
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_subscription
+    helper_method :current_subscription, :current_free_subscription?, :current_pro_subscription?
   end
 
   private
@@ -19,7 +19,6 @@ module Subscribable
     current_subscription.free?
   end
 
-  alias_attribute :current_paid_subscription?, :current_pro_subscription?
   def current_pro_subscription?
     return nil unless current_subscription
 

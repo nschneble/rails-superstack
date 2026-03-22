@@ -1,6 +1,8 @@
 module Billing
   class PlansController < ApplicationController
-    # app/views/billing/plans/index.html.erb
-    def index; end
+    def index
+      @free_plan = Billing::FreePlan.decorate
+      @pro_plan = Billing::ProPlan.decorate
+    end
   end
 end

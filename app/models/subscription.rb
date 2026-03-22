@@ -27,6 +27,10 @@ class Subscription < ApplicationRecord
     trialing? && trial_ends_at&.future?
   end
 
+  def free?
+    !pro?
+  end
+
   def pro?
     plan.in?(%w[pro_monthly pro_yearly])
   end

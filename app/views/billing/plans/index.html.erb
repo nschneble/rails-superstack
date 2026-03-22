@@ -13,8 +13,8 @@
       <%# Free card %>
       <div class="relative flex flex-col bg-blue-900 border border-slate-600 rounded-xl p-8 shadow-xl">
         <div class="mb-6">
-          <h2 class="text-2xl font-bold text-white mb-1"><%= free_plan.name %></h2>
-          <p class="text-slate-400 text-sm"><%= free_plan.description %></p>
+          <h2 class="text-2xl font-bold text-white mb-1"><%= @free_plan.name %></h2>
+          <p class="text-slate-400 text-sm"><%= @free_plan.description %></p>
         </div>
 
         <div class="mb-6">
@@ -22,7 +22,7 @@
         </div>
 
         <ul class="space-y-3 mb-8 flex-grow">
-          <% free_plan.features.each do |feature| %>
+          <% @free_plan.features.each do |feature| %>
             <li class="flex items-center gap-2 text-slate-300 text-sm">
               <span class="text-emerald-400">✓</span>
               <%= feature %>
@@ -50,16 +50,16 @@
 
         <div class="mb-6">
           <h2 class="text-2xl font-bold text-white mb-1">Pro <span class="text-emerald-400">Yearly</span></h2>
-          <p class="text-slate-400 text-sm"><%= pro_plan.description %></p>
+          <p class="text-slate-400 text-sm"><%= @pro_plan.description %></p>
         </div>
 
         <div class="mb-6">
-          <p class="text-4xl font-bold text-white">$96<span class="text-lg font-normal text-slate-400">/year</span></p>
-          <p class="text-emerald-400 text-sm mt-1">$8/month — save $48</p>
+          <%= @pro_plan.yearly_price_display %>
+          <%= @pro_plan.annual_savings_display %>
         </div>
 
         <ul class="space-y-3 mb-8 flex-grow">
-          <% pro_plan.features.each do |feature| %>
+          <% @pro_plan.features.each do |feature| %>
             <li class="flex items-center gap-2 text-slate-300 text-sm">
               <span class="text-emerald-400">✓</span>
               <%= feature %>
@@ -76,7 +76,7 @@
             <% end %>
           <% elsif current_user %>
             <%= form_with url: billing_checkout_path, method: :post, data: { turbo: false } do |f| %>
-              <%= f.hidden_field :price_id, value: pro_plan.yearly_stripe_price_id %>
+              <%= f.hidden_field :price_id, value: @pro_plan.yearly_stripe_price_id %>
               <%= f.submit "Subscribe Yearly", class: "w-full py-3 px-4 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-colors cursor-pointer" %>
             <% end %>
           <% else %>
@@ -90,15 +90,15 @@
       <div class="relative flex flex-col bg-blue-900 border border-slate-600 rounded-xl p-8 shadow-xl">
         <div class="mb-6">
           <h2 class="text-2xl font-bold text-white mb-1">Pro <span class="text-slate-400">Monthly</span></h2>
-          <p class="text-slate-400 text-sm"><%= pro_plan.description %></p>
+          <p class="text-slate-400 text-sm"><%= @pro_plan.description %></p>
         </div>
 
         <div class="mb-6">
-          <p class="text-4xl font-bold text-white">$12<span class="text-lg font-normal text-slate-400">/month</span></p>
+          <%= @pro_plan.monthly_price_display %>
         </div>
 
         <ul class="space-y-3 mb-8 flex-grow">
-          <% pro_plan.features.each do |feature| %>
+          <% @pro_plan.features.each do |feature| %>
             <li class="flex items-center gap-2 text-slate-300 text-sm">
               <span class="text-emerald-400">✓</span>
               <%= feature %>
@@ -115,7 +115,7 @@
             <% end %>
           <% elsif current_user %>
             <%= form_with url: billing_checkout_path, method: :post, data: { turbo: false } do |f| %>
-              <%= f.hidden_field :price_id, value: pro_plan.monthly_stripe_price_id %>
+              <%= f.hidden_field :price_id, value: @pro_plan.monthly_stripe_price_id %>
               <%= f.submit "Subscribe Monthly", class: "w-full py-3 px-4 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold transition-colors cursor-pointer" %>
             <% end %>
           <% else %>
