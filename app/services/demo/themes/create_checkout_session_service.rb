@@ -13,7 +13,6 @@ module Demo
 
         session = Stripe::Checkout::Session.create(
           customer_email: user.email,
-          payment_method_types: [ "card" ],
           line_items: [ {
             price_data: {
               currency: "usd",

@@ -8,7 +8,6 @@ module Billing
 
       session_params = {
         customer: customer_id,
-        payment_method_types: [ "card" ],
         line_items: [ { price: price_id, quantity: 1 } ],
         mode: "subscription",
         success_url:,
