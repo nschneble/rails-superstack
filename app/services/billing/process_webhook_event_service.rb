@@ -62,7 +62,7 @@ module Billing
     end
 
     def handle_subscription_checkout(session)
-      stripe_subscription = Stripe::Subscription.retrieve(session["subscription"])
+      stripe_subscription = stripe_client.v1.subscriptions.retrieve(session["subscription"])
       UpsertSubscriptionService.call(
         stripe_subscription:,
         customer_id: session["customer"]
@@ -71,7 +71,7 @@ module Billing
 
     def handle_subscription_change(payload, event_record)
       sub_data = payload.dig("data", "object")
-      stripe_subscription = Stripe::Subscription.construct_from(sub_data)
+      stripe_subscription = stripe_client.v1.subscriptions.retrieve(sub_data["id"])
 
       result = UpsertSubscriptionService.call(
         stripe_subscription:,

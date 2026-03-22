@@ -17,7 +17,7 @@ module Billing
 
       session_params[:subscription_data] = { trial_period_days: trial_days } if trial_days
 
-      session = Stripe::Checkout::Session.create(session_params)
+      session = stripe_client.v1.checkout.sessions.create(session_params)
       ServiceResult.ok(session)
     rescue Stripe::StripeError => e
       Rails.logger.error("[Billing] Checkout error: #{e.message}")
@@ -29,7 +29,7 @@ module Billing
     def find_or_create_customer(user)
       return user.stripe_customer_id if user.stripe_customer_id.present?
 
-      customer = Stripe::Customer.create(email: user.email)
+      customer = stripe_client.v1.customers.create(email: user.email)
       sub = user.build_subscription(stripe_customer_id: customer.id, plan: "free", status: :incomplete)
       sub.save!
       customer.id

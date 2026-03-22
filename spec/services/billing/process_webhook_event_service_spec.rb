@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::ProcessWebhookEventService, type: :service do
+  include_context "with stubbed stripe client"
   let(:stripe_event_id) { "evt_#{SecureRandom.hex(8)}" }
 
   def call(event_type:, payload:)
@@ -47,7 +48,7 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
           double("item", price: double("price", id: nil))
         ])
       )
-      allow(Stripe::Subscription).to receive(:retrieve).with("sub_test").and_return(fake_stripe_sub)
+      allow(fake_subscriptions).to receive(:retrieve).with("sub_test").and_return(fake_stripe_sub)
     end
 
     it "marks the event as processed" do
@@ -123,7 +124,7 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
         "items" => { "data" => [ { "price" => { "id" => nil } } ] }
       }
 
-      allow(Stripe::Subscription).to receive(:construct_from).and_return(
+      allow(fake_subscriptions).to receive(:retrieve).with("sub_updated").and_return(
         double(
           "Stripe::Subscription",
           id: "sub_updated",

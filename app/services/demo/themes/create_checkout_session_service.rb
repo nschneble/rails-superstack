@@ -11,7 +11,7 @@ module Demo
 
         purchase = Demo::ThemePurchase.create!(user:, theme_key:, status: :pending)
 
-        session = Stripe::Checkout::Session.create(
+        session = stripe_client.v1.checkout.sessions.create(
           customer_email: user.email,
           line_items: [ {
             price_data: {

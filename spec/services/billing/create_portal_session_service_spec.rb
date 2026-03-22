@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::CreatePortalSessionService, type: :service do
+  include_context "with stubbed stripe client"
   let(:return_url) { "https://example.com/settings" }
   let(:fake_session) { instance_double(Stripe::BillingPortal::Session, url: "https://billing.stripe.com/portal") }
 
@@ -9,7 +10,7 @@ RSpec.describe Billing::CreatePortalSessionService, type: :service do
 
     before do
       create(:subscription, user:, stripe_customer_id: "cus_portal_test")
-      allow(Stripe::BillingPortal::Session).to receive(:create).and_return(fake_session)
+      allow(fake_portal_sessions).to receive(:create).and_return(fake_session)
     end
 
     it "returns a successful result with the portal session" do
@@ -19,7 +20,7 @@ RSpec.describe Billing::CreatePortalSessionService, type: :service do
     end
 
     it "creates the portal session with the correct customer ID" do
-      expect(Stripe::BillingPortal::Session).to receive(:create).with(
+      expect(fake_portal_sessions).to receive(:create).with(
         hash_including(customer: "cus_portal_test")
       ).and_return(fake_session)
       described_class.call(user: user.reload, return_url:)
@@ -41,7 +42,7 @@ RSpec.describe Billing::CreatePortalSessionService, type: :service do
 
     before do
       create(:subscription, user:, stripe_customer_id: "cus_error_test")
-      allow(Stripe::BillingPortal::Session).to receive(:create)
+      allow(fake_portal_sessions).to receive(:create)
         .and_raise(Stripe::StripeError.new("Invalid customer"))
     end
 

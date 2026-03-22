@@ -4,7 +4,7 @@ module Billing
       customer_id = user.stripe_customer_id
       return ServiceResult.fail(:no_customer) if customer_id.blank?
 
-      session = Stripe::BillingPortal::Session.create(
+      session = stripe_client.v1.billing_portal.sessions.create(
         customer: customer_id,
         return_url:
       )

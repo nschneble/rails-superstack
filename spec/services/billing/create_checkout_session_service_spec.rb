@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
+  include_context "with stubbed stripe client"
   let(:user) { create(:user) }
   let(:fake_session) { instance_double(Stripe::Checkout::Session, url: "https://checkout.stripe.com/test") }
   let(:fake_customer) { instance_double(Stripe::Customer, id: "cus_test123") }
@@ -15,8 +16,8 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
   end
 
   before do
-    allow(Stripe::Customer).to receive(:create).and_return(fake_customer)
-    allow(Stripe::Checkout::Session).to receive(:create).and_return(fake_session)
+    allow(fake_customers).to receive(:create).and_return(fake_customer)
+    allow(fake_checkout_sessions).to receive(:create).and_return(fake_session)
   end
 
   describe "success" do
@@ -27,7 +28,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
     end
 
     it "creates a Stripe customer for a new user" do
-      expect(Stripe::Customer).to receive(:create).with(email: user.email).and_return(fake_customer)
+      expect(fake_customers).to receive(:create).with(email: user.email).and_return(fake_customer)
       described_class.call(**call_args)
     end
 
@@ -38,12 +39,12 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
     it "does not create a duplicate Stripe customer when one exists" do
       create(:subscription, user:, stripe_customer_id: "cus_existing")
-      expect(Stripe::Customer).not_to receive(:create)
+      expect(fake_customers).not_to receive(:create)
       described_class.call(**call_args)
     end
 
     it "offers a 30-day trial for users with no prior subscription" do
-      expect(Stripe::Checkout::Session).to receive(:create).with(
+      expect(fake_checkout_sessions).to receive(:create).with(
         hash_including(subscription_data: { trial_period_days: 30 })
       ).and_return(fake_session)
       described_class.call(**call_args)
@@ -51,7 +52,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
     it "does not offer a trial when a subscription record already exists" do
       create(:subscription, user:, stripe_customer_id: "cus_existing")
-      expect(Stripe::Checkout::Session).to receive(:create) do |params|
+      expect(fake_checkout_sessions).to receive(:create) do |params|
         expect(params).not_to have_key(:subscription_data)
         fake_session
       end
@@ -61,7 +62,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
   describe "failure" do
     it "returns a failure result on Stripe::StripeError" do
-      allow(Stripe::Customer).to receive(:create).and_raise(Stripe::StripeError.new("Card declined"))
+      allow(fake_customers).to receive(:create).and_raise(Stripe::StripeError.new("Card declined"))
 
       result = described_class.call(**call_args)
       expect(result).to be_failure

@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
+  include_context "with stubbed stripe client"
   let(:user) { create(:user) }
   let(:fake_session) do
     instance_double(Stripe::Checkout::Session, id: "cs_theme_test", url: "https://checkout.stripe.com/theme")
@@ -16,7 +17,7 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
   end
 
   before do
-    allow(Stripe::Checkout::Session).to receive(:create).and_return(fake_session)
+    allow(fake_checkout_sessions).to receive(:create).and_return(fake_session)
   end
 
   describe "success" do
@@ -38,14 +39,14 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
     end
 
     it "creates the Stripe session with mode: payment" do
-      expect(Stripe::Checkout::Session).to receive(:create).with(
+      expect(fake_checkout_sessions).to receive(:create).with(
         hash_including(mode: "payment")
       ).and_return(fake_session)
       described_class.call(**call_args)
     end
 
     it "creates the Stripe session with the correct unit amount" do
-      expect(Stripe::Checkout::Session).to receive(:create) do |params|
+      expect(fake_checkout_sessions).to receive(:create) do |params|
         amount = params.dig(:line_items, 0, :price_data, :unit_amount)
         expect(amount).to eq(1499)
         fake_session
@@ -81,7 +82,7 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
 
   describe "on Stripe error" do
     it "marks the purchase as failed and returns failure" do
-      allow(Stripe::Checkout::Session).to receive(:create)
+      allow(fake_checkout_sessions).to receive(:create)
         .and_raise(Stripe::StripeError.new("Test error"))
 
       result = described_class.call(**call_args)
