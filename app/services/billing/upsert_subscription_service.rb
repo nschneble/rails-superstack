@@ -13,7 +13,7 @@ module Billing
         plan: resolve_plan(item&.price&.id),
         status: stripe_subscription.status,
         cancel_at: stripe_subscription.cancel_at ? Time.at(stripe_subscription.cancel_at) : nil,
-        current_period_end_at: item&.current_period_end ? Time.at(item.current_period_end) : nil,
+        current_period_end_at: stripe_subscription.current_period_end ? Time.at(stripe_subscription.current_period_end) : nil,
         trial_ends_at: stripe_subscription.trial_end ? Time.at(stripe_subscription.trial_end) : nil
       )
 

@@ -15,9 +15,7 @@ RSpec.describe "Billing::Webhooks", type: :request do
   let(:stripe_signature) { "t=#{timestamp},v1=#{signature}" }
 
   before do
-    allow(ENV).to receive(:[]).and_call_original
-    allow(ENV).to receive(:[]).with("STRIPE_SIGNING_SECRET").and_return(signing_secret)
-    # Figaro.env.stripe_signing_secret
+    allow(Figaro.env).to receive(:stripe_signing_secret).and_return(signing_secret)
   end
 
   describe "POST /webhooks/stripe" do
