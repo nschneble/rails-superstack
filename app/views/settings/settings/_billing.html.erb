@@ -1,0 +1,54 @@
+<%= content_tag :div, class: CustomFormBuilder::FORM_CLASSES do %>
+  <div id="settings-panel-billing" aria-labelledby="settings-tab-billing" role="tabpanel">
+    <%= content_tag :h1,
+                    t("settings.billing.title"),
+                    class: CustomFormBuilder::TITLE_CLASSES %>
+
+    <div class="w-4/5 sm:w-full max-w-[325] mx-auto">
+      <% subscription = current_user.subscription %>
+
+      <% if subscription&.pro? %>
+        <div class="mb-6 p-4 bg-emerald-900/30 border border-emerald-600/40 rounded-lg">
+          <p class="text-sm text-slate-300 mb-1"><%= t("settings.billing.current_plan") %></p>
+          <p class="text-white font-semibold text-lg">
+            <%= subscription.plan == "pro_monthly" ? t("settings.billing.pro_monthly") : t("settings.billing.pro_yearly") %>
+          </p>
+          <% if subscription.on_trial? %>
+            <p class="text-emerald-400 text-sm mt-1">
+              <%= t("settings.billing.trial_ends", date: subscription.trial_ends_at.strftime("%B %d, %Y")) %>
+            </p>
+          <% elsif subscription.current_period_end_at %>
+            <p class="text-slate-400 text-sm mt-1">
+              <%= subscription.cancel_at ? t("settings.billing.cancels_on", date: subscription.cancel_at.strftime("%B %d, %Y")) : t("settings.billing.renews_on", date: subscription.current_period_end_at.strftime("%B %d, %Y")) %>
+            </p>
+          <% end %>
+        </div>
+
+        <%= button_to t("settings.billing.manage_billing"),
+            billing_portal_path,
+            method: :post,
+            class: CustomFormBuilder::BUTTON_CLASSES %>
+      <% elsif subscription&.active? %>
+        <div class="mb-6 p-4 bg-slate-800 border border-slate-600 rounded-lg">
+          <p class="text-sm text-slate-300 mb-1"><%= t("settings.billing.current_plan") %></p>
+          <p class="text-white font-semibold text-lg"><%= t("settings.billing.free_plan") %></p>
+        </div>
+
+        <%= link_to t("settings.billing.upgrade"),
+            plans_path,
+            class: CustomFormBuilder::BUTTON_CLASSES.join(" ") + " text-center no-underline",
+            data: { turbo_frame: "_top" } %>
+      <% else %>
+        <div class="mb-6 p-4 bg-slate-800 border border-slate-600 rounded-lg">
+          <p class="text-sm text-slate-300 mb-1"><%= t("settings.billing.current_plan") %></p>
+          <p class="text-white font-semibold text-lg"><%= t("settings.billing.free_plan") %></p>
+        </div>
+
+        <%= link_to t("settings.billing.upgrade"),
+            plans_path,
+            class: CustomFormBuilder::BUTTON_CLASSES.join(" ") + " text-center no-underline",
+            data: { turbo_frame: "_top" } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

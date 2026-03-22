@@ -13,4 +13,19 @@ export PORT="${PORT:-3000}"
 export RUBY_DEBUG_OPEN="true"
 export RUBY_DEBUG_LAZY="true"
 
-exec foreman start -f Procfile.dev "$@"
+WITH_STRIPE=0
+FOREMAN_ARGS=""
+
+for arg in "$@"; do
+  if [ "$arg" = "--with-stripe" ]; then
+    WITH_STRIPE=1
+  else
+    FOREMAN_ARGS="$FOREMAN_ARGS $arg"
+  fi
+done
+
+if [ "$WITH_STRIPE" = "0" ]; then
+  FOREMAN_ARGS="-m all=1,stripe=0 $FOREMAN_ARGS"
+fi
+
+exec foreman start -f Procfile.dev $FOREMAN_ARGS

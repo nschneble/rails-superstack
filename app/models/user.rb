@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :api_tokens, dependent: :destroy
   has_many :email_change_requests, dependent: :destroy
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
+  has_one :subscription, dependent: :destroy
+  has_many :demo_theme_purchases, class_name: "Demo::ThemePurchase", dependent: :destroy
 
   normalizes        :email, with: EmailNormalizer
   validates         :email, presence: true, uniqueness: true, email: true
@@ -43,5 +45,13 @@ class User < ApplicationRecord
 
   def email_confirmed?
     email_confirmed_at.present?
+  end
+
+  def subscribed?
+    subscription&.active? == true
+  end
+
+  def stripe_customer_id
+    subscription&.stripe_customer_id
   end
 end

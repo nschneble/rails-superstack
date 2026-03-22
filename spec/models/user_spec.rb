@@ -85,6 +85,44 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#subscribed?" do
+    it "returns false with no subscription" do
+      user = build(:user)
+      expect(user.subscribed?).to be(false)
+    end
+
+    it "returns true with an active subscription" do
+      user = create(:user)
+      create(:subscription, user:, status: :active)
+      expect(user.reload.subscribed?).to be(true)
+    end
+
+    it "returns true with a trialing subscription" do
+      user = create(:user)
+      create(:subscription, user:, status: :trialing)
+      expect(user.reload.subscribed?).to be(true)
+    end
+
+    it "returns false with a canceled subscription" do
+      user = create(:user)
+      create(:subscription, user:, status: :canceled)
+      expect(user.reload.subscribed?).to be(false)
+    end
+  end
+
+  describe "#stripe_customer_id" do
+    it "returns nil when no subscription exists" do
+      user = build(:user)
+      expect(user.stripe_customer_id).to be_nil
+    end
+
+    it "returns the customer ID from the subscription" do
+      user = create(:user)
+      create(:subscription, user:, stripe_customer_id: "cus_test123")
+      expect(user.reload.stripe_customer_id).to eq("cus_test123")
+    end
+  end
+
   describe "roles" do
     it "defaults to regulars users" do
       user = build(:user)

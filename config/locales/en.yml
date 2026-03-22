@@ -91,6 +91,12 @@ en:
 
           Did you know:
           %{fun_fact}?
+  billing:
+    checkout:
+      error: "Something went wrong starting checkout. Please try again."
+      invalid_plan: "Invalid plan selected."
+    portal:
+      error: "Unable to open billing portal. Please try again."
   settings:
     api_tokens:
       active:
@@ -111,8 +117,20 @@ en:
       placeholder: "e.g. Local development"
       submit: "Create token"
       title: "API tokens"
+    billing:
+      cancels_on: "Cancels on %{date}"
+      current_plan: "Current plan"
+      free_plan: "Free"
+      manage_billing: "Manage Billing"
+      pro_monthly: "Pro (Monthly)"
+      pro_yearly: "Pro (Yearly)"
+      renews_on: "Renews on %{date}"
+      title: "Billing"
+      trial_ends: "Trial ends %{date}"
+      upgrade: "Upgrade to Pro"
     tabs:
       api: "API tokens"
+      billing: "Billing"
       profile: "User profile"
     user_profile:
       label: "Email address"

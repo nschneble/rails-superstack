@@ -10,6 +10,10 @@ class Settings::SettingsController < AuthenticatedController
     render :show, locals: { tab: "api" }
   end
 
+  def billing
+    render :show, locals: { tab: "billing" }
+  end
+
   private
 
   def load_email_change_request

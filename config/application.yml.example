@@ -12,3 +12,12 @@ typesense_api_key: xyz
 typesense_host: localhost
 typesense_port: "8108"
 typesense_protocol: http
+
+# Stripe subscriptions
+# Replace with your test keys from https://dashboard.stripe.com/test/apikeys
+# IMPORTANT: Never commit real keys!
+stripe_secret_key: sk_test_REPLACE_ME
+stripe_publishable_key: pk_test_REPLACE_ME
+stripe_signing_secret: whsec_REPLACE_ME
+stripe_price_pro_monthly: price_REPLACE_ME
+stripe_price_pro_yearly: price_REPLACE_ME

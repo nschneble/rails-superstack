@@ -1,4 +1,15 @@
 en:
+  demo:
+    themes:
+      buy_now: "Buy Now"
+      checkout:
+        already_purchased: "You've already purchased this theme."
+        invalid_theme: "That theme doesn't exist."
+        stripe_error: "Something went wrong. Please try again."
+      purchased: "Purchased"
+      purchased_notice: "🎉 You now own the %{name} theme!"
+      subtitle: "One-time purchases. Yours forever."
+      title: "Premium Themes"
   mac_guffins:
     mailer:
       liked:
