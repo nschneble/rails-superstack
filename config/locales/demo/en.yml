@@ -1,15 +1,4 @@
 en:
-  demo:
-    themes:
-      buy_now: "Buy Now"
-      checkout:
-        already_purchased: "You've already purchased this theme."
-        invalid_theme: "That theme doesn't exist."
-        stripe_error: "Something went wrong. Please try again."
-      purchased: "Purchased"
-      purchased_notice: "🎉 You now own the %{name} theme!"
-      subtitle: "One-time purchases. Yours forever."
-      title: "Premium Themes"
   mac_guffins:
     mailer:
       liked:
@@ -22,6 +11,16 @@ en:
   notifiers:
     mac_guffin_like:
       message: '%{actor} liked your "%{mac_guffin}" MacGuffin.'
+  themes:
+    buy_now: "Buy Now"
+    checkout:
+      already_purchased: "You've already purchased this theme"
+      invalid_theme: "That theme doesn't even exist"
+      stripe_error: "Something went very wrong"
+    purchased: "Purchased"
+    purchased_notice: "The %{name} theme is all yours!"
+    subtitle: "One-time purchases. No ads or upsells."
+    title: "Super Premium Themes"
   validations:
     mac_guffins:
       no_self_promotion: "can't like your own MacGuffin"

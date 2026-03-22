@@ -3,12 +3,12 @@ module Demo
     layout "demo/moxie"
 
     def index
-      @themes = Demo::ThemePurchase::THEMES
+      @themes = ThemePurchase::THEMES
       @purchased_keys = current_user.demo_theme_purchases.completed.pluck(:theme_key).to_set
     end
 
     def checkout
-      result = Demo::Themes::CreateCheckoutSessionService.call(
+      result = Themes::CreateCheckoutSessionService.call(
         user: current_user,
         theme_key: params[:theme_key],
         success_url: demo_themes_url(purchased: params[:theme_key]),
@@ -18,7 +18,7 @@ module Demo
       if result.success?
         redirect_to result.payload.url, allow_other_host: true
       else
-        redirect_to demo_themes_path, alert: t("demo.themes.checkout.#{result.error}")
+        redirect_to demo_themes_path, alert: t("themes.checkout.#{result.error}")
       end
     end
   end
