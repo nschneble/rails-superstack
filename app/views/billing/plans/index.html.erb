@@ -1,8 +1,5 @@
 <% content_for :title, "Plans — Rails Superstack" %>
 
-<% free_plan = Billing::Plan::FREE %>
-<% pro_plan = Billing::Plan::PRO %>
-
 <div class="w-full my-16 px-4">
   <div class="max-w-5xl mx-auto">
 
@@ -34,7 +31,7 @@
         </ul>
 
         <div class="mt-auto">
-          <% if current_user && !@user_subscription&.pro? %>
+          <% if current_free_subscription? %>
             <span class="block w-full text-center py-3 px-4 rounded-lg bg-slate-700 text-slate-400 text-sm font-medium cursor-default">
               Current Plan
             </span>
@@ -71,7 +68,7 @@
         </ul>
 
         <div class="mt-auto">
-          <% if @user_subscription&.pro? %>
+          <% if current_pro_subscription? %>
             <%= button_to billing_portal_path,
                 method: :post,
                 class: "w-full py-3 px-4 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold transition-colors cursor-pointer" do %>
@@ -110,7 +107,7 @@
         </ul>
 
         <div class="mt-auto">
-          <% if @user_subscription&.pro? %>
+          <% if current_pro_subscription? %>
             <%= button_to billing_portal_path,
                 method: :post,
                 class: "w-full py-3 px-4 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold transition-colors cursor-pointer" do %>

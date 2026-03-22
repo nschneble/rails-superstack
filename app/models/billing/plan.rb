@@ -9,8 +9,14 @@ module Billing
     :stripe_price_yearly_id,
     :features
   ) do
+
     def free?
       key == "free"
+    end
+
+    alias_attribute :paid?, :pro?
+    def pro?
+      key == "pro"
     end
 
     def monthly_price_display
@@ -63,6 +69,4 @@ module Billing
       "Team collaboration"
     ]
   )
-
-  Plan::ALL = [ Plan::FREE, Plan::PRO ].freeze
 end
