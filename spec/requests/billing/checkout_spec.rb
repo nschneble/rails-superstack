@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Billing::Checkouts", type: :request do
+RSpec.describe "Billing::Checkout", type: :request do
   describe "POST /billing/checkout" do
     it "requires authentication" do
       post billing_checkout_path, params: { price_id: "price_test" }

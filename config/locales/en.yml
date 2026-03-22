@@ -33,6 +33,12 @@ en:
       unauthorized: "Unauthorized"
   authentication:
     login_required: "You must be logged in to visit this page"
+  billing:
+    checkout:
+      error: "Something went wrong during checkout"
+      invalid_plan: "Invalid plan selected"
+    portal:
+      error: "Unable to open billing portal"
   email:
     confirmation:
       link_expired: "That confirmation link has expired"
@@ -91,12 +97,6 @@ en:
 
           Did you know:
           %{fun_fact}?
-  billing:
-    checkout:
-      error: "Something went wrong starting checkout. Please try again."
-      invalid_plan: "Invalid plan selected."
-    portal:
-      error: "Unable to open billing portal. Please try again."
   settings:
     api_tokens:
       active:
