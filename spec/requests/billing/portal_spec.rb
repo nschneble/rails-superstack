@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Billing::Portals", type: :request do
+RSpec.describe "Billing::Portal", type: :request do
   describe "POST /billing/portal" do
     it "requires authentication" do
       post billing_portal_path
