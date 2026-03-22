@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Plans", type: :request do
   describe "GET /plans" do
     it "renders the plans page for guests" do
-      get plans_path
+      get billing_plans_path
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("Free")
       expect(response.body).to include("Pro")
@@ -12,7 +12,7 @@ RSpec.describe "Plans", type: :request do
     it "renders the plans page for authenticated users" do
       user = create(:user)
       passwordless_sign_in(user)
-      get plans_path
+      get billing_plans_path
       expect(response).to have_http_status(:ok)
     end
 
@@ -20,7 +20,7 @@ RSpec.describe "Plans", type: :request do
       user = create(:user)
       create(:subscription, :pro_monthly, user:)
       passwordless_sign_in(user)
-      get plans_path
+      get billing_plans_path
       expect(response.body).to include("Manage Billing")
     end
   end

@@ -35,7 +35,7 @@
         </div>
 
         <%= link_to t("settings.billing.upgrade"),
-            plans_path,
+            billing_plans_path,
             class: CustomFormBuilder::BUTTON_CLASSES.join(" ") + " text-center no-underline",
             data: { turbo_frame: "_top" } %>
       <% else %>
@@ -45,7 +45,7 @@
         </div>
 
         <%= link_to t("settings.billing.upgrade"),
-            plans_path,
+            billing_plans_path,
             class: CustomFormBuilder::BUTTON_CLASSES.join(" ") + " text-center no-underline",
             data: { turbo_frame: "_top" } %>
       <% end %>

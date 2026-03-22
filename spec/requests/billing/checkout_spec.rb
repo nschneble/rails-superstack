@@ -28,7 +28,7 @@ RSpec.describe "Billing::Checkout", type: :request do
       )
 
       post billing_checkout_path, params: { price_id: "price_test" }
-      expect(response).to redirect_to(plans_path)
+      expect(response).to redirect_to(billing_plans_path)
     end
 
     it "redirects to plans with alert when price_id is blank" do
@@ -36,7 +36,7 @@ RSpec.describe "Billing::Checkout", type: :request do
       passwordless_sign_in(user)
 
       post billing_checkout_path, params: { price_id: "" }
-      expect(response).to redirect_to(plans_path)
+      expect(response).to redirect_to(billing_plans_path)
     end
   end
 
