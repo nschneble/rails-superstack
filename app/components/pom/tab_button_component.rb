@@ -1,5 +1,5 @@
 class Pom::TabButtonComponent < Pom::Component
-  option :tab, enums: [ :api, :profile ], default: :profile
+  option :tab, enums: [ :api, :billing, :profile ], default: :profile
   option :icon, default: "bookmark"
   option :path, required: true
   option :active, default: false

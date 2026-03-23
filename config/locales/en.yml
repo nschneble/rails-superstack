@@ -33,6 +33,32 @@ en:
       unauthorized: "Unauthorized"
   authentication:
     login_required: "You must be logged in to visit this page"
+  billing:
+    checkout:
+      error: "Something went wrong during checkout"
+      invalid_plan: "Invalid plan selected"
+    plans:
+      display:
+        annual_savings: "Save %{percent}%"
+        free: "Free"
+        monthly: "$%{price}/month"
+        yearly: "$%{price}/year"
+      free:
+        name: "Free"
+        description: "Everything you need to get started"
+        features:
+          - "1 project"
+          - "Up to 3 users"
+          - "API access"
+      pro:
+        name: "Pro"
+        description: "No limits on what you can achieve"
+        features:
+          - "Unlimited projects"
+          - "Unlimited users"
+          - "Higher API rate limits"
+    portal:
+      error: "Unable to open billing portal"
   email:
     confirmation:
       link_expired: "That confirmation link has expired"
@@ -111,8 +137,20 @@ en:
       placeholder: "e.g. Local development"
       submit: "Create token"
       title: "API tokens"
+    billing:
+      cancels_on: "Cancels on %{date}"
+      current_plan: "Current plan"
+      free_plan: "Free"
+      manage_billing: "Manage Billing"
+      pro_monthly: "Pro (Monthly)"
+      pro_yearly: "Pro (Yearly)"
+      renews_on: "Renews on %{date}"
+      title: "Billing"
+      trial_ends: "Trial ends %{date}"
+      upgrade: "Upgrade to Pro"
     tabs:
       api: "API tokens"
+      billing: "Billing"
       profile: "User profile"
     user_profile:
       label: "Email address"

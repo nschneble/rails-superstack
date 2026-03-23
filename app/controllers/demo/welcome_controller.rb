@@ -3,7 +3,7 @@ module Demo
     layout "demo/moxie"
 
     def show
-      @items = build_items.reject(&:hidden)
+      @items = build_items.reject(&:hidden).map(&:decorate)
     end
 
     private

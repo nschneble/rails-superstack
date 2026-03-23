@@ -15,7 +15,7 @@ class Settings::ApiTokensController < AuthenticatedController
           turbo_stream.prepend(
             "api_tokens_collection",
             partial: "settings/api_tokens/api_token",
-            locals: { api_token: }
+            locals: { api_token: api_token.decorate }
           ),
           render_api_tokens_empty,
           render_notification(t("settings.api_tokens.flash.created"))

@@ -50,7 +50,7 @@ gem "cancancan"
 gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag", ref: "71b32fcffe461252aa4bb4fb9586ca0797af09ff"
 
 # A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
-gem "super_admin"
+gem "super_admin", github: "nschneble/super_admin", ref: "f77c28bd6e1371d6b84aadbe31c2f2ce9bde67e2"
 
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
 gem "commonmarker"
@@ -81,6 +81,12 @@ gem "noticed"
 
 # Simple Rails app configuration [https://github.com/laserlemon/figaro]
 gem "figaro"
+
+# Stripe payments [https://github.com/stripe/stripe-ruby]
+gem "stripe"
+
+# Decorators for Rails apps [https://github.com/drapergem/draper]
+gem "draper"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

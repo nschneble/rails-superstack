@@ -11,6 +11,25 @@ en:
   notifiers:
     mac_guffin_like:
       message: '%{actor} liked your "%{mac_guffin}" MacGuffin.'
+  themes:
+    buy_now: "Buy Now"
+    checkout:
+      already_purchased: "You've already purchased this theme"
+      invalid_theme: "That theme doesn't even exist"
+      stripe_error: "Something went very wrong"
+    crimson_tide:
+      name: "Crimson Tide"
+      description: "Bold crimson reds with warm amber highlights for a striking, energetic feel."
+    forest_canopy:
+      name: "Forest Canopy"
+      description: "Earthy greens and soft browns inspired by the serenity of an old-growth forest."
+    midnight_galaxy:
+      name: "Midnight Galaxy"
+      description: "A deep space aesthetic with dark indigo backgrounds and glowing star accents."
+    purchased: "Purchased"
+    purchased_notice: "The %{name} theme is all yours!"
+    subtitle: "One-time purchases. No ads or upsells."
+    title: "Super Premium Themes"
   validations:
     mac_guffins:
       no_self_promotion: "can't like your own MacGuffin"

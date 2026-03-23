@@ -26,6 +26,7 @@
 
   <% if current_user %>
     <%= render Demo::MenuItemComponent.new(path: settings_root_path, icon: "cog", label: "User Settings") %>
+    <%= render Demo::MenuItemComponent.new(path: billing_plans_path, icon: "credit-card", label: "Change Plan") %>
     <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign Out") %>
   <% else %>
     <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign In") %>

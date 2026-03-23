@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="search"
+// Connects to data-controller="demo--search"
 export default class extends Controller {
   static values = { delay: { type: Number, default: 250 } };
 
