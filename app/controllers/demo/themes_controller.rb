@@ -3,8 +3,8 @@ module Demo
     layout "demo/moxie"
 
     def index
-      @themes = ThemePurchase::THEMES
-      @purchased_keys = current_user.demo_theme_purchases.completed.pluck(:theme_key).to_set
+      @themes = Themes::ThemePurchase::THEMES
+      @purchased_keys = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key).to_set
     end
 
     def checkout

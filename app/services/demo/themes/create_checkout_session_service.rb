@@ -2,22 +2,22 @@ module Demo
   module Themes
     class CreateCheckoutSessionService < BaseService
       def call(user:, theme_key:, success_url:, cancel_url:)
-        theme = Demo::ThemePurchase::THEMES[theme_key]
+        theme = ThemePurchase::THEMES[theme_key]
         return ServiceResult.fail(:invalid_theme) unless theme
 
-        if Demo::ThemePurchase.exists?(user:, theme_key:, status: :completed)
+        if ThemePurchase.exists?(user:, theme_key:, status: :completed)
           return ServiceResult.fail(:already_purchased)
         end
 
-        purchase = Demo::ThemePurchase.create!(user:, theme_key:, status: :pending)
+        purchase = ThemePurchase.create!(user:, theme_key:, status: :pending)
 
         session = stripe_client.v1.checkout.sessions.create(
           customer_email: user.email,
           line_items: [ {
             price_data: {
               currency: "usd",
-              unit_amount: theme[:price_cents],
-              product_data: { name: theme[:name] }
+              unit_amount: theme.price_cents,
+              product_data: { name: theme.name }
             },
             quantity: 1
           } ],

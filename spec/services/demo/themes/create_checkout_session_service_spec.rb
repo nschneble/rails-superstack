@@ -27,14 +27,14 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
       expect(result.payload).to eq(fake_session)
     end
 
-    it "creates a pending Demo::ThemePurchase record" do
+    it "creates a pending Demo::Themes::ThemePurchase record" do
       expect { described_class.call(**call_args) }
-        .to change { Demo::ThemePurchase.pending.count }.by(1)
+        .to change { Demo::Themes::ThemePurchase.pending.count }.by(1)
     end
 
     it "stores the checkout session ID on the purchase" do
       described_class.call(**call_args)
-      purchase = Demo::ThemePurchase.last
+      purchase = Demo::Themes::ThemePurchase.last
       expect(purchase.stripe_checkout_session_id).to eq("cs_theme_test")
     end
 
@@ -88,7 +88,7 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
       result = described_class.call(**call_args)
       expect(result).to be_failure
       expect(result.error).to eq(:stripe_error)
-      expect(Demo::ThemePurchase.last.status).to eq("failed")
+      expect(Demo::Themes::ThemePurchase.last.status).to eq("failed")
     end
   end
 end

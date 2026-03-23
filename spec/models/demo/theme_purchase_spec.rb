@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Demo::ThemePurchase, type: :model do
+RSpec.describe Demo::Themes::ThemePurchase, type: :model do
   describe "associations" do
     it { should belong_to(:user) }
   end
@@ -27,19 +27,12 @@ RSpec.describe Demo::ThemePurchase, type: :model do
   describe "#price_cents" do
     it "returns the correct price for midnight_galaxy" do
       purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
-      expect(purchase.price_cents).to eq(1499)
+      expect(purchase.theme_price_cents).to eq(1499)
     end
 
     it "returns the correct price for forest_canopy" do
       purchase = build(:demo_theme_purchase, theme_key: "forest_canopy")
-      expect(purchase.price_cents).to eq(499)
-    end
-  end
-
-  describe "#price_display" do
-    it "formats the price as a dollar amount" do
-      purchase = build(:demo_theme_purchase, theme_key: "crimson_tide")
-      expect(purchase.price_display).to eq("$9.99")
+      expect(purchase.theme_price_cents).to eq(499)
     end
   end
 
