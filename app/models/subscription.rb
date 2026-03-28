@@ -17,8 +17,6 @@ class Subscription < ApplicationRecord
   validates :stripe_customer_id, presence: true, uniqueness: true
   validates :plan, inclusion: { in: PLANS }
 
-  scope :active_or_trialing, -> { where(status: [ :active, :trialing ]) }
-
   def active?
     status.in?(%w[active trialing])
   end

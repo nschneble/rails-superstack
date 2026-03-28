@@ -17,7 +17,7 @@ class Pom::TabButtonComponent < Pom::Component
       class: styles_for(active: active),
       data: {
         turbo_frame: "settings",
-        turbo_action: "advance"
+        turbo_action: "replace"
       },
       id: "settings-tab-#{tab}",
       role: "tab",

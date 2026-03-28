@@ -7,7 +7,7 @@
       <div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
         <pre class="p-2 pr-[42] truncate">
           <span class="text-white select-none">% </span>
-          <%= content_tag :span, command.code, id: command.name %>
+          <%= tag.span command.code, id: command.name %>
         </pre>
 
         <%= pom_copy_to_clipboard(align: :right, target: command.name) %>

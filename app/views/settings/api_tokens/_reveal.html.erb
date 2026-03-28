@@ -1,9 +1,8 @@
-<%= content_tag :div,
-                class: class_names(
-                  "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
-                  hidden: plaintext_token.blank?
-                ),
-                id: "api_token_reveal" do %>
+<%= tag.div class: class_names(
+              "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
+              hidden: plaintext_token.blank?
+            ),
+            id: "api_token_reveal" do %>
 
   <p class="flex-1 leading-none select-none">
     <span class="font-semibold"><%= t("settings.api_tokens.created.title") %></span><br>

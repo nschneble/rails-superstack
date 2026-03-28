@@ -41,13 +41,13 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
         "Stripe::Subscription",
         id: "sub_test",
         status: "active",
-        cancel_at: nil,
-        current_period_end: 30.days.from_now.to_i,
-        trial_end: nil,
         items: double("items", data: [
           double("item", price: double("price", id: nil))
         ])
       )
+      allow(fake_stripe_sub).to receive(:[]).with("cancel_at").and_return(nil)
+      allow(fake_stripe_sub).to receive(:[]).with("current_period_end").and_return(30.days.from_now.to_i)
+      allow(fake_stripe_sub).to receive(:[]).with("trial_end").and_return(nil)
       allow(fake_subscriptions).to receive(:retrieve).with("sub_test").and_return(fake_stripe_sub)
     end
 
@@ -124,19 +124,18 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
         "items" => { "data" => [ { "price" => { "id" => nil } } ] }
       }
 
-      allow(fake_subscriptions).to receive(:retrieve).with("sub_updated").and_return(
-        double(
-          "Stripe::Subscription",
-          id: "sub_updated",
-          status: "active",
-          cancel_at: nil,
-          current_period_end: 30.days.from_now.to_i,
-          trial_end: nil,
-          items: double("items", data: [
-            double("item", price: double("price", id: nil))
-          ])
-        )
+      fake_sub_updated = double(
+        "Stripe::Subscription",
+        id: "sub_updated",
+        status: "active",
+        items: double("items", data: [
+          double("item", price: double("price", id: nil))
+        ])
       )
+      allow(fake_sub_updated).to receive(:[]).with("cancel_at").and_return(nil)
+      allow(fake_sub_updated).to receive(:[]).with("current_period_end").and_return(30.days.from_now.to_i)
+      allow(fake_sub_updated).to receive(:[]).with("trial_end").and_return(nil)
+      allow(fake_subscriptions).to receive(:retrieve).with("sub_updated").and_return(fake_sub_updated)
 
       payload = { "data" => { "object" => fake_sub_data } }
       result = call(event_type: "customer.subscription.updated", payload:)

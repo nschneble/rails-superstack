@@ -4,7 +4,7 @@
   <% email_field_name = :"passwordless[#{email_field}]" %>
 
   <%= form_with(model: @session, url: url_for(action: "new"), data: { turbo: "false", controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
-    <%= content_tag(:h1, t("sign_in.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+    <%= tag.h1 t("sign_in.title"), class: CustomFormBuilder::TITLE_CLASSES %>
 
     <%# email address %>
     <%= form.label email_field_name,

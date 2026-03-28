@@ -12,9 +12,9 @@ module Demo::Themes
     }
 
     THEMES = {
-      Demo::Themes::CrimsonTideTheme.key => Demo::Themes::CrimsonTideTheme.decorate,
-      Demo::Themes::ForestCanopyTheme.key => Demo::Themes::ForestCanopyTheme.decorate,
-      Demo::Themes::MidnightGalaxyTheme.key => Demo::Themes::MidnightGalaxyTheme.decorate
+      CrimsonTideTheme.key => CrimsonTideTheme.decorate,
+      ForestCanopyTheme.key => ForestCanopyTheme.decorate,
+      MidnightGalaxyTheme.key => MidnightGalaxyTheme.decorate
     }.freeze
 
     validates :theme_key, presence: true, inclusion: { in: THEMES.keys }

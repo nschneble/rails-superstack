@@ -68,18 +68,4 @@ RSpec.describe Subscription, type: :model do
       expect(sub.on_trial?).to be(false)
     end
   end
-
-  describe "scopes" do
-    describe ".active_or_trialing" do
-      it "includes active and trialing subscriptions" do
-        active = create(:subscription)
-        trialing = create(:subscription, :trialing, user: create(:user))
-        canceled = create(:subscription, :canceled, user: create(:user))
-
-        result = described_class.active_or_trialing
-        expect(result).to include(active, trialing)
-        expect(result).not_to include(canceled)
-      end
-    end
-  end
 end

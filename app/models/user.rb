@@ -7,7 +7,6 @@ class User < ApplicationRecord
   typesense enqueue: :index_async do
     attributes :email
     default_sorting_field "email"
-
     predefined_fields [
       {
         name: "email",
@@ -22,11 +21,14 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
   has_one :subscription, dependent: :destroy
 
-  normalizes        :email, with: EmailNormalizer
-  validates         :email, presence: true, uniqueness: true, email: true
+  normalizes :email, with: EmailNormalizer
+  validates :email, presence: true, uniqueness: true, email: true
   passwordless_with :email
 
   enum :role, { user: 0, admin: 1 }
+
+  # FIXME
+  delegate :active?, :on_trial?, :plan, :pro?, :stripe_customer_id, to: :sub, prefix: true
 
   def record_passwordless_login!(request)
     now = Time.current
@@ -42,15 +44,7 @@ class User < ApplicationRecord
     update!(attrs)
   end
 
-  def email_confirmed?
-    email_confirmed_at.present?
-  end
-
-  def subscribed?
-    subscription&.active? == true
-  end
-
-  def stripe_customer_id
-    subscription&.stripe_customer_id
+  def sub
+    subscription.presence || Subscription.new
   end
 end

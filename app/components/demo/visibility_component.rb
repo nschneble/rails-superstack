@@ -10,8 +10,8 @@ class Demo::VisibilityComponent < Pom::Component
   )
 
   def call
-    content_tag :span, **html_options do
-      safe_join([ helpers.fas_icon("eye"), content_tag(:span, visibility, class: "ml-1 capitalize") ])
+    tag.span **html_options do
+      safe_join([ helpers.fas_icon("eye"), tag.span(visibility, class: "ml-1 capitalize") ])
     end
   end
 

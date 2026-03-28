@@ -1,13 +1,10 @@
 module Billing
-  class CreatePortalSessionService < BaseService
+  class CreatePortalSessionService < BillingService
     def call(user:, return_url:)
-      customer_id = user.stripe_customer_id
-      return ServiceResult.fail(:no_customer) if customer_id.blank?
+      customer = user.sub_stripe_customer_id
+      return ServiceResult.fail(:no_customer) if customer.blank?
 
-      session = stripe_client.v1.billing_portal.sessions.create(
-        customer: customer_id,
-        return_url:
-      )
+      session = stripe_client.v1.billing_portal.sessions.create(customer:, return_url:)
 
       ServiceResult.ok(session)
     rescue Stripe::StripeError => error

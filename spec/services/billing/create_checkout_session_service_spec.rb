@@ -34,7 +34,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
     it "persists the stripe_customer_id to a subscription record" do
       described_class.call(**call_args)
-      expect(user.reload.stripe_customer_id).to eq("cus_test123")
+      expect(user.reload.sub_stripe_customer_id).to eq("cus_test123")
     end
 
     it "does not create a duplicate Stripe customer when one exists" do
@@ -43,15 +43,23 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
       described_class.call(**call_args)
     end
 
-    it "offers a 30-day trial for users with no prior subscription" do
+    it "offers a 7-day trial for users with no prior subscription" do
       expect(fake_checkout_sessions).to receive(:create).with(
-        hash_including(subscription_data: { trial_period_days: 30 })
+        hash_including(subscription_data: { trial_period_days: 7 })
       ).and_return(fake_session)
       described_class.call(**call_args)
     end
 
-    it "does not offer a trial when a subscription record already exists" do
-      create(:subscription, user:, stripe_customer_id: "cus_existing")
+    it "offers a trial when a subscription exists but checkout was never completed" do
+      create(:subscription, user:, stripe_customer_id: "cus_existing", status: :incomplete, stripe_subscription_id: nil)
+      expect(fake_checkout_sessions).to receive(:create).with(
+        hash_including(subscription_data: { trial_period_days: 7 })
+      ).and_return(fake_session)
+      described_class.call(**call_args)
+    end
+
+    it "does not offer a trial when a real subscription has been completed" do
+      create(:subscription, user:, stripe_customer_id: "cus_existing", stripe_subscription_id: "sub_abc123")
       expect(fake_checkout_sessions).to receive(:create) do |params|
         expect(params).not_to have_key(:subscription_data)
         fake_session

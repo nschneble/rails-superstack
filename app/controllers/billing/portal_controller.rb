@@ -3,7 +3,7 @@ module Billing
     def create
       result = CreatePortalSessionService.call(
         user: current_user,
-        return_url: settings_profile_url
+        return_url: settings_billing_url
       )
 
       if result.success?

@@ -1,8 +1,8 @@
-<%= tag.button(**merge_options(default_options, extra_options)) do %>
+<%= tag.button **merge_options(default_options, extra_options) do %>
   <% if helpers.font_awesome_available? %>
-    <i class="fa-solid fa-copy transition-opacity duration-100" data-clipboard-target="icon"></i>
+    <i class="fa-solid fa-copy transition-all duration-100" data-clipboard-target="icon"></i>
   <% else %>
-    <span class="transition-opacity duration-100" data-clipboard-target="icon">📋</span>
+    <span class="transition-all duration-100" data-clipboard-target="icon">📋</span>
   <% end %>
 
   <% if content.present? %>

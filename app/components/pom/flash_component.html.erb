@@ -1,4 +1,4 @@
-<%= tag.div(**merge_options(default_options, extra_options)) do %>
+<%= tag.div **merge_options(default_options, extra_options) do %>
   <% case variant %>
   <% when :alert %>
     <%= helpers.fa_stacked_icon(["square", "skull-crossbones"], [ "text-white", "text-pink-800" ]) %>

@@ -40,7 +40,6 @@ en:
     plans:
       display:
         annual_savings: "Save %{percent}%"
-        free: "Free"
         monthly: "$%{price}/month"
         yearly: "$%{price}/year"
       free:
@@ -59,6 +58,19 @@ en:
           - "Higher API rate limits"
     portal:
       error: "Unable to open billing portal"
+    subscriptions:
+      manage:
+        active: "Manage Billing"
+        current: "Current Plan"
+        most_popular: "Most Popular"
+        signup: "Get Started"
+        subscribe: "Subscribe %{term}"
+      success:
+        button: "Go to Settings"
+        description: "Your subscription is being activated. This usually takes just a moment."
+        page_title: "Subscription Confirmed"
+        redirect: "Redirecting you in a few seconds…"
+        title: "You're all set!"
   email:
     confirmation:
       link_expired: "That confirmation link has expired"
@@ -138,15 +150,12 @@ en:
       submit: "Create token"
       title: "API tokens"
     billing:
-      cancels_on: "Cancels on %{date}"
       current_plan: "Current plan"
-      free_plan: "Free"
-      manage_billing: "Manage Billing"
+      free: "Free"
+      manage_billing: "Manage billing"
       pro_monthly: "Pro (Monthly)"
       pro_yearly: "Pro (Yearly)"
-      renews_on: "Renews on %{date}"
       title: "Billing"
-      trial_ends: "Trial ends %{date}"
       upgrade: "Upgrade to Pro"
     tabs:
       api: "API tokens"

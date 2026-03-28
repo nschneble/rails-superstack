@@ -5,6 +5,7 @@
 
   <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
   <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
+  <%= render Demo::MenuItemComponent.new(path: demo_themes_path, icon: "palette", label: "Purchase Themes") %>
   <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secret Page") if Flipper.enabled?(:secrets, current_user) %>
   <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") if Rails.env.development? %>
   <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Guide") %>
@@ -26,9 +27,9 @@
 
   <% if current_user %>
     <%= render Demo::MenuItemComponent.new(path: settings_root_path, icon: "cog", label: "User Settings") %>
-    <%= render Demo::MenuItemComponent.new(path: billing_plans_path, icon: "credit-card", label: "Change Plan") %>
     <%= render Demo::MenuItemComponent.new(path: auth_sign_out_path, icon: "person-walking-arrow-loop-left", label: "Sign Out") %>
   <% else %>
+    <%= render Demo::MenuItemComponent.new(path: billing_plans_path, icon: "credit-card", label: "Subscription Plans") %>
     <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign In") %>
   <% end %>
 </div>

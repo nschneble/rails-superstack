@@ -1,6 +1,5 @@
 class Demo::WelcomeItemDecorator < ApplicationDecorator
   include Draper::LazyHelpers
-  include SegmentRenderable
 
   delegate_all
 
@@ -23,9 +22,9 @@ class Demo::WelcomeItemDecorator < ApplicationDecorator
         if part.key?(:link)
           link_to part[:link], part[:to], class: "hover:text-amber-400 underline!"
         elsif part.key?(:hidden)
-          content_tag(:span, render_segments(part[:hidden]), class: "hidden sm:inline")
+          tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
         elsif part.key?(:highlight)
-          content_tag(:span, part[:highlight], class: "text-amber-200 font-semibold")
+          tag.span part[:highlight], class: "text-amber-200 font-semibold"
         end
       end
     end, " ")
