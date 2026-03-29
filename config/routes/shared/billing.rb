@@ -7,4 +7,6 @@ namespace :billing do
   post "portal",           to: "portal#create",    as: :portal
 end
 
-post "webhooks/stripe", to: "billing/webhooks#create", as: :stripe_webhook
+post "webhooks/stripe",
+     to: "billing/webhooks#create",
+     as: :stripe_webhook

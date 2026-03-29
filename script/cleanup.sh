@@ -38,9 +38,10 @@ DEMO_PATHS=(
   "config/routes/development/demo"
   "db/seeds/development/demo"
   "lib/abilities/demo"
+  "spec/controllers/demo"
   "spec/factories/demo"
   "spec/models/demo"
-  "spec/requests/demo"
+  "spec/services/demo"
 )
 
 # helpers
