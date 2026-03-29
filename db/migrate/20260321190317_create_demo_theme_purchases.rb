@@ -11,6 +11,7 @@ class CreateDemoThemePurchases < ActiveRecord::Migration[8.1]
     end
 
     add_index :demo_theme_purchases, :user_id
+    # status = 1 corresponds to the "completed" enum value
     add_index :demo_theme_purchases, [ :user_id, :theme_key ], unique: true,
       where: "status = 1", name: "index_demo_theme_purchases_on_user_id_and_theme_key_completed"
     add_index :demo_theme_purchases, :stripe_checkout_session_id, unique: true,

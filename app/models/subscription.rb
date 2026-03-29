@@ -15,6 +15,7 @@ class Subscription < ApplicationRecord
   PLANS = %w[free pro_monthly pro_yearly].freeze
 
   validates :stripe_customer_id, presence: true, uniqueness: true
+  validates :stripe_subscription_id, presence: true, if: :pro?
   validates :plan, inclusion: { in: PLANS }
 
   def active?

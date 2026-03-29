@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_190317) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_21_190318) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -219,10 +219,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_190317) do
   end
 
   add_foreign_key "api_tokens", "users"
-  add_foreign_key "demo_theme_purchases", "users", validate: false
+  add_foreign_key "demo_theme_purchases", "users"
   add_foreign_key "email_change_requests", "users"
   add_foreign_key "mac_guffin_likes", "mac_guffins"
   add_foreign_key "mac_guffin_likes", "users"
   add_foreign_key "mac_guffins", "users"
-  add_foreign_key "subscriptions", "users", validate: false
+  add_foreign_key "subscriptions", "users"
 end
