@@ -1,0 +1,20 @@
+.crimson-tide {
+  background: url("/demo/themes/crimson-tide.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.forest-canopy {
+  background: url("/demo/themes/forest-canopy.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.midnight-galaxy {
+  background: url("/demo/themes/midnight-galaxy.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

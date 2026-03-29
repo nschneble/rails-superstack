@@ -4,7 +4,7 @@ module Demo::Themes
     name: I18n.t("themes.crimson_tide.name"),
     price_cents: 999,
     description: I18n.t("themes.crimson_tide.description"),
-    image: image_url("/demo/themes/crimson-tide.jpg"),
+    image: "/demo/themes/crimson-tide.jpg",
     image_attribution: [
       "Photo by",
       { link: "Marc Szeglat", to: "https://unsplash.com/@marcszeglat" },
@@ -13,6 +13,7 @@ module Demo::Themes
     ],
     palette: Palettes::Palette.new(
       bgr: "bg-red-950!",
+      bdr: "ring-amber-400/80!",
       txt: "text-red-50!",
       btn: "bg-amber-500!",
       lbl: "text-red-950!",

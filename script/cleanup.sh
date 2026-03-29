@@ -20,6 +20,7 @@ NO_CONFIRMATION=false
 # demo paths to clean up
 DEMO_PATHS=(
   "app/assets/images/demo"
+  "app/assets/stylesheets/demo"
   "app/components/demo"
   "app/controllers/demo"
   "app/dashboards/super_admin/demo"

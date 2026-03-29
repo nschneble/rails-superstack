@@ -1,22 +1,18 @@
-<%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll" do %>
+<%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll" do %>
   <%= tag.div class: "max-w-[650] mx-auto" do %>
 
-    <%# TODO: TESTING %>
     <% if params[:purchased] %>
-      <div class="mb-6 p-4 bg-emerald-900/40 border border-emerald-600/40 rounded-lg text-emerald-300">
-        <%= t("themes.purchased_notice", name: Demo::Themes::ThemePurchase::THEMES[params[:purchased]].name) %>
+      <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
+        <%= render "shared/notification",
+          variant: :notice,
+          message: t("themes.purchased_notice", theme: Demo::Themes::ThemePurchase::THEMES[params[:purchased]].name)
+        %>
       </div>
     <% end %>
-    <%# TODO: TESTING %>
 
     <%= tag.h1 t("themes.title"), class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-0 font-semibold text-3xl tracking-tight" %>
-
-    <%# TODO: TESTING %>
-    <p class="text-slate-400 mb-4"><%= t("themes.subtitle") %></p>
-    <%# TODO: TESTING %>
+    <%= tag.p t("themes.subtitle"), class: "text-slate-300 mb-4" %>
 
     <%= render partial: "themes", locals: { themes: @themes } %>
   <% end %>
 <% end %>
-
-

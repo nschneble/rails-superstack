@@ -1,25 +1,28 @@
-<div class="grid grid-cols-1 gap-6">
+<%= tag.div class: "grid grid-cols-1 gap-6" do %>
   <% @themes.each do |key, theme| %>
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-blue-900/50 border border-slate-600 rounded-xl p-6">
-      <div class="flex-1">
-        <h2 class="font-semibold text-xl text-white mb-1"><%= theme.name %></h2>
-        <p class="text-slate-400 text-sm"><%= theme.description %></p>
-        <p class="text-emerald-400 font-bold mt-2"><%= theme.price_display %></p>
-      </div>
 
-      <div class="shrink-0">
-        <% if @purchased_keys.include?(key) %>
-          <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-900/50 border border-emerald-600/40 text-emerald-300 text-sm font-medium">
-            ✓ <%= t("themes.purchased") %>
-          </span>
-        <% else %>
-          <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |f| %>
-            <%= f.hidden_field :theme_key, value: key %>
-            <%= f.submit t("themes.buy_now"),
-                class: "px-6 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition-colors cursor-pointer" %>
+    <%= tag.div class: [ "relative flex flex-col items-start gap-4 p-6 ring-3 rounded-xl shadow-xl", theme.key.dasherize, theme.bdr ] do %>
+      <%= tag.div class: [ "absolute top-0 left-0 w-full h-full rounded-xl opacity-85", theme.bgr ] %>
+
+      <%= tag.div class: "relative block w-4/5 sm:w-full max-w-[325] mx-auto" do %>
+        <%= tag.div class: "flex-1" do %>
+          <%= tag.h2 theme.name, class: [ "text-xl font-semibold", theme.txt ] %>
+          <%= tag.p theme.description, class: [ "mt-1 text-sm text-balance", theme.txt ] %>
+          <%= tag.p theme.price_display, class: [ "mt-2 mb-8 font-bold", theme.cta ] %>
+        <% end %>
+
+        <%= tag.div class: "shrink-0" do %>
+          <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |form| %>
+            <%= form.hidden_field :theme_key, value: key %>
+
+            <% if @purchased_keys.include?(key) %>
+              <%= form.submit t("themes.purchased"), class: [ theme.btn, theme.lbl ], disabled: true %>
+            <% else %>
+              <%= form.submit t("themes.buy_now"), class: [ theme.btn, theme.lbl ] %>
+            <% end %>
           <% end %>
         <% end %>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
   <% end %>
-</div>
+<% end %>

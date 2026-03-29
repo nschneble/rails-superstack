@@ -5,10 +5,10 @@
 
   <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
   <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
-  <%= render Demo::MenuItemComponent.new(path: demo_themes_path, icon: "palette", label: "Purchase Themes") %>
   <%= render Demo::MenuItemComponent.new(theme: :secret, path: demo_secrets_path, icon: "user-secret", label: "Secret Page") if Flipper.enabled?(:secrets, current_user) %>
   <%= render Demo::MenuItemComponent.new(path: letter_opener_path, icon: "paper-plane", label: "Sent Mail") if Rails.env.development? %>
   <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Guide") %>
+  <%= render Demo::MenuItemComponent.new(path: demo_themes_path, icon: "palette", label: "Themes") %>
 
   <div class="my-2 border-t border-slate-300"></div>
 

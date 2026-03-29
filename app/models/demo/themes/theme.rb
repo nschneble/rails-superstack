@@ -8,7 +8,10 @@ module Demo::Themes
     :image_attribution,
     :palette
   ) do
+    extend Forwardable
     include Draper::Decoratable
+
+    def_delegators :palette, *Palettes::Palette.members
 
     def initialize(
       price_cents: 0,
