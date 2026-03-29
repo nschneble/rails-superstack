@@ -3,6 +3,13 @@ module Demo::Themes
     key: "forest_canopy",
     name: I18n.t("themes.forest_canopy.name"),
     price_cents: 499,
-    description: I18n.t("themes.forest_canopy.description")
+    description: I18n.t("themes.forest_canopy.description"),
+    palette: Palettes::Palette.new(
+      bgr: "bg-green-950!",
+      txt: "text-stone-100!",
+      btn: "bg-amber-700!",
+      lbl: "text-amber-50!",
+      cta: "text-green-400!"
+    )
   )
 end
