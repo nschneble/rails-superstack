@@ -1,0 +1,21 @@
+<% content_for :title, "Subscription Plans" %>
+
+<%= tag.div class: "w-full my-14 px-4" do %>
+  <%= tag.div class: "max-w-5xl mx-auto" do %>
+    <%= tag.div class: "mb-12 text-center" do %>
+      <%= tag.h1 "Simple, Transparent Pricing", class: "mb-4 text-slate-800 text-4xl font-bold tracking-tight" %>
+      <%= tag.p "Choose the plan that's right for you.", class: "text-slate-500 text-lg" %>
+    <% end %>
+
+    <%= tag.div class: "grid grid-cols-1 md:grid-cols-3 items-start gap-6" do %>
+      <%= pom_subscription_card plan: @free_plan %>
+      <% if current_user&.subscription_plan == "pro_monthly" %>
+        <%= pom_subscription_card plan: @pro_plan, checkmark_icon: "check-double" %>
+        <%= pom_subscription_card plan: @pro_plan, checkmark_icon: "check-double", emphasis: :emerald, term: :monthly %>
+      <% else %>
+        <%= pom_subscription_card plan: @pro_plan, checkmark_icon: "check-double", emphasis: :emerald %>
+        <%= pom_subscription_card plan: @pro_plan, checkmark_icon: "check-double", term: :monthly %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

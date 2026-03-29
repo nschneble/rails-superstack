@@ -89,12 +89,15 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     mx-auto
     my-4
     px-4
-    py-2
+    py-3
     bg-slate-800
-    disabled:bg-slate-300
+    disabled:bg-slate-800/80
     hover:bg-slate-900
     active:bg-slate-950
-    disabled:text-black/50
+    text-white
+    disabled:text-white/80
+    text-sm
+    font-semibold
     rounded-md
     cursor-pointer
     disabled:cursor-default

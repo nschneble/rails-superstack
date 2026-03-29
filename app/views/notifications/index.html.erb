@@ -1,6 +1,6 @@
 <div class="w-full my-28">
   <%= form_with(url: notifications_path, scope: :global_notification, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
-    <%= content_tag(:h1, t("notifications.form.title"), class: CustomFormBuilder::TITLE_CLASSES) %>
+    <%= tag.h1 t("notifications.form.title"), class: CustomFormBuilder::TITLE_CLASSES %>
 
     <%= form.label :message,
                    t("notifications.form.label",

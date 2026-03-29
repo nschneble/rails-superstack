@@ -1,0 +1,21 @@
+<%= tag.div role: "tabpanel",
+            aria: { labelledby: "settings-tab-billing" },
+            class: CustomFormBuilder::FORM_CLASSES,
+            id: "settings-panel-billing" do %>
+
+  <%= tag.h1 t("settings.billing.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+
+  <%= tag.span t("settings.billing.current_plan"), class: CustomFormBuilder::LABEL_CLASSES %>
+  <%= tag.span t("settings.billing.#{current_user.subscription_plan}"),
+               class: [ CustomFormBuilder::INPUT_CLASSES, "bg-slate-100! border-slate-100! text-slate-500! select-none" ] %>
+
+  <% if current_user.pro_subscription? %>
+    <%= pom_button(path: billing_portal_path, method: :post) do %>
+      <%= t("settings.billing.manage_billing") %>
+    <% end %>
+  <% else %>
+    <%= pom_button(path: billing_plans_path, method: :get) do %>
+      <%= t("settings.billing.upgrade") %>
+    <% end %>
+  <% end %>
+<% end %>

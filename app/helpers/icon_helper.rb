@@ -20,7 +20,7 @@ module IconHelper
   end
 
   def fa_icon(name, options = "", style: "solid")
-    content_tag(:i, "", class: "fa-#{style} fa-#{name} #{options}".strip)
+    tag.i "", class: "fa-#{style} fa-#{name} #{options}".strip
   end
 
   # Creates a stacked Font Awesome icon.
@@ -36,7 +36,7 @@ module IconHelper
   #
   # @return A span tag with the stacked Font Awesome icon.
   def fa_stacked_icon(names, options = "", style: "solid")
-    content_tag :span, class: "fa-stack #{options[2]}".strip do
+    tag.span class: "fa-stack #{options[2]}".strip do
       fa_icon(names[0]&.to_s, "fa-stack-2x #{options[0]}".strip, style:) +
       fa_icon(names[1]&.to_s, "fa-stack-1x #{options[1]}".strip, style:)
     end

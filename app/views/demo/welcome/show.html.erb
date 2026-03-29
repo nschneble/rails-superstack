@@ -1,11 +1,6 @@
-<%= content_tag :div, class: "w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll" do %>
-  <%= content_tag :div, class: "max-w-[650] mx-auto" do %>
-
-    <%= content_tag :h1,
-                    "Next Steps",
-                    class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight" %>
-
+<%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] text-white overflow-y-scroll" do %>
+  <%= tag.div class: "max-w-[650] mx-auto" do %>
+    <%= tag.h1 "Next Steps", class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight" %>
     <%= render partial: "items", locals: { items: @items } %>
-
   <% end %>
 <% end %>

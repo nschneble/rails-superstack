@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="dropdown"
+// Connects to data-controller="demo--dropdown"
 export default class extends Controller {
   static targets = ["menu", "button"];
 
   connect() {
+    console.log("Here!");
     this.onUserMouseClick = this.handleUserMouseClick.bind(this);
     this.onUserKeyPress = this.handleUserKeyPress.bind(this);
   }

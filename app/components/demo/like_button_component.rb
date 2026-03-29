@@ -18,7 +18,7 @@ class Demo::LikeButtonComponent < Pom::Component
 
   def call
     button_to path, **html_options do
-      safe_join([ helpers.fas_icon("heart"), content_tag(:span, count) ])
+      safe_join([ helpers.fas_icon("heart"), tag.span(count) ])
     end
   end
 

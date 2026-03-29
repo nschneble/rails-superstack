@@ -49,7 +49,7 @@ module Demo
             { link: "Run local CI", to: "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-ci" }
           ]
         )
-      ]
+      ].map(&:decorate)
     end
   end
 end

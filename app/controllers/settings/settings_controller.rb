@@ -10,6 +10,10 @@ class Settings::SettingsController < AuthenticatedController
     render :show, locals: { tab: "api" }
   end
 
+  def billing
+    render :show, locals: { tab: "billing" }
+  end
+
   private
 
   def load_email_change_request
@@ -22,7 +26,7 @@ class Settings::SettingsController < AuthenticatedController
   end
 
   def load_api_tokens
-    @api_tokens ||= current_user.api_tokens.active.order(last_used_at: :desc)
+    @api_tokens ||= current_user.api_tokens.active.order(last_used_at: :desc).decorate
     @api_token_plaintext ||= session.delete(:api_token_plaintext)
   end
 end

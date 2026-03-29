@@ -1,4 +1,14 @@
-module Demo::SegmentHelper
+class Demo::TerminalCommandDecorator < ApplicationDecorator
+  include Draper::LazyHelpers
+
+  delegate_all
+
+  def rendered_description
+    render_segments(object.description)
+  end
+
+  private
+
   def render_segments(segments)
     safe_join(segments.map do |part|
       case part
@@ -8,9 +18,7 @@ module Demo::SegmentHelper
         if part.key?(:link)
           link_to part[:link], part[:to], class: "hover:text-amber-400 underline!"
         elsif part.key?(:hidden)
-          content_tag(:span, render_segments(part[:hidden]), class: "hidden sm:inline")
-        elsif part.key?(:highlight)
-          content_tag(:span, part[:highlight], class: "text-amber-200 font-semibold")
+          tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
         end
       end
     end, " ")

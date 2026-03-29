@@ -2,12 +2,12 @@ class User < ApplicationRecord
   class NotAuthorized < StandardError; end
 
   include Indexable
+  include Subscribable
   include Typesense
 
   typesense enqueue: :index_async do
     attributes :email
     default_sorting_field "email"
-
     predefined_fields [
       {
         name: "email",
@@ -21,8 +21,8 @@ class User < ApplicationRecord
   has_many :email_change_requests, dependent: :destroy
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
 
-  normalizes        :email, with: EmailNormalizer
-  validates         :email, presence: true, uniqueness: true, email: true
+  normalizes :email, with: EmailNormalizer
+  validates :email, presence: true, uniqueness: true, email: true
   passwordless_with :email
 
   enum :role, { user: 0, admin: 1 }
@@ -39,9 +39,5 @@ class User < ApplicationRecord
     attrs[:email_confirmed_at] = now if email_confirmed_at.nil?
 
     update!(attrs)
-  end
-
-  def email_confirmed?
-    email_confirmed_at.present?
   end
 end

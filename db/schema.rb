@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_21_190318) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
     t.index ["revoked_at"], name: "index_api_tokens_on_revoked_at"
     t.index ["token_digest"], name: "index_api_tokens_on_token_digest", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "demo_theme_purchases", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "status", default: 0, null: false
+    t.string "stripe_checkout_session_id"
+    t.string "stripe_payment_intent_id"
+    t.string "theme_key", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["stripe_checkout_session_id"], name: "index_demo_theme_purchases_on_stripe_checkout_session_id", unique: true, where: "(stripe_checkout_session_id IS NOT NULL)"
+    t.index ["stripe_payment_intent_id"], name: "index_demo_theme_purchases_on_stripe_payment_intent_id", unique: true, where: "(stripe_payment_intent_id IS NOT NULL)"
+    t.index ["user_id", "theme_key"], name: "index_demo_theme_purchases_on_user_id_and_theme_key_completed", unique: true, where: "(status = 1)"
+    t.index ["user_id"], name: "index_demo_theme_purchases_on_user_id"
   end
 
   create_table "email_change_requests", force: :cascade do |t|
@@ -115,6 +129,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
     t.index ["identifier"], name: "index_passwordless_sessions_on_identifier", unique: true
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.datetime "cancel_at"
+    t.datetime "created_at", null: false
+    t.datetime "current_period_end_at"
+    t.string "plan", default: "free", null: false
+    t.integer "status", default: 0, null: false
+    t.string "stripe_customer_id", null: false
+    t.string "stripe_subscription_id"
+    t.datetime "trial_ends_at"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["status"], name: "index_subscriptions_on_status"
+    t.index ["stripe_customer_id"], name: "index_subscriptions_on_stripe_customer_id", unique: true
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true, where: "(stripe_subscription_id IS NOT NULL)"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id", unique: true
+  end
+
   create_table "super_admin_audit_logs", force: :cascade do |t|
     t.string "action", null: false
     t.json "changes_snapshot", default: {}, null: false
@@ -173,9 +204,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_001500) do
     t.index ["role"], name: "index_users_on_role"
   end
 
+  create_table "webhook_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "error_message"
+    t.string "event_type", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.integer "status", default: 0, null: false
+    t.string "stripe_event_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_webhook_events_on_created_at"
+    t.index ["event_type"], name: "index_webhook_events_on_event_type"
+    t.index ["status"], name: "index_webhook_events_on_status"
+    t.index ["stripe_event_id"], name: "index_webhook_events_on_stripe_event_id", unique: true
+  end
+
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "demo_theme_purchases", "users"
   add_foreign_key "email_change_requests", "users"
   add_foreign_key "mac_guffin_likes", "mac_guffins"
   add_foreign_key "mac_guffin_likes", "users"
   add_foreign_key "mac_guffins", "users"
+  add_foreign_key "subscriptions", "users"
 end

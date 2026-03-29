@@ -53,23 +53,23 @@ export default class extends Controller {
     const icon = this.iconTarget;
     const tooltip = this.hasTooltipTarget ? this.tooltipTarget : null;
 
-    icon.classList.add("opacity-0");
+    icon.classList.add("opacity-0", "blur-xs");
 
     setTimeout(() => {
       icon.innerText = "✅";
-      icon.classList.remove("opacity-0");
+      icon.classList.remove("opacity-0", "blur-xs");
 
       if (tooltip) {
         tooltip.classList.remove("opacity-0", "translate-y-1");
       }
 
       setTimeout(() => {
-        icon.classList.add("opacity-0");
+        icon.classList.add("opacity-0", "blur-xs");
         if (tooltip) tooltip.classList.add("opacity-0", "translate-y-1");
 
         setTimeout(() => {
           icon.innerText = "📋";
-          icon.classList.remove("opacity-0");
+          icon.classList.remove("opacity-0", "blur-xs");
         }, 100);
       }, this.durationValue);
     }, 100);
@@ -79,25 +79,25 @@ export default class extends Controller {
     const icon = this.iconTarget;
     const tooltip = this.hasTooltipTarget ? this.tooltipTarget : null;
 
-    icon.classList.add("opacity-0");
+    icon.classList.add("opacity-0", "blur-xs");
 
     setTimeout(() => {
       icon.classList.remove("fa-copy");
       icon.classList.add("fa-circle-check", "text-lime-500");
-      icon.classList.remove("opacity-0");
+      icon.classList.remove("opacity-0", "blur-xs");
 
       if (tooltip) {
         tooltip.classList.remove("opacity-0", "translate-y-1");
       }
 
       setTimeout(() => {
-        icon.classList.add("opacity-0");
+        icon.classList.add("opacity-0", "blur-xs");
         if (tooltip) tooltip.classList.add("opacity-0", "translate-y-1");
 
         setTimeout(() => {
           icon.classList.remove("fa-circle-check", "text-lime-500");
           icon.classList.add("fa-copy");
-          icon.classList.remove("opacity-0");
+          icon.classList.remove("opacity-0", "blur-xs");
         }, 100);
       }, this.durationValue);
     }, 100);

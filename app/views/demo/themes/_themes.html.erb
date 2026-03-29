@@ -1,0 +1,28 @@
+<%= tag.div class: "grid grid-cols-1 gap-6" do %>
+  <% @themes.each do |key, theme| %>
+
+    <%= tag.div class: [ "relative flex flex-col items-start gap-4 p-6 ring-3 rounded-xl shadow-xl", theme.selector, theme.border ] do %>
+      <%= tag.div class: [ "absolute top-0 left-0 w-full h-full rounded-xl opacity-85", theme.background ] %>
+
+      <%= tag.div class: "relative block w-4/5 sm:w-full max-w-[325] mx-auto" do %>
+        <%= tag.div class: "flex-1" do %>
+          <%= tag.h2 theme.name, class: [ "text-xl font-semibold", theme.text ] %>
+          <%= tag.p theme.description, class: [ "mt-1 text-sm text-balance", theme.text ] %>
+          <%= tag.p theme.price_display, class: [ "mt-2 mb-8 font-bold", theme.highlight ] %>
+        <% end %>
+
+        <%= tag.div class: "shrink-0" do %>
+          <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |form| %>
+            <%= form.hidden_field :theme_key, value: key %>
+
+            <% if @purchased_keys.include?(key) %>
+              <%= form.submit t("themes.purchased"), class: [ theme.button, theme.button_text ], disabled: true %>
+            <% else %>
+              <%= form.submit t("themes.buy_now"), class: [ theme.button, theme.button_text ] %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

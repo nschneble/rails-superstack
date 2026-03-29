@@ -1,0 +1,60 @@
+<%= tag.div **merge_options(default_options, extra_options) do %>
+  <% if emphasis == :emerald %>
+    <%= tag.div class: "absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-1/2" do %>
+      <%= tag.span t("billing.subscriptions.manage.#{card_is_active_plan? ? "current" : "most_popular"}"),
+                   class: "px-3 py-1 bg-emerald-400 text-slate-900 text-xs tracking-wide uppercase font-bold rounded-full" %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "mb-6" do %>
+    <%= tag.h2 class: "mb-1 text-white text-2xl font-bold" do %>
+      <%= plan.name %>
+      <%= tag.span term.to_s.capitalize, class: styles_for(:emphasis, label: emphasis) %>
+    <% end %>
+    <%= tag.p plan.description, class: "text-slate-400 text-sm" %>
+  <% end %>
+
+  <%= tag.div class: "mb-6" do %>
+    <% if term == :yearly %>
+      <%= plan.yearly_price_display %>
+      <%= plan.annual_savings_display unless helpers.current_user&.active_subscription? %>
+    <% else %>
+      <%= plan.monthly_price_display %>
+    <% end %>
+  <% end %>
+
+  <%= tag.ul class: "flex-grow space-y-3 mb-8" do %>
+    <% plan.features.each do |feature| %>
+      <%= tag.li class: "flex items-center gap-2 text-white text-sm" do %>
+        <%= tag.span helpers.fas_icon(checkmark_icon), class: "text-emerald-400" %>
+        <%= feature %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "mt-auto" do %>
+    <% if helpers.current_user %>
+      <% if helpers.current_user.active_subscription? %>
+        <% if card_is_active_plan? %>
+          <%= pom_button(theme: emphasis, path: helpers.billing_portal_path) do %>
+            <%= t("billing.subscriptions.manage.active") %>
+          <% end %>
+        <% end %>
+      <% elsif plan.free? %>
+        <%= pom_button(path: helpers.root_path, disabled: true) do %>
+          <%= t("billing.subscriptions.manage.current") %>
+        <% end %>
+      <% else %>
+        <%= form_with url: helpers.billing_checkout_path, method: :post, data: { turbo: false } do |form| %>
+          <%= form.hidden_field :price_id, value: stripe_price_id %>
+          <%= form.submit t("billing.subscriptions.manage.subscribe", term: term.to_s.capitalize),
+                          class: [ CustomFormBuilder::BUTTON_CLASSES, styles_for(:emphasis, submit: emphasis) ] %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= pom_button(theme: emphasis, path: helpers.auth_sign_in_path, method: :get) do %>
+        <%= t("billing.subscriptions.manage.signup") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -5,7 +5,6 @@ class Demo::MacGuffin < ApplicationRecord
   typesense enqueue: :index_async do
     attributes :name, :description
     default_sorting_field "name"
-
     predefined_fields [
       {
         name: "name",

@@ -20,11 +20,11 @@ module TextHelper
   }
 
   def c(text, color, shade = "500")
-    content_tag :span, text, class: COLOR_CLASSES.dig(color.to_s, shade) || "text-inherit"
+    tag.span text, class: COLOR_CLASSES.dig(color.to_s, shade) || "text-inherit"
   end
 
   def rainbow(text, shade = "500")
-    return content_tag(:span) unless text.present?
+    return tag.span unless text.present?
 
     palette = palette_for_text(text)
     content = nil
@@ -37,7 +37,7 @@ module TextHelper
       end
     end
 
-    content_tag :span, content
+    tag.span content
   end
 
   private

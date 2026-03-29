@@ -20,24 +20,29 @@ NO_CONFIRMATION=false
 # demo paths to clean up
 DEMO_PATHS=(
   "app/assets/images/demo"
+  "app/assets/stylesheets/demo"
   "app/components/demo"
   "app/controllers/demo"
   "app/dashboards/super_admin/demo"
+  "app/decorators/demo"
   "app/graphql/schemas/demo"
   "app/helpers/demo"
+  "app/javascript/controllers/demo"
   "app/mailers/demo"
   "app/models/demo"
   "app/notifiers/demo"
   "app/services/demo"
   "app/views/demo"
   "app/views/layouts/demo"
+  "config/initializers/demo"
   "config/locales/demo"
   "config/routes/development/demo"
   "db/seeds/development/demo"
   "lib/abilities/demo"
+  "spec/controllers/demo"
   "spec/factories/demo"
   "spec/models/demo"
-  "spec/requests/demo"
+  "spec/services/demo"
 )
 
 # helpers
