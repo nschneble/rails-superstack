@@ -10,7 +10,6 @@ export default class extends Controller {
     emojiFallback: Boolean,
   };
 
-  "blur-xs blur-none";
   async copy(event) {
     event.preventDefault();
 
