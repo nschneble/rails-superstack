@@ -39,7 +39,7 @@ class ApiToken < ApplicationRecord
   end
 
   def mark_used!
-    update_column(:last_used_at, Time.current)
+    update_column(:last_used_at, Time.current) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def generate_plaintext_token!

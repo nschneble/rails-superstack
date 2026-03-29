@@ -20,7 +20,7 @@ RSpec.describe "API tokens", type: :request do
       expect(flash[:alert]).to eq("You must be logged in to visit this page")
     end
 
-    it "creates a token for the current user and shows plaintext once" do
+    it "creates a token and redirects with a flash notice" do
       user = create(:user)
       passwordless_sign_in(user)
 
@@ -30,14 +30,20 @@ RSpec.describe "API tokens", type: :request do
 
       expect(response).to redirect_to(settings_api_path)
       expect(flash[:notice]).to eq("API token created")
+    end
+
+    it "shows the plaintext token once and clears it on subsequent visit" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      post settings_create_api_token_path, params: { api_token: { name: "Spec Token" } }
 
       plaintext = session[:api_token_plaintext]
       expect(plaintext).to be_present
 
       follow_redirect!
-      expect(response.body).to include("API tokens")
       expect(response.body).to include("Spec Token")
-      expect(response.body).to include("#{plaintext}")
+      expect(response.body).to include(plaintext.to_s)
 
       get settings_api_path
       expect(response.body).not_to include("Bearer #{plaintext}")
@@ -55,7 +61,7 @@ RSpec.describe "API tokens", type: :request do
       expect(flash[:alert]).to include("Name can't be blank")
     end
 
-    it "streams a new token into the list for turbo requests" do
+    it "creates a token and returns a turbo stream response" do
       user = create(:user)
       passwordless_sign_in(user)
 
@@ -65,14 +71,24 @@ RSpec.describe "API tokens", type: :request do
           headers: { "Accept" => "text/vnd.turbo-stream.html" }
       end.to change(user.api_tokens, :count).by(1)
 
-      token = user.api_tokens.order(:created_at).last
-
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+    end
+
+    it "streams the new token content into the list" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      post settings_create_api_token_path,
+        params: { api_token: { name: "Turbo Token" } },
+        headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+      token = user.api_tokens.order(:created_at).last
+
       expect(response.body).to include(%(action="prepend" target="api_tokens_collection"))
       expect(response.body).to include(%(id="#{ActionView::RecordIdentifier.dom_id(token)}"))
       expect(response.body).to include("Turbo Token")
-      expect(response.body).to include("#{token.plaintext_token}")
+      expect(response.body).to include(token.plaintext_token.to_s)
       expect(response.body).to include(%(action="replace" target="api_token_form"))
     end
 
@@ -149,7 +165,7 @@ RSpec.describe "API tokens", type: :request do
   end
 
   describe "GET /settings/profile" do
-    it "renders the profile tab and shell" do
+    it "returns a successful response with the settings navigation" do
       user = create(:user)
       passwordless_sign_in(user)
 
@@ -160,6 +176,14 @@ RSpec.describe "API tokens", type: :request do
       expect(response.body).to include('id="settings-tab-api"')
       expect(response.body).to include('aria-selected="true"')
       expect(response.body).to include('aria-controls="settings-panel-profile"')
+    end
+
+    it "renders the profile panel content" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      get settings_profile_path
+
       expect(response.body).to include('id="settings-panel-profile"')
       expect(response.body).to include("Email address")
       expect(response.body).not_to include("Create token")
@@ -167,30 +191,43 @@ RSpec.describe "API tokens", type: :request do
   end
 
   describe "GET /settings/api" do
-    it "renders token management and only shows active tokens" do
-      user = create(:user)
-      active_token = create(:api_token, user:, name: "Active Token", last_used_at: nil)
-      create(:api_token, user:, name: "Revoked Token", revoked_at: 1.minute.ago)
-      create(:api_token, user:, name: "Expired Token", expires_at: 1.minute.ago)
-      passwordless_sign_in(user)
+    context "with a mix of active and inactive tokens" do
+      let(:user) { create(:user) }
+      let!(:active_token) { create(:api_token, user:, name: "Active Token", last_used_at: nil) }
 
-      get settings_api_path
+      before do
+        create(:api_token, user:, name: "Revoked Token", revoked_at: 1.minute.ago)
+        create(:api_token, user:, name: "Expired Token", expires_at: 1.minute.ago)
+        passwordless_sign_in(user)
+        get settings_api_path
+      end
 
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include('id="settings-tab-profile"')
-      expect(response.body).to include('id="settings-tab-api"')
-      expect(response.body).to include('aria-selected="true"')
-      expect(response.body).to include('aria-controls="settings-panel-api"')
-      expect(response.body).to include('id="settings-panel-api"')
-      expect(response.body).to include("API tokens")
-      expect(response.body).to include("Create token")
-      expect(response.body).to include(active_token.name)
-      expect(response.body).to include(%(id="api_tokens_collection"))
-      expect(response.body).to include(%(id="#{ActionView::RecordIdentifier.dom_id(active_token)}"))
-      expect(response.body).to include(%(data-turbo-confirm="Delete Active Token? There&#39;s no undo."))
-      expect(response.body).to include("Last used: Never")
-      expect(response.body).not_to include("Revoked Token")
-      expect(response.body).not_to include("Expired Token")
+      it "renders the settings shell with the api tab selected" do
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('id="settings-tab-profile"')
+        expect(response.body).to include('id="settings-tab-api"')
+        expect(response.body).to include('aria-selected="true"')
+        expect(response.body).to include('aria-controls="settings-panel-api"')
+      end
+
+      it "renders the api tokens panel with management controls" do
+        expect(response.body).to include('id="settings-panel-api"')
+        expect(response.body).to include("API tokens")
+        expect(response.body).to include("Create token")
+      end
+
+      it "renders the active token with details and actions" do
+        expect(response.body).to include(active_token.name)
+        expect(response.body).to include(%(id="api_tokens_collection"))
+        expect(response.body).to include(%(id="#{ActionView::RecordIdentifier.dom_id(active_token)}"))
+        expect(response.body).to include(%(data-turbo-confirm="Delete Active Token? There&#39;s no undo."))
+        expect(response.body).to include("Last used: Never")
+      end
+
+      it "hides revoked and expired tokens" do
+        expect(response.body).not_to include("Revoked Token")
+        expect(response.body).not_to include("Expired Token")
+      end
     end
 
     it "shows an empty state when there are no active tokens" do

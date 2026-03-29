@@ -1,10 +1,10 @@
 FactoryBot.define do
-  factory :mac_guffin, class: Demo::MacGuffin do
+  factory :mac_guffin, class: 'Demo::MacGuffin' do
     name { Faker::Lorem.word }
     description { Faker::Lorem.paragraph }
     visibility { :open }
 
-    association :user
+    user
 
     trait :user do
       visibility { :user }
@@ -12,7 +12,7 @@ FactoryBot.define do
 
     trait :admin do
       visibility { :admin }
-      association :user, :admin
+      user factory: %i[user admin]
     end
 
     trait :cat do

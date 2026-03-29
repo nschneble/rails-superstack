@@ -4,6 +4,12 @@ FactoryBot.define do
     token { Faker::Internet.uuid }
     expires_at { 10.minutes.from_now }
 
-    association :user
+    user
+
+    trait :expired do
+      expires_at { 1.minute.ago }
+
+      to_create { |instance| instance.save!(validate: false) }
+    end
   end
 end

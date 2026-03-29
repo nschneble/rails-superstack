@@ -37,6 +37,7 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
     before do
       create(:subscription, user:, stripe_customer_id: "cus_sub_test")
 
+      # rubocop:disable RSpec/VerifiedDoubles
       fake_stripe_sub = double(
         "Stripe::Subscription",
         id: "sub_test",
@@ -45,6 +46,7 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
           double("item", price: double("price", id: nil))
         ])
       )
+      # rubocop:enable RSpec/VerifiedDoubles
       allow(fake_stripe_sub).to receive(:[]).with("cancel_at").and_return(nil)
       allow(fake_stripe_sub).to receive(:[]).with("current_period_end").and_return(30.days.from_now.to_i)
       allow(fake_stripe_sub).to receive(:[]).with("trial_end").and_return(nil)
@@ -108,13 +110,8 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
 
   describe "customer.subscription.updated" do
     let(:user) { create(:user) }
-
-    before do
-      create(:subscription, user:, stripe_customer_id: "cus_update_test")
-    end
-
-    it "upserts the subscription and marks event as processed" do
-      fake_sub_data = {
+    let(:fake_sub_data) do
+      {
         "id" => "sub_updated",
         "status" => "active",
         "customer" => "cus_update_test",
@@ -123,7 +120,12 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
         "trial_end" => nil,
         "items" => { "data" => [ { "price" => { "id" => nil } } ] }
       }
+    end
 
+    before do
+      create(:subscription, user:, stripe_customer_id: "cus_update_test")
+
+      # rubocop:disable RSpec/VerifiedDoubles
       fake_sub_updated = double(
         "Stripe::Subscription",
         id: "sub_updated",
@@ -132,11 +134,14 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
           double("item", price: double("price", id: nil))
         ])
       )
+      # rubocop:enable RSpec/VerifiedDoubles
       allow(fake_sub_updated).to receive(:[]).with("cancel_at").and_return(nil)
       allow(fake_sub_updated).to receive(:[]).with("current_period_end").and_return(30.days.from_now.to_i)
       allow(fake_sub_updated).to receive(:[]).with("trial_end").and_return(nil)
       allow(fake_subscriptions).to receive(:retrieve).with("sub_updated").and_return(fake_sub_updated)
+    end
 
+    it "upserts the subscription and marks event as processed" do
       payload = { "data" => { "object" => fake_sub_data } }
       result = call(event_type: "customer.subscription.updated", payload:)
 

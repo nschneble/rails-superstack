@@ -39,19 +39,21 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
     end
 
     it "creates the Stripe session with mode: payment" do
-      expect(fake_checkout_sessions).to receive(:create).with(
-        hash_including(mode: "payment")
-      ).and_return(fake_session)
       described_class.call(**call_args)
+      expect(fake_checkout_sessions).to have_received(:create).with(
+        hash_including(mode: "payment")
+      )
     end
 
     it "creates the Stripe session with the correct unit amount" do
-      expect(fake_checkout_sessions).to receive(:create) do |params|
-        amount = params.dig(:line_items, 0, :price_data, :unit_amount)
-        expect(amount).to eq(1499)
-        fake_session
-      end
       described_class.call(**call_args)
+      expect(fake_checkout_sessions).to have_received(:create).with(
+        hash_including(
+          line_items: array_including(
+            hash_including(price_data: hash_including(unit_amount: 1499))
+          )
+        )
+      )
     end
   end
 

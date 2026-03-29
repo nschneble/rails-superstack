@@ -17,15 +17,17 @@ RSpec.describe "Global notifications", type: :request do
   it "allows admins to send a global notification" do
     admin = create(:user, :admin)
     passwordless_sign_in(admin)
-    expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with(
-      "global_notifications",
-      hash_including(target: "notifications", partial: "shared/notification")
-    )
+    allow(Turbo::StreamsChannel).to receive(:broadcast_append_to)
 
     perform_enqueued_jobs do
       post notifications_path,
         params: { global_notification: { message: "Deployment in 5 minutes." } }
     end
+
+    expect(Turbo::StreamsChannel).to have_received(:broadcast_append_to).with(
+      "global_notifications",
+      hash_including(target: "notifications", partial: "shared/notification")
+    )
 
     expect(response).to redirect_to(notifications_path)
     expect(flash[:notice]).to eq("Notification sent")

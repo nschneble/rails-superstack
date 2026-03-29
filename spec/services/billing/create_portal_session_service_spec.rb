@@ -20,10 +20,10 @@ RSpec.describe Billing::CreatePortalSessionService, type: :service do
     end
 
     it "creates the portal session with the correct customer ID" do
-      expect(fake_portal_sessions).to receive(:create).with(
-        hash_including(customer: "cus_portal_test")
-      ).and_return(fake_session)
       described_class.call(user: user.reload, return_url:)
+      expect(fake_portal_sessions).to have_received(:create).with(
+        hash_including(customer: "cus_portal_test")
+      )
     end
   end
 

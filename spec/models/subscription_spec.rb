@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe Subscription, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe "validations" do
     subject { build(:subscription) }
 
-    it { should validate_presence_of(:stripe_customer_id) }
-    it { should validate_uniqueness_of(:stripe_customer_id) }
-    it { should validate_inclusion_of(:plan).in_array(described_class::PLANS) }
+    it { is_expected.to validate_presence_of(:stripe_customer_id) }
+    it { is_expected.to validate_uniqueness_of(:stripe_customer_id) }
+    it { is_expected.to validate_inclusion_of(:plan).in_array(described_class::PLANS) }
   end
 
   describe "#active?" do

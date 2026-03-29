@@ -4,10 +4,10 @@ RSpec.describe WebhookEvent, type: :model do
   describe "validations" do
     subject { build(:webhook_event) }
 
-    it { should validate_presence_of(:stripe_event_id) }
-    it { should validate_presence_of(:event_type) }
-    it { should validate_presence_of(:payload) }
-    it { should validate_uniqueness_of(:stripe_event_id) }
+    it { is_expected.to validate_presence_of(:stripe_event_id) }
+    it { is_expected.to validate_presence_of(:event_type) }
+    it { is_expected.to validate_presence_of(:payload) }
+    it { is_expected.to validate_uniqueness_of(:stripe_event_id) }
   end
 
   it "enforces uniqueness of stripe_event_id at database level" do

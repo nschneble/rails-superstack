@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
 
     it "sets email_confirmed_at on first login and updates last_login attributes" do
       user = create(:user)
-      request = instance_double("ActionDispatch::Request", remote_ip: "127.0.0.1")
+      request = instance_double(ActionDispatch::Request, remote_ip: "127.0.0.1")
 
       freeze_time do
         user.record_passwordless_login!(request)
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     it "does not change email_confirmed_at on subsequent logins" do
       confirmed_at = 2.days.ago
       user = create(:user, email_confirmed_at: confirmed_at, login_count: 5)
-      request = instance_double("ActionDispatch::Request", remote_ip: "10.0.0.5")
+      request = instance_double(ActionDispatch::Request, remote_ip: "10.0.0.5")
 
       freeze_time do
         user.record_passwordless_login!(request)
@@ -36,14 +36,14 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
-    context "is valid" do
+    context "when valid" do
       it "with a unique email" do
         user = build(:user)
         expect(user).to be_valid
       end
     end
 
-    context "is invalid" do
+    context "when invalid" do
       it "with a nil email" do
         user = build(:user, email: nil)
         expect(user).not_to be_valid

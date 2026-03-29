@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :demo_theme_purchase, class: "Demo::Themes::ThemePurchase" do
-    association :user
+    user
     theme_key { "midnight_galaxy" }
     status { :pending }
     stripe_checkout_session_id { "cs_#{SecureRandom.hex(8)}" }

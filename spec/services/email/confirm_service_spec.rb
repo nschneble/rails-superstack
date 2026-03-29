@@ -35,7 +35,7 @@ RSpec.describe Email::ConfirmService, type: :service do
   end
 
   describe "failure: expired request" do
-    let(:ecr) { create(:email_change_request, user:).tap { |r| r.update_column(:expires_at, 1.minute.ago) } }
+    let(:ecr) { create(:email_change_request, :expired, user:, new_email: "new@example.com") }
 
     it "returns a failure result" do
       expect(result).to be_failure
