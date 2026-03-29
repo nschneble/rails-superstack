@@ -12,12 +12,12 @@ module Demo::Themes
       { link: "Unsplash", to: "https://unsplash.com/photos/blue-and-purple-galaxy-digital-wallpaper-E0AHdsENmDg" }
     ],
     palette: Palettes::Palette.new(
-      bgr: "bg-indigo-950!",
-      bdr: "ring-cyan-300/50!",
-      txt: "text-slate-100!",
-      btn: "bg-violet-600!",
-      lbl: "text-violet-50!",
-      cta: "text-cyan-300!"
+      background:  "bg-indigo-950!",
+      border:      "ring-cyan-300/50!",
+      text:        "text-slate-100!",
+      button:      "bg-violet-600!",
+      button_text: "text-violet-50!",
+      highlight:   "text-cyan-300!"
     )
   )
 end

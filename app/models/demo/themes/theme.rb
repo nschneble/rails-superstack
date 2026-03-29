@@ -23,8 +23,8 @@ module Demo::Themes
       super(**args, price_cents:, description:, image_attribution:, palette:)
     end
 
-    def free?
-      price_cents.zero?
+    def selector
+      key.dasherize
     end
   end
 end

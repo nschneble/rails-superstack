@@ -12,12 +12,12 @@ module Demo::Themes
       { link: "Unsplash", to: "https://unsplash.com/photos/eruption-of-volcano-VbP9v1rh-sc" }
     ],
     palette: Palettes::Palette.new(
-      bgr: "bg-red-950!",
-      bdr: "ring-amber-400/80!",
-      txt: "text-red-50!",
-      btn: "bg-amber-500!",
-      lbl: "text-red-950!",
-      cta: "text-amber-400!"
+      background:  "bg-red-950!",
+      border:      "ring-amber-400/80!",
+      text:        "text-red-50!",
+      button:      "bg-amber-500!",
+      button_text: "text-red-950!",
+      highlight:   "text-amber-400!"
     )
   )
 end
