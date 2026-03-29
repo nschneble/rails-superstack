@@ -12,15 +12,22 @@ module Billing
     include Draper::Decoratable
 
     def initialize(
-      key:,
-      name:,
       description: "",
       price_monthly_cents: 0,
       price_yearly_cents: 0,
       stripe_price_monthly_id: nil,
       stripe_price_yearly_id: nil,
-      features: [])
-      super
+      features: [],
+      **args)
+      super(
+        **args,
+        description:,
+        price_monthly_cents:,
+        price_yearly_cents:,
+        stripe_price_monthly_id:,
+        stripe_price_yearly_id:,
+        features:
+      )
     end
 
     def free?
