@@ -1,0 +1,21 @@
+module Subscribable
+  extend ActiveSupport::Concern
+
+  included do
+    has_one :subscription, dependent: :destroy
+    delegate :stripe_customer_id, :stripe_subscription_id, to: :subscription
+    delegate :plan, to: :subscription, prefix: true
+  end
+
+  def subscription
+    super || Subscription.new
+  end
+
+  def active_subscription?
+    subscription.active?
+  end
+
+  def pro_subscription?
+    subscription.pro?
+  end
+end

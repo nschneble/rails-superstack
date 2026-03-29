@@ -7,7 +7,7 @@ module Billing
     def call(user:, price_id:, success_url:, cancel_url:)
       trial_period_days = eligible_for_trial?(user) ? TRIAL_PERIOD_IN_DAYS : nil
 
-      customer = user.sub_stripe_customer_id
+      customer = user.stripe_customer_id
       customer = create_customer(user) if customer.nil?
 
       session_params = {

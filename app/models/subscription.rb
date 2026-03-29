@@ -12,7 +12,9 @@ class Subscription < ApplicationRecord
     paused: 7
   }
 
-  PLANS = %w[free pro_monthly pro_yearly].freeze
+  FREE_PLANS = %w[free].freeze
+  PRO_PLANS = %w[pro_monthly pro_yearly].freeze
+  PLANS = (FREE_PLANS + PRO_PLANS).freeze
 
   validates :stripe_customer_id, presence: true, uniqueness: true
   validates :stripe_subscription_id, presence: true, if: :pro?
@@ -26,11 +28,7 @@ class Subscription < ApplicationRecord
     trialing? && trial_ends_at&.future?
   end
 
-  def free?
-    !pro?
-  end
-
   def pro?
-    plan.in?(%w[pro_monthly pro_yearly])
+    PRO_PLANS.include?(plan)
   end
 end

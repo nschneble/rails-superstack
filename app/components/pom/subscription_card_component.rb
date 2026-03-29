@@ -30,22 +30,14 @@ class Pom::SubscriptionCardComponent < Pom::Component
     }
   end
 
-  def emphasize?
-    emphasis == :emerald
-  end
-
   def card_is_active_plan?
-    return false unless helpers.current_user
+    subscription_plan = helpers.current_user&.subscription_plan
+    return false unless subscription_plan.present?
 
-    helpers.current_user.sub_plan.start_with?(plan.key.to_s) &&
-      helpers.current_user.sub_plan.end_with?(term.to_s)
-  end
-
-  def yearly?
-    term == :yearly
+    subscription_plan.start_with?(plan.key.to_s) && subscription_plan.end_with?(term.to_s)
   end
 
   def stripe_price_id
-    yearly? ? plan.yearly_stripe_price_id :  plan.monthly_stripe_price_id
+    plan.stripe_price_id(term)
   end
 end

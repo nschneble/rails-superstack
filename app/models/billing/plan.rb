@@ -31,19 +31,15 @@ module Billing
     end
 
     def free?
-      key == :free
+      price_monthly_cents.zero? && price_yearly_cents.zero?
     end
 
-    def pro?
-      key == :pro
-    end
-
-    def monthly_stripe_price_id
-      stripe_price_monthly_id&.call
-    end
-
-    def yearly_stripe_price_id
-      stripe_price_yearly_id&.call
+    def stripe_price_id(term)
+      case term
+      when :monthly then stripe_price_monthly_id&.call
+      when :yearly then stripe_price_yearly_id&.call
+      else nil
+      end
     end
   end
 end

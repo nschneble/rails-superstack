@@ -34,7 +34,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
     it "persists the stripe_customer_id to a subscription record" do
       described_class.call(**call_args)
-      expect(user.reload.sub_stripe_customer_id).to eq("cus_test123")
+      expect(user.reload.stripe_customer_id).to eq("cus_test123")
     end
 
     it "does not create a duplicate Stripe customer when one exists" do

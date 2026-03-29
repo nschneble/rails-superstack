@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   include Notifiable
   include Pagy::Method
   include Rescuable
-  include Subscribable
 
   before_action :set_search_query
 

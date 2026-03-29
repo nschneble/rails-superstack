@@ -15,57 +15,57 @@ RSpec.describe Subscription, type: :model do
 
   describe "#active?" do
     it "returns true for active status" do
-      sub = build(:subscription, status: :active)
-      expect(sub.active?).to be(true)
+      subscription = build(:subscription, status: :active)
+      expect(subscription.active?).to be(true)
     end
 
     it "returns true for trialing status" do
-      sub = build(:subscription, status: :trialing)
-      expect(sub.active?).to be(true)
+      subscription = build(:subscription, status: :trialing)
+      expect(subscription.active?).to be(true)
     end
 
     it "returns false for canceled status" do
-      sub = build(:subscription, status: :canceled)
-      expect(sub.active?).to be(false)
+      subscription = build(:subscription, status: :canceled)
+      expect(subscription.active?).to be(false)
     end
 
     it "returns false for past_due status" do
-      sub = build(:subscription, status: :past_due)
-      expect(sub.active?).to be(false)
+      subscription = build(:subscription, status: :past_due)
+      expect(subscription.active?).to be(false)
     end
   end
 
   describe "#pro?" do
     it "returns true for pro_monthly" do
-      sub = build(:subscription, :pro_monthly)
-      expect(sub.pro?).to be(true)
+      subscription = build(:subscription, :pro_monthly)
+      expect(subscription.pro?).to be(true)
     end
 
     it "returns true for pro_yearly" do
-      sub = build(:subscription, :pro_yearly)
-      expect(sub.pro?).to be(true)
+      subscription = build(:subscription, :pro_yearly)
+      expect(subscription.pro?).to be(true)
     end
 
     it "returns false for free" do
-      sub = build(:subscription, plan: "free")
-      expect(sub.pro?).to be(false)
+      subscription = build(:subscription, plan: "free")
+      expect(subscription.pro?).to be(false)
     end
   end
 
   describe "#on_trial?" do
     it "returns true when trialing with a future trial_ends_at" do
-      sub = build(:subscription, status: :trialing, trial_ends_at: 7.days.from_now)
-      expect(sub.on_trial?).to be(true)
+      subscription = build(:subscription, status: :trialing, trial_ends_at: 7.days.from_now)
+      expect(subscription.on_trial?).to be(true)
     end
 
     it "returns false when trialing but trial_ends_at is in the past" do
-      sub = build(:subscription, status: :trialing, trial_ends_at: 1.day.ago)
-      expect(sub.on_trial?).to be(false)
+      subscription = build(:subscription, status: :trialing, trial_ends_at: 1.day.ago)
+      expect(subscription.on_trial?).to be(false)
     end
 
     it "returns false when active (not trialing)" do
-      sub = build(:subscription, status: :active, trial_ends_at: 7.days.from_now)
-      expect(sub.on_trial?).to be(false)
+      subscription = build(:subscription, status: :active, trial_ends_at: 7.days.from_now)
+      expect(subscription.on_trial?).to be(false)
     end
   end
 end

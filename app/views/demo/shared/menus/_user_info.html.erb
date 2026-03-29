@@ -3,7 +3,7 @@
     <p>Signed in as</p>
     <p class="mr-8 font-medium text-slate-700 truncate"><%= current_user.email %></p>
     <div class="absolute top-2 right-2">
-      <%= pom_subscription_badge(pro: current_user.sub_pro?) %>
+      <%= pom_subscription_badge(pro: current_user.pro_subscription?) %>
     </div>
   </div>
 

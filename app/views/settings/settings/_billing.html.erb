@@ -6,10 +6,10 @@
   <%= tag.h1 t("settings.billing.title"), class: CustomFormBuilder::TITLE_CLASSES %>
 
   <%= tag.span t("settings.billing.current_plan"), class: CustomFormBuilder::LABEL_CLASSES %>
-  <%= tag.span t("settings.billing.#{current_user.sub_plan}"),
+  <%= tag.span t("settings.billing.#{current_user.subscription_plan}"),
                class: [ CustomFormBuilder::INPUT_CLASSES, "bg-slate-100! border-slate-100! text-slate-500! select-none" ] %>
 
-  <% if current_user.sub_pro? %>
+  <% if current_user.pro_subscription? %>
     <%= pom_button(path: billing_portal_path, method: :post) do %>
       <%= t("settings.billing.manage_billing") %>
     <% end %>

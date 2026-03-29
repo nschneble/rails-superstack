@@ -1,5 +1,5 @@
 <%= tag.div **merge_options(default_options, extra_options) do %>
-  <% if emphasize? %>
+  <% if emphasis == :emerald %>
     <%= tag.div class: "absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-1/2" do %>
       <%= tag.span t("billing.subscriptions.manage.#{card_is_active_plan? ? "current" : "most_popular"}"),
                    class: "px-3 py-1 bg-emerald-400 text-slate-900 text-xs tracking-wide uppercase font-bold rounded-full" %>
@@ -15,9 +15,9 @@
   <% end %>
 
   <%= tag.div class: "mb-6" do %>
-    <% if yearly? %>
+    <% if term == :yearly %>
       <%= plan.yearly_price_display %>
-      <%= plan.annual_savings_display unless helpers.current_user&.sub_active? %>
+      <%= plan.annual_savings_display unless helpers.current_user&.active_subscription? %>
     <% else %>
       <%= plan.monthly_price_display %>
     <% end %>
@@ -34,7 +34,7 @@
 
   <%= tag.div class: "mt-auto" do %>
     <% if helpers.current_user %>
-      <% if helpers.current_user.sub_active? %>
+      <% if helpers.current_user.active_subscription? %>
         <% if card_is_active_plan? %>
           <%= pom_button(theme: emphasis, path: helpers.billing_portal_path) do %>
             <%= t("billing.subscriptions.manage.active") %>
