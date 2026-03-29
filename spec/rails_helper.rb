@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
+require 'simplecov_helper'
 require 'spec_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -18,6 +19,7 @@ require_relative 'support/factory_bot'
 require_relative 'support/shoulda_matchers'
 require_relative 'support/stripe_client_helpers'
 require 'passwordless/test_helpers'
+require 'view_component/test_helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -78,4 +80,6 @@ RSpec.configure do |config|
 
   # Lets us use methods like `freeze_time` and `travel_to` in tests
   config.include ActiveSupport::Testing::TimeHelpers
+
+  config.include ViewComponent::TestHelpers, type: :component
 end

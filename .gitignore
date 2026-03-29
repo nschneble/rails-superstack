@@ -60,7 +60,11 @@ yarn-debug.log*
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
+# template rename script output
 .renamed_from_template
 
 # Ignore app configuration
 /config/application.yml
+
+# SimpleCov coverage results
+/coverage

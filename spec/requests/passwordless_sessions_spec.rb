@@ -36,4 +36,17 @@ RSpec.describe "Passwordless sessions", type: :request do
     expect(response).to have_http_status(:ok)
     expect(flash[:notice]).to be_nil
   end
+
+  it "creates a new user when the email does not exist" do
+    expect {
+      post sign_in_path, params: { passwordless: { email: "brandnew@example.com" } }
+    }.to change(User, :count).by(1)
+  end
+
+  it "does not create a duplicate user when the email already exists" do
+    create(:user, email: "existing@example.com")
+    expect {
+      post sign_in_path, params: { passwordless: { email: "existing@example.com" } }
+    }.not_to change(User, :count)
+  end
 end

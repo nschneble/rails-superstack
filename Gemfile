@@ -112,6 +112,9 @@ group :development, :test do
 
   # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "faker"
+
+  # Simple SimpleCov coverage badges [https://github.com/traels-it/simplecov_badger]
+  gem "simplecov_badger"
 end
 
 group :development do
@@ -136,4 +139,8 @@ group :test do
 
   # Redis-backed Ruby library for creating background jobs [https://github.com/resque/resque]
   gem "resque_spec"
+
+  # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov", require: false
+  gem "simplecov-tailwindcss", require: false
 end

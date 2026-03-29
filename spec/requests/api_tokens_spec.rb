@@ -164,6 +164,35 @@ RSpec.describe "API tokens", type: :request do
     end
   end
 
+  describe "GET /settings/billing" do
+    it "renders the billing tab" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      get settings_billing_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('id="settings-tab-billing"')
+    end
+
+    it "requires authentication" do
+      get settings_billing_path
+      expect(response).to redirect_to(auth_sign_in_path)
+    end
+  end
+
+  describe "GET /settings/profile with a pending email change" do
+    it "shows the pending email address in the flash notice" do
+      user = create(:user)
+      create(:email_change_request, user:, new_email: "pending@example.com")
+      passwordless_sign_in(user)
+
+      get settings_profile_path
+
+      expect(response.body).to include("pending@example.com")
+    end
+  end
+
   describe "GET /settings/profile" do
     it "returns a successful response with the settings navigation" do
       user = create(:user)
@@ -228,6 +257,17 @@ RSpec.describe "API tokens", type: :request do
         expect(response.body).not_to include("Revoked Token")
         expect(response.body).not_to include("Expired Token")
       end
+    end
+
+    it "renders the last_used_at time when a token has been used" do
+      user = create(:user)
+      create(:api_token, user:, name: "Used Token", last_used_at: 2.hours.ago)
+      passwordless_sign_in(user)
+
+      get settings_api_path
+
+      expect(response.body).to include("Last used:")
+      expect(response.body).to include("ago")
     end
 
     it "shows an empty state when there are no active tokens" do
