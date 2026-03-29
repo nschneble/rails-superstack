@@ -4,6 +4,13 @@ module Demo::Themes
     name: I18n.t("themes.crimson_tide.name"),
     price_cents: 999,
     description: I18n.t("themes.crimson_tide.description"),
+    image: image_url("/demo/themes/crimson-tide.jpg"),
+    image_attribution: [
+      "Photo by",
+      { link: "Marc Szeglat", to: "https://unsplash.com/@marcszeglat" },
+      "on",
+      { link: "Unsplash", to: "https://unsplash.com/photos/eruption-of-volcano-VbP9v1rh-sc" }
+    ],
     palette: Palettes::Palette.new(
       bgr: "bg-red-950!",
       txt: "text-red-50!",

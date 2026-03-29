@@ -1,9 +1,23 @@
 module Demo::Themes
-  Theme = Data.define(:key, :name, :price_cents, :description, :palette) do
+  Theme = Data.define(
+    :key,
+    :name,
+    :price_cents,
+    :description,
+    :image,
+    :image_attribution,
+    :palette
+  ) do
     include Draper::Decoratable
 
-    def initialize(key:, name:, price_cents: 0, description: "", palette: Palettes::DefaultPalette)
-      super
+    def initialize(
+      price_cents: 0,
+      description: "",
+      image_attribution: nil,
+      palette: Palettes::DefaultPalette,
+      **args
+    )
+      super(**args, price_cents:, description:, image_attribution:, palette:)
     end
 
     def free?
