@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::Webhooks::CheckoutCompleteHandler, type: :service do
-  include_context "with stubbed stripe client"
+  include_context "with stubbed Stripe client"
 
   def call(payload)
     described_class.call(payload:)

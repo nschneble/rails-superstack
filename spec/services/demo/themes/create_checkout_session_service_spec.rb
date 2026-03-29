@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
-  include_context "with stubbed stripe client"
+  include_context "with stubbed Stripe client"
   let(:user) { create(:user) }
   let(:fake_session) do
     instance_double(Stripe::Checkout::Session, id: "cs_theme_test", url: "https://checkout.stripe.com/theme")

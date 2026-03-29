@@ -1,4 +1,4 @@
-RSpec.shared_context "with stubbed stripe client" do
+RSpec.shared_context "with stubbed Stripe client" do
   let(:fake_stripe_client)     { instance_double(Stripe::StripeClient) }
   let(:fake_v1)                { instance_double(Stripe::V1Services) }
   let(:fake_subscriptions)     { instance_double(Stripe::SubscriptionService) }

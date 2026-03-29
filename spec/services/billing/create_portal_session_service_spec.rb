@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::CreatePortalSessionService, type: :service do
-  include_context "with stubbed stripe client"
+  include_context "with stubbed Stripe client"
   let(:return_url) { "https://example.com/settings" }
   let(:fake_session) { instance_double(Stripe::BillingPortal::Session, url: "https://billing.stripe.com/portal") }
 

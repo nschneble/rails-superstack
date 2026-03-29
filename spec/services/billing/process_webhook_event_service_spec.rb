@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::ProcessWebhookEventService, type: :service do
-  include_context "with stubbed stripe client"
+  include_context "with stubbed Stripe client"
   let(:stripe_event_id) { "evt_#{SecureRandom.hex(8)}" }
 
   def call(event_type:, payload:)

@@ -5,10 +5,11 @@ FactoryBot.define do
     stripe_subscription_id { "sub_#{SecureRandom.hex(8)}" }
     plan { "free" }
     status { :active }
-    current_period_end_at { 30.days.from_now }
+    current_period_end_at { 1.year.from_now }
 
     trait :pro_monthly do
       plan { "pro_monthly" }
+      current_period_end_at { 30.days.from_now }
     end
 
     trait :pro_yearly do
@@ -17,7 +18,8 @@ FactoryBot.define do
 
     trait :trialing do
       status { :trialing }
-      trial_ends_at { 14.days.from_now }
+      current_period_end_at { 7.days.from_now }
+      trial_ends_at { 7.days.from_now }
     end
 
     trait :canceled do

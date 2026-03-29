@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
-  include_context "with stubbed stripe client"
+  include_context "with stubbed Stripe client"
   let(:user) { create(:user) }
   let(:fake_session) { instance_double(Stripe::Checkout::Session, url: "https://checkout.stripe.com/test") }
   let(:fake_customer) { instance_double(Stripe::Customer, id: "cus_test123") }

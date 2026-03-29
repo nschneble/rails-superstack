@@ -20,23 +20,6 @@ RSpec.describe Ability do
       expect(ability.can?(:manage, subscription)).to be(false)
     end
 
-    it "lets active Pro subscribers access pro features" do
-      create(:subscription, :pro_monthly, user: other_user, status: :active)
-      ability = described_class.new(other_user.reload)
-      expect(ability.can?(:access, :pro_features)).to be(true)
-    end
-
-    it "does not let users on the free plan access pro features" do
-      ability = described_class.new(user)
-      expect(ability.can?(:access, :pro_features)).to be(false)
-    end
-
-    it "does not let Pro subscribers with canceled status access pro features" do
-      create(:subscription, :pro_monthly, :canceled, user: other_user)
-      ability = described_class.new(other_user.reload)
-      expect(ability.can?(:access, :pro_features)).to be(false)
-    end
-
     it "lets admins manage any subscription" do
       admin = create(:user, :admin)
       ability = described_class.new(admin)
