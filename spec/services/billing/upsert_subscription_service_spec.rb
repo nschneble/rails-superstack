@@ -38,22 +38,24 @@ RSpec.describe Billing::UpsertSubscriptionService, type: :service do
   describe "plan resolution" do
     before do
       create(:subscription, user:, stripe_customer_id: "cus_test")
+      allow(Figaro.env).to receive(:stripe_price_pro_monthly).and_return("price_monthly_test")
+      allow(Figaro.env).to receive(:stripe_price_pro_yearly).and_return("price_yearly_test")
     end
 
     it "sets plan to pro_monthly when price_id matches stripe_price_pro_monthly" do
-      stripe_sub = build_stripe_sub(price_id: Figaro.env.stripe_price_pro_monthly)
+      stripe_sub = build_stripe_sub(price_id: "price_monthly_test")
       call(stripe_subscription: stripe_sub, stripe_customer_id: "cus_test")
       expect(user.reload.subscription.plan).to eq("pro_monthly")
     end
 
     it "sets plan to pro_yearly when price_id matches stripe_price_pro_yearly" do
-      stripe_sub = build_stripe_sub(price_id: Figaro.env.stripe_price_pro_yearly)
+      stripe_sub = build_stripe_sub(price_id: "price_yearly_test")
       call(stripe_subscription: stripe_sub, stripe_customer_id: "cus_test")
       expect(user.reload.subscription.plan).to eq("pro_yearly")
     end
 
     it "sets plan to free when price_id does not match any known price" do
-      stripe_sub = build_stripe_sub(price_id: nil)
+      stripe_sub = build_stripe_sub(price_id: "price_unknown")
       call(stripe_subscription: stripe_sub, stripe_customer_id: "cus_test")
       expect(user.reload.subscription.plan).to eq("free")
     end
