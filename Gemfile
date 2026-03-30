@@ -100,6 +100,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubocop-factory_bot", require: false
 
   # RSpec testing framework [https://rspec.info/]
   gem "rspec-rails", "~> 8.0.0"
@@ -109,6 +112,9 @@ group :development, :test do
 
   # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "faker"
+
+  # Simple SimpleCov coverage badges [https://github.com/traels-it/simplecov_badger]
+  gem "simplecov_badger"
 end
 
 group :development do
@@ -133,4 +139,8 @@ group :test do
 
   # Redis-backed Ruby library for creating background jobs [https://github.com/resque/resque]
   gem "resque_spec"
+
+  # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov", require: false
+  gem "simplecov-tailwindcss", require: false
 end

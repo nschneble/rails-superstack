@@ -21,10 +21,12 @@ RSpec.describe Demo::MacGuffinLikes::CreateService, type: :service do
     end
 
     it "delivers a Demo::NewMacGuffinLikeNotifier" do
-      expect(Demo::NewMacGuffinLikeNotifier).to receive(:with)
+      allow(Demo::NewMacGuffinLikeNotifier).to receive(:with)
         .with(record: mac_guffin, actor: user)
         .and_call_original
       result
+      expect(Demo::NewMacGuffinLikeNotifier).to have_received(:with)
+        .with(record: mac_guffin, actor: user)
     end
   end
 
@@ -40,8 +42,9 @@ RSpec.describe Demo::MacGuffinLikes::CreateService, type: :service do
     end
 
     it "does not deliver a notification" do
-      expect(Demo::NewMacGuffinLikeNotifier).not_to receive(:with)
+      allow(Demo::NewMacGuffinLikeNotifier).to receive(:with)
       result
+      expect(Demo::NewMacGuffinLikeNotifier).not_to have_received(:with)
     end
   end
 

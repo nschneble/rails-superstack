@@ -25,7 +25,7 @@ RSpec.describe Email::RequestService, type: :service do
     end
 
     it "deletes expired requests for the same new email before creating" do
-      expired = create(:email_change_request, new_email: "new@example.com").tap { |r| r.update_column(:expires_at, 1.minute.ago) }
+      expired = create(:email_change_request, :expired, new_email: "new@example.com")
       result
       expect(EmailChangeRequest.exists?(expired.id)).to be false
     end

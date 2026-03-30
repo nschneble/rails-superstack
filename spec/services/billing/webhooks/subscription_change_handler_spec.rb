@@ -12,6 +12,7 @@ RSpec.describe Billing::Webhooks::SubscriptionChangeHandler, type: :service do
   before do
     create(:subscription, user:, stripe_customer_id: "cus_update_test")
 
+    # rubocop:disable RSpec/VerifiedDoubles
     fake_stripe_sub = double(
       "Stripe::Subscription",
       id: "sub_updated",
@@ -20,6 +21,7 @@ RSpec.describe Billing::Webhooks::SubscriptionChangeHandler, type: :service do
         double("item", price: double("price", id: nil))
       ])
     )
+    # rubocop:enable RSpec/VerifiedDoubles
     allow(fake_stripe_sub).to receive(:[]).with("cancel_at").and_return(nil)
     allow(fake_stripe_sub).to receive(:[]).with("current_period_end").and_return(30.days.from_now.to_i)
     allow(fake_stripe_sub).to receive(:[]).with("trial_end").and_return(nil)

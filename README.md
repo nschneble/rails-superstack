@@ -164,6 +164,9 @@ Rails Superstack has been preloaded and configured with the following:
 - [GraphQL](https://rails-graphql.dev) (API)
 - [Noticed](https://github.com/excid3/noticed) (notifications)
 - [Figaro](https://github.com/laserlemon/figaro) (app configuration)
+- [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
+- [Draper](https://github.com/drapergem/draper) (decorators)
+- [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 
 ### Code Features
 

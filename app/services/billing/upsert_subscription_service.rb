@@ -27,6 +27,6 @@ class Billing::UpsertSubscriptionService < BaseService
   end
 
   def time_at(time)
-    time ? Time.at(time) : nil
+    time ? Time.zone.at(time) : nil
   end
 end

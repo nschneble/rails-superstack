@@ -43,8 +43,9 @@ RSpec.describe Demo::MacGuffins::SearchService, type: :service do
     end
 
     it "logs the error" do
-      expect(Rails.logger).to receive(:error)
+      allow(Rails.logger).to receive(:error)
       result
+      expect(Rails.logger).to have_received(:error)
     end
 
     it "returns an empty pagy and results in the payload" do

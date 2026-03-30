@@ -4,7 +4,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe "email_change_confirmation" do
     let(:user)    { create(:user) }
     let(:request) { create(:email_change_request) }
-    let(:mail)    { UserMailer.with(request: request).email_change_confirmation }
+    let(:mail)    { described_class.with(request: request).email_change_confirmation }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Confirm Your New Email Address")

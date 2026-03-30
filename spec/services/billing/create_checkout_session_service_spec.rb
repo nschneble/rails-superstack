@@ -28,8 +28,8 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
     end
 
     it "creates a Stripe customer for a new user" do
-      expect(fake_customers).to receive(:create).with(email: user.email).and_return(fake_customer)
       described_class.call(**call_args)
+      expect(fake_customers).to have_received(:create).with(email: user.email)
     end
 
     it "persists the stripe_customer_id to a subscription record" do
@@ -39,32 +39,31 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
 
     it "does not create a duplicate Stripe customer when one exists" do
       create(:subscription, user:, stripe_customer_id: "cus_existing")
-      expect(fake_customers).not_to receive(:create)
       described_class.call(**call_args)
+      expect(fake_customers).not_to have_received(:create)
     end
 
     it "offers a 7-day trial for users with no prior subscription" do
-      expect(fake_checkout_sessions).to receive(:create).with(
-        hash_including(subscription_data: { trial_period_days: 7 })
-      ).and_return(fake_session)
       described_class.call(**call_args)
+      expect(fake_checkout_sessions).to have_received(:create).with(
+        hash_including(subscription_data: { trial_period_days: 7 })
+      )
     end
 
     it "offers a trial when a subscription exists but checkout was never completed" do
       create(:subscription, user:, stripe_customer_id: "cus_existing", status: :incomplete, stripe_subscription_id: nil)
-      expect(fake_checkout_sessions).to receive(:create).with(
-        hash_including(subscription_data: { trial_period_days: 7 })
-      ).and_return(fake_session)
       described_class.call(**call_args)
+      expect(fake_checkout_sessions).to have_received(:create).with(
+        hash_including(subscription_data: { trial_period_days: 7 })
+      )
     end
 
     it "does not offer a trial when a real subscription has been completed" do
       create(:subscription, user:, stripe_customer_id: "cus_existing", stripe_subscription_id: "sub_abc123")
-      expect(fake_checkout_sessions).to receive(:create) do |params|
-        expect(params).not_to have_key(:subscription_data)
-        fake_session
-      end
       described_class.call(**call_args)
+      expect(fake_checkout_sessions).to have_received(:create).with(
+        hash_excluding(:subscription_data)
+      )
     end
   end
 

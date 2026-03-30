@@ -21,3 +21,7 @@ stripe_publishable_key: pk_test_REPLACE_ME
 stripe_signing_secret: whsec_REPLACE_ME
 stripe_price_pro_monthly: price_REPLACE_ME
 stripe_price_pro_yearly: price_REPLACE_ME
+
+# SimpleCov::Badger API token
+# Displays a SimpleCov repo badge from https://coverage.traels.it/
+simplecov_badger_token: "token_REPLACE_ME"

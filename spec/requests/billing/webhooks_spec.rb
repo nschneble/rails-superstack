@@ -10,9 +10,11 @@ RSpec.describe "Billing::Webhooks", type: :request do
     }.to_json
   end
   let(:timestamp) { Time.current.to_i }
-  let(:signed_payload) { "#{timestamp}.#{payload}" }
-  let(:signature) { OpenSSL::HMAC.hexdigest("SHA256", signing_secret, signed_payload) }
-  let(:stripe_signature) { "t=#{timestamp},v1=#{signature}" }
+  let(:stripe_signature) do
+    signed_payload = "#{timestamp}.#{payload}"
+    signature = OpenSSL::HMAC.hexdigest("SHA256", signing_secret, signed_payload)
+    "t=#{timestamp},v1=#{signature}"
+  end
 
   before do
     allow(Figaro.env).to receive(:stripe_signing_secret).and_return(signing_secret)
@@ -38,16 +40,14 @@ RSpec.describe "Billing::Webhooks", type: :request do
       end
 
       it "calls the process service with parsed event data" do
-        expect(Billing::ProcessWebhookEventService).to receive(:call).and_return(
-          ServiceResult.ok(build(:webhook_event))
-        )
-
         post stripe_webhook_path,
           params: payload,
           headers: {
             "Content-Type" => "application/json",
             "Stripe-Signature" => stripe_signature
           }
+
+        expect(Billing::ProcessWebhookEventService).to have_received(:call)
       end
     end
 

@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe Demo::Themes::ThemePurchase, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe "validations" do
     subject { build(:demo_theme_purchase) }
 
-    it { should validate_presence_of(:theme_key) }
-    it { should validate_inclusion_of(:theme_key).in_array(described_class::THEMES.keys) }
+    it { is_expected.to validate_presence_of(:theme_key) }
+    it { is_expected.to validate_inclusion_of(:theme_key).in_array(described_class::THEMES.keys) }
   end
 
   describe "#theme_name" do

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subscription do
-    association :user
+    user
     stripe_customer_id { "cus_#{SecureRandom.hex(8)}" }
     stripe_subscription_id { "sub_#{SecureRandom.hex(8)}" }
     plan { "free" }

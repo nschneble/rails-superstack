@@ -56,6 +56,8 @@ en:
           - "Unlimited projects"
           - "Unlimited users"
           - "Higher API rate limits"
+      subtitle: "Choose the plan that's right for you."
+      title: "Simple, Transparent Pricing"
     portal:
       error: "Unable to open billing portal"
     subscriptions:
