@@ -7,7 +7,7 @@
 
 Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments. **A majestic monolith with a f\*ckton of useful gems.** It's a free public template anyone can use to hit the ground running with their own app ideas.
 
-[![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0) ![SimpleCov coverage](https://coverage.traels.it/badges/aHR0cHM6Ly9naXRodWIuY29tL25zY2huZWJsZS9yYWlscy1zdXBlcnN0YWNr)
+[![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) ![SimpleCov coverage](https://coverage.traels.it/badges/aHR0cHM6Ly9naXRodWIuY29tL25zY2huZWJsZS9yYWlscy1zdXBlcnN0YWNr) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0)
 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -48,11 +48,11 @@ Clone the new repo to your local machine, and you're done! (I suppose that's _te
 
 With your shiny new repo in hand, here's what you need to get cooking:
 
-- [Bundler](https://bundler.io/) 2.7.2
-- PostgreSQL 18.1
-- Redis 8.4.1
+- [Bundler](https://bundler.io/) v4.0
+- PostgreSQL 18
+- Redis 8.6
 - Ruby 3.4.7
-- Typesense 30.1
+- Typesense Server 30.1
 
 I'd personally recommend [Homebrew](https://brew.sh) and [rbenv](https://rbenv.org) to install these prerequisites:
 
@@ -72,9 +72,9 @@ curl -fsSL https://rbenv.org/install.sh | bash
 rbenv install 3.4.7
 
 # Install Bundler
-gem install bundler -v 2.7.2
+gem install bundler
 
-# start up the services
+# Start up the services
 brew services start postgresql@18
 brew services start redis
 brew services start typesense-server@30.1
@@ -121,7 +121,15 @@ You can install dependencies, set up the database, run migrations – etc. etc. 
 
 ```bash
 cd /path/to/your/repo
+
+# Set up everything + start the development server
 bin/setup
+
+# Set up everything + don't start the development server
+bin/setup --skip-server
+
+# Reset back to factory settings
+bin/setup --reset
 ```
 
 Done this song-and-dance before? If you just need to start up the development server, you can skip straight to the end and run the `dev` script:
@@ -153,9 +161,10 @@ Rails Superstack has been preloaded and configured with the following:
 - [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
 - [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
-- [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
+- [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
+- [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth + roles)
 - [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
-- [Pom Component](https://pom-io.github.io/pom-component) (view components)
+- [Pom Component](https://pom-io.github.io/pom-component) + [Draper](https://github.com/drapergem/draper) (view components + decorators)
 - [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 - [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://www.flippercloud.io) (admin + feature flags)
 - [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
@@ -165,51 +174,58 @@ Rails Superstack has been preloaded and configured with the following:
 - [Noticed](https://github.com/excid3/noticed) (notifications)
 - [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
-- [Draper](https://github.com/drapergem/draper) (decorators)
-- [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 
 ### Code Features
 
-| Feature           | Description                               |
-| ----------------- | ----------------------------------------- |
-| Abilities (Roles) | [Ability](app/models/ability.rb)          |
-| Models            | [User](app/models/user.rb)                |
-| Helpers           | Text, web urls, forms, Font Awesome icons |
-| Normalizers       | Email addresses                           |
-| Validators        | Email addresses, web urls                 |
-| View Components   | Clipboard, flash alerts, code snippets    |
+Just a few highlights to whet the palette.
+
+| Feature           | Description                                |
+| ----------------- | ------------------------------------------ |
+| Abilities (Roles) | CanCanCan abilities (dynamic)              |
+| Models            | Users, API tokens, subscriptions           |
+| Helpers           | Text, web urls, forms, Font Awesome icons  |
+| Normalizers       | Email addresses                            |
+| Notifiers         | Bulk (toast) and individual (toast, email) |
+| Parsers           | Email addresses, web urls                  |
+| Services          | Stripe billing, email, notifications       |
+| Validators        | Email addresses, web urls                  |
+| View Components   | Clipboard, flash alerts, code snippets     |
 
 ### Routes
 
 #### User Routes
 
-| Endpoint     | Description                     |
-| ------------ | ------------------------------- |
-| `/sign_in`   | Sign in as a new user           |
-| `/sign_out`  | Sign out the current user       |
-| `/profile`   | Set current user email          |
-| `/sent_mail` | Preview sent mail (login codes) |
+| Endpoint         | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `/billing/plans` | View subscription plans (Stripe)                |
+| `/sent_mail`     | Preview sent mail (Passwordless login codes)    |
+| `/settings`      | Change email, create API tokens, manage billing |
+| `/sign_in`       | Sign in as a new or existing user               |
+| `/sign_out`      | Sign out the current user                       |
 
 #### Admin Routes
 
-| Endpoint   | Description           |
-| ---------- | --------------------- |
-| `/admin`   | SuperAdmin dashboard  |
-| `/flipper` | Flipper feature flags |
-| `/resque`  | Resque jobs           |
+| Endpoint         | Description          |
+| ---------------- | -------------------- |
+| `/admin`         | SuperAdmin dashboard |
+| `/notifications` | System notifications |
+| `/flipper`       | Feature flags        |
+| `/resque`        | Background jobs      |
 
 #### Demo Routes
 
 (The [cleanup script](#cleanup-script) will remove these endpoints)
 
-| Endpoint            | Description                            |
-| ------------------- | -------------------------------------- |
-| `/demo/welcome`     | Starter page with helpful links        |
-| `/demo/alert`       | Example for flash alerts               |
-| `/demo/notice`      | Example for flash notices              |
-| `/demo/mac_guffins` | Items accessible by current user       |
-| `/demo/secrets`     | A "secret" route behind a feature flag |
-| `/demo/terminal`    | Lists useful terminal commands         |
+| Endpoint            | Description                                        |
+| ------------------- | -------------------------------------------------- |
+| `/demo/alert`       | Example for flash alerts (as notification toasts)  |
+| `/demo/api`         | GraphQL API routes and examples                    |
+| `/demo/mac_guffins` | Placeholder items accessible by the current user   |
+| `/demo/notice`      | Example for flash notices (as notification toasts) |
+| `/demo/secrets`     | A "secret" route hidden behind a feature flag      |
+| `/demo/terminal`    | Lists a few useful terminal commands               |
+| `/demo/themes`      | Shows off Stripe purchases as app themes           |
+| `/demo/welcome`     | Starter page with helpful links                    |
 
 ## Linting, Testing, and CI
 
@@ -231,6 +247,9 @@ cd /path/to/your/repo
 
 # Run RSpec tests
 bin/rspec
+
+# Open SimpleCov coverage report
+open coverage/index.html
 ```
 
 ### Local CI
@@ -276,21 +295,17 @@ cd /path/to/your/repo
 
 # health check
 curl -s -H 'Content-Type: application/json' \
-  -X POST http://localhost:3000/graphql/health \
-  -d '{"query":"{ apiHealth { status } }"}' | jq
-
-# users
-# requires authentication
-bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
-  -H 'Authorization: %' \
   -X POST http://localhost:3000/graphql \
+  -d '{"query":"{ health { status } }"}' | jq
+
+# users (requires authentication)
+bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
+  -H 'Authorization: %' -X POST http://localhost:3000/graphql \
   -d '{"query":"{ users { id email role } }"}' | jq
 
-# MacGuffins
-# requires authentication
+# MacGuffins (requires authentication)
 bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
-  -H 'Authorization: %' \
-  -X POST http://localhost:3000/demo/graphql \
+  -H 'Authorization: %' -X POST http://localhost:3000/graphql/demo \
   -d '{"query":"{ macGuffins { id name description } }"}' | jq
 ```
 
@@ -300,7 +315,7 @@ A response will be nicely formatted JSON data:
 # POST /graphql/health
 {
   "data": {
-    "apiHealth": {
+    "health": {
       "status": "ok"
     }
   }
@@ -329,7 +344,7 @@ script/cleanup.sh
 script/cleanup.sh --no-confirmation
 ```
 
-The script removes all trace of demo code and database artifacts: assets, controllers, models, views, routes, seeds, factories, specs, and demo migrations.
+The script removes all trace of demo code and database artifacts, including assets, controllers, helpers, models, views, routes, seeds, and specs.
 
 Cleanup also replaces migration history with a single non-demo baseline and regenerates the schema by dropping and recreating the local database.
 
@@ -337,4 +352,4 @@ After the script runs successfully, it deletes itself and you’ll be left with 
 
 ## Acknowledgements
 
-The Rails Superstack logo was crafted from an illustration by [Muhammad Afandi](https://unsplash.com/@kertiaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/illustrations/three-stacked-geometric-shapes-on-white-background-VxU_akYKA8Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
+The Rails Superstack logo was crafted from an illustration by [Muhammad Afandi](https://unsplash.com/@kertiaa) on [Unsplash](https://unsplash.com/illustrations/three-stacked-geometric-shapes-on-white-background-VxU_akYKA8Q).
