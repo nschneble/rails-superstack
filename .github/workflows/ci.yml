@@ -81,6 +81,7 @@ jobs:
       typesense_host: localhost
       typesense_port: 8108
       typesense_protocol: http
+      simplecov_badger_token: ${{ secrets.SIMPLECOV_BADGER_TOKEN }}
 
     steps:
       - name: Install packages
