@@ -38,8 +38,7 @@ RSpec.describe Billing::UpsertSubscriptionService, type: :service do
   describe "plan resolution" do
     before do
       create(:subscription, user:, stripe_customer_id: "cus_test")
-      allow(Figaro.env).to receive(:stripe_price_pro_monthly).and_return("price_monthly_test")
-      allow(Figaro.env).to receive(:stripe_price_pro_yearly).and_return("price_yearly_test")
+      allow(Figaro.env).to receive_messages(stripe_price_pro_monthly: "price_monthly_test", stripe_price_pro_yearly: "price_yearly_test")
     end
 
     it "sets plan to pro_monthly when price_id matches stripe_price_pro_monthly" do
