@@ -4,7 +4,7 @@ class Demo::Themes::ThemeDecorator < Draper::Decorator
   delegate_all
 
   def price_display
-    format("$%.2f", price_cents / 100.0)
+    format("$%.2f", object.price_cents / 100.0)
   end
 
   def rendered_image_attribution
@@ -20,7 +20,7 @@ class Demo::Themes::ThemeDecorator < Draper::Decorator
         part
       when Hash
         if part.key?(:link)
-          link_to part[:link], part[:to], class: "hover:text-amber-400 underline!"
+          link_to part[:link], part[:to], class: "underline!"
         end
       end
     end, " ")
