@@ -33,6 +33,7 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Subscriptions](#subscriptions)
   - [Purchases](#purchases)
 - [Ephemera](#ephemera)
+  - [SimpleCov Coverage Badge](#simplecov-coverage-badge)
   - [Cleanup Script](#cleanup-script)
 - [Acknowledgements](#acknowledgements)
 
@@ -386,6 +387,23 @@ config/initializers/demo/billing_checkout_handlers.rb
 Replicate (or edit) these for your own unique Stripe purchases!
 
 ## Ephemera
+
+### SimpleCov Coverage Badge
+
+When you run RSpec tests, a SimpleCov coverage report is created at `coverage/index.html` in your repo. This is great! The SimpleCov Tailwind gem makes it look buttery smooth. This is better! But the SimpleCov Badger gem? It lets you add a repo badge to your README. This is BEST.
+
+You can follow the [SimpleCov Badger instructions](https://github.com/traels-it/simplecov_badger?tab=readme-ov-file#installation), but it's already configured in Rails Superstack, so you really just need to do three things:
+
+1. Get an API token
+  1. Run `bin/rails simplecov_badger:install` to get an API token
+  2. Set `simplecov_badger_token` in `config/application.yml`
+  3. Add a new GitHub repo secret for `SIMPLECOV_BADGER_TOKEN`
+2. Commit to `main` (so CI runs)
+  1. Check the "Run RSpec tests" console output from GitHub CI
+  2. Copy the badge url
+3. Update your README
+  1. Add ```![SimpleCov coverage](BADGE_URL)```
+  2. Done!
 
 ### Cleanup Script
 
