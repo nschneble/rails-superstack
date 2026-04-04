@@ -68,7 +68,7 @@ gem "resque-scheduler"
 gem "pom-component"
 
 # Cutting-edge, in-memory search engine for mere mortals [https://github.com/typesense/typesense-rails]
-gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc5"
+gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc7"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
 gem "pagy", "~> 43"
