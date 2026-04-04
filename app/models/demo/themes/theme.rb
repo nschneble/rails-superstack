@@ -16,11 +16,12 @@ module Demo::Themes
     def initialize(
       price_cents: 0,
       description: "",
+      image: nil,
       image_attribution: nil,
       palette: Palettes::DefaultPalette,
       **args
     )
-      super(**args, price_cents:, description:, image_attribution:, palette:)
+      super(**args, price_cents:, description:, image:, image_attribution:, palette:)
     end
 
     def selector
