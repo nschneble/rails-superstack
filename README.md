@@ -5,7 +5,7 @@
 
 # Rails Superstack
 
-Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments. **A majestic monolith with a f\*ckton of useful gems.** It's a free public template anyone can use to hit the ground running with their own app ideas.
+Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, database, and accouterments. **A majestic monolith with a f\*ckton of useful gems.** It's a free public template anyone can use to hit the ground running with their own apps.
 
 [![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) ![SimpleCov coverage](https://coverage.traels.it/badges/aHR0cHM6Ly9naXRodWIuY29tL25zY2huZWJsZS9yYWlscy1zdXBlcnN0YWNr) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0)
 
@@ -19,9 +19,6 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Gems and Resources](#gems-and-resources)
   - [Code Features](#code-features)
   - [Routes](#routes)
-    - [User Routes](#user-routes)
-    - [Admin Routes](#admin-routes)
-    - [Demo Routes](#demo-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
@@ -31,6 +28,10 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
     - [In Rails](#in-rails)
     - [In Terminal](#in-terminal)
   - [Making Queries](#making-queries)
+- [Stripe Billing](#stripe-billing)
+  - [Set Stripe API Keys](#set-stripe-api-keys)
+  - [Subscriptions](#subscriptions)
+  - [Purchases](#purchases)
 - [Ephemera](#ephemera)
   - [Cleanup Script](#cleanup-script)
 - [Acknowledgements](#acknowledgements)
@@ -145,7 +146,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser and you're good
 
 ### Tech Stack
 
-Rails Superstack is installed by default with:
+Rails Superstack is a modern Ruby on Rails app, so by default it comes with:
 
 - [Ruby on Rails](https://rubyonrails.org)
 - [Hotwire](https://hotwired.dev)
@@ -263,7 +264,7 @@ bin/ci
 
 GraphQL is a touch different than your vanilla JSON API. The data structures are effectively dynamic, so you can hit a single endpoint to request any sort of data in any sort of order.
 
-An endpoint covers a single GraphQL schema, which could compromise an individual model or literally your entire database. For simplicity and clarify, this repo has three schemas: one for the unauthenticated health check, one for users, and a demo one for MacGuffins.
+An endpoint covers a single GraphQL schema, which could compromise an individual model or literally your entire database. For simplicity and clarity, this repo has two schemas to disambiguate between common and demo endpoints.
 
 [Learn more about GraphQL](https://graphql.org/learn/)
 
@@ -322,6 +323,68 @@ A response will be nicely formatted JSON data:
 }
 ```
 
+## Stripe Billing
+
+You effectively have Stripe purchases and subscriptions right out of the box! Everything is already wired up from API integrations to webhooks.
+
+**A few key points:**
+
+* To cover the basics of your average paid app, users are linked to subscriptions with free and paid options. Paid plans can be monthly or yearly.
+* Stripe webhook listeners don't run automatically. I mean, what if you don't need them? Use the `--with-stripe` argument when starting your development server:
+
+```bash
+cd /path/to/your/repo
+bin/dev --with-stripe
+```
+
+### Set Stripe API Keys
+
+It always starts with API keys. There are placeholders in `config/application.yml` to replace with your [Stripe test keys](https://dashboard.stripe.com/test/apikeys). Never commit real keys!
+
+```yaml
+stripe_secret_key:      sk_test_REPLACE_ME
+stripe_publishable_key: pk_test_REPLACE_ME
+stripe_signing_secret:  whsec_REPLACE_ME
+```
+
+You can obtain your `stripe_signing_secret` when you run `bin/dev --with-stripe` for the first time. You'll see terminal output like the following:
+
+```bash
+22:58:43 stripe.1    | Ready! You are using Stripe API Version [2017-12-14]. Your webhook signing secret is whsec_REPLACE_ME (^C to quit)
+```
+
+### Subscriptions
+
+To allow your users to sign up for paid subscriptions, you only have to do a few things:
+
+1. Create two products in the Stripe catalog (one each for monthly and yearly)
+2. Copy the price ids into `stripe_price_pro_monthly` and `stripe_price_pro_yearly` in `config/application.yml`. **These aren't product ids!** On each product page there's a "Pricing" section with a dropdown menu (...) where you can copy the price id.
+3. Match the `price_monthly_cents` and `price_yearly_cents` in `app/models/billing/pro_plan.rb` to your product prices
+
+That's it! Visit `/billing/plans` or `/settings/billing` as a logged-in user, and everything should just work!
+
+### Purchases
+
+Amazingly, you don't need to do ANYTHING to make Stripe purchases. They can be handled entirely programmatically through the Stripe API.
+
+The demo code has "super premium themes" as a fully implemented example. Visit `/demo/themes` as a logged-user to buy them!
+
+**Want to roll your own?** There are four relevant files:
+
+```
+app/models/demo/themes/theme_purchase.rb
+app/services/demo/themes/complete_purchase_service.rb
+app/services/demo/themes/create_checkout_session_service.rb
+config/initializers/demo/billing_checkout_handlers.rb
+```
+
+* `billing_checkout_handlers.rb` is used to register the payment webhook handlers that get called when you complete a Stripe purchase
+* `create_checkout_session_service.rb` performs a Stripe purchase
+* `complete_purchase_service.rb` is called when you complete a Stripe purchase
+* `theme_purchase.rb` is the database model linked to the Stripe purchase
+
+Replicate (or edit) these for your own unique Stripe purchases!
+
 ## Ephemera
 
 ### Cleanup Script
@@ -344,11 +407,11 @@ script/cleanup.sh
 script/cleanup.sh --no-confirmation
 ```
 
-The script removes all trace of demo code and database artifacts, including assets, controllers, helpers, models, views, routes, seeds, and specs.
+The script removes all trace of demo code from the template. This includes assets, controllers, helpers, models, views, routes, seeds, and specs.
 
-Cleanup also replaces migration history with a single non-demo baseline and regenerates the schema by dropping and recreating the local database.
+Cleanup also inserts migrations to remove the demo tables and then regenerates the schema by dropping and recreating the local database.
 
-After the script runs successfully, it deletes itself and you’ll be left with a pristine Superstack template.
+After the script runs successfully, it deletes itself and you’ll be left with a pristine template.
 
 ## Acknowledgements
 

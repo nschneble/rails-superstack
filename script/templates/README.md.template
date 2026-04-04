@@ -12,8 +12,6 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
   - [Routes](#routes)
-     - [User Routes](#user-routes)
-     - [Admin Routes](#admin-routes)
 - [Linting, Testing, and CI](#linting-testing-and-ci)
   - [Linting](#linting)
   - [Testing](#testing)
@@ -21,16 +19,19 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
   - [Making Queries](#making-queries)
+- [Stripe Billing](#stripe-billing)
+  - [Set Stripe API Keys](#set-stripe-api-keys)
+  - [Subscriptions](#subscriptions)
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Bundler](https://bundler.io/) 2.7.2
-- PostgreSQL 18.1
-- Redis 8.4.1
+- [Bundler](https://bundler.io/) v4.0
+- PostgreSQL 18
+- Redis 8.6
 - Ruby 3.4.7
-- Typesense 30.1
+- Typesense Server 30.1
 
 ### Set Up Font Awesome
 
@@ -48,11 +49,14 @@ Open `config/application.yml` and replace `font_awesome_kit_url` with your kit's
 ```bash
 cd /path/to/your/repo
 
-# Builds everything, then starts up the dev server
+# Set up everything + start the development server
 bin/setup
 
-# Only starts up the dev server
-bin/dev
+# Set up everything + don't start the development server
+bin/setup --skip-server
+
+# Reset back to factory settings
+bin/setup --reset
 ```
 
 Open [localhost:3000](http://localhost:3000) in your web browser.
@@ -73,9 +77,10 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 - [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
 - [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
-- [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth, roles)
+- [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
+- [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth + roles)
 - [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
-- [Pom Component](https://pom-io.github.io/pom-component) (view components)
+- [Pom Component](https://pom-io.github.io/pom-component) + [Draper](https://github.com/drapergem/draper) (view components + decorators)
 - [Font Awesome](https://fontawesome.com) + [Gravatar Image Tag Plugin](https://github.com/mdeering/gravatar_image_tag) (icons)
 - [SuperAdmin](https://github.com/ThibautBaissac/super_admin) + [Flipper](https://www.flippercloud.io) (admin + feature flags)
 - [Commonmarker](https://github.com/gjtorikian/commonmarker) (syntax highlighting)
@@ -85,27 +90,27 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 - [Noticed](https://github.com/excid3/noticed) (notifications)
 - [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
-- [Draper](https://github.com/drapergem/draper) (decorators)
-- [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 
 ### Routes
 
 #### User Routes
 
-| Endpoint     | Description                     |
-| ------------ | ------------------------------- |
-| `/sign_in`   | Sign in as a new user           |
-| `/sign_out`  | Sign out the current user       |
-| `/profile`   | Set current user email          |
-| `/sent_mail` | Preview sent mail (login codes) |
+| Endpoint         | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `/billing/plans` | View subscription plans (Stripe)                |
+| `/sent_mail`     | Preview sent mail (Passwordless login codes)    |
+| `/settings`      | Change email, create API tokens, manage billing |
+| `/sign_in`       | Sign in as a new or existing user               |
+| `/sign_out`      | Sign out the current user                       |
 
 #### Admin Routes
 
-| Endpoint   | Description           |
-| ---------- | --------------------- |
-| `/admin`   | SuperAdmin dashboard  |
-| `/flipper` | Flipper feature flags |
-| `/resque`  | Resque jobs           |
+| Endpoint         | Description          |
+| ---------------- | -------------------- |
+| `/admin`         | SuperAdmin dashboard |
+| `/notifications` | System notifications |
+| `/flipper`       | Feature flags        |
+| `/resque`        | Background jobs      |
 
 ## Linting, Testing, and CI
 
@@ -130,10 +135,6 @@ cd /path/to/your/repo
 bin/ci
 ```
 
-- [GraphQL API](#graphql-api)
-  - [Getting Auth Tokens](#getting-auth-tokens)
-  - [Making Queries](#making-queries)
-
 ## GraphQL API
 
 ### Getting Auth Tokens
@@ -151,11 +152,50 @@ bin/api-token api@superstack.dev
 cd /path/to/your/repo
 
 curl -s -H 'Content-Type: application/json' \
-  -X POST http://localhost:3000/graphql/health \
-  -d '{"query":"{ apiHealth { status } }"}'
+  -X POST http://localhost:3000/graphql \
+  -d '{"query":"{ health { status } }"}'
 
 bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
-  -H 'Authorization: %' \
-  -X POST http://localhost:3000/graphql \
+  -H 'Authorization: %' -X POST http://localhost:3000/graphql \
   -d '{"query":"{ users { id email role } }"}'
 ```
+
+## Stripe Billing
+
+Use the `--with-stripe` argument when starting your development server to listen for Stripe webhooks:
+
+```bash
+cd /path/to/your/repo
+bin/dev --with-stripe
+```
+
+### Set Stripe API Keys
+
+```yaml
+# config/application.yml
+
+# replace with your Stripe test keys
+# https://dashboard.stripe.com/test/apikeys
+
+stripe_secret_key:      sk_test_REPLACE_ME
+stripe_publishable_key: pk_test_REPLACE_ME
+stripe_signing_secret:  whsec_REPLACE_ME
+```
+
+Obtain `stripe_signing_secret` by running `bin/dev --with-stripe`. You'll see terminal output like the following:
+
+```bash
+22:58:43 stripe.1    | Ready! You are using Stripe API Version [2017-12-14]. Your webhook signing secret is whsec_REPLACE_ME (^C to quit)
+```
+
+### Subscriptions
+
+```yaml
+# config/application.yml
+
+# replace with your Stripe price ids
+stripe_price_pro_monthly: price_REPLACE_ME
+stripe_price_pro_yearly:  price_REPLACE_ME
+```
+
+Update `price_monthly_cents` and `price_yearly_cents` in `app/models/billing/pro_plan.rb` to your product prices.
