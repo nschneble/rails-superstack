@@ -10,7 +10,7 @@ module Demo::Themeable
   def current_theme
     return Demo::Themes::DefaultTheme if purchases.empty?
 
-    Demo::Themes::ThemePurchase::THEMES[purchases.sample]
+    @current_theme ||= Demo::Themes::ThemePurchase::THEMES[purchases.sample]
   end
 
   def purchases
