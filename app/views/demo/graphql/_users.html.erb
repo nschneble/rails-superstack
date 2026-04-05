@@ -1,4 +1,4 @@
-<%= fa_stacked_icon(["square", "users"], ["text-lime-500", "text-white"]) %>
+<%= fa_stacked_icon(["square", "users"], [current_theme.highlight, current_theme.text]) %>
 Users
 <p class="ml-[50] -mt-2 mb-2 text-sm italic">Requires <span class="text-amber-200 font-semibold">authentication</span></p>
 <%= tag.p class: "ml-[50] mb-1 text-sm" do %>
@@ -16,7 +16,7 @@ Users
               graphql_describe_path,
               class: "hover:text-amber-400 underline!" %>
 <% end %>
-<div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
+<%= tag.div class: [ "relative mx-12 my-2 bg-slate-900 rounded-sm rounded-tr-md rounded-br-md", current_theme.highlight ] do %>
   <pre class="p-2 pr-[42] text-sm truncate">
     <span class="text-white select-none">POST </span>
     <span>
@@ -35,4 +35,4 @@ Users
   <%= pom_copy_to_clipboard align: :right,
                             text: "bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' -H 'Authorization: %' -X POST http://localhost:3000/graphql -d '{\"query\":\"{ users { id email role } }\"}' | jq",
                             class: "rounded-bl-md rounded-br-none" %>
-</div>
+<% end %>
