@@ -96,6 +96,7 @@ en:
       blank: "Message can't be blank"
       success: "Notification sent"
       too_long: "Message is too long"
+    title: "Notifications"
   passwordless:
     sessions:
       new:
@@ -163,6 +164,7 @@ en:
       api: "API tokens"
       billing: "Billing"
       profile: "User profile"
+    title: "Settings"
     user_profile:
       label: "Email address"
       placeholder: "me@mydomain.net"

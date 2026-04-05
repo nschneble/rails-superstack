@@ -1,5 +1,7 @@
 <%# This is the Passwordless form where the user inputs their email address %>
 
+<% content_for :title, t("sign_in.title") %>
+
 <%= tag.div class: "w-full my-28" do %>
   <% email_field_name = :"passwordless[#{email_field}]" %>
 
