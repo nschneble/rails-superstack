@@ -1,7 +1,5 @@
 module Demo
-  class TerminalController < ApplicationController
-    layout "demo/moxie"
-
+  class TerminalController < DemoApplicationController
     def show
       @commands = [
         TerminalCommand.new(

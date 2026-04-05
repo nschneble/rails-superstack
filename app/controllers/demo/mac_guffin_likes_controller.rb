@@ -1,5 +1,5 @@
 module Demo
-  class MacGuffinLikesController < AuthenticatedController
+  class MacGuffinLikesController < DemoAuthenticatedController
     def create
       result = MacGuffinLikes::CreateService.call(user: current_user, mac_guffin:, ability: current_ability)
       flash.alert = result.error unless result.success?
