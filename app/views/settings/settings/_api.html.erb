@@ -1,3 +1,7 @@
+<%# API tokens settings tab. Renders the reveal panel, creation form, and
+    active token list. Uses @api_token_plaintext – set only once after token
+    creation – and @api_tokens %>
+
 <%= tag.div class: CustomFormBuilder::FORM_CLASSES do %>
   <%= tag.div role: "tabpanel",
               aria: { labelledby: "settings-tab-api" },

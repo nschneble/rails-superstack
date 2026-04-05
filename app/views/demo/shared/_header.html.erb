@@ -1,3 +1,7 @@
+<%# Fixed app header with logo, app title, and dropdown menu. The menu shows
+    either a user's Gravatar or a basic hamburger icon. Theme colors are
+    applied via the 1current_theme1 helper (see app/helpers/theme_helper.rb) %>
+
 <%= tag.header class: [ "fixed w-full p-4 shadow-slate-600 shadow-xl z-10", current_theme.background, current_theme.text ] do %>
   <%= tag.nav class: "flex items-center justify-between sm:mx-11" do %>
     <%= tag.div class: "flex items-center justify-between" do %>

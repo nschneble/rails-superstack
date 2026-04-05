@@ -1,3 +1,7 @@
+<%# Turbo frame wrapping the MacGuffin search results. Receives @mac_guffins
+    and @pagy from MacGuffinsController#index. @search_unavailable is set when
+    the Typesense index hasn't been built yet %>
+
 <%= turbo_frame_tag "mac-guffin-search" do %>
   <% if @search_unavailable %>
     <%= tag.p class: "mx-4 sm:mx-0 mt-2 text-sm text-amber-200" do %>

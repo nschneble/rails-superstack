@@ -1,3 +1,7 @@
+<%# Settings page with a Turbo frame-driven tab UI. The `tab` local comes from
+    the controller and determines which partial to render. Tabs include
+    profile, api, and billing. Each tab url updates via Turbo navigate %>
+
 <% content_for :title, t("settings.title") %>
 
 <%= tag.div class: "w-full my-28" do %>

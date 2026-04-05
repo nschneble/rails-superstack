@@ -1,3 +1,6 @@
+<%# Renders all the themes. Themes are defined in app/models/demo/themes/ and
+    purchases are Demo::Themes::ThemePurchase records %>
+
 <%= tag.div class: "grid grid-cols-1 gap-6" do %>
   <% @themes.each do |key, theme| %>
 
