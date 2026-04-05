@@ -2,7 +2,7 @@ module Demo
   class ThemesController < DemoAuthenticatedController
     def index
       @themes = Themes::ThemePurchase::THEMES
-      @purchases = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key).to_set
+      @purchases = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
     end
 
     def checkout

@@ -8,16 +8,16 @@
         <%= tag.div class: "flex-1" do %>
           <%= tag.h2 theme.name, class: [ "text-xl font-semibold", theme.text ] %>
           <%= tag.p theme.description, class: [ "mt-1 text-sm text-balance", theme.text ] %>
-          <%= tag.p theme.price_display, class: [ "mt-2 mb-8 font-bold", theme.highlight ] %>
+
+          <%= tag.p class: [ "mt-2 mb-8 font-bold select-none", theme.highlight ] do %>
+            <% @purchases.include?(key) ? t("themes.purchased") : theme.price_display %>
+          <% end %>
         <% end %>
 
-        <%= tag.div class: "shrink-0 mb-10" do %>
-          <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |form| %>
-            <%= form.hidden_field :theme_key, value: key %>
-
-            <% if @purchased_keys.include?(key) %>
-              <%= form.submit t("themes.purchased"), class: [ theme.button, theme.button_text ], disabled: true %>
-            <% else %>
+        <% unless @purchases.include?(key) %>
+          <%= tag.div class: "shrink-0 mb-10" do %>
+            <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |form| %>
+              <%= form.hidden_field :theme_key, value: key %>
               <%= form.submit t("themes.buy_now"), class: [ theme.button, theme.button_text ] %>
             <% end %>
           <% end %>
