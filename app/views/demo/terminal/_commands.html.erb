@@ -1,17 +1,17 @@
-<ul class="flex flex-col gap-y-3 list-none ml-2">
+<%= tag.ul class: "flex flex-col gap-y-3 list-none ml-2" do %>
   <% commands.each do |command| %>
-    <li>
+    <%= tag.li do %>
       <%= fa_stacked_icon(["square", command.icon], [current_theme.highlight, current_theme.text]) %>
-      <span><%= command.rendered_description %></span>
+      <%= tag.span command.rendered_description %>
 
       <%= tag.div class: [ "relative mx-12 my-2 bg-slate-900 rounded-sm rounded-tr-md rounded-br-md", current_theme.highlight ] do %>
-        <pre class="p-2 pr-[42] truncate">
-          <span class="text-white select-none">% </span>
+        <%= tag.pre class: "p-2 pr-[42] truncate" do %>
+          <%= tag.span "%", class: "text-white select-none" %>
           <%= tag.span command.code, id: command.name %>
-        </pre>
+        <% end %>
 
         <%= pom_copy_to_clipboard(align: :right, target: command.name) %>
       <% end %>
-    </li>
+    <% end %>
   <% end %>
-</ul>
+<% end %>

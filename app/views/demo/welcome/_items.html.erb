@@ -1,12 +1,12 @@
-<ul class="flex flex-col gap-y-3 list-none ml-2">
+<%= tag.ul class: "flex flex-col gap-y-3 list-none ml-2" do %>
   <% items.each do |item| %>
-    <li>
+    <%= tag.li do %>
       <%= fa_stacked_icon(["square", item.avatar], [current_theme.highlight, current_theme.text]) %>
-      <span><%= item.rendered_description %></span>
+      <%= tag.span item.rendered_description %>
 
       <% if item.byline %>
-        <p class="ml-[50] text-sm italic"><%= item.rendered_byline %></p>
+        <%= tag.p item.rendered_byline, class: "ml-[50] text-sm italic" %>
       <% end %>
-    </li>
+    <% end %>
   <% end %>
-</ul>
+<% end %>

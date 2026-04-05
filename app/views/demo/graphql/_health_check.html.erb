@@ -11,16 +11,16 @@ Health Check
               class: "hover:text-amber-400 underline!" %>
 <% end %>
 <%= tag.div class: [ "relative mx-12 my-2 bg-slate-900 rounded-sm rounded-tr-md rounded-br-md", current_theme.highlight ] do %>
-  <pre class="p-2 pr-[42] text-sm truncate">
-    <span class="text-white select-none">POST </span>
-    <span>
+  <%= tag.pre class: "p-2 pr-[42] text-sm truncate" do %>
+    <%= tag.span "POST", class: "text-white select-none" %>
+    <%= tag.span do %>
       /graphql<br><br>
       Content Type: application/json<br>
       Payload Data: { query: { health { status } } }<br><br>
       200 Response:<br>
       { data: { health: { status: "ok" } } }
-    </span>
-  </pre>
+    <% end %>
+  <% end %>
 
   <%= pom_copy_to_clipboard align: :right,
                             text: "curl -s -H 'Content-Type: application/json' -X POST http://localhost:3000/graphql -d '{\"query\":\"{ health { status } }\"}' | jq",

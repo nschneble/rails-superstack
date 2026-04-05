@@ -1,22 +1,22 @@
 <%= tag.header class: [ "fixed w-full p-4 shadow-slate-600 shadow-xl z-10", current_theme.background, current_theme.text ] do %>
-  <nav class="flex items-center justify-between sm:mx-11">
-    <div class="flex items-center justify-between">
+  <%= tag.nav class: "flex items-center justify-between sm:mx-11" do %>
+    <%= tag.div class: "flex items-center justify-between" do %>
       <%= image_tag "demo/ruby_on_rails.jpg", class: "p-1 bg-[#cc0000] rounded-lg", size: "44", alt: "Ruby on Rails" %>
       <%= link_to t("title"), demo_welcome_path, class: "ml-2 font-semibold text-xl tracking-tight select-none hover:no-underline!"%>
-    </div>
+    <% end %>
 
-    <div class="relative flex items-center" data-controller="demo--dropdown">
+    <%= tag.div class: "relative flex items-center",
+                data: { controller: "demo--dropdown" } do %>
       <%= render "demo/shared/menus/dropdown_button" %>
 
-      <div class="hidden absolute top-12 right-0 mt-1 w-64 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-[14] origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1"
-           role="menu"
-           data-demo--dropdown-target="menu">
-
+      <%= tag.div class: "hidden absolute top-12 right-0 mt-1 w-64 bg-white text-slate-900 shadow-slate-600 shadow-xl ring-1 ring-slate-300 rounded-[14] origin-top-right transform transition duration-150 ease-out opacity-0 scale-95 -translate-y-1",
+                  role: "menu",
+                  data: { demo__dropdown_target: "menu" } do %>
         <%= render "demo/shared/menus/user_info" %>
         <%= render "demo/shared/menus/navigation" %>
-      </div>
-    </div>
-  </nav>
+      <% end %>
+    <% end %>
+  <% end %>
 
   <%= render "shared/flash" %>
 <% end %>

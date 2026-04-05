@@ -1,7 +1,11 @@
-<div class="w-full sm:ml-11 mt-[70] mb-[52] text-white overflow-y-scroll">
-  <div class="max-w-[650] mx-auto">
-    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Alert</h1>
-    <p>Want to configure your own alerts? Set <span class="text-amber-200 font-mono">flash.alert</span> in your code and it'll automatically render on the next page load!</p>
+<%= tag.div class: "w-full sm:ml-11 mt-[70] mb-[52] text-white overflow-y-scroll" do %>
+  <%= tag.div class: "max-w-[650] mx-auto" do %>
+    <%= tag.h1 "Alert", class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight" %>
+    <%= tag.p do %>
+      Want to configure your own alerts? Set
+      <%= tag.span "flash.alert", class: "text-amber-200 font-mono" %>
+      in your code and it'll automatically render on the next page load!
+    <% end %>
     <%= @snippet %>
-  </div>
-</div>
+  <% end %>
+<% end %>

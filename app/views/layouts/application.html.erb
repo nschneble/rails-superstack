@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Rails Superstack" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Rails Superstack">
-    <meta name="mobile-web-app-capable" content="yes">
+<%= tag.html do %>
+  <%= tag.head do %>
+    <%= tag.title content_for(:title) || "Rails Superstack" %>
+    <%= tag.meta name: "viewport", content: "width=device-width,initial-scale=1" %>
+    <%= tag.meta name: "turbo-cache-control", content: "no-cache" %>
+    <%= tag.meta name: "application-name", content: "Rails Superstack" %>
+    <%= tag.meta name: "apple-mobile-web-app-capable", content: "yes" %>
+    <%= tag.meta name: "mobile-web-app-capable", content: "yes" %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <%= tag.link rel: "icon", href: "/icon.svg", type: "image/svg+xml" %>
+    <%= tag.link rel: "icon", href: "/icon.png", type: "image/png" %>
+    <%= tag.link rel: "apple-touch-icon", href: "/icon.png" %>
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
     <% if font_awesome_available? %>
-      <script src="<%= font_awesome_kit_src %>" crossorigin="anonymous"></script>
+      <%= tag.script src: font_awesome_kit_src, crossorigin: "anonymous" %>
     <% end %>
-  </head>
+  <% end %>
 
-  <body class="antialiased">
-    <header>
-      <%= render "shared/flash" %>
-    </header>
+  <%= tag.body class: "antialiased" do %>
+    <%= tag.header render "shared/flash" %>
 
-    <main class="container flex mx-auto">
+    <%= tag.main class: "container flex mx-auto" do %>
       <%= yield %>
-    </main>
+    <% end %>
 
     <%= render "demo/shared/footer" %>
-  </body>
-</html>
+  <% end %>
+<% end %>

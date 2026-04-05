@@ -1,8 +1,8 @@
 <%= tag.div class: "flex p-3 pr-1 bg-slate-100 text-slate-900 rounded-md", id: dom_id(api_token) do %>
-  <p class="flex-1 leading-none select-none">
-    <span class="font-semibold"><%= api_token.name %></span><br>
-    <span class="pl-[1] text-slate-600 text-xs"><%= api_token.format_last_used_at %></span>
-  </p>
+  <%= tag.p class: "flex-1 leading-none select-none" do %>
+    <%= tag.span api_token.name, class: "font-semibold" %>
+    <%= tag.span api_token.format_last_used_at, class: "pl-[1] text-slate-600 text-xs" %>
+  <% end %>
 
   <%= form_with url: settings_delete_api_token_path(api_token),
                 method: :delete,

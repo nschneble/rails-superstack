@@ -1,4 +1,4 @@
-<div class="w-full my-28">
+<%= tag.div class: "w-full my-28" do %>
   <%= form_with(url: notifications_path, scope: :global_notification, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
     <%= tag.h1 t("notifications.form.title"), class: CustomFormBuilder::TITLE_CLASSES %>
 
@@ -16,4 +16,4 @@
 
     <%= form.submit t("notifications.form.submit") %>
   <% end %>
-</div>
+<% end %>

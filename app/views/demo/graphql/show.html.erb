@@ -1,13 +1,10 @@
-<div class="w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll">
-  <div class="max-w-[650] mx-auto">
-    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">
-      GraphQL API
-    </h1>
-
-    <ul class="flex flex-col gap-y-6 list-none ml-2">
-      <li><%= render "health_check" %></li>
-      <li><%= render "users" %></li>
-      <li><%= render "mac_guffins" %></li>
-    </ul>
-  </div>
-</div>
+<%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll" do %>
+  <%= tag.div class: "max-w-[650] mx-auto" do %>
+    <%= tag.h1 "GraphQL API", class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight" %>
+    <%= tag.ul class: "flex flex-col gap-y-6 list-none ml-2" do %>
+      <%= tag.li render "health_check" %>
+      <%= tag.li render "users" %>
+      <%= tag.li render "mac_guffins" %>
+    <% end %>
+  <% end %>
+<% end %>

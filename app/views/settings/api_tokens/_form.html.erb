@@ -3,9 +3,9 @@
               id: "api_token_form" do |form| %>
 
   <% if error_message.present? %>
-    <div class="w-4/5 sm:w-full max-w-[325] mx-auto my-4 p-3 bg-pink-100 text-pink-950 rounded-md">
-      <p class="text-sm font-semibold"><%= error_message %></p>
-    </div>
+    <%= tag.div class: "w-4/5 sm:w-full max-w-[325] mx-auto my-4 p-3 bg-pink-100 text-pink-950 rounded-md" do %>
+      <%= tag.p error_message, class: "text-sm font-semibold" %>
+    <% end %>
   <% end %>
 
   <%= form.label :name, t("settings.api_tokens.label") %>

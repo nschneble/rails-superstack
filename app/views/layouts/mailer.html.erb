@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<%= tag.html do %>
+  <%= tag.head do %>
+    <%= tag.meta http_equiv: "Content-Type", content: "text/html; charset=utf-8" %>
+    <%= tag.style do %>
+      <%# Email styles need to be inline %>
+    <% end %>
+  <% end %>
 
-  <body>
+  <%= tag.body do %>
     <%= yield %>
-  </body>
-</html>
+  <% end %>
+<% end %>

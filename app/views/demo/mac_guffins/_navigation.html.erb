@@ -1,7 +1,7 @@
 <% if @mac_guffins.empty? %>
-  <p class="mx-4 sm:mx-0 mt-8 text-sm text-center text-white italic">No MacGuffins matched your search</p>
+  <%= tag.p "No MacGuffins matched your search", class: "mx-4 sm:mx-0 mt-8 text-sm text-center text-white italic" %>
 <% elsif @pagy.pages > 1 %>
-  <div class="mx-4 sm:mx-0 mt-4 flex justify-center">
+  <%= tag.div class: "mx-4 sm:mx-0 mt-4 flex justify-center" do %>
     <%== @pagy.series_nav %>
-  </div>
+  <% end %>
 <% end %>

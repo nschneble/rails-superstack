@@ -1,6 +1,6 @@
 <%# This is the Passwordless form where the user inputs the token they received %>
 
-<div class="w-full my-28">
+<%= tag.div class: "w-full my-28" do %>
   <%= form_with(model: @session, url: url_for(action: "update"), scope: "passwordless", method: "patch", data: { turbo: false, controller: "email" }, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
     <%= tag.h1 t("verification_code.title"), class: CustomFormBuilder::TITLE_CLASSES %>
 
@@ -17,4 +17,4 @@
     <%# form submission %>
     <%= form.submit t(".confirm"), data: { action: "click->email#submit", "email-target": "button" } %>
   <% end %>
-</div>
+<% end %>
