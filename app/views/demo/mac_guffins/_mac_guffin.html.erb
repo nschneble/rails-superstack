@@ -1,3 +1,7 @@
+<%# MacGuffin card: image, name, description, visibility badge, and like
+    button. Rendered as a collection in ./_search.html.erb %>
+<%# locals: (mac_guffin:) %>
+
 <%= tag.div class: "flex group bg-white text-slate-900 shadow-slate-600 shadow-xl rounded-[14]" do %>
   <%= tag.div class: "w-24 flex-none p-3 bg-slate-900 border border-r-0 border-slate-950 rounded-l-[14]" do %>
     <%= image_tag "https://picsum.photos/96?random=#{mac_guffin.id}",

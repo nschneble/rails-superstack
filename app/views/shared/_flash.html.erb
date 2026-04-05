@@ -1,3 +1,7 @@
+<%# Subscribes to Turbo Streams for live notifications and renders each one via
+    ./_notification.html.erb. Rendered in both application and demo layouts %>
+<%# locals: (notifications:) %>
+
 <%= turbo_stream_from "global_notifications" %>
 <%= turbo_stream_from [ current_user, :notifications ] if current_user %>
 

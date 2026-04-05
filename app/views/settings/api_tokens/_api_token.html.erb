@@ -1,3 +1,7 @@
+<%# Single API token row: name, last-used date, and a revoke (delete) button.
+    Rendered as a collection in ./_api.html.erb. %>
+<%# locals: (api_token:) %>
+
 <%= tag.div class: "flex p-3 pr-1 bg-slate-100 text-slate-900 rounded-md", id: dom_id(api_token) do %>
   <%= tag.p class: "flex-1 leading-none select-none" do %>
     <%= tag.span api_token.name, class: "font-semibold" %>

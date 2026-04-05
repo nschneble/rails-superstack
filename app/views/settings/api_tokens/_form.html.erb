@@ -1,3 +1,7 @@
+<%# Form for creating a new API token. Pass `error_message: nil` normally; a
+    string renders an inline error banner %>
+<%# locals: (error_message:) %>
+
 <%= form_with url: settings_create_api_token_path,
               scope: :api_token,
               id: "api_token_form" do |form| %>

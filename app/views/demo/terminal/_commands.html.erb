@@ -1,3 +1,8 @@
+<%# Renders a list of terminal commands with icon, description, code snippet,
+    and copy-to-clipboard. `commands` is an array of command objects from
+    Demo::TerminalController (see app/models/demo/command.rb) %>
+<%# locals: (commands:) %>
+
 <%= tag.ul class: "flex flex-col gap-y-3 list-none ml-2" do %>
   <% commands.each do |command| %>
     <%= tag.li do %>

@@ -1,3 +1,8 @@
+<%# Reveals a newly created plaintext API token with a copy-to-clipboard
+    button. Hidden when `plaintext_token` is blank. Only shown once — the token
+    is not stored in plaintext after this view is rendered. %>
+<%# locals: (plaintext_token:) %>
+
 <%= tag.div class: class_names(
               "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
               hidden: plaintext_token.blank?

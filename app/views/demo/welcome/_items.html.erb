@@ -1,3 +1,8 @@
+<%# Renders a list of welcome/next-step items with icon, description, and
+    optional byline. `items` is an array of item objects from
+    Demo::WelcomeController (see app/models/demo/item.rb) %>
+<%# locals: (items:) %>
+
 <%= tag.ul class: "flex flex-col gap-y-3 list-none ml-2" do %>
   <% items.each do |item| %>
     <%= tag.li do %>

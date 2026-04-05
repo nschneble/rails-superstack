@@ -1,3 +1,7 @@
+<%# Single flash notification rendered by ./_flash.html.erb. `variant` maps to
+    a Pom::FlashComponent style (e.g. :notice, :alert) %>
+<%# locals: (variant:, message:) %>
+
 <%= pom_flash(variant: variant.to_sym) do %>
   <%= message %>
 <% end %>
