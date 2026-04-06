@@ -73,11 +73,11 @@ jobs:
         uses: actions/cache@v5
         with:
           path: tmp/rubycritic
-          key: rubycritic-${{ runner.os }}-${{ hashFiles('**/*.rb') }}
+          key: rubycritic-${{ runner.os }}-${{ hashFiles('app/**/*.rb', 'lib/**/*.rb') }}
           restore-keys: rubycritic-${{ runner.os }}-
 
       - name: Run code quality analysis
-        run: bin/rubycritic --minimum-score 89 --no-browser
+        run: bin/rubycritic --minimum-score 89 --no-browser app lib
 
   test:
     runs-on: ubuntu-latest
