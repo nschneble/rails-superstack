@@ -28,7 +28,7 @@
   <% end %>
 
   <%= tag.body class: "antialiased" do %>
-    <%= tag.header render "shared/flash" %>
+    <%= tag.header render "shared/flash", notifications: notifications %>
 
     <%= tag.main class: "container flex mx-auto" do %>
       <%= yield %>
