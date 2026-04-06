@@ -164,6 +164,7 @@ Rails Superstack has been preloaded and configured with the following:
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
 - [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 - [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
+- [RubyCritic](https://github.com/whitesmith/rubycritic) (code quality)
 - [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth + roles)
 - [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
 - [Pom Component](https://pom-io.github.io/pom-component) + [Draper](https://github.com/drapergem/draper) (view components + decorators)
@@ -330,8 +331,8 @@ You effectively have Stripe purchases and subscriptions right out of the box! Ev
 
 **A few key points:**
 
-* To cover the basics of your average paid app, users are linked to subscriptions with free and paid options. Paid plans can be monthly or yearly.
-* Stripe webhook listeners don't run automatically. I mean, what if you don't need them? Use the `--with-stripe` argument when starting your development server:
+- To cover the basics of your average paid app, users are linked to subscriptions with free and paid options. Paid plans can be monthly or yearly.
+- Stripe webhook listeners don't run automatically. I mean, what if you don't need them? Use the `--with-stripe` argument when starting your development server:
 
 ```bash
 cd /path/to/your/repo
@@ -379,10 +380,10 @@ app/services/demo/themes/create_checkout_session_service.rb
 config/initializers/demo/billing_checkout_handlers.rb
 ```
 
-* `billing_checkout_handlers.rb` is used to register the payment webhook handlers that get called when you complete a Stripe purchase
-* `create_checkout_session_service.rb` performs a Stripe purchase
-* `complete_purchase_service.rb` is called when you complete a Stripe purchase
-* `theme_purchase.rb` is the database model linked to the Stripe purchase
+- `billing_checkout_handlers.rb` is used to register the payment webhook handlers that get called when you complete a Stripe purchase
+- `create_checkout_session_service.rb` performs a Stripe purchase
+- `complete_purchase_service.rb` is called when you complete a Stripe purchase
+- `theme_purchase.rb` is the database model linked to the Stripe purchase
 
 Replicate (or edit) these for your own unique Stripe purchases!
 

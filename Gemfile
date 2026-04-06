@@ -115,6 +115,9 @@ group :development, :test do
 
   # Simple SimpleCov coverage badges [https://github.com/traels-it/simplecov_badger]
   gem "simplecov_badger"
+
+  # A Ruby code quality reporter [https://github.com/whitesmith/rubycritic]
+  gem "rubycritic", require: false
 end
 
 group :development do

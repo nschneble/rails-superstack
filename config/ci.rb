@@ -8,6 +8,7 @@ CI.run do
   step "Scan for security vulnerabilities in JavaScript dependencies", "bin/importmap audit"
 
   step "Lint code for consistent style", "bin/rubocop"
+  step "Run code quality analysis", "bin/rubycritic --minimum-score 89"
   step "Run RSpec tests", "bin/rspec"
 
   # seeds should be idempotent

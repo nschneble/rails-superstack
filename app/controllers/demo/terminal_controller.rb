@@ -24,7 +24,16 @@ module Demo
           ]
         ),
         TerminalCommand.new(
-          icon: "microscope",
+          icon: "poo",
+          name: "rubycritic",
+          code: "bin/rubycritic",
+          description: [
+            "Check code quality with",
+            { link: "RubyCritic", to: "https://github.com/whitesmith/rubycritic" }
+          ]
+        ),
+        TerminalCommand.new(
+          icon: "vial-circle-check",
           name: "rspec",
           code: "bin/rspec",
           description: [
