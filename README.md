@@ -35,6 +35,7 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 - [Ephemera](#ephemera)
   - [SimpleCov Coverage Badge](#simplecov-coverage-badge)
   - [Cleanup Script](#cleanup-script)
+  - [AI Agents](#ai-agents)
 - [Acknowledgements](#acknowledgements)
 
 ## Getting Started
@@ -177,6 +178,7 @@ Rails Superstack has been preloaded and configured with the following:
 - [Noticed](https://github.com/excid3/noticed) (notifications)
 - [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
+- [Rails AI Agents](https://github.com/ThibautBaissac/rails_ai_agents) (AI agents)
 
 ### Code Features
 
@@ -431,6 +433,18 @@ The script removes all trace of demo code from the template. This includes asset
 Cleanup also inserts migrations to remove the demo tables and then regenerates the schema by dropping and recreating the local database.
 
 After the script runs successfully, it deletes itself and you’ll be left with a pristine template.
+
+### AI Agents
+
+This project integrates [Rails AI Agents](https://github.com/ThibautBaissac/rails_ai_agents), a suite of specialist Claude Code agents designed around Rails conventions. They were used in part to build Rails Superstack!
+
+What's included:
+
+- Specialist agents for each Rails layer (models, services, controllers, etc.)
+- TDD orchestration
+- Spec-Driven Development (SDD) commands
+- Sentry integration
+- Enforcement rules aligned with the project's architecture and conventions
 
 ## Acknowledgements
 
