@@ -1,17 +1,19 @@
+<% content_for :title, "Themes" %>
+
 <%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll" do %>
   <%= tag.div class: "max-w-[650] mx-auto" do %>
 
     <% if params[:purchased] %>
-      <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20">
+      <%= tag.div class: "absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20" do %>
         <%= render "shared/notification",
           variant: :notice,
           message: t("themes.purchased_notice", theme: Demo::Themes::ThemePurchase::THEMES[params[:purchased]].name)
         %>
-      </div>
+      <% end %>
     <% end %>
 
     <%= tag.h1 t("themes.title"), class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-0 font-semibold text-3xl tracking-tight" %>
-    <%= tag.p t("themes.subtitle"), class: "text-slate-300 mb-4" %>
+    <%= tag.p t("themes.subtitle"), class: "text-slate-300 mb-4 ml-3 sm:ml-0" %>
 
     <%= render partial: "themes", locals: { themes: @themes } %>
   <% end %>

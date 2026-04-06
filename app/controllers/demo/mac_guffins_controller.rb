@@ -1,7 +1,5 @@
 module Demo
-  class MacGuffinsController < ApplicationController
-    layout "demo/moxie"
-
+  class MacGuffinsController < DemoApplicationController
     def index
       result = MacGuffins::SearchService.call(ability: current_ability, query: @query, page: params[:page], request:)
 

@@ -1,12 +1,17 @@
-<ul class="flex flex-col gap-y-3 list-none ml-2">
+<%# Renders a list of welcome/next-step items with icon, description, and
+    optional byline. `items` is an array of item objects from
+    Demo::WelcomeController (see app/models/demo/item.rb) %>
+<%# locals: (items:) %>
+
+<%= tag.ul class: "flex flex-col gap-y-3 list-none ml-2" do %>
   <% items.each do |item| %>
-    <li>
-      <%= fa_stacked_icon(["square", item.avatar], ["text-lime-500", "text-white"]) %>
-      <span><%= item.rendered_description %></span>
+    <%= tag.li do %>
+      <%= fa_stacked_icon(["square", item.avatar], [current_theme.highlight, current_theme.text]) %>
+      <%= tag.span item.rendered_description %>
 
       <% if item.byline %>
-        <p class="ml-[50] text-sm italic"><%= item.rendered_byline %></p>
+        <%= tag.p item.rendered_byline, class: "ml-[50] text-sm italic" %>
       <% end %>
-    </li>
+    <% end %>
   <% end %>
-</ul>
+<% end %>

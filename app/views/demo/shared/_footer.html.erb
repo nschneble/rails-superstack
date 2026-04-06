@@ -1,7 +1,13 @@
-<footer class="fixed bottom-0 w-full p-4 bg-slate-900 text-white">
-  <p class="sm:mx-11 text-center text-sm">
-    <a class="hover:text-yellow-400 underline!" href="https://superstack.fancyenchiladas.net/rails/">Rails Superstack</a>
+<%# Fixed footer with Rails Superstack attribution. Rendered in both layouts %>
+
+<%= tag.footer class: "fixed bottom-0 w-full p-4 bg-slate-900 text-white" do %>
+  <%= tag.p class: "sm:mx-11 text-center text-sm" do %>
+    <%= link_to "Rails Superstack",
+                "https://superstack.fancyenchiladas.net/rails/",
+                class: "hover:text-yellow-400 underline!" %>
     was built w/ <%= rainbow("moxie") %> by
-    <a class="hover:text-yellow-400 underline!" href="https://nickschneble.xyz/">Nick Schneble</a>
-  </p>
-</footer>
+    <%= link_to "Nick Schneble",
+                "https://nickschneble.xyz/",
+                class: "hover:text-yellow-400 underline!" %>
+  <% end %>
+<% end %>

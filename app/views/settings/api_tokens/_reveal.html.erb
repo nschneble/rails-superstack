@@ -1,19 +1,22 @@
+<%# Reveals a newly created plaintext API token with a copy-to-clipboard
+    button. Hidden when `plaintext_token` is blank. Only shown once — the token
+    is not stored in plaintext after this view is rendered. %>
+<%# locals: (plaintext_token:) %>
+
 <%= tag.div class: class_names(
               "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
               hidden: plaintext_token.blank?
             ),
             id: "api_token_reveal" do %>
 
-  <p class="flex-1 leading-none select-none">
-    <span class="font-semibold"><%= t("settings.api_tokens.created.title") %></span><br>
-    <span class="pl-[1] text-slate-600 text-xs"><%= t("settings.api_tokens.created.hint") %></span>
-  </p>
+  <%= tag.p class: "flex-1 leading-none select-none" do %>
+    <%= tag.span t("settings.api_tokens.created.title"), class: "font-semibold" %>
+    <%= tag.span t("settings.api_tokens.created.hint"), class: "pl-[1] text-slate-600 text-xs" %>
+  <% end %>
 
   <%= pom_copy_to_clipboard align: :right,
                             target: "token",
                             class: "bg-slate-100 hover:bg-slate-100 text-slate-900 hover:text-slate-950" %>
 
-  <code class="block mt-2 p-2 bg-white rounded break-all" id="token">
-    <%= plaintext_token %>
-  </code>
+  <%= tag.code plaintext_token, class: "block mt-2 p-2 bg-white rounded break-all", id: "token" %>
 <% end %>

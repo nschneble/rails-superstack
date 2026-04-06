@@ -1,3 +1,7 @@
+<%# Billing settings tab. Shows the current plan and a Manage Billing or
+    Upgrade button depending on context. Uses `current_user.subscription_plan`
+    and `current_user.pro_subscription?` %>
+
 <%= tag.div role: "tabpanel",
             aria: { labelledby: "settings-tab-billing" },
             class: CustomFormBuilder::FORM_CLASSES,

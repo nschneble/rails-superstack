@@ -9,8 +9,8 @@ FAILURE=1
 
 # files referenced in the script
 SCRIPT_FILE="script/cleanup.sh"
-SCHEMA_TEMPLATE="script/templates/schema.rb.template"
-SCHEMA_FILE="db/schema.rb"
+DEMO_MIGRATIONS_DIR="script/migrations"
+MIGRATIONS_DIR="db/migrate"
 
 # script arguments
 ARGUMENTS=$@
@@ -22,6 +22,7 @@ DEMO_PATHS=(
   "app/assets/images/demo"
   "app/assets/stylesheets/demo"
   "app/components/demo"
+  "app/controllers/concerns/demo"
   "app/controllers/demo"
   "app/dashboards/super_admin/demo"
   "app/decorators/demo"
@@ -174,28 +175,23 @@ reset_database() {
     die "Script aborted."
   fi
 
-  if [[ ! -f "$SCHEMA_TEMPLATE" ]]; then
-    die "Missing $SCHEMA_TEMPLATE"
-  fi
-
-  log "Resetting database…" true
+  log "Applying demo drop migrations…" true
 
   if [[ "$DRY_RUN" == false ]]; then
-    rm -f "$SCHEMA_FILE"
-    mv "$SCHEMA_TEMPLATE" "$SCHEMA_FILE"
+    for migration in "$DEMO_MIGRATIONS_DIR"/*.rb; do
+      [[ -e "$migration" ]] || die "No migrations found in $DEMO_MIGRATIONS_DIR"
+      mv "$migration" "$MIGRATIONS_DIR/"
+    done
 
-    bin/rails db:reset
+    bin/rails db:migrate
   fi
 }
 
 self_destruct() {
-  if confirm "Delete ${SCRIPT_FILE}? (recommended)"; then
+  if confirm "Delete ${SCRIPT_FILE} and supporting files? (recommended)"; then
     if [[ "$DRY_RUN" == false ]]; then
-      result=$(rm -f "$SCRIPT_FILE")
-
-      if [[ -f "$SCRIPT_FILE" ]]; then
-        log "$result"
-      fi
+      rm -f "$SCRIPT_FILE"
+      rmdir "$DEMO_MIGRATIONS_DIR" 2>/dev/null || true
     fi
   fi
 

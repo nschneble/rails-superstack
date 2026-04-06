@@ -1,7 +1,9 @@
-<div class="py-2">
-  <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
-    Navigation
-  </div>
+<%# Demo site navigation links. Shows core demo pages, an admin section, and
+    sign in/out based on session state. The Secret Page link is gated by the
+    Flipper `secrets` flag. Admin links gated by current_user.admin? %>
+
+<%= tag.div class: "py-2" do %>
+  <%= tag.div "Navigation", class: "px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none" %>
 
   <%= render Demo::MenuItemComponent.new(path: demo_api_path, icon: "share-nodes", label: "GraphQL API") %>
   <%= render Demo::MenuItemComponent.new(path: demo_mac_guffins_path, icon: "trophy", label: "MacGuffins") %>
@@ -10,19 +12,17 @@
   <%= render Demo::MenuItemComponent.new(path: demo_terminal_path, icon: "terminal", label: "Terminal Guide") %>
   <%= render Demo::MenuItemComponent.new(path: demo_themes_path, icon: "palette", label: "Themes") %>
 
-  <div class="my-2 border-t border-slate-300"></div>
+  <%= tag.div class: "my-2 border-t border-slate-300" %>
 
   <% if current_user&.admin? %>
-    <div class="px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none">
-      Admin
-    </div>
+    <%= tag.div "Admin", class: "px-4 py-2 text-xs text-slate-600 font-semibold tracking-wider uppercase select-none" %>
 
     <%= render Demo::MenuItemComponent.new(path: resque_path, icon: "life-ring", label: "Background Jobs") %>
     <%= render Demo::MenuItemComponent.new(path: flipper_path, icon: "fish-fins", label: "Feature Flags") %>
     <%= render Demo::MenuItemComponent.new(path: admin_path, icon: "user-shield", label: "SuperAdmin Dashboard") %>
     <%= render Demo::MenuItemComponent.new(path: notifications_path, icon: "bell", label: "System Notifications") %>
 
-    <div class="my-2 border-t border-slate-300"></div>
+    <%= tag.div class: "my-2 border-t border-slate-300" %>
   <% end %>
 
   <% if current_user %>
@@ -32,4 +32,4 @@
     <%= render Demo::MenuItemComponent.new(path: billing_plans_path, icon: "credit-card", label: "Subscription Plans") %>
     <%= render Demo::MenuItemComponent.new(path: auth_sign_in_path, icon: "person-walking-arrow-right", label: "Sign In") %>
   <% end %>
-</div>
+<% end %>

@@ -1,11 +1,18 @@
+<%# Turbo frame wrapping the MacGuffin search results. Receives @mac_guffins
+    and @pagy from MacGuffinsController#index. @search_unavailable is set when
+    the Typesense index hasn't been built yet %>
+
 <%= turbo_frame_tag "mac-guffin-search" do %>
   <% if @search_unavailable %>
-    <p class="mx-4 sm:mx-0 mt-2 text-sm text-amber-200">Search index isn't ready. Run <code>bin/rails typesense:reindex</code>.</p>
+    <%= tag.p class: "mx-4 sm:mx-0 mt-2 text-sm text-amber-200" do %>
+      Search index isn't ready. Run
+      <%= tag.code ">bin/rails typesense:reindex" %>.
+    <% end %>
   <% end %>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-4 mx-4 sm:mx-0">
+  <%= tag.div class: "grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-4 mx-4 sm:mx-0" do %>
     <%= render @mac_guffins %>
-  </div>
+  <% end %>
 
   <%= render "navigation" %>
 <% end %>

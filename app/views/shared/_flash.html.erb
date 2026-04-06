@@ -1,11 +1,16 @@
+<%# Subscribes to Turbo Streams for live notifications and renders each one via
+    ./_notification.html.erb. Rendered in both application and demo layouts %>
+<%# locals: (notifications:) %>
+
 <%= turbo_stream_from "global_notifications" %>
 <%= turbo_stream_from [ current_user, :notifications ] if current_user %>
 
-<div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20" id="notifications">
+<%= tag.div class: "absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20",
+            id: "notifications" do %>
   <% notifications.each do |notification| %>
     <%= render "shared/notification",
       variant: notification.type,
       message: notification.message
     %>
   <% end %>
-</div>
+<% end %>

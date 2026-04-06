@@ -1,6 +1,12 @@
-<%= fa_stacked_icon(["square", "trophy"], ["text-lime-500", "text-white"]) %>
+<%# GraphQL MacGuffins query documentation. Shows the /graphql/demo POST
+    request format and a copyable cURL command. Requires an auth token %>
+
+<%= fa_stacked_icon(["square", "trophy"], [current_theme.highlight, current_theme.text]) %>
 MacGuffins
-<p class="ml-[50] -mt-2 mb-2 text-sm italic">Requires <span class="text-amber-200 font-semibold">authentication</span></p>
+<%= tag.p class: "ml-[50] -mt-2 mb-2 text-sm italic" do %>
+  Requires
+  <%= tag.span "authentication", class: "text-amber-200 font-semibold" %>
+<% end %>
 <%= tag.p class: "ml-[50] mb-1 text-sm" do %>
   <%= link_to "Create API Token",
               settings_api_path,
@@ -16,10 +22,10 @@ MacGuffins
               graphql_describe_path(schema: "demo"),
               class: "hover:text-amber-400 underline!" %>
 <% end %>
-<div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
-  <pre class="p-2 pr-[42] text-sm truncate">
-    <span class="text-white select-none">POST </span>
-    <span>
+<%= tag.div class: [ "relative mx-12 my-2 bg-slate-900 rounded-sm rounded-tr-md rounded-br-md", current_theme.highlight ] do %>
+  <%= tag.pre class: "p-2 pr-[42] text-sm truncate" do %>
+    <%= tag.span "POST", class: "text-white select-none" %>
+    <%= tag.span do %>
       /graphql/demo<br><br>
       Authorization: Bearer TOKEN<br>
       Content-Type: &nbsp;application/json<br>
@@ -29,10 +35,10 @@ MacGuffins
       &nbsp;&nbsp;{ id: 1, name: "Unobtainium" },<br>
       &nbsp;&nbsp;{ id: 2, name: "The Holy Grail" }<br>
       ] } }
-    </span>
-  </pre>
+    <% end %>
+  <% end %>
 
   <%= pom_copy_to_clipboard align: :right,
                             text: "bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' -H 'Authorization: %' -X POST http://localhost:3000/graphql/demo -d '{\"query\":\"{ macGuffins { id name description visibility userId } }\"}' | jq",
                             class: "rounded-bl-md rounded-br-none" %>
-</div>
+<% end %>

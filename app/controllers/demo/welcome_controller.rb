@@ -1,7 +1,5 @@
 module Demo
-  class WelcomeController < ApplicationController
-    layout "demo/moxie"
-
+  class WelcomeController < DemoApplicationController
     def show
       @items = build_items.reject(&:hidden).map(&:decorate)
     end

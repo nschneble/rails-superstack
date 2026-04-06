@@ -1,7 +1,13 @@
-<div class="w-full sm:ml-11 mt-[70] mb-[52] text-white overflow-y-scroll">
-  <div class="max-w-[650] mx-auto">
-    <h1 class="mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight">Notice</h1>
-    <p>Want to configure your own notices? Set <span class="text-amber-200 font-mono">flash.notice</span> in your code and it'll automatically render on the next page load!</p>
+<% content_for :title, "Notice" %>
+
+<%= tag.div class: "w-full sm:ml-11 mt-[70] mb-[52] text-white overflow-y-scroll" do %>
+  <%= tag.div class: "max-w-[650] mx-auto" do %>
+    <%= tag.h1 "Notice", class: "mx-3 sm:mx-0 mt-8 sm:mt-[50] mb-4 font-semibold text-3xl tracking-tight" %>
+    <%= tag.p do %>
+      Want to configure your own notices? Set
+      <%= tag.span "flash.notice", class: "text-amber-200 font-mono" %>
+      in your code and it'll automatically render on the next page load!
+    <% end %>
     <%= @snippet %>
-  </div>
-</div>
+  <% end %>
+<% end %>

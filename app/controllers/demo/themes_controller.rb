@@ -1,10 +1,8 @@
 module Demo
-  class ThemesController < AuthenticatedController
-    layout "demo/moxie"
-
+  class ThemesController < DemoAuthenticatedController
     def index
       @themes = Themes::ThemePurchase::THEMES
-      @purchased_keys = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key).to_set
+      @purchases = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
     end
 
     def checkout

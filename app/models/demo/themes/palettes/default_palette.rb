@@ -1,10 +1,10 @@
 module Demo::Themes::Palettes
   DefaultPalette = Palette.new(
     background:  "bg-blue-900!",
-    border:      "ring-emerald-400/80!",
+    border:      "ring-lime-500/80!",
     text:        "text-white!",
     button:      "bg-slate-800!",
     button_text: "text-white!",
-    highlight:   "text-emerald-400!"
+    highlight:   "text-lime-500!"
   )
 end

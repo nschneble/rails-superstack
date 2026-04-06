@@ -1,4 +1,7 @@
-<div class="mx-4 sm:mx-0 mb-4">
+<%# MacGuffin creation form. Submits a POST to demo_mac_guffins_path and
+    targets the `mac-guffin-search` Turbo frame for inline updates %>
+
+<%= tag.div class: "mx-4 sm:mx-0 mb-4" do %>
   <%= form_with url: demo_mac_guffins_path,
                 method: :get,
                 data: {
@@ -6,15 +9,15 @@
                   turbo_frame: "mac-guffin-search",
                   action: "turbo:submit-end->demo--search#restoreFocus"
                 },
-                class: "relative" do %>
+                class: "relative" do |form| %>
 
-    <input id="mac-guffin-search-input"
-           type="search"
-           name="q"
-           value="<%= params[:q].presence %>"
-           placeholder="Search by name or description"
-           autocomplete="off"
-           class="w-full px-3 py-2 bg-white text-slate-900 border border-slate-300 rounded-md shadow-md focus:outline-hidden focus:ring-2 focus:ring-amber-400"
-           data-action="input->demo--search#submit">
+    <%= form.text_field :q,
+                        type: "search",
+                        value: params[:q].presence,
+                        placeholder: "Search by name or description",
+                        autocomplete: "off",
+                        class: "w-full px-3 py-2 bg-white text-slate-900 border border-slate-300 rounded-md shadow-md focus:outline-hidden focus:ring-2 focus:ring-amber-400",
+                        data: { action: "input->demo--search#submit" },
+                        id: "mac-guffin-search-input" %>
   <% end %>
-</div>
+<% end %>

@@ -20,6 +20,8 @@ en:
     crimson_tide:
       name: "Crimson Tide"
       description: "Bold crimson reds with warm amber highlights for a striking, energetic feel."
+    default:
+      name: "Default Theme"
     forest_canopy:
       name: "Forest Canopy"
       description: "Earthy greens and soft browns inspired by the serenity of an old-growth forest."

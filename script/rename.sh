@@ -10,7 +10,8 @@ FAILURE=1
 # files referenced in the script
 SENTINEL_FILE=".renamed_from_template"
 SCRIPT_FILE="script/rename.sh"
-README_TEMPLATE="script/templates/README.md.template"
+TEMPLATES_DIR="script/templates"
+README_TEMPLATE="$TEMPLATES_DIR/README.md.template"
 README_FILE="README.md"
 
 # script arguments
@@ -322,13 +323,10 @@ show_next_steps() {
 }
 
 self_destruct() {
-  if confirm "Delete ${SCRIPT_FILE}? (recommended)"; then
+  if confirm "Delete ${SCRIPT_FILE} and supporting files? (recommended)"; then
     if [[ "$DRY_RUN" == false ]]; then
-      result=$(rm -f "$SCRIPT_FILE")
-
-      if [[ -f "$SCRIPT_FILE" ]]; then
-        log "$result"
-      fi
+      rm -f "$SCRIPT_FILE"
+      rmdir "$TEMPLATES_DIR" 2>/dev/null || true
     fi
   fi
 

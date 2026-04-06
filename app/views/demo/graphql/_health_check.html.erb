@@ -1,4 +1,7 @@
-<%= fa_stacked_icon(["square", "heart-pulse"], ["text-lime-500", "text-white"]) %>
+<%# GraphQL health check query documentation. Shows the /graphql POST
+    request format and a copyable cURL command %>
+
+<%= fa_stacked_icon(["square", "heart-pulse"], [current_theme.highlight, current_theme.text]) %>
 Health Check
 <%= tag.p class: "ml-[50] mb-1 text-sm" do %>
   <%= link_to "Run Health Query with GraphiQL",
@@ -10,19 +13,19 @@ Health Check
               graphql_describe_path,
               class: "hover:text-amber-400 underline!" %>
 <% end %>
-<div class="relative mx-12 my-2 bg-slate-900 text-lime-500 rounded-sm rounded-tr-md rounded-br-md">
-  <pre class="p-2 pr-[42] text-sm truncate">
-    <span class="text-white select-none">POST </span>
-    <span>
+<%= tag.div class: [ "relative mx-12 my-2 bg-slate-900 rounded-sm rounded-tr-md rounded-br-md", current_theme.highlight ] do %>
+  <%= tag.pre class: "p-2 pr-[42] text-sm truncate" do %>
+    <%= tag.span "POST", class: "text-white select-none" %>
+    <%= tag.span do %>
       /graphql<br><br>
       Content Type: application/json<br>
       Payload Data: { query: { health { status } } }<br><br>
       200 Response:<br>
       { data: { health: { status: "ok" } } }
-    </span>
-  </pre>
+    <% end %>
+  <% end %>
 
   <%= pom_copy_to_clipboard align: :right,
                             text: "curl -s -H 'Content-Type: application/json' -X POST http://localhost:3000/graphql -d '{\"query\":\"{ health { status } }\"}' | jq",
                             class: "rounded-bl-md rounded-br-none" %>
-</div>
+<% end %>
