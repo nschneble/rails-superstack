@@ -1,3 +1,5 @@
+# Parses and validates an email address string
+
 class EmailParser < BaseParser
   def call(value, domain: nil)
     return nil if value.blank?

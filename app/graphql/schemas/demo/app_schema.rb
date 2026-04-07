@@ -1,3 +1,5 @@
+# Demo GraphQL schema for MacGuffin queries
+
 class GraphQL::Schemas::Demo::AppSchema < GraphQL::Schema
   namespace :demo
 

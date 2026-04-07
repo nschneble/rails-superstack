@@ -1,3 +1,5 @@
+# Grants users management of their own subscriptions
+
 module Abilities::Billing::Subscriptions
   def self.apply(ability, user)
     if user.present?

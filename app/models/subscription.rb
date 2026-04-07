@@ -1,3 +1,5 @@
+# Represents a user's Stripe subscription with status, plan, and billing period
+
 class Subscription < ApplicationRecord
   belongs_to :user
 

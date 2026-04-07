@@ -1,3 +1,5 @@
+# Bearer API token issued to users, with digest-based authentication
+
 class ApiToken < ApplicationRecord
   include Draper::Decoratable
 

@@ -1,3 +1,5 @@
+# ActiveModel validator that rejects invalid HTTPS urls
+
 class URLValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless URLParser.call(value, host: options[:host])

@@ -1,3 +1,5 @@
+# Collection of fun trivia facts used in most emails
+
 class FunFacts
   FACTS = [
     "Octopuses have three hearts, and two stop beating when they swim",

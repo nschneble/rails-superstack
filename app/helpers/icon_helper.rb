@@ -1,3 +1,5 @@
+# Provides Font Awesome icon helpers
+
 module IconHelper
   def font_awesome_available?
     font_awesome_kit_src.present?

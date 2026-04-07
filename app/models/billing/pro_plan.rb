@@ -1,4 +1,5 @@
 module Billing
+  # Singleton instance of a pro subscription plan
   ProPlan = Plan.new(
     key: :pro,
     name: I18n.t("billing.plans.pro.name"),

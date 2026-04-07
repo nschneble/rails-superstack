@@ -1,3 +1,5 @@
+# Delivers a like notification via Turbo Stream and emails the user
+
 class Demo::NewMacGuffinLikeNotifier < Noticed::Event
   required_params :actor
 

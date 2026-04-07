@@ -1,4 +1,5 @@
 module Demo::Themes
+  # Records a user's demo theme purchase with Stripe checkout session tracking
   class ThemePurchase < ApplicationRecord
     self.table_name = "demo_theme_purchases"
 

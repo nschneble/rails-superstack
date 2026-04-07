@@ -1,3 +1,5 @@
+# Grants signed-in users the ability to manage their own records
+
 module Abilities::Users
   def self.apply(ability, user)
     if user.present?

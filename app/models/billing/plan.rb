@@ -1,4 +1,5 @@
 module Billing
+  # Immutable value object describing a subscription plan
   Plan = Data.define(
     :key,
     :name,

@@ -1,3 +1,5 @@
+# Parses and validates a URL string
+
 class URLParser < BaseParser
   def call(value, scheme: "https", host: nil)
     return nil if value.blank?

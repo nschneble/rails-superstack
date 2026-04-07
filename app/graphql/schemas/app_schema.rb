@@ -1,3 +1,5 @@
+# Main GraphQL schema for Health and User queries
+
 class GraphQL::Schemas::AppSchema < GraphQL::Schema
   object "Health" do
     field :status, :string, null: false

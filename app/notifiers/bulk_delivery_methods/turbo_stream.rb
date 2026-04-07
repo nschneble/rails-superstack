@@ -1,4 +1,5 @@
 module BulkDeliveryMethods
+  # Noticed bulk delivery broadcast to a Turbo Stream channel
   class TurboStream < Noticed::BulkDeliveryMethod
     required_options :stream, :message
 

@@ -1,3 +1,5 @@
+# Represents a pending request to change a user's email address
+
 class EmailChangeRequest < ApplicationRecord
   belongs_to :user
 

@@ -1,3 +1,5 @@
+# Demo content with Typesense search indexing and visibility control
+
 class Demo::MacGuffin < ApplicationRecord
   include Indexable
   include Typesense

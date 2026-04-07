@@ -1,3 +1,5 @@
+# Records incoming Stripe webhook events and tracks their processing status
+
 class WebhookEvent < ApplicationRecord
   enum :status, {
     pending: 0,

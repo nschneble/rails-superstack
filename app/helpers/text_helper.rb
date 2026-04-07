@@ -1,3 +1,5 @@
+# Provides rainbow color text formatting!
+
 module TextHelper
   RAINBOW_COLORS = [
     %w[red],

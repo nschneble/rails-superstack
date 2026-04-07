@@ -1,3 +1,5 @@
+# Represents a user's like on a MacGuffin, with self-promotion guard
+
 class Demo::MacGuffinLike < ApplicationRecord
   belongs_to :user
   belongs_to :mac_guffin, class_name: "Demo::MacGuffin"

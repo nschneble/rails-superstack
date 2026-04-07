@@ -1,3 +1,5 @@
+# Core user record with auth, roles, search indexing, and subscription support
+
 class User < ApplicationRecord
   class NotAuthorized < StandardError; end
 
