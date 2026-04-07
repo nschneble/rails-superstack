@@ -111,7 +111,7 @@ RSpec.describe "API tokens", type: :request do
     it "requires authentication" do
       token = create(:api_token)
 
-      delete settings_delete_api_token_path(token)
+      delete settings_revoke_api_token_path(token)
 
       expect(response).to redirect_to(auth_sign_in_path)
       expect(flash[:alert]).to eq("You must be logged in to visit this page")
@@ -122,7 +122,7 @@ RSpec.describe "API tokens", type: :request do
       token = create(:api_token, user:, revoked_at: nil)
       passwordless_sign_in(user)
 
-      delete settings_delete_api_token_path(token)
+      delete settings_revoke_api_token_path(token)
 
       expect(response).to redirect_to(settings_api_path)
       expect(flash[:notice]).to eq("API token revoked")
@@ -134,7 +134,7 @@ RSpec.describe "API tokens", type: :request do
       token = create(:api_token, user:, revoked_at: nil)
       passwordless_sign_in(user)
 
-      delete settings_delete_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+      delete settings_revoke_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
 
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq("text/vnd.turbo-stream.html")
@@ -147,7 +147,7 @@ RSpec.describe "API tokens", type: :request do
       token = create(:api_token, user:, revoked_at: nil)
       passwordless_sign_in(user)
 
-      delete settings_delete_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+      delete settings_revoke_api_token_path(token), headers: { "Accept" => "text/vnd.turbo-stream.html" }
 
       expect(response.body).to include(%(action="replace" target="api_tokens_empty"))
       expect(response.body).to include("No tokens")
@@ -158,7 +158,7 @@ RSpec.describe "API tokens", type: :request do
       other_user_token = create(:api_token)
       passwordless_sign_in(user)
 
-      delete settings_delete_api_token_path(other_user_token)
+      delete settings_revoke_api_token_path(other_user_token)
 
       expect(response).to have_http_status(:not_found)
     end
