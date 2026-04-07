@@ -1,6 +1,7 @@
 mode_ci:
   enabled: true
   branch: "main"
+coverage_path: "simplecov/"
 no_browser: true
 threshold_score: 90
 minimum_score: 10
