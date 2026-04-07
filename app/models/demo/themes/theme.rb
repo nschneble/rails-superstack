@@ -1,57 +1,35 @@
-module Demo::Themes
-  # Represents a purchasable demo theme with pricing and attribution data
-  Theme = Data.define(
-    :key,
-    :name,
-    :price_cents,
-    :description,
-    :image,
-    :image_attribution,
-    :palette
-  ) do
-    extend Forwardable
-    include Draper::Decoratable
+module Demo
+  module Themes
+    # Represents a purchasable demo theme with pricing and attribution data
+    Theme = Data.define(:key, :name, :price_cents, :description, :image, :image_attribution, :palette) do
+      extend Forwardable
 
-    def_delegators :palette, *Palettes::Palette.members
+      include Draper::Decoratable
+      include Serializable
 
-    def selector
-      key.dasherize
-    end
+      json_source "lib/data/demo/themes.json"
 
-    class << self
-      def all
-        @all ||= load_from_json
+      def_delegators :palette, *Palettes::Palette.members
+
+      def initialize(palette:, **args)
+        super(**args, palette: Palettes::Palette.new(**palette))
       end
 
-      def find(key)
-        all.find { |theme| theme.key == key }
+      def selector
+        key.dasherize
       end
 
-      def default
-        find("default")
-      end
+      class << self
+        def find(key)
+          all.find { |theme| theme.key == key }
+        end
 
-      def purchasable
-        all.reject { |theme| theme.key == "default" }
-      end
+        def default
+          find("default")
+        end
 
-      private
-
-      def load_from_json
-        data = JSON.parse(
-          File.read(Rails.root.join("lib/data/demo/themes.json")),
-          symbolize_names: true
-        )
-        data.map do |attrs|
-          new(
-            key: attrs[:key],
-            name: attrs[:name],
-            price_cents: attrs[:price_cents],
-            description: attrs[:description],
-            image: attrs[:image],
-            image_attribution: attrs[:image_attribution],
-            palette: Palettes::Palette.new(**attrs[:palette])
-          )
+        def purchasable
+          all.reject { |theme| theme.key == "default" }
         end
       end
     end

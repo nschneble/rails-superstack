@@ -22,7 +22,8 @@ class Demo::WelcomeItemDecorator < ApplicationDecorator
         part
       when Hash
         if part.key?(:link)
-          link_to part[:link], part[:to], class: "hover:text-amber-400 underline!"
+          url = part[:to] || send(part[:route])
+          link_to part[:link], url, class: "hover:text-amber-400 underline!"
         elsif part.key?(:hidden)
           tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
         elsif part.key?(:highlight)
