@@ -1,3 +1,5 @@
+# Inline badge indicating a user's subscription tier (free or pro)
+
 class Pom::SubscriptionBadgeComponent < Pom::Component
   option :pro, default: false
 

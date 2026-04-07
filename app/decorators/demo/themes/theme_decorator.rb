@@ -1,3 +1,5 @@
+# Formats theme price and image attribution segments for display in views
+
 class Demo::Themes::ThemeDecorator < Draper::Decorator
   include Draper::LazyHelpers
 

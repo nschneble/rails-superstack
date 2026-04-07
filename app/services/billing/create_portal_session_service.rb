@@ -1,4 +1,5 @@
 module Billing
+  # Creates a Stripe customer portal session for subscription self-management
   class CreatePortalSessionService < BillingService
     def call(user:, return_url:)
       customer = user.stripe_customer_id

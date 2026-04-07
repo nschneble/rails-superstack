@@ -1,3 +1,5 @@
+# Resolves a current demo theme from the user's theme purchases
+
 module Demo::Themeable
   extend ActiveSupport::Concern
 

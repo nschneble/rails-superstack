@@ -1,3 +1,5 @@
+# Formats API token display values, including last-used-at timestamps
+
 class ApiTokenDecorator < ApplicationDecorator
   include Draper::LazyHelpers
 

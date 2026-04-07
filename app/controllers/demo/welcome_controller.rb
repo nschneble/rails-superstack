@@ -1,4 +1,5 @@
 module Demo
+  # Builds and renders the demo welcome page with showcase items
   class WelcomeController < DemoApplicationController
     def show
       @items = build_items.reject(&:hidden).map(&:decorate)

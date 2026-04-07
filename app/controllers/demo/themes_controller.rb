@@ -1,4 +1,5 @@
 module Demo
+  # Lists purchasable demo themes and initiates checkout for theme purchases
   class ThemesController < DemoAuthenticatedController
     def index
       @themes = Themes::ThemePurchase::THEMES

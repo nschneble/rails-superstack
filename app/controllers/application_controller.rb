@@ -1,3 +1,5 @@
+# Base controller with auth, notifications, and search query setup
+
 class ApplicationController < ActionController::Base
   include Authenticatable
   include Notifiable

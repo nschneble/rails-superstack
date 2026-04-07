@@ -1,4 +1,5 @@
 module Demo::Themes
+  # Creates a Stripe one-time checkout session for purchasing a demo theme
   class CreateCheckoutSessionService < Billing::BillingService
     def call(user:, theme_key:, success_url:, cancel_url:)
       theme = Theme.find(theme_key)

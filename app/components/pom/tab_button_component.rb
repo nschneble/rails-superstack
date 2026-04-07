@@ -1,3 +1,5 @@
+# Settings tab navigation button
+
 class Pom::TabButtonComponent < Pom::Component
   option :tab, enums: [ :api, :billing, :profile ], default: :profile
   option :icon, default: "bookmark"

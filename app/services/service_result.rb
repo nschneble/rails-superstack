@@ -1,3 +1,4 @@
+# Immutable value object representing a service outcome (success or failure)
 ServiceResult = Data.define(:success?, :payload, :error) do
   def self.ok(payload = nil)
     new(success?: true, payload:, error: nil)

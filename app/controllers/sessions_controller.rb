@@ -1,3 +1,5 @@
+# Handles passwordless sign-in sessions
+
 class SessionsController < Passwordless::SessionsController
   before_action :no_users_allowed!, only: %i[new create show update confirm]
   after_action -> { flash.discard(:alert) }

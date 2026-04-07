@@ -1,3 +1,5 @@
+# Base billing service that provides a shared Stripe client instance
+
 class Billing::BillingService < BaseService
   private
 

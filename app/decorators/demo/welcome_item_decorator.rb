@@ -1,3 +1,5 @@
+# Renders welcome item description and byline as mobile-responsive HTML tags
+
 class Demo::WelcomeItemDecorator < ApplicationDecorator
   include Draper::LazyHelpers
 

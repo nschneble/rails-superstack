@@ -1,4 +1,5 @@
 module Demo::Themes
+  # Represents a purchasable demo theme with pricing and attribution data
   Theme = Data.define(
     :key,
     :name,

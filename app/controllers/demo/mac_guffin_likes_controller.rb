@@ -1,4 +1,5 @@
 module Demo
+  # Handles creating and destroying MacGuffin likes for authenticated users
   class MacGuffinLikesController < DemoAuthenticatedController
     def create
       result = MacGuffinLikes::CreateService.call(user: current_user, mac_guffin:, ability: current_ability)

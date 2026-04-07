@@ -1,3 +1,5 @@
+# Provides handlers for common error scenarios
+
 module Rescuable
   extend ActiveSupport::Concern
 

@@ -1,3 +1,5 @@
+# Manages API token creation and revocation from the settings API tab
+
 class Settings::ApiTokensController < AuthenticatedController
   def create
     api_token = ApiToken.issue!(user: current_user, name: api_token_params[:name])

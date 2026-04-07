@@ -1,4 +1,5 @@
 module Email
+  # Initiates an email change request and sends a confirmation email
   class RequestService < BaseService
     def call(user:, new_email:)
       new_email = EmailParser.call(new_email)

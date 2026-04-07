@@ -1,3 +1,5 @@
+# Syncs a Stripe subscription object into the local Subscription record
+
 class Billing::UpsertSubscriptionService < BaseService
   def call(stripe_subscription:, stripe_customer_id:)
     user = Subscription.find_by(stripe_customer_id:)&.user

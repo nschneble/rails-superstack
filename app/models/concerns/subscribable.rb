@@ -1,3 +1,5 @@
+# Adds subscription and plan helpers to models
+
 module Subscribable
   extend ActiveSupport::Concern
 

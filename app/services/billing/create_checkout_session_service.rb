@@ -1,4 +1,5 @@
 module Billing
+  # Creates a Stripe subscription checkout session with optional trial period
   class CreateCheckoutSessionService < BillingService
     FREE_TRIAL_DURATION = 7.days
     SECONDS_PER_DAY = 86400

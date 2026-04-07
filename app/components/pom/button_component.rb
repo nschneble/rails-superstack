@@ -1,3 +1,5 @@
+# Full-width styled link button
+
 class Pom::ButtonComponent < Pom::Component
   option :theme, enums: [ :slate, :emerald ], default: :slate
   option :size, enums: [ :base ], default: :base

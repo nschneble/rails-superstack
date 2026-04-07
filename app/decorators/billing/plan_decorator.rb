@@ -1,3 +1,5 @@
+# Formats subscription plan pricing for display in views
+
 class Billing::PlanDecorator < Draper::Decorator
   include Draper::LazyHelpers
 

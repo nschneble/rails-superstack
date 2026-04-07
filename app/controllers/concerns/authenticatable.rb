@@ -1,3 +1,5 @@
+# Provides authentication helpers for controllers
+
 module Authenticatable
   extend ActiveSupport::Concern
 

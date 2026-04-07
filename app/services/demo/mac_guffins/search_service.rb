@@ -1,4 +1,5 @@
 module Demo
+  # Searches MacGuffins via Typesense with filtering and pagination
   class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 

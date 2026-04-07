@@ -1,4 +1,5 @@
 module Notifications
+  # Broadcasts a global notification message to all users via Noticed
   class BroadcastService < BaseService
     def call(message:, actor:)
       return ServiceResult.fail(:blank) if message.blank?

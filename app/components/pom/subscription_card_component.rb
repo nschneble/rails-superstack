@@ -1,3 +1,5 @@
+# Pricing plan card for subscription selection
+
 class Pom::SubscriptionCardComponent < Pom::Component
   option :plan, required: true
   option :emphasis, enums: [ :emerald, :slate ], default: :slate

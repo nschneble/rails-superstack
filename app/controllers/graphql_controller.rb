@@ -1,3 +1,5 @@
+# Serves GraphQL API endpoints, supporting multiple schemas and GraphiQL
+
 class GraphQLController < ApplicationController
   include Rails::GraphQL::Controller
 

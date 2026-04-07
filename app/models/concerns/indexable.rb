@@ -1,3 +1,5 @@
+# Adds asynchronous search index update support via ReindexRecordsJob
+
 module Indexable
   extend ActiveSupport::Concern
 

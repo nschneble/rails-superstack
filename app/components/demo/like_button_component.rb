@@ -1,3 +1,5 @@
+# Toggle button for liking or unliking a MacGuffin
+
 class Demo::LikeButtonComponent < Pom::Component
   option :selected, default: false
   option :disabled, default: false

@@ -1,4 +1,5 @@
 module Demo
+  # Searches and lists MacGuffins with ability-scoped access control
   class MacGuffinsController < DemoApplicationController
     def index
       result = MacGuffins::SearchService.call(ability: current_ability, query: @query, page: params[:page], request:)

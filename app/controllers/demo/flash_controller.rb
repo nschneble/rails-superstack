@@ -1,4 +1,5 @@
 module Demo
+  # Demo pages that showcase flash alert and notice messages
   class FlashController < DemoApplicationController
     before_action -> { flash.clear }
     after_action  -> { flash.discard }

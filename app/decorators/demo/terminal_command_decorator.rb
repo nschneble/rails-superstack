@@ -1,3 +1,5 @@
+# Renders terminal command descriptions as mobile-responsive HTML tags
+
 class Demo::TerminalCommandDecorator < ApplicationDecorator
   include Draper::LazyHelpers
 

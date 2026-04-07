@@ -1,3 +1,5 @@
+# Aggregates user and global notifications
+
 module Notifiable
   extend ActiveSupport::Concern
 

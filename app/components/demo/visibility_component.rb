@@ -1,3 +1,5 @@
+# Badge displaying a MacGuffin visibility level (e.g. open, user, admin)
+
 class Demo::VisibilityComponent < Pom::Component
   option :visibility, required: true
   option :palette, enums: [ :default ], default: :default
