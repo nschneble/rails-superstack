@@ -5,7 +5,7 @@ module Email
       new_email = EmailParser.call(new_email)
       EmailChangeRequest.where(new_email:).expired.delete_all
 
-      return ServiceResult.fail(:invalid) if new_email.nil?
+      return ServiceResult.fail(:invalid) unless new_email.present?
 
       if User.where(email: new_email).exists? || EmailChangeRequest.where(new_email:).active.exists?
         return ServiceResult.fail(:unavailable)

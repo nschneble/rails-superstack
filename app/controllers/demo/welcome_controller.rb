@@ -15,7 +15,7 @@ module Demo
             { link: "Sign out", to: auth_sign_out_path },
             { hidden: [ "with", { link: "Passwordless", to: "https://github.com/mikker/passwordless" } ] }
           ],
-          hidden: current_user.nil?
+          hidden: current_user.blank?
         ),
         WelcomeItem.new(
           avatar: "key",

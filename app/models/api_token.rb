@@ -33,7 +33,15 @@ class ApiToken < ApplicationRecord
   end
 
   def active?
-    revoked_at.nil? && (expires_at.nil? || expires_at.future?)
+    !expired? && !revoked?
+  end
+
+  def expired?
+    expires_at.present? && expires_at.past?
+  end
+
+  def revoked?
+    revoked_at.present?
   end
 
   def revoke!

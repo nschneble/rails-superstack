@@ -5,9 +5,7 @@ class URLParser < BaseParser
     return nil if value.blank?
 
     uri = URI.parse(value)
-
-    return nil unless uri.scheme == scheme
-    return nil unless host.nil? || uri.host =~ host
+    return nil if uri.scheme != scheme || (host.present? && uri.host !~ host)
 
     uri
   rescue URI::InvalidURIError

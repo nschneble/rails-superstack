@@ -38,7 +38,7 @@ class User < ApplicationRecord
       login_count:   login_count + 1
     }
 
-    attrs[:email_confirmed_at] = now if email_confirmed_at.nil?
+    attrs[:email_confirmed_at] = now unless email_confirmed_at.present?
 
     update!(attrs)
   end

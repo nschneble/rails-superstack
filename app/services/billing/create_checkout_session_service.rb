@@ -9,7 +9,7 @@ module Billing
       trial_period_days = eligible_for_trial?(user) ? TRIAL_PERIOD_IN_DAYS : nil
 
       customer = user.stripe_customer_id
-      customer = create_customer(user) if customer.nil?
+      customer = create_customer(user) unless customer.present?
 
       session_params = {
         customer:,
@@ -33,7 +33,7 @@ module Billing
 
     def eligible_for_trial?(user)
       subscription = user.subscription
-      subscription.nil? || (subscription.incomplete? && subscription.stripe_subscription_id.nil?)
+      subscription.blank? || (subscription.incomplete? && subscription.stripe_subscription_id.blank?)
     end
 
     def create_customer(user)

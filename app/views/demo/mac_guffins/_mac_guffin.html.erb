@@ -22,7 +22,7 @@
         path: demo_mac_guffin_like_path(mac_guffin, page: params[:page], q: params[:q]),
         count: mac_guffin.likes.count,
         selected: Demo::MacGuffinLike.accessible_by(current_ability).find_by(user: current_user, mac_guffin:).present?,
-        disabled: current_user.nil? || current_user == mac_guffin.user
+        disabled: current_user.blank? || current_user == mac_guffin.user
       ) %>
     <% end %>
   <% end %>
