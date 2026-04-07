@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Authenticatable
-  include Notifiable
+  include Notifications::Notifiable
   include Pagy::Method
   include Rescuable
 
