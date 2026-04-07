@@ -68,3 +68,6 @@ yarn-debug.log*
 
 # SimpleCov coverage results
 /simplecov
+
+# RubyCritic code analysis
+/rubycritic
