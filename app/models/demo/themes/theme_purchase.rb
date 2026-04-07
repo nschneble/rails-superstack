@@ -11,18 +11,12 @@ module Demo::Themes
       refunded: 3
     }
 
-    THEMES = {
-      CrimsonTideTheme.key => CrimsonTideTheme.decorate,
-      ForestCanopyTheme.key => ForestCanopyTheme.decorate,
-      MidnightGalaxyTheme.key => MidnightGalaxyTheme.decorate
-    }.freeze
-
-    validates :theme_key, presence: true, inclusion: { in: THEMES.keys }
+    validates :theme_key, presence: true, inclusion: { in: -> { Theme.purchasable.map(&:key) } }
 
     delegate :name, :price_cents, :description, to: :theme, prefix: true
 
     def theme
-      THEMES[theme_key]
+      Theme.find(theme_key)&.decorate
     end
   end
 end

@@ -1,7 +1,7 @@
 module Demo::Themes
   class CreateCheckoutSessionService < Billing::BillingService
     def call(user:, theme_key:, success_url:, cancel_url:)
-      theme = ThemePurchase::THEMES[theme_key]
+      theme = Theme.find(theme_key)
 
       return ServiceResult.fail(:invalid_theme) unless theme
       return ServiceResult.fail(:already_purchased) if ThemePurchase.exists?(user:, theme_key:, status: :completed)
