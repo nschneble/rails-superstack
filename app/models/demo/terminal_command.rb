@@ -1,6 +1,5 @@
-# Immutable value object representing a CLI command
-
 module Demo
+  # Immutable value object representing a CLI command
   TerminalCommand = Data.define(:icon, :name, :code, :description) do
     include Draper::Decoratable
     include Serializable

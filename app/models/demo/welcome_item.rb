@@ -1,6 +1,5 @@
-# Immutable value object representing a feature showcase item
-
 module Demo
+  # Immutable value object representing a feature showcase item
   WelcomeItem = Data.define(:avatar, :description, :byline, :hidden, :visibility) do
     include Draper::Decoratable
     include Serializable

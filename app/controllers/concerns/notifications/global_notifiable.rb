@@ -1,6 +1,5 @@
-# Aggregates global notifications
-
 module Notifications
+  # Aggregates global notifications
   module GlobalNotifiable
     extend ActiveSupport::Concern
 

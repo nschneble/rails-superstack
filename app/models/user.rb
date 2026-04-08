@@ -1,6 +1,7 @@
 # Core user record with auth, roles, search indexing, and subscription support
 
 class User < ApplicationRecord
+  # Raised during access-denied error handling
   class NotAuthorized < StandardError; end
 
   include Indexable

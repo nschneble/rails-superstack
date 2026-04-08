@@ -1,6 +1,5 @@
-# Aggregates user notifications
-
 module Notifications
+  # Aggregates user notifications
   module UserNotifiable
     extend ActiveSupport::Concern
 

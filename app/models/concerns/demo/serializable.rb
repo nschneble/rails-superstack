@@ -3,6 +3,7 @@
 module Demo::Serializable
   extend ActiveSupport::Concern
 
+  # Class-level methods for serializable models
   module ClassMethods
     def json_source(path)
       @json_path = Rails.root.join(path)

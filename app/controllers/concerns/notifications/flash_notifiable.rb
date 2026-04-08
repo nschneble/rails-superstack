@@ -1,6 +1,5 @@
-# Aggregates flash notifications
-
 module Notifications
+  # Aggregates flash notifications
   module FlashNotifiable
     extend ActiveSupport::Concern
 
