@@ -6,7 +6,6 @@ module Billing
       return ServiceResult.fail(:no_customer) if customer.blank?
 
       session = stripe_client.v1.billing_portal.sessions.create(customer:, return_url:)
-
       ServiceResult.ok(session)
     rescue Stripe::StripeError => error
       Rails.logger.error("[Billing] Portal error: #{error.message}")

@@ -6,11 +6,12 @@ class Settings::CreateApiTokensController < AuthenticatedController
   def create
     api_token = ApiToken.issue!(user: current_user, name: api_token_params[:name])
     plaintext_token = api_token.plaintext_token
+    notice = t("settings.api_tokens.flash.created")
 
     respond_to do |format|
       format.html do
         session[:api_token_plaintext] = plaintext_token
-        redirect_to settings_api_path, notice: t("settings.api_tokens.flash.created")
+        redirect_to settings_api_path, notice:
       end
 
       format.turbo_stream do
@@ -19,7 +20,7 @@ class Settings::CreateApiTokensController < AuthenticatedController
           stream_api_token_reveal(plaintext_token),
           stream_api_token_add(api_token.decorate),
           stream_empty_api_state,
-          stream_notification(t("settings.api_tokens.flash.created"))
+          stream_notification(notice)
         ]
       end
     end

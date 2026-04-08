@@ -6,13 +6,8 @@ module Billing
     TRIAL_PERIOD_IN_DAYS = FREE_TRIAL_DURATION.to_i / SECONDS_PER_DAY
 
     def call(user:, price_id:, success_url:, cancel_url:)
-      trial_period_days = eligible_for_trial?(user) ? TRIAL_PERIOD_IN_DAYS : nil
-
-      customer = user.stripe_customer_id
-      customer = create_customer(user) unless customer.present?
-
       session_params = {
-        customer:,
+        customer: user.stripe_customer_id.presence || create_customer(user),
         line_items: [ { price: price_id, quantity: 1 } ],
         mode: "subscription",
         success_url:,
@@ -20,7 +15,7 @@ module Billing
         allow_promotion_codes: true
       }
 
-      session_params[:subscription_data] = { trial_period_days: } if trial_period_days
+      session_params[:subscription_data] = { trial_period_days: TRIAL_PERIOD_IN_DAYS } if eligible_for_trial?(user)
       session = stripe_client.v1.checkout.sessions.create(session_params)
 
       ServiceResult.ok(session)
