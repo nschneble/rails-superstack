@@ -5,7 +5,7 @@ class Settings::RevokeApiTokensController < AuthenticatedController
 
   def destroy
     api_token = current_user.api_tokens.active.find(params[:id])
-    api_token.revoke!
+    api_token.revoke
 
     respond_to do |format|
       format.html do

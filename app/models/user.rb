@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   enum :role, { user: 0, admin: 1 }
 
-  def record_passwordless_login!(request)
+  def record_passwordless_login(request)
     now = Time.current
 
     attrs = {

@@ -1,7 +1,7 @@
 # Handles passwordless sign-in sessions
 
 class SessionsController < Passwordless::SessionsController
-  before_action :no_users_allowed!, only: %i[new create show update confirm]
+  before_action :no_users_allowed, only: %i[new create show update confirm]
   after_action -> { flash.discard(:alert) }
 
   def create
@@ -14,7 +14,7 @@ class SessionsController < Passwordless::SessionsController
 
   private
 
-  def no_users_allowed!
+  def no_users_allowed
     return unless authenticate_by_session(User)
 
     redirect_to root_path, notice: t("passwordless.sessions.errors.session_exists")

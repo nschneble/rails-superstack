@@ -29,7 +29,7 @@ module Authenticatable
   def authenticate_by_token(token)
     return if token.blank?
 
-    ApiToken.authenticate(token)&.tap(&:mark_used!)&.user
+    ApiToken.authenticate(token)&.tap(&:mark_used)&.user
   end
 
   def bearer_token

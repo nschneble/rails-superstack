@@ -17,7 +17,7 @@ class ApiToken < ApplicationRecord
 
   def self.issue!(user:, name:, expires_at: nil)
     token = new(user:, name:, expires_at:)
-    token.generate_plaintext_token!
+    token.generate_plaintext_token
     token.save!
     token
   end
@@ -44,15 +44,15 @@ class ApiToken < ApplicationRecord
     revoked_at.present?
   end
 
-  def revoke!
+  def revoke
     update!(revoked_at: Time.current)
   end
 
-  def mark_used!
+  def mark_used
     update_column(:last_used_at, Time.current) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  def generate_plaintext_token!
+  def generate_plaintext_token
     @plaintext_token = SecureRandom.hex(32)
     self.token_digest = self.class.digest(@plaintext_token)
   end

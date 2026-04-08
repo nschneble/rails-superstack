@@ -9,6 +9,6 @@ Passwordless.configure do |config|
     user = session.authenticatable
     return unless user
 
-    user.record_passwordless_login!(request)
+    user.record_passwordless_login(request)
   end
 end
