@@ -3,7 +3,7 @@
 class BaseParser
   def self.call(...) = new.call(...)
 
-  def call(*args)
+  def call(*_args)
     raise NotImplementedError, t("errors.method_not_implemented")
   end
 end
