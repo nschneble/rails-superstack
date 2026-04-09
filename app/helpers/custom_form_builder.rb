@@ -115,12 +115,10 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     super(method, text, apply_classes(options, LABEL_CLASSES), &block)
   end
 
-  def email_field(method, options = {})
-    super(method, apply_classes(options, INPUT_CLASSES))
-  end
-
-  def text_field(method, options = {})
-    super(method, apply_classes(options, INPUT_CLASSES))
+  %i[email_field text_field].each do |field_type|
+    define_method(field_type) do |method, options = {}|
+      super(method, apply_classes(options, INPUT_CLASSES))
+    end
   end
 
   def text_area(method, options = {})
