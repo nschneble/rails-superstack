@@ -1,3 +1,5 @@
+# SuperAdmin dashboard for MacGuffin likes
+
 class SuperAdmin::Demo::MacGuffinLikeDashboard < SuperAdmin::BaseDashboard
   resource Demo::MacGuffinLike
 

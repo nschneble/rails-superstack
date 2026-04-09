@@ -1,3 +1,5 @@
+# Custom SimpleCov formatter that outputs below RSpec test runs
+
 class SimpleCov::Formatter::CustomFormatter
   def format(result)
     output = []

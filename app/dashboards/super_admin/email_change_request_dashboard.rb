@@ -1,3 +1,5 @@
+# SuperAdmin dashboard for email change requests
+
 class SuperAdmin::EmailChangeRequestDashboard < SuperAdmin::BaseDashboard
   resource EmailChangeRequest
 
