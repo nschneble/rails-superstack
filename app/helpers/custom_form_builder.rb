@@ -115,18 +115,14 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     super(method, text, apply_classes(options, LABEL_CLASSES), &block)
   end
 
-  %i[email_field text_field].each do |field_type|
+  { email_field: INPUT_CLASSES, text_field: INPUT_CLASSES, text_area: TEXT_AREA_CLASSES }.each do |field_type, classes|
     define_method(field_type) do |method, options = {}|
-      super(method, apply_classes(options, INPUT_CLASSES))
+      super(method, apply_classes(options, classes))
     end
   end
 
-  def text_area(method, options = {})
-    super(method, apply_classes(options, TEXT_AREA_CLASSES))
-  end
-
   def submit(value = nil, options = {})
-    super(value, apply_classes(options, BUTTON_CLASSES))
+    super(value, options.merge(class: [ BUTTON_CLASSES, options[:class] ]))
   end
 
   private
