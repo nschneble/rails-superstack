@@ -1,0 +1,9 @@
+---
+detectors:
+  # Controller concerns mix instance methods into controller classes.
+  # Methods like `authenticate_by_token` and `passwordless_sign_in_path` use
+  # request context (provided by the including controller) rather than their
+  # own instance variables.
+  # Reek flags these as UtilityFunction but they're controller-context helpers.
+  UtilityFunction:
+    enabled: false

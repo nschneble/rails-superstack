@@ -1,0 +1,7 @@
+---
+detectors:
+  # Decorators wrap domain objects and delegate to them by design.
+  # Reek flags this as FeatureEnvy because decorator methods access the wrapped
+  # object's attributes, but that's the WHOLE DAMN POINT of the pattern.
+  FeatureEnvy:
+    enabled: false

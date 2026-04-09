@@ -1,0 +1,6 @@
+---
+# Paths excluded from all smell detection.
+# These are DSL declarations or test infrastructure; not application logic.
+exclude_paths:
+  - app/dashboards # SuperAdmin resources
+  - app/helpers/simplecov # SimpleCov formatters

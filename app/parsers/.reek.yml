@@ -1,0 +1,7 @@
+---
+detectors:
+  # Parsers are stateless transformation objects.
+  # Reek flags the `call` method as UtilityFunction because it doesn't use any
+  # instance variables, but parsers are intentionally stateless.
+  UtilityFunction:
+    enabled: false
