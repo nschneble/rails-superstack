@@ -1,5 +1,7 @@
 # Adds Tailwind styles to form labels, inputs, and buttons
 
+# :reek:DataClump — (method, options) is the Rails FormBuilder convention; cannot change the signature
+# :reek:TooManyConstants — CSS class arrays belong together here; splitting would scatter related styling
 class CustomFormBuilder < ActionView::Helpers::FormBuilder
   FORM_CLASSES = %w[
     max-w-[650]

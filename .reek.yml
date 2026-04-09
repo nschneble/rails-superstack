@@ -27,6 +27,10 @@ directories:
       # Methods like `authenticate_by_token` use request context from the
       # including controller rather than their own instance variables.
       enabled: false
+    FeatureEnvy:
+      # Concerns operate on objects passed in from or mixed-in by the host
+      # controller. Accessing external object attributes is the whole point.
+      enabled: false
 
   "app/decorators":
     FeatureEnvy:

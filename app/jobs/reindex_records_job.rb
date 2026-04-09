@@ -3,6 +3,7 @@
 class ReindexRecordsJob
   @queue = :performance
 
+  # :reek:ControlParameter — Resque always calls .perform with queued args; splitting into two job classes would break the API
   def self.perform(record, remove)
     if remove
       record.remove_from_index!

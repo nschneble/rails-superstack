@@ -19,7 +19,9 @@ module Demo
     end
 
     def redirect_location
-      return demo_mac_guffins_path(page: params[:page], q: params[:q]) if params[:page].present? || params[:q].present?
+      page = params[:page]
+      q = params[:q]
+      return demo_mac_guffins_path(page:, q:) if page.present? || q.present?
 
       request.referer.presence || demo_mac_guffins_path
     end

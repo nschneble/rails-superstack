@@ -4,10 +4,11 @@ module Billing
     def call(payload:)
       session = payload.dig("data", "object")
 
-      case session["mode"]
+      mode = session["mode"]
+      case mode
       when "subscription" then handle_subscription_checkout(session)
       else
-        handler = self.class.handlers[session["mode"]]
+        handler = self.class.handlers[mode]
         handler ? handler.call(session:) : ServiceResult.ok(nil)
       end
     end

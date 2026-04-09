@@ -3,6 +3,9 @@ module Demo
   class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 
+    # :reek:LongParameterList — 4 keyword args; all distinct search context inputs with no natural grouping
+    # :reek:DuplicateMethodCall — empty_result(page, request) called in distinct execution paths (guard vs rescue)
+    # :reek:TooManyStatements — pluck accessible ids, guard empty, search with filters, wrap pagy, return; each step is required
     def call(ability:, query:, page:, request:)
       searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
       return ServiceResult.ok(empty_result(page, request)) if searchable_ids.empty?

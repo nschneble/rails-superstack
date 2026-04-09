@@ -1,5 +1,6 @@
 # Bearer API token issued to users, with digest-based authentication
 
+# :reek:InstanceVariableAssumption — @plaintext_token is intentionally lazy; exposed via attr_reader
 class ApiToken < ApplicationRecord
   include Draper::Decoratable
 

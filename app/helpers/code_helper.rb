@@ -9,6 +9,7 @@ module CodeHelper
     solarized: { dark: "Solarized (dark)",     light: "Solarized (light)" }
   }
 
+  # :reek:LongParameterList — 4 orthogonal display options; grouping into an object would obscure intent
   def highlight_syntax(snippet, syntax = "ruby", theme = :ocean, variant = :dark)
     return "<pre>Hello, world!</pre>" unless snippet.present?
 

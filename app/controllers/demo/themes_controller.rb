@@ -7,10 +7,11 @@ module Demo
     end
 
     def checkout
+      theme_key = params[:theme_key]
       result = Themes::CreateCheckoutSessionService.call(
         user: current_user,
-        theme_key: params[:theme_key],
-        success_url: demo_themes_url(purchased: params[:theme_key]),
+        theme_key:,
+        success_url: demo_themes_url(purchased: theme_key),
         cancel_url: demo_themes_url
       )
 

@@ -2,23 +2,32 @@
 
 class SimpleCov::Formatter::CustomFormatter
   def format(result)
-    output = []
+    $stdout.puts build_output(result).join("\n")
+  end
 
-    output << ""
-    output << "╭────────────────────────────╮"
-    output << "│ SimpleCov coverage summary │"
-    output << "╰─┬──────────────────────────╯"
-    output << "  ├─> #{result.files.count} files tracked with #{result.covered_percent.round(2)}% coverage"
+  private
 
-    branch_coverage_stats = result.coverage_statistics[:branch]
-    if branch_coverage_stats.present?
-      output << "  ├─> #{branch_coverage_stats.covered}/#{branch_coverage_stats.total} branches"
-    end
+  def build_output(result)
+    [
+      "",
+      *coverage_header,
+      "  ├─> #{result.files.count} files tracked with #{result.covered_percent.round(2)}% coverage",
+      branch_coverage_line(result.coverage_statistics[:branch]),
+      "  └─> #{result.covered_lines}/#{result.total_lines} lines of code",
+      "",
+      ""
+    ].compact
+  end
 
-    output << "  └─> #{result.covered_lines}/#{result.total_lines} lines of code"
-    output << ""
-    output << ""
+  def coverage_header
+    [
+      "╭────────────────────────────╮",
+      "│ SimpleCov coverage summary │",
+      "╰─┬──────────────────────────╯"
+    ]
+  end
 
-    $stdout.puts output.join("\n")
+  def branch_coverage_line(stats)
+    "  ├─> #{stats.covered}/#{stats.total} branches" if stats.present?
   end
 end

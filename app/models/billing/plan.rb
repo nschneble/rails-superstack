@@ -12,6 +12,7 @@ module Billing
   ) do
     include Draper::Decoratable
 
+    # :reek:LongParameterList — Data.define value object; all fields are required data members
     def initialize(
       description: "",
       price_monthly_cents: 0,
@@ -35,6 +36,7 @@ module Billing
       price_monthly_cents.zero? && price_yearly_cents.zero?
     end
 
+    # :reek:ControlParameter — legitimate term-based dispatch; the two cases are fundamentally different lookups
     def stripe_price_id(term)
       case term
       when :monthly then stripe_price_monthly_id&.call

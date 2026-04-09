@@ -1,5 +1,6 @@
 # Provides Font Awesome icon helpers
 
+# :reek:DataClump — (name, options) is the Font Awesome helper convention; extracting a parameter object would add noise
 module IconHelper
   def font_awesome_available?
     font_awesome_kit_src.present?

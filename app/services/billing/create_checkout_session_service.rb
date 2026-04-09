@@ -5,6 +5,7 @@ module Billing
     SECONDS_PER_DAY = 86400
     TRIAL_PERIOD_IN_DAYS = FREE_TRIAL_DURATION.to_i / SECONDS_PER_DAY
 
+    # :reek:LongParameterList — 4 keyword args; all are required Stripe checkout parameters
     def call(user:, price_id:, success_url:, cancel_url:)
       session_params = {
         customer: stripe_customer_id(user),

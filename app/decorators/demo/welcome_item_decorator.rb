@@ -16,20 +16,24 @@ class Demo::WelcomeItemDecorator < ApplicationDecorator
   private
 
   def render_segments(segments)
-    safe_join(segments.map do |part|
-      case part
-      when String
-        part
-      when Hash
-        if part.key?(:link)
-          url = part[:to] || send(part[:route])
-          link_to part[:link], url, class: "hover:text-amber-400 underline!"
-        elsif part.key?(:hidden)
-          tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
-        elsif part.key?(:highlight)
-          tag.span part[:highlight], class: "text-amber-200 font-semibold"
-        end
-      end
-    end, " ")
+    safe_join(segments.map { |part| render_part(part) }, " ")
+  end
+
+  def render_part(part)
+    case part
+    when String then part
+    when Hash   then render_hash_part(part)
+    end
+  end
+
+  def render_hash_part(part)
+    if part.key?(:link)
+      url = part[:to] || send(part[:route])
+      link_to part[:link], url, class: "hover:text-amber-400 underline!"
+    elsif part.key?(:hidden)
+      tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
+    elsif part.key?(:highlight)
+      tag.span part[:highlight], class: "text-amber-200 font-semibold"
+    end
   end
 end

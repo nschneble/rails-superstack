@@ -3,23 +3,27 @@
 class Settings::RevokeApiTokensController < AuthenticatedController
   include Streamable
 
+  # :reek:TooManyStatements — load tokens, find token, revoke, build message, respond with html+turbo_stream
   def destroy
-    api_token = current_user.api_tokens.active.find(params[:id])
+    active_tokens = current_user.api_tokens.active
+    api_token = active_tokens.find(params[:id])
     api_token.revoke
+    revoked_msg = t("settings.api_tokens.flash.revoked")
 
     respond_to do |format|
-      format.html do
-        redirect_to settings_api_path, notice: t("settings.api_tokens.flash.revoked")
-      end
-
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove(api_token),
-          stream_api_token_reveal,
-          stream_empty_api_state(visible: current_user.api_tokens.active.exists?),
-          stream_notification(t("settings.api_tokens.flash.revoked"))
-        ]
-      end
+      format.html { redirect_to settings_api_path, notice: revoked_msg }
+      format.turbo_stream { render turbo_stream: revoke_stream_actions(api_token, active_tokens, revoked_msg) }
     end
+  end
+
+  private
+
+  def revoke_stream_actions(api_token, active_tokens, message)
+    [
+      turbo_stream.remove(api_token),
+      stream_api_token_reveal,
+      stream_empty_api_state(visible: active_tokens.exists?),
+      stream_notification(message)
+    ]
   end
 end

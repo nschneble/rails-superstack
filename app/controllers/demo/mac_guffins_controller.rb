@@ -1,5 +1,6 @@
 module Demo
   # Searches and lists MacGuffins with ability-scoped access control
+  # :reek:InstanceVariableAssumption — @query is set by the parent DemoApplicationController
   class MacGuffinsController < DemoApplicationController
     def index
       result = MacGuffins::SearchService.call(ability: current_ability, query: @query, page: params[:page], request:)

@@ -1,17 +1,15 @@
 module Billing
   # Redirects authenticated users to the Stripe customer billing portal
   class PortalController < AuthenticatedController
+    include StripeRedirectable
+
     def create
       result = CreatePortalSessionService.call(
         user: current_user,
         return_url: settings_billing_url
       )
 
-      if result.success?
-        redirect_to result.payload.url, allow_other_host: true
-      else
-        redirect_to settings_profile_path, alert: t("billing.portal.error")
-      end
+      redirect_to_stripe_url(result, fallback_path: settings_profile_path, fallback_alert: t("billing.portal.error"))
     end
   end
 end
