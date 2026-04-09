@@ -63,27 +63,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     rounded-md
   ]
 
-  TEXT_AREA_CLASSES = %w[
-    block
-    w-4/5
-    sm:w-full
-    max-w-[325]
-    mx-auto
-    my-1
-    px-2
-    py-1
-    bg-white
-    disabled:bg-slate-100
-    border-2
-    border-white
-    disabled:border-slate-100
-    focus:border-slate-800
-    text-slate-800
-    disabled:text-slate-500
-    outline-none
-    resize-none
-    rounded-md
-  ]
+  TEXT_AREA_CLASSES = (INPUT_CLASSES + %w[resize-none]).freeze
 
   BUTTON_CLASSES = %w[
     block
