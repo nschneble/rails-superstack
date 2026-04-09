@@ -8,6 +8,7 @@ threshold_score: 90
 minimum_score: 10
 formats:
   - html
+  - json
   - console
 paths:
   - "app/"
