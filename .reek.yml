@@ -1,0 +1,55 @@
+---
+# Paths excluded from all smell detection.
+# These are DSL declarations or test infrastructure; not application logic.
+exclude_paths:
+  - app/dashboards # SuperAdmin resources
+  - app/helpers/simplecov # SimpleCov formatters
+
+# Per-directory overrides.
+# Subdirectory .reek.yml files are only respected by the Reek CLI, not when
+# Reek is invoked as a library (e.g. via RubyCritic). All directory-specific
+# rules must live here to take effect in both contexts.
+directories:
+  "app/services":
+    UtilityFunction:
+      # Services use a stateless class-method pattern via BaseService.
+      # Reek flags `call` as UtilityFunction because it doesn't use instance
+      # variables, but that's intentional; state lives in constructor args.
+      enabled: false
+    FeatureEnvy:
+      # Services orchestrating external API objects (e.g. Stripe) unavoidably
+      # access many attributes on those objects. This isn't a design flaw.
+      enabled: false
+
+  "app/controllers/concerns":
+    UtilityFunction:
+      # Controller concerns mix instance methods into controller classes.
+      # Methods like `authenticate_by_token` use request context from the
+      # including controller rather than their own instance variables.
+      enabled: false
+
+  "app/decorators":
+    FeatureEnvy:
+      # Decorators wrap domain objects and delegate to them by design.
+      # Accessing the object's attributes is the whole point of the pattern.
+      enabled: false
+
+  "app/helpers":
+    UtilityFunction:
+      # Helper modules expose view utility methods by Rails convention.
+      # These methods are module-level and don't hold instance state.
+      enabled: false
+    FeatureEnvy:
+      # Form builders access options and form object attributes by design.
+      # A form builder that doesn't touch the form object would be useless.
+      enabled: false
+
+  "app/normalizers":
+    UtilityFunction:
+      # Normalizers are stateless transformation objects by design.
+      enabled: false
+
+  "app/parsers":
+    UtilityFunction:
+      # Parsers are stateless transformation objects by design.
+      enabled: false

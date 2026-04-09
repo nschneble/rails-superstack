@@ -1,4 +1,5 @@
 module Demo
+  # Creates a MacGuffin like record and delivers a user notification
   class MacGuffinLikes::CreateService < BaseService
     def call(user:, mac_guffin:, ability:)
       like = MacGuffinLike.accessible_by(ability).find_or_initialize_by(user:, mac_guffin:)

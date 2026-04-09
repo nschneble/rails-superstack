@@ -1,0 +1,99 @@
+[
+  {
+    "key": "default",
+    "name": "Default Theme",
+    "price_cents": 0,
+    "description": "",
+    "image": null,
+    "image_attribution": null,
+    "palette": {
+      "background": "bg-blue-900!",
+      "border": "ring-lime-500/80!",
+      "text": "text-white!",
+      "button": "bg-slate-800!",
+      "button_text": "text-white!",
+      "highlight": "text-lime-500!"
+    }
+  },
+  {
+    "key": "crimson_tide",
+    "name": "Crimson Tide",
+    "price_cents": 999,
+    "description": "Bold crimson reds with warm amber highlights for a striking, energetic feel.",
+    "image": "/demo/themes/crimson-tide.jpg",
+    "image_attribution": [
+      "Photo by",
+      {
+        "link": "Marc Szeglat",
+        "to": "https://unsplash.com/@marcszeglat"
+      },
+      "on",
+      {
+        "link": "Unsplash",
+        "to": "https://unsplash.com/photos/eruption-of-volcano-VbP9v1rh-sc"
+      }
+    ],
+    "palette": {
+      "background": "bg-red-950!",
+      "border": "ring-amber-400/80!",
+      "text": "text-red-50!",
+      "button": "bg-amber-500!",
+      "button_text": "text-red-950!",
+      "highlight": "text-amber-400!"
+    }
+  },
+  {
+    "key": "forest_canopy",
+    "name": "Forest Canopy",
+    "price_cents": 499,
+    "description": "Earthy greens and soft browns inspired by the serenity of an old-growth forest.",
+    "image": "/demo/themes/forest-canopy.jpg",
+    "image_attribution": [
+      "Photo by",
+      {
+        "link": "rawkkim",
+        "to": "https://unsplash.com/@rawkkim"
+      },
+      "on",
+      {
+        "link": "Unsplash",
+        "to": "https://unsplash.com/photos/low-angle-photography-of-green-trees-at-daytime-m0kfaAwasEE"
+      }
+    ],
+    "palette": {
+      "background": "bg-green-950!",
+      "border": "ring-green-400/80!",
+      "text": "text-stone-100!",
+      "button": "bg-amber-700!",
+      "button_text": "text-amber-50!",
+      "highlight": "text-green-400!"
+    }
+  },
+  {
+    "key": "midnight_galaxy",
+    "name": "Midnight Galaxy",
+    "price_cents": 1499,
+    "description": "A deep space aesthetic with dark indigo backgrounds and glowing star accents.",
+    "image": "/demo/themes/midnight-galaxy.jpg",
+    "image_attribution": [
+      "Photo by",
+      {
+        "link": "Jeremy Thomas",
+        "to": "https://unsplash.com/@jeremythomasphoto"
+      },
+      "on",
+      {
+        "link": "Unsplash",
+        "to": "https://unsplash.com/photos/blue-and-purple-galaxy-digital-wallpaper-E0AHdsENmDg"
+      }
+    ],
+    "palette": {
+      "background": "bg-indigo-950!",
+      "border": "ring-cyan-300/50!",
+      "text": "text-slate-100!",
+      "button": "bg-violet-600!",
+      "button_text": "text-violet-50!",
+      "highlight": "text-cyan-300!"
+    }
+  }
+]

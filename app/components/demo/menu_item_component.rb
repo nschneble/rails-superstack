@@ -1,3 +1,5 @@
+# Dropdown menu item with icon and label
+
 class Demo::MenuItemComponent < Pom::Component
   option :theme, enums: [ :default, :secret ], default: :default
   option :path, required: true

@@ -1,4 +1,5 @@
 module Demo
+  # Searches MacGuffins via Typesense with filtering and pagination
   class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 
@@ -31,7 +32,7 @@ module Demo
     end
 
     def pagy_with_request(pagy, request)
-      pagy.tap { |p| p.instance_variable_set(:@request, request) }
+      pagy.tap { it.instance_variable_set(:@request, request) }
     end
   end
 end

@@ -1,3 +1,5 @@
+# Grants read access based on MacGuffin visibility
+
 module Abilities::Demo::MacGuffins
   def self.apply(ability, user)
     ability.can :read, Demo::MacGuffin, visibility: :open

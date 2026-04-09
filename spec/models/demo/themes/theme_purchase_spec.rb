@@ -9,7 +9,7 @@ RSpec.describe Demo::Themes::ThemePurchase, type: :model do
     subject { build(:demo_theme_purchase) }
 
     it { is_expected.to validate_presence_of(:theme_key) }
-    it { is_expected.to validate_inclusion_of(:theme_key).in_array(described_class::THEMES.keys) }
+    it { is_expected.to validate_inclusion_of(:theme_key).in_array(Demo::Themes::Theme.purchasable.map(&:key)) }
   end
 
   describe "#theme_name" do

@@ -48,4 +48,5 @@ SimpleCov.start do
   enable_coverage_for_eval
 
   track_files "{app,lib}/**/*.rb"
+  coverage_dir "simplecov"
 end

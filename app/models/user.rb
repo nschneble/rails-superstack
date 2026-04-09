@@ -1,4 +1,7 @@
+# Core user record with auth, roles, search indexing, and subscription support
+
 class User < ApplicationRecord
+  # Raised during access-denied error handling
   class NotAuthorized < StandardError; end
 
   include Indexable
@@ -27,7 +30,7 @@ class User < ApplicationRecord
 
   enum :role, { user: 0, admin: 1 }
 
-  def record_passwordless_login!(request)
+  def record_passwordless_login(request)
     now = Time.current
 
     attrs = {
@@ -36,7 +39,7 @@ class User < ApplicationRecord
       login_count:   login_count + 1
     }
 
-    attrs[:email_confirmed_at] = now if email_confirmed_at.nil?
+    attrs[:email_confirmed_at] = now unless email_confirmed_at.present?
 
     update!(attrs)
   end

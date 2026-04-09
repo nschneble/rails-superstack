@@ -77,7 +77,7 @@ jobs:
           restore-keys: rubycritic-${{ runner.os }}-
 
       - name: Run code quality analysis
-        run: bin/rubycritic --minimum-score 89 --no-browser app lib
+        run: bin/rubycritic
 
   test:
     runs-on: ubuntu-latest

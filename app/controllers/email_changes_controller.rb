@@ -1,3 +1,5 @@
+# Handles email change requests and confirmation link callbacks
+
 class EmailChangesController < AuthenticatedController
   def create
     result = Email::RequestService.call(user: current_user, new_email: params[:new_email])

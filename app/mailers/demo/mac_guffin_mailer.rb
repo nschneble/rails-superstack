@@ -1,3 +1,5 @@
+# Sends an email to a user when their MacGuffin is liked
+
 class Demo::MacGuffinMailer < ApplicationMailer
   default from: "no-reply@rails-superstack.dev"
 

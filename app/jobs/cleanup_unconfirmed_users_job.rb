@@ -1,3 +1,5 @@
+# Maintenance job that destroys users who never confirmed their email address
+
 class CleanupUnconfirmedUsersJob
   @queue = :maintenance
 

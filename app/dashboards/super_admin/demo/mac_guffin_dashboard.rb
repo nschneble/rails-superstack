@@ -1,3 +1,5 @@
+# SuperAdmin dashboard for MacGuffins
+
 class SuperAdmin::Demo::MacGuffinDashboard < SuperAdmin::BaseDashboard
   resource Demo::MacGuffin
 

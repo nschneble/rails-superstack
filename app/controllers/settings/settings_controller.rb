@@ -1,3 +1,5 @@
+# Renders the settings page with profile, API, and billing tab views
+
 class Settings::SettingsController < AuthenticatedController
   before_action :load_email_change_request, only: :profile
   before_action :load_api_tokens, only: :api

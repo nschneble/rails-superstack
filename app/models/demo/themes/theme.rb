@@ -1,31 +1,37 @@
-module Demo::Themes
-  Theme = Data.define(
-    :key,
-    :name,
-    :price_cents,
-    :description,
-    :image,
-    :image_attribution,
-    :palette
-  ) do
-    extend Forwardable
-    include Draper::Decoratable
+module Demo
+  module Themes
+    # Represents a purchasable demo theme with pricing and attribution data
+    Theme = Data.define(:key, :name, :price_cents, :description, :image, :image_attribution, :palette) do
+      extend Forwardable
 
-    def_delegators :palette, *Palettes::Palette.members
+      include Draper::Decoratable
+      include Serializable
 
-    def initialize(
-      price_cents: 0,
-      description: "",
-      image: nil,
-      image_attribution: nil,
-      palette: Palettes::DefaultPalette,
-      **args
-    )
-      super(**args, price_cents:, description:, image:, image_attribution:, palette:)
-    end
+      json_source "lib/data/demo/themes.json"
 
-    def selector
-      key.dasherize
+      def_delegators :palette, *Palettes::Palette.members
+
+      def initialize(palette:, **args)
+        super(**args, palette: Palettes::Palette.new(**palette))
+      end
+
+      def selector
+        key.dasherize
+      end
+
+      class << self
+        def find(key)
+          all.find { |theme| theme.key == key }
+        end
+
+        def default
+          find("default")
+        end
+
+        def purchasable
+          all.reject { |theme| theme.key == "default" }
+        end
+      end
     end
   end
 end

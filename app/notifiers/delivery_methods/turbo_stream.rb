@@ -1,4 +1,5 @@
 module DeliveryMethods
+  # Noticed per-recipient delivery via Turbo Stream
   class TurboStream < Noticed::DeliveryMethod
     required_options :stream
 

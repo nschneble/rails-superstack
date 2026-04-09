@@ -1,3 +1,5 @@
+# CanCanCan ability class that loads authorization rules
+
 class Ability
   include CanCan::Ability
 

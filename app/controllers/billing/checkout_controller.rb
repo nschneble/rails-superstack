@@ -1,4 +1,5 @@
 module Billing
+  # Creates a Stripe checkout session and renders the post-payment success page
   class CheckoutController < AuthenticatedController
     def create
       price_id = params[:price_id]

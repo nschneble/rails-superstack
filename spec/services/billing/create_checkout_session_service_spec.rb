@@ -62,7 +62,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
       create(:subscription, user:, stripe_customer_id: "cus_existing", stripe_subscription_id: "sub_abc123")
       described_class.call(**call_args)
       expect(fake_checkout_sessions).to have_received(:create).with(
-        hash_excluding(:subscription_data)
+        hash_including(subscription_data: nil)
       )
     end
   end

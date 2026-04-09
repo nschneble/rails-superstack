@@ -1,3 +1,5 @@
+# Provides syntax highlighting helpers
+
 module CodeHelper
   THEMES = {
     eighties:  { dark: "base16-eighties.dark", light: nil },

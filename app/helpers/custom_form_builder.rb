@@ -1,3 +1,5 @@
+# Adds Tailwind styles to form labels, inputs, and buttons
+
 class CustomFormBuilder < ActionView::Helpers::FormBuilder
   FORM_CLASSES = %w[
     max-w-[650]

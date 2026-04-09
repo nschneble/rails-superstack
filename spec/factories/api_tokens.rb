@@ -4,7 +4,7 @@ FactoryBot.define do
     user
 
     after(:build) do |token|
-      token.generate_plaintext_token! if token.token_digest.blank?
+      token.generate_plaintext_token if token.token_digest.blank?
     end
   end
 end

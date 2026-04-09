@@ -1,4 +1,5 @@
 module Email
+  # Validates an email change token and updates the user's email address
   class ConfirmService < BaseService
     def call(token:)
       request = EmailChangeRequest.find_by!(token:)

@@ -1,3 +1,5 @@
+# Delivers global notifications to all users via Turbo Stream broadcast
+
 class NewGlobalNotificationNotifier < Noticed::Event
   required_params :message
 

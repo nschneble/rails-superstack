@@ -1,3 +1,5 @@
+# Routes incoming Stripe webhook events to the appropriate handlers
+
 class Billing::ProcessWebhookEventService < BaseService
   HANDLERS = {
     "checkout.session.completed"    => Billing::Webhooks::CheckoutCompleteHandler,

@@ -1,3 +1,5 @@
+# Grants users access to their theme purchases
+
 module Abilities::Demo::ThemePurchases
   def self.apply(ability, user)
     if user.present?

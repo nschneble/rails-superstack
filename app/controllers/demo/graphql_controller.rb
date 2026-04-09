@@ -1,4 +1,5 @@
 module Demo
+  # Demo GraphQL endpoint and interactive GraphiQL explorer page
   class GraphQLController < DemoApplicationController
     include Rails::GraphQL::Controller
 

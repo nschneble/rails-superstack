@@ -1,16 +1,11 @@
-class FunFacts
-  FACTS = [
-    "Octopuses have three hearts, and two stop beating when they swim",
-    "Bananas are berries, but strawberries aren't",
-    "There are more trees on Earth than stars in the Milky Way",
-    "Honey never spoils",
-    "Space smells like seared steak",
-    "Sloths can hold their breath longer than dolphins",
-    "Cheese is the most stolen food in the world",
-    "Plants can hear caterpillars chewing"
-  ].freeze
+# Collection of fun trivia facts used in most emails
 
+class FunFacts
   def self.random
-    FACTS.sample
+    facts.sample
+  end
+
+  def self.facts
+    @facts ||= JSON.parse(File.read(Rails.root.join("lib/data/fun_facts.json")))
   end
 end

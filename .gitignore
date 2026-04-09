@@ -67,4 +67,7 @@ yarn-debug.log*
 /config/application.yml
 
 # SimpleCov coverage results
-/coverage
+/simplecov
+
+# RubyCritic code analysis
+/rubycritic

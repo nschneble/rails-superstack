@@ -1,4 +1,5 @@
 module Billing
+  # Redirects authenticated users to the Stripe customer billing portal
   class PortalController < AuthenticatedController
     def create
       result = CreatePortalSessionService.call(

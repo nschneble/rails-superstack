@@ -1,4 +1,5 @@
 module Billing
+  # Handles customer subscription webhooks by syncing the subscription
   class Webhooks::SubscriptionChangeHandler < BillingService
     def call(payload:)
       session = payload.dig("data", "object")

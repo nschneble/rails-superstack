@@ -1,3 +1,5 @@
+# Displays the notifications page and broadcasts global notifications
+
 class NotificationsController < AuthenticatedController
   # app/views/notifications/index.html.erb
   def index; end

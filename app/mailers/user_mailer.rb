@@ -1,3 +1,5 @@
+# Sends user account emails, including email change confirmations
+
 class UserMailer < ApplicationMailer
   default from: "no-reply@rails-superstack.dev"
 

@@ -1,3 +1,5 @@
+# Provides rainbow color text formatting!
+
 module TextHelper
   RAINBOW_COLORS = [
     %w[red],
@@ -19,7 +21,7 @@ module TextHelper
     "violet" => { "500" => "text-violet-500" }
   }
 
-  def c(text, color, shade = "500")
+  def color(text, color, shade = "500")
     tag.span text, class: COLOR_CLASSES.dig(color.to_s, shade) || "text-inherit"
   end
 
@@ -31,9 +33,9 @@ module TextHelper
 
     text.each_char.with_index do |char, index|
       if content.present?
-        content += c(char, palette[index % num_colors], shade)
+        content += color(char, palette[index % num_colors], shade)
       else
-        content = c(char, palette[index % num_colors], shade)
+        content = color(char, palette[index % num_colors], shade)
       end
     end
 

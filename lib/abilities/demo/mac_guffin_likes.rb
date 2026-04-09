@@ -1,3 +1,5 @@
+# Grants access to MacGuffin likes
+
 module Abilities::Demo::MacGuffinLikes
   def self.apply(ability, user)
     ability.can :read, Demo::MacGuffinLike

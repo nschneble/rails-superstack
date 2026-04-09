@@ -1,4 +1,5 @@
 module Billing
+  # Receives and validates incoming Stripe webhook events
   class WebhooksController < ActionController::Base
     skip_forgery_protection
 

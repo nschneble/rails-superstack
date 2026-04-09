@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "#record_passwordless_login!" do
+  describe "#record_passwordless_login" do
     let(:one_microsecond) { 0.000001 }
 
     it "sets email_confirmed_at on first login and updates last_login attributes" do
@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
       request = instance_double(ActionDispatch::Request, remote_ip: "127.0.0.1")
 
       freeze_time do
-        user.record_passwordless_login!(request)
+        user.record_passwordless_login(request)
 
         expect(user.reload.email_confirmed_at).to eq(Time.current)
         expect(user.last_login_at).to eq(Time.current)
@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
       request = instance_double(ActionDispatch::Request, remote_ip: "10.0.0.5")
 
       freeze_time do
-        user.record_passwordless_login!(request)
+        user.record_passwordless_login(request)
 
         user.reload
         expect(user.email_confirmed_at).to be_within(one_microsecond).of(confirmed_at)

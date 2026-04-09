@@ -1,3 +1,5 @@
+# Parses and validates an email address string
+
 class EmailParser < BaseParser
   def call(value, domain: nil)
     return nil if value.blank?
@@ -6,7 +8,7 @@ class EmailParser < BaseParser
     return nil unless URI::MailTo::EMAIL_REGEXP.match?(email)
 
     address = Mail::Address.new(email)
-    return nil unless domain.nil? || address.domain =~ domain
+    return nil if domain.present? && address.domain !~ domain
 
     email
   end

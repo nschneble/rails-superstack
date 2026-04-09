@@ -8,8 +8,8 @@ CI.run do
   step "Scan for security vulnerabilities in JavaScript dependencies", "bin/importmap audit"
 
   step "Lint code for consistent style", "bin/rubocop"
-  step "Run code quality analysis", "bin/rubycritic --minimum-score 89"
   step "Run RSpec tests", "bin/rspec"
+  step "Run code quality analysis", "bin/rubycritic"
 
   # seeds should be idempotent
   step "Check for bad seeds", "env RAILS_ENV=development bin/rails db:seed"

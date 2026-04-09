@@ -1,3 +1,5 @@
+# Grants admin users full management over users
+
 module Abilities::Admins
   def self.apply(ability, user)
     if user&.admin?

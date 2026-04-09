@@ -1,3 +1,5 @@
+# Button that copies text to the clipboard via Stimulus controller
+
 class Pom::CopyToClipboardComponent < Pom::Component
   option :align, enums: [ :default, :left, :right ], default: :default
   option :target, required: false, default: nil

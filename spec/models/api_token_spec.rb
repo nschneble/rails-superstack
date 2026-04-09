@@ -52,11 +52,11 @@ RSpec.describe ApiToken, type: :model do
     end
   end
 
-  describe "#mark_used!" do
+  describe "#mark_used" do
     it "updates last_used_at to the current time" do
       token = create(:api_token)
       freeze_time do
-        token.mark_used!
+        token.mark_used
         expect(token.reload.last_used_at).to eq(Time.current)
       end
     end

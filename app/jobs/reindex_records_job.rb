@@ -1,3 +1,5 @@
+# Asynchronously adds or removes a single record from the search index
+
 class ReindexRecordsJob
   @queue = :performance
 

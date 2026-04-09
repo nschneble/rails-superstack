@@ -1,3 +1,5 @@
+# Maintenance job that deletes all expired email change request records
+
 class CleanupExpiredEmailChangeRequestsJob
   @queue = :maintenance
 
