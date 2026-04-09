@@ -8,8 +8,7 @@ module Billing
       session = stripe_client.v1.billing_portal.sessions.create(customer:, return_url:)
       ServiceResult.ok(session)
     rescue Stripe::StripeError => error
-      Rails.logger.error("[Billing] Portal error: #{error.message}")
-      ServiceResult.fail(:stripe_error, error.message)
+      log_error_and_fail(:stripe_error, "Portal error: #{error.message}")
     end
   end
 end
