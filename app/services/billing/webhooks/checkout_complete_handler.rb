@@ -1,6 +1,7 @@
 module Billing
   # Handles checkout complete webhooks by upserting the resulting subscription
   class Webhooks::CheckoutCompleteHandler < BillingService
+    # :reek:TooManyStatements — extract session, get mode, case-dispatch to handler; inherently multi-step webhook routing
     def call(payload:)
       session = payload.dig("data", "object")
 

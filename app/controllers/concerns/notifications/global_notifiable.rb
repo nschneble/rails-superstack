@@ -7,6 +7,7 @@ module Notifications
 
     private
 
+    # :reek:FeatureEnvy — accesses notification object attributes; concern's purpose is to inspect the notification
     def global_notifications
       notification = NewGlobalNotificationNotifier.newest_first.first
       notification_id = notification&.id

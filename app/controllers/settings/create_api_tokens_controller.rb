@@ -12,6 +12,7 @@ class Settings::CreateApiTokensController < AuthenticatedController
 
   private
 
+  # :reek:TooManyStatements — extract token + notice, respond_to with html+turbo_stream branches; each step is a required response action
   def respond_to_successful_create(api_token)
     plaintext_token = api_token.plaintext_token
     notice = t("settings.api_tokens.flash.created")

@@ -18,6 +18,7 @@ module Demo
       @mac_guffin ||= MacGuffin.accessible_by(current_ability).find(params[:mac_guffin_id])
     end
 
+    # :reek:UncommunicativeVariableName — q is conventional for search query; renaming to query would not add clarity
     def redirect_location
       page = params[:page]
       q = params[:q]

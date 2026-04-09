@@ -112,22 +112,28 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
   ]
 
   def label(method, text = nil, options = {}, &block)
-    super(method, text, options.merge(class: [ LABEL_CLASSES, options[:class] ]), &block)
+    super(method, text, apply_classes(options, LABEL_CLASSES), &block)
   end
 
   def email_field(method, options = {})
-    super(method, options.merge(class: [ INPUT_CLASSES, options[:class] ]))
+    super(method, apply_classes(options, INPUT_CLASSES))
   end
 
   def text_field(method, options = {})
-    super(method, options.merge(class: [ INPUT_CLASSES, options[:class] ]))
+    super(method, apply_classes(options, INPUT_CLASSES))
   end
 
   def text_area(method, options = {})
-    super(method, options.merge(class: [ TEXT_AREA_CLASSES, options[:class] ]))
+    super(method, apply_classes(options, TEXT_AREA_CLASSES))
   end
 
   def submit(value = nil, options = {})
-    super(value, options.merge(class: [ BUTTON_CLASSES, options[:class] ]))
+    super(value, apply_classes(options, BUTTON_CLASSES))
+  end
+
+  private
+
+  def apply_classes(options, classes)
+    options.merge(class: [ classes, options[:class] ])
   end
 end
