@@ -1,6 +1,6 @@
-# Provides shared redirect behavior for controllers that initiate Stripe sessions
+# Provides shared redirect behavior for controllers initiating Stripe sessions
 
-module StripeRedirectable
+module Redirectable
   def redirect_to_stripe_url(result, fallback_path:, fallback_alert:)
     if result.success?
       redirect_to result.payload.url, allow_other_host: true

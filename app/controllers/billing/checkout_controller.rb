@@ -1,7 +1,7 @@
 module Billing
   # Creates a Stripe checkout session and renders the post-payment success page
   class CheckoutController < AuthenticatedController
-    include StripeRedirectable
+    include Redirectable
 
     def create
       price_id = params[:price_id]
@@ -14,7 +14,11 @@ module Billing
         cancel_url: billing_plans_url
       )
 
-      redirect_to_stripe_url(result, fallback_path: billing_plans_path, fallback_alert: t("billing.checkout.error"))
+      redirect_to_stripe_url(
+        result,
+        fallback_path: billing_plans_path,
+        fallback_alert: t("billing.checkout.error")
+      )
     end
 
     # app/views/billing/checkout/success.html.erb

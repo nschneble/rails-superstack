@@ -20,16 +20,14 @@ class Demo::WelcomeItemDecorator < ApplicationDecorator
   end
 
   def render_part(part)
-    case part
-    when String then part
-    when Hash   then render_hash_part(part)
-    end
+    return render_hash(part) if part.is_a? Hash
+
+    part
   end
 
-  def render_hash_part(part)
+  def render_hash(part)
     if part.key?(:link)
-      url = part[:to] || send(part[:route])
-      link_to part[:link], url, class: "hover:text-amber-400 underline!"
+      link_to part[:link], part[:to].presence || send(part[:route]), class: "hover:text-amber-400 underline!"
     elsif part.key?(:hidden)
       tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
     elsif part.key?(:highlight)

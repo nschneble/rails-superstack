@@ -1,6 +1,5 @@
 # Renders the settings page with profile, API, and billing tab views
 
-# :reek:InstanceVariableAssumption — ivars are set by before_action callbacks
 class Settings::SettingsController < AuthenticatedController
   before_action :load_email_change_request, only: :profile
   before_action :load_api_tokens, only: :api
