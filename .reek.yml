@@ -1,15 +1,16 @@
 ---
-IrresponsibleModule:
-  # This isn't useful without full YARD coverage
-  enabled: false
-LongParameterList:
-  max_params: 4
-TooManyInstanceVariables:
-  max_instance_variables: 6
-TooManyMethods:
-  max_methods: 12
-TooManyStatements:
-  max_statements: 8
+detectors:
+  IrresponsibleModule:
+    # This isn't useful without full YARD coverage
+    enabled: false
+  LongParameterList:
+    max_params: 4
+  TooManyInstanceVariables:
+    max_instance_variables: 6
+  TooManyMethods:
+    max_methods: 12
+  TooManyStatements:
+    max_statements: 8
 
 # Paths excluded from all smell detection. These are DSL declarations and test
 # infrastructure; not application logic
