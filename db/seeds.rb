@@ -21,9 +21,9 @@ paths.each do |pattern|
     relative_path = Pathname.new(seed).relative_path_from(Rails.root)
     Rails.logger.debug "  ✓ Loading #{relative_path}" unless Rails.env.test?
     load seed
-  rescue => exception
+  rescue StandardError => error
     Rails.logger.debug "  ✗ Error loading #{relative_path}" unless Rails.env.test?
-    raise exception
+    raise error
   end
 end
 

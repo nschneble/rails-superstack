@@ -9,8 +9,7 @@ module CodeHelper
     solarized: { dark: "Solarized (dark)",     light: "Solarized (light)" }
   }
 
-  # :reek:LongParameterList — 4 orthogonal display options; grouping into an object would obscure intent
-  def highlight_syntax(snippet, syntax = "ruby", theme = :ocean, variant = :dark)
+  def highlight_syntax(snippet, syntax = "ruby", **kwargs)
     return "<pre>Hello, world!</pre>" unless snippet.present?
 
     code = <<~CODE
@@ -19,7 +18,10 @@ module CodeHelper
       ```
     CODE
 
-    theme = THEMES.dig(theme, variant) || THEMES.dig(:ocean, :dark)
-    Commonmarker.to_html(code, plugins: { syntax_highlighter: { theme: theme } })
+    theme_key  = kwargs.fetch(:theme, :ocean)
+    variant_key = kwargs.fetch(:variant, :dark)
+    theme = THEMES.dig(theme_key, variant_key) || THEMES.dig(:ocean, :dark)
+
+    Commonmarker.to_html(code, plugins: { syntax_highlighter: { theme: } })
   end
 end

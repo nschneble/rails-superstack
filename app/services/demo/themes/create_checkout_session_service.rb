@@ -1,48 +1,51 @@
 module Demo::Themes
   # Creates a Stripe one-time checkout session for purchasing a demo theme
-  # :reek:TooManyStatements — 7 sequential steps: validate theme, guard duplicates, create purchase, build session, update record, return
   class CreateCheckoutSessionService < Billing::BillingService
-    # :reek:LongParameterList — 4 keyword args; all are required Stripe checkout context
-    def call(user:, theme_key:, success_url:, cancel_url:)
-      theme = Theme.find(theme_key)
+    def call(user:, theme_key:, urls:)
+      @theme = find_theme_and_past_purchases(user:, theme_key:)
 
-      return ServiceResult.fail(:invalid_theme) unless theme
-      return ServiceResult.fail(:already_purchased) if ThemePurchase.exists?(user:, theme_key:, status: :completed)
-
-      purchase = ThemePurchase.create!(user:, theme_key:, status: :pending)
-      session = stripe_client.v1.checkout.sessions.create(checkout_params(user, theme, purchase, success_url, cancel_url))
-
-      purchase.update!(stripe_checkout_session_id: session.id)
-      ServiceResult.ok(session)
-    rescue Stripe::StripeError => error
-      handle_stripe_error(error, purchase)
+      create_session(user:, theme_key:, urls:)
+      ServiceResult.ok(@session)
+    rescue Stripe::StripeError => stripe_error
+      @purchase&.update!(status: :failed)
+      log_error_and_fail(:stripe_error, "Checkout error: #{stripe_error.message}")
+    rescue ServiceError => error
+      ServiceResult.fail(error.message)
     end
 
     private
 
-    def handle_stripe_error(error, purchase)
-      message = error.message
-      purchase&.update!(status: :failed)
-      Rails.logger.error("[Demo::Themes] Checkout error: #{message}")
-      ServiceResult.fail(:stripe_error, message)
+    def find_theme_and_past_purchases(user:, theme_key:)
+      theme = Theme.find(theme_key)
+      purchased = ThemePurchase.exists?(user:, theme_key:, status: :completed)
+
+      raise ServiceError, "invalid_theme" unless theme.present?
+      raise ServiceError, "already_purchased" if purchased
+
+      theme
     end
 
-    # :reek:LongParameterList — all 5 args are required Stripe checkout inputs with no natural grouping
-    def checkout_params(user, theme, purchase, success_url, cancel_url)
+    def create_session(user:, theme_key:, urls:)
+      @purchase = ThemePurchase.create!(user:, theme_key:, status: :pending)
+      @session = stripe_client.v1.checkout.sessions.create(checkout_params(user.email, @purchase.id, urls))
+      @purchase.update!(stripe_checkout_session_id: @session.id)
+    end
+
+    def checkout_params(customer_email, theme_purchase_id, urls)
       {
-        customer_email: user.email,
+        customer_email:,
         line_items: [ {
           price_data: {
             currency: "usd",
-            unit_amount: theme.price_cents,
-            product_data: { name: theme.name }
+            unit_amount: @theme.price_cents,
+            product_data: { name: @theme.name }
           },
           quantity: 1
         } ],
         mode: "payment",
-        success_url:,
-        cancel_url:,
-        metadata: { theme_purchase_id: purchase.id }
+        success_url: urls[:success],
+        cancel_url: urls[:cancel],
+        metadata: { theme_purchase_id: }
       }
     end
   end

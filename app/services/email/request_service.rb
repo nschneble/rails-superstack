@@ -1,22 +1,31 @@
 module Email
   # Initiates an email change request and sends a confirmation email
   class RequestService < BaseService
-    # :reek:TooManyStatements — parse email, clean expired requests, guard invalid/unavailable, create request, send mailer; each step is required
     def call(user:, new_email:)
       new_email = EmailParser.call(new_email)
+      raise ServiceError, "invalid" unless new_email.present?
+
+      validate_email_request(new_email:)
+      ServiceResult.ok(create_request(user:, new_email:))
+    rescue ServiceError => error
+      ServiceResult.fail(error.message)
+    end
+
+    private
+
+    def validate_email_request(new_email:)
       requests = EmailChangeRequest.where(new_email:)
       requests.expired.delete_all
 
-      return ServiceResult.fail(:invalid) unless new_email.present?
-
       if User.where(email: new_email).exists? || requests.active.exists?
-        return ServiceResult.fail(:unavailable)
+        raise ServiceError, "unavailable"
       end
+    end
 
+    def create_request(user:, new_email:)
       request = user.email_change_requests.create!(new_email:)
       UserMailer.with(request:).email_change_confirmation.deliver_later
-
-      ServiceResult.ok(request)
+      request
     end
   end
 end

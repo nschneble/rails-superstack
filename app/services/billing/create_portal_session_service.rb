@@ -1,15 +1,20 @@
 module Billing
   # Creates a Stripe customer portal session for subscription self-management
   class CreatePortalSessionService < BillingService
-    # :reek:TooManyStatements — extract customer id, guard missing, create portal session, return; plus rescue handling
     def call(user:, return_url:)
       customer = user.stripe_customer_id
       return ServiceResult.fail(:no_customer) if customer.blank?
 
-      session = stripe_client.v1.billing_portal.sessions.create(customer:, return_url:)
-      ServiceResult.ok(session)
+      create_session(customer:, return_url:)
     rescue Stripe::StripeError => error
       log_error_and_fail(:stripe_error, "Portal error: #{error.message}")
+    end
+
+    private
+
+    def create_session(customer:, return_url:)
+      session = stripe_client.v1.billing_portal.sessions.create(customer:, return_url:)
+      ServiceResult.ok(session)
     end
   end
 end

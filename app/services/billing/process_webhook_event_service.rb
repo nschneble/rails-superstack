@@ -7,40 +7,43 @@ class Billing::ProcessWebhookEventService < BaseService
     "customer.subscription.deleted" => Billing::Webhooks::SubscriptionChangeHandler
   }.freeze
 
-  # :reek:DuplicateMethodCall — ServiceResult.ok(event) appears in 3 distinct early-return paths; single return point would reduce clarity
-  # :reek:TooManyStatements — 8 steps: find/check event, resolve handler, assign attrs, save, guard, dispatch; each is a required webhook processing step
   def call(stripe_event_id:, event_type:, payload:)
-    event = WebhookEvent.find_or_initialize_by(stripe_event_id:)
-    return ServiceResult.ok(event) if event.processed?
+    @event = WebhookEvent.find_or_initialize_by(stripe_event_id:)
 
-    handler = HANDLERS[event_type]
-    status = handler ? :processing : :ignored
+    unless @event.processed?
+      @handler = HANDLERS[event_type]
 
-    event.assign_attributes(event_type:, payload:, status:)
-    event.save!
+      update_event(event_type:, payload:)
+      dispatch_to_handler(payload:) if @handler.present?
+    end
 
-    return ServiceResult.ok(event) unless handler.present?
-
-    dispatch_handler(event, handler, payload)
+    ServiceResult.ok(@event)
   rescue ActiveRecord::RecordNotUnique
     ServiceResult.ok(WebhookEvent.find_by(stripe_event_id:))
-  rescue => error
-    event.update!(status: :failed, error_message: error.message)
-    raise
+  rescue RuntimeError, ServiceError => error
+    error_message = error.message
+    @event.update!(status: :failed, error_message:)
+
+    if error.is_a? RuntimeError
+      raise
+    else
+      ServiceResult.fail(error_message)
+    end
   end
 
   private
 
-  # :reek:TooManyStatements — call handler, branch on result, update event status either way; handler dispatch is inherently 2-path
-  def dispatch_handler(event, handler, payload)
-    result = handler.call(payload:)
-    if result.success?
-      event.update!(status: :processed)
-      ServiceResult.ok(event)
-    else
-      error = result.error
-      event.update!(status: :failed, error_message: error.to_s)
-      ServiceResult.fail(:processing_failed, error)
-    end
+  def update_event(event_type:, payload:)
+    status = @handler ? :processing : :ignored
+
+    @event.assign_attributes(event_type:, payload:, status:)
+    @event.save!
+  end
+
+  def dispatch_to_handler(payload:)
+    result = @handler.call(payload:)
+    raise ServiceError, result.error if result.failure?
+
+    @event.update!(status: :processed)
   end
 end

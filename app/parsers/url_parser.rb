@@ -1,15 +1,22 @@
 # Parses and validates a URL string
 
 class URLParser < BaseParser
-  # :reek:ControlParameter — scheme is a filter parameter, not flow control; it validates the URI scheme
   def call(value, scheme: "https", host: nil)
-    return nil if value.blank?
+    @uri = URI.parse(value)
+    return nil if wrong_scheme?(scheme) || wrong_host?(host)
 
-    uri = URI.parse(value)
-    return nil if uri.scheme != scheme || (host.present? && uri.host !~ host)
-
-    uri
+    @uri
   rescue URI::InvalidURIError
     nil
+  end
+
+  private
+
+  def wrong_scheme?(scheme)
+    @uri.scheme != scheme
+  end
+
+  def wrong_host?(host)
+    host.present? && @uri.host !~ host
   end
 end

@@ -29,10 +29,10 @@ module TextHelper
     return tag.span unless text.present?
 
     palette = palette_for_text(text)
-    colored_chars = text.each_char.with_index.map do |char, index|
-      color(char, palette[index % num_colors], shade)
+    colorful_characters = text.each_char.with_index.map do |character, index|
+      color(character, palette[index % num_colors], shade)
     end
-    tag.span safe_join(colored_chars)
+    tag.span safe_join(colorful_characters)
   end
 
   private

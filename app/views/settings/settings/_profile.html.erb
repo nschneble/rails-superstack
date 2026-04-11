@@ -10,9 +10,9 @@
               id: "settings-panel-profile",
               aria_labelledby: "settings-tab-profile",
               role: "tabpanel",
-              class: CustomFormBuilder::FORM_CLASSES do |form| %>
+              class: form_classes do |form| %>
 
-  <%= tag.h1 t("settings.user_profile.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+  <%= tag.h1 t("settings.user_profile.title"), class: form_title_classes %>
 
   <%= form.label :new_email, t("settings.user_profile.label") %>
   <%= form.email_field :new_email,

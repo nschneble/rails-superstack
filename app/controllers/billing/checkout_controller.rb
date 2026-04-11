@@ -10,13 +10,15 @@ module Billing
       result = CreateCheckoutSessionService.call(
         user: current_user,
         price_id:,
-        success_url: billing_checkout_success_url(session_id: "{CHECKOUT_SESSION_ID}"),
-        cancel_url: billing_plans_url
+        urls: {
+          success: billing_checkout_success_url(session_id: "{CHECKOUT_SESSION_ID}"),
+          cancel:  billing_plans_url
+        }
       )
 
       redirect_to_stripe_url(
         result,
-        fallback_path: billing_plans_path,
+        fallback_path:  billing_plans_path,
         fallback_alert: t("billing.checkout.error")
       )
     end

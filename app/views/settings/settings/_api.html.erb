@@ -2,17 +2,17 @@
     active token list. Uses @api_token_plaintext – set only once after token
     creation – and @api_tokens %>
 
-<%= tag.div class: CustomFormBuilder::FORM_CLASSES do %>
+<%= tag.div class: form_classes do %>
   <%= tag.div role: "tabpanel",
               aria: { labelledby: "settings-tab-api" },
               id: "settings-panel-api" do %>
 
-    <%= tag.h1 t("settings.api_tokens.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+    <%= tag.h1 t("settings.api_tokens.title"), class: form_title_classes %>
 
     <%= render "settings/api_tokens/reveal", plaintext_token: @api_token_plaintext %>
     <%= render "settings/api_tokens/form", error_message: nil %>
 
-    <%= tag.p t("settings.api_tokens.active.title"), class: [ CustomFormBuilder::LABEL_CLASSES, "mt-8 mb-2 font-semibold" ] %>
+    <%= tag.p t("settings.api_tokens.active.title"), class: [ form_label_classes, "mt-8 mb-2 font-semibold" ] %>
 
     <%= tag.div class: "w-4/5 sm:w-full max-w-[325] mx-auto" do %>
       <%= tag.div class: "flex flex-col gap-4", id: "api_tokens_collection" do %>

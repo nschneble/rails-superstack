@@ -11,8 +11,10 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
     {
       user:,
       theme_key: "midnight_galaxy",
-      success_url: "https://example.com/success",
-      cancel_url: "https://example.com/cancel"
+      urls: {
+        success: "https://example.com/success",
+        cancel:  "https://example.com/cancel"
+      }
     }
   end
 
@@ -58,20 +60,20 @@ RSpec.describe Demo::Themes::CreateCheckoutSessionService, type: :service do
   end
 
   describe "invalid theme" do
-    it "returns failure with :invalid_theme" do
+    it "returns failure with invalid_theme" do
       result = described_class.call(**call_args.merge(theme_key: "nonexistent"))
       expect(result).to be_failure
-      expect(result.error).to eq(:invalid_theme)
+      expect(result.error).to eq("invalid_theme")
     end
   end
 
   describe "already purchased" do
-    it "returns failure with :already_purchased" do
+    it "returns failure with already_purchased" do
       create(:demo_theme_purchase, user:, theme_key: "midnight_galaxy", status: :completed)
 
       result = described_class.call(**call_args)
       expect(result).to be_failure
-      expect(result.error).to eq(:already_purchased)
+      expect(result.error).to eq("already_purchased")
     end
 
     it "allows a new purchase if the previous attempt was pending" do

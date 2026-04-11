@@ -38,8 +38,8 @@ RSpec.describe Email::RequestService, type: :service do
       expect(result).to be_failure
     end
 
-    it "returns :invalid error" do
-      expect(result.error).to eq(:invalid)
+    it "returns invalid error" do
+      expect(result.error).to eq("invalid")
     end
 
     it "does not enqueue any mail" do
@@ -58,8 +58,8 @@ RSpec.describe Email::RequestService, type: :service do
       expect(result).to be_failure
     end
 
-    it "returns :unavailable error" do
-      expect(result.error).to eq(:unavailable)
+    it "returns unavailable error" do
+      expect(result.error).to eq("unavailable")
     end
   end
 
@@ -70,8 +70,8 @@ RSpec.describe Email::RequestService, type: :service do
       expect(result).to be_failure
     end
 
-    it "returns :unavailable error" do
-      expect(result.error).to eq(:unavailable)
+    it "returns unavailable error" do
+      expect(result.error).to eq("unavailable")
     end
   end
 end

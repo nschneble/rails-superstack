@@ -1,7 +1,7 @@
 # Grants admin users full management over users
 
 module Abilities::Admins
-  # :reek:ControlParameter — CanCan/Pundit convention; user drives permission grants
+  # :reek:ControlParameter — CanCanCan convention
   def self.apply(ability, user)
     if user&.admin?
       ability.can :manage, User, role: :user

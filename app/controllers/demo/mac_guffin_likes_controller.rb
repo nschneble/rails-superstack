@@ -18,14 +18,18 @@ module Demo
       @mac_guffin ||= MacGuffin.accessible_by(current_ability).find(params[:mac_guffin_id])
     end
 
-    # :reek:UncommunicativeVariableName — using `q` is the right convention
     def redirect_location
-      page = params[:page]
-      q = params[:q]
-
-      return demo_mac_guffins_path(page:, q:) if page.present? || q.present?
+      return demo_mac_guffins_path(page:, q: query) if page.present? || query.present?
 
       request.referer.presence || demo_mac_guffins_path
+    end
+
+    def page
+      params[:page]
+    end
+
+    def query
+      params[:q]
     end
   end
 end

@@ -3,35 +3,36 @@ module Demo
   class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 
-    # :reek:LongParameterList — 4 keyword args; all distinct search context inputs with no natural grouping
-    # :reek:DuplicateMethodCall — empty_result(page, request) called in distinct execution paths (guard vs rescue)
-    # :reek:TooManyStatements — pluck accessible ids, guard empty, search with filters, wrap pagy, return; each step is required
+    # :reek:LongParameterList — distinct search context inputs
     def call(ability:, query:, page:, request:)
-      searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
-      return ServiceResult.ok(empty_result(page, request)) if searchable_ids.empty?
+      @searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
+      return empty_result(:ok, page:, request:) if @searchable_ids.empty?
 
-      pagy, results = MacGuffin.search(
-        query,
-        "name,description",
-        page:,
-        per_page: PER_PAGE,
-        filter_by: "id:=[#{searchable_ids.join(",")}]",
-        sort_by: "name:asc"
-      )
-
+      pagy, results = search_mac_guffins(query:, page:)
       ServiceResult.ok([ pagy_with_request(pagy, request), results ])
     rescue Typesense::Error => error
       Rails.logger.error(error.message)
-      ServiceResult.fail(:search_unavailable, empty_result(page, request))
+      empty_result(:fail, :search_unavailable, page:, request:)
     end
 
     private
 
-    def empty_result(page, request)
-      [
-        Pagy::Offset.new(count: 0, page: page.presence || 1, limit: PER_PAGE, request:),
-        []
-      ]
+    def empty_result(method, error = nil, page:, request:)
+      page = page.presence || 1
+      payload = [ Pagy::Offset.new(count: 0, page:, limit: PER_PAGE, request:), [] ]
+
+      ServiceResult.new(success?: method == :ok, payload:, error:)
+    end
+
+    def search_mac_guffins(query:, page:)
+      MacGuffin.search(
+        query,
+        "name,description",
+        page:,
+        per_page: PER_PAGE,
+        filter_by: "id:=[#{@searchable_ids.join(",")}]",
+        sort_by: "name:asc"
+      )
     end
 
     def pagy_with_request(pagy, request)

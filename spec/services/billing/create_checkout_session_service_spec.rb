@@ -10,8 +10,10 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
     {
       user:,
       price_id: "price_test",
-      success_url: "https://example.com/success",
-      cancel_url: "https://example.com/cancel"
+      urls: {
+        success: "https://example.com/success",
+        cancel:  "https://example.com/cancel"
+      }
     }
   end
 

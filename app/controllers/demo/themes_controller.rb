@@ -12,13 +12,15 @@ module Demo
       result = Themes::CreateCheckoutSessionService.call(
         user: current_user,
         theme_key:,
-        success_url: demo_themes_url(purchased: theme_key),
-        cancel_url: demo_themes_url
+        urls: {
+          success: demo_themes_url(purchased: theme_key),
+          cancel:  demo_themes_url
+        }
       )
 
       redirect_to_stripe_url(
         result,
-        fallback_path: demo_themes_path,
+        fallback_path:  demo_themes_path,
         fallback_alert: t("themes.checkout.#{result.error}")
       )
     end

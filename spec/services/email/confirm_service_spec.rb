@@ -41,8 +41,8 @@ RSpec.describe Email::ConfirmService, type: :service do
       expect(result).to be_failure
     end
 
-    it "returns :link_expired error" do
-      expect(result.error).to eq(:link_expired)
+    it "returns link_expired error" do
+      expect(result.error).to eq("link_expired")
     end
 
     it "destroys the expired request" do
@@ -63,8 +63,8 @@ RSpec.describe Email::ConfirmService, type: :service do
       expect(result).to be_failure
     end
 
-    it "returns :unavailable error" do
-      expect(result.error).to eq(:unavailable)
+    it "returns unavailable error" do
+      expect(result.error).to eq("unavailable")
     end
 
     it "destroys the request" do

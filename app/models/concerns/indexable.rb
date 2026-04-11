@@ -5,7 +5,11 @@ module Indexable
 
   included do
     def self.index_async(record, remove)
-      Resque.enqueue(ReindexRecordsJob, record, remove)
+      if record.present? && remove.present?
+        Resque.enqueue(DeindexRecordsJob, record)
+      else
+        Resque.enqueue(ReindexRecordsJob, record)
+      end
     end
   end
 end

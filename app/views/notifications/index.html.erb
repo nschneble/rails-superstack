@@ -4,20 +4,20 @@
 <% content_for :title, t("notifications.title") %>
 
 <%= tag.div class: "w-full my-28" do %>
-  <%= form_with(url: notifications_path, scope: :global_notification, class: CustomFormBuilder::FORM_CLASSES) do |form| %>
-    <%= tag.h1 t("notifications.form.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+  <%= form_with(url: notifications_path, scope: :global_notification, class: form_classes) do |form| %>
+    <%= tag.h1 t("notifications.form.title"), class: form_title_classes %>
 
     <%= form.label :message,
                    t("notifications.form.label",
                    max: Notification::MAX_MESSAGE_LENGTH),
-                   class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
+                   class: "max-w-[525]" %>
     <%= form.text_area :message,
                        required: true,
                        autofocus: true,
                        placeholder: t("notifications.form.placeholder"),
                        rows: 5,
                        maxlength: Notification::MAX_MESSAGE_LENGTH,
-                       class: CustomFormBuilder::EXTRA_WIDE_CLASSES %>
+                       class: "max-w-[525]" %>
 
     <%= form.submit t("notifications.form.submit") %>
   <% end %>
