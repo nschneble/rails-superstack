@@ -11,8 +11,9 @@ class ApiTokenDecorator < ApplicationDecorator
   end
 
   def last_used_at_in_words
-    return if object.last_used_at.blank?
+    last_used_at = object.last_used_at
+    return if last_used_at.blank?
 
-    "#{time_ago_in_words(object.last_used_at)} ago"
+    "#{time_ago_in_words(last_used_at)} ago"
   end
 end

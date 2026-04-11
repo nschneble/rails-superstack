@@ -21,19 +21,19 @@ RSpec.describe CodeHelper, type: :helper do
     end
 
     it "falls back to ocean dark when the theme key is unknown" do
-      result = helper.highlight_syntax("puts 'hi'", "ruby", :unknown_theme, :dark)
+      result = helper.highlight_syntax("puts 'hi'", "ruby", theme: :unknown_theme, variant: :dark)
       expect(result).to be_present
     end
 
     it "falls back to ocean dark when the variant is nil for the given theme" do
       # :github has no :light variant, so THEMES.dig(:github, :light) returns nil
-      result = helper.highlight_syntax("puts 'hi'", "ruby", :github, :light)
+      result = helper.highlight_syntax("puts 'hi'", "ruby", theme: :github, variant: :light)
       expect(result).to be_present
     end
 
     it "uses the solarized light theme when requested" do
       allow(Commonmarker).to receive(:to_html).and_call_original
-      helper.highlight_syntax("puts 'hi'", "ruby", :solarized, :light)
+      helper.highlight_syntax("puts 'hi'", "ruby", theme: :solarized, variant: :light)
       expect(Commonmarker).to have_received(:to_html).with(
         anything,
         plugins: { syntax_highlighter: { theme: "Solarized (light)" } }

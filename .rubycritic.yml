@@ -5,9 +5,10 @@ path: "rubycritic/"
 coverage_path: "simplecov/"
 no_browser: true
 threshold_score: 90
-minimum_score: 10
+minimum_score: 80
 formats:
   - html
+  - json
   - console
 paths:
   - "app/"

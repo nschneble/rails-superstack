@@ -4,14 +4,14 @@
 
 <%= tag.div role: "tabpanel",
             aria: { labelledby: "settings-tab-billing" },
-            class: CustomFormBuilder::FORM_CLASSES,
+            class: form_classes,
             id: "settings-panel-billing" do %>
 
-  <%= tag.h1 t("settings.billing.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+  <%= tag.h1 t("settings.billing.title"), class: form_title_classes %>
 
-  <%= tag.span t("settings.billing.current_plan"), class: CustomFormBuilder::LABEL_CLASSES %>
+  <%= tag.span t("settings.billing.current_plan"), class: form_label_classes %>
   <%= tag.span t("settings.billing.#{current_user.subscription_plan}"),
-               class: [ CustomFormBuilder::INPUT_CLASSES, "bg-slate-100! border-slate-100! text-slate-500! select-none" ] %>
+               class: [ form_input_classes, "bg-slate-100! border-slate-100! text-slate-500! select-none" ] %>
 
   <% if current_user.pro_subscription? %>
     <%= pom_button(path: billing_portal_path, method: :post) do %>

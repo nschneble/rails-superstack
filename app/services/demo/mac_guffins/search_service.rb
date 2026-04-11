@@ -3,11 +3,29 @@ module Demo
   class MacGuffins::SearchService < BaseService
     PER_PAGE = 4
 
+    # :reek:LongParameterList — distinct search context inputs
     def call(ability:, query:, page:, request:)
       searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
-      return ServiceResult.ok(empty_result(page, request)) if searchable_ids.empty?
+      return empty_result(:ok, page:, request:) if searchable_ids.empty?
 
-      pagy, results = MacGuffin.search(
+      pagy, results = search_mac_guffins(searchable_ids:, query:, page:)
+      ServiceResult.ok([ pagy_with_request(pagy, request), results ])
+    rescue Typesense::Error => error
+      Rails.logger.error(error.message)
+      empty_result(:fail, :search_unavailable, page:, request:)
+    end
+
+    private
+
+    def empty_result(method, error = nil, page:, request:)
+      page = page.presence || 1
+      payload = [ Pagy::Offset.new(count: 0, page:, limit: PER_PAGE, request:), [] ]
+
+      ServiceResult.new(success?: method == :ok, payload:, error:)
+    end
+
+    def search_mac_guffins(searchable_ids:, query:, page:)
+      MacGuffin.search(
         query,
         "name,description",
         page:,
@@ -15,20 +33,6 @@ module Demo
         filter_by: "id:=[#{searchable_ids.join(",")}]",
         sort_by: "name:asc"
       )
-
-      ServiceResult.ok([ pagy_with_request(pagy, request), results ])
-    rescue Typesense::Error => error
-      Rails.logger.error(error.message)
-      ServiceResult.fail(:search_unavailable, empty_result(page, request))
-    end
-
-    private
-
-    def empty_result(page, request)
-      [
-        Pagy::Offset.new(count: 0, page: page.presence || 1, limit: PER_PAGE, request:),
-        []
-      ]
     end
 
     def pagy_with_request(pagy, request)

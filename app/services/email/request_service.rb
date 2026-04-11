@@ -3,18 +3,29 @@ module Email
   class RequestService < BaseService
     def call(user:, new_email:)
       new_email = EmailParser.call(new_email)
-      EmailChangeRequest.where(new_email:).expired.delete_all
+      raise ServiceError, "invalid" unless new_email.present?
 
-      return ServiceResult.fail(:invalid) unless new_email.present?
+      validate_email_request(new_email:)
+      ServiceResult.ok(create_request(user:, new_email:))
+    rescue ServiceError => error
+      ServiceResult.fail(error.message)
+    end
 
-      if User.where(email: new_email).exists? || EmailChangeRequest.where(new_email:).active.exists?
-        return ServiceResult.fail(:unavailable)
+    private
+
+    def validate_email_request(new_email:)
+      requests = EmailChangeRequest.where(new_email:)
+      requests.expired.delete_all
+
+      if User.where(email: new_email).exists? || requests.active.exists?
+        raise ServiceError, "unavailable"
       end
+    end
 
+    def create_request(user:, new_email:)
       request = user.email_change_requests.create!(new_email:)
       UserMailer.with(request:).email_change_confirmation.deliver_later
-
-      ServiceResult.ok(request)
+      request
     end
   end
 end

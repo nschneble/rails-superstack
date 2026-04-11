@@ -1,13 +1,9 @@
-# Asynchronously adds or removes a single record from the search index
+# Asynchronously adds a single record to the search index
 
 class ReindexRecordsJob
   @queue = :performance
 
-  def self.perform(record, remove)
-    if remove
-      record.remove_from_index!
-    else
-      record.index!
-    end
+  def self.perform(record)
+    record.index!
   end
 end

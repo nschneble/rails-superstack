@@ -48,7 +48,7 @@
         <%= form_with url: helpers.billing_checkout_path, method: :post, data: { turbo: false } do |form| %>
           <%= form.hidden_field :price_id, value: stripe_price_id %>
           <%= form.submit t("billing.subscriptions.manage.subscribe", term: term.to_s.capitalize),
-                          class: [ CustomFormBuilder::BUTTON_CLASSES, styles_for(:emphasis, submit: emphasis) ] %>
+                          class: [ helpers.form_button_classes, styles_for(:emphasis, submit: emphasis) ] %>
         <% end %>
       <% end %>
     <% else %>

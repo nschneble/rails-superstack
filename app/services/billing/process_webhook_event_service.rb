@@ -9,28 +9,32 @@ class Billing::ProcessWebhookEventService < BaseService
 
   def call(stripe_event_id:, event_type:, payload:)
     event = WebhookEvent.find_or_initialize_by(stripe_event_id:)
-    return ServiceResult.ok(event) if event.processed?
+    process_event(event, event_type:, payload:) unless event.processed?
 
+    ServiceResult.ok(event)
+  rescue ActiveRecord::RecordNotUnique
+    ServiceResult.ok(WebhookEvent.find_by(stripe_event_id:))
+  rescue ServiceError => error
+    event.update!(status: :failed, error_message: error.message)
+    ServiceResult.fail(event.error_message)
+  end
+
+  private
+
+  def process_event(event, event_type:, payload:)
     handler = HANDLERS[event_type]
     status = handler ? :processing : :ignored
 
     event.assign_attributes(event_type:, payload:, status:)
     event.save!
 
-    return ServiceResult.ok(event) unless handler.present?
+    dispatch_to_handler(event, handler:, payload:) if handler.present?
+  end
 
+  def dispatch_to_handler(event, handler:, payload:)
     result = handler.call(payload:)
-    if result.success?
-      event.update!(status: :processed)
-      ServiceResult.ok(event)
-    else
-      event.update!(status: :failed, error_message: result.error.to_s)
-      ServiceResult.fail(:processing_failed, result.error)
-    end
-  rescue ActiveRecord::RecordNotUnique
-    ServiceResult.ok(WebhookEvent.find_by(stripe_event_id:))
-  rescue => error
-    event.update!(status: :failed, error_message: error.message)
-    raise
+    raise ServiceError, result.error if result.failure?
+
+    event.update!(status: :processed)
   end
 end

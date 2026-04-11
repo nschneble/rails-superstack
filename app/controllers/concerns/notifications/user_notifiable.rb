@@ -5,6 +5,7 @@ module Notifications
 
     private
 
+    # :reek:FeatureEnvy — concern's purpose is to read user notifications
     def user_notifications
       return [] unless current_user
 

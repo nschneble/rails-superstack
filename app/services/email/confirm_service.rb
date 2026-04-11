@@ -1,23 +1,32 @@
-module Email
-  # Validates an email change token and updates the user's email address
-  class ConfirmService < BaseService
-    def call(token:)
-      request = EmailChangeRequest.find_by!(token:)
+# Validates an email change token and updates the user's email address
 
-      if request.expired?
-        request.destroy
-        return ServiceResult.fail(:link_expired)
-      end
+class Email::ConfirmService < BaseService
+  def call(token:)
+    @request = EmailChangeRequest.find_by!(token:)
 
-      if User.where(email: request.new_email).where.not(id: request.user_id).exists?
-        request.destroy
-        return ServiceResult.fail(:unavailable)
-      end
+    raise ServiceError, "link_expired" if @request.expired?
+    raise ServiceError, "unavailable"  if email_unavailable?
 
-      request.user.update!(email: request.new_email, email_confirmed_at: Time.current)
-      request.user.email_change_requests.delete_all
+    update_email
+  rescue ServiceError => error
+    @request.destroy
+    ServiceResult.fail(error.message)
+  end
 
-      ServiceResult.ok(request.user)
-    end
+  private
+
+  def email
+    @request.new_email
+  end
+
+  def email_unavailable?
+    User.where(email:).where.not(id: @request.user_id).exists?
+  end
+
+  def update_email
+    user = @request.user
+    user.update!(email:, email_confirmed_at: Time.current)
+    user.email_change_requests.delete_all
+    ServiceResult.ok(user)
   end
 end

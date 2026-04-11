@@ -40,6 +40,9 @@ class Pom::SubscriptionCardComponent < Pom::Component
   end
 
   def stripe_price_id
-    plan.stripe_price_id(term)
+    case term
+    when :monthly then plan.stripe_price_monthly_id&.call
+    when :yearly  then plan.stripe_price_yearly_id&.call
+    end
   end
 end

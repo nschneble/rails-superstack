@@ -25,10 +25,11 @@ class Billing::PlanDecorator < Draper::Decorator
   private
 
   def price_display(price, separator: "/")
+    index = price.index(separator)
     tag.p class: "font-bold text-4xl text-white" do
       safe_join([
-        tag.span(price[0, price.index(separator)]),
-        tag.span(price[price.index(separator), price.length], class: "font-normal text-lg text-slate-400")
+        tag.span(price[0, index]),
+        tag.span(price[index, price.length], class: "font-normal text-lg text-slate-400")
       ])
     end
   end

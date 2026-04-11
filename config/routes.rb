@@ -14,9 +14,9 @@ Rails.application.routes.draw do
 
       name = relative_path.sub("config/routes/", "").sub(".rb", "")
       draw name
-    rescue => exception
+    rescue StandardError => error
       Rails.logger.error { "  ✗ Error loading routes from #{relative_path}" }
-      raise exception
+      raise error
     end
   end
 

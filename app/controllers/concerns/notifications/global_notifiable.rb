@@ -7,6 +7,7 @@ module Notifications
 
     private
 
+    # :reek:FeatureEnvy — concern's purpose is to inspect the notification
     def global_notifications
       notification = NewGlobalNotificationNotifier.newest_first.first
       return [] if notification.blank? ||

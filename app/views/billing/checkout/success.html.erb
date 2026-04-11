@@ -9,12 +9,12 @@
               redirect_url_value: settings_billing_path
             } do %>
 
-  <%= tag.div class: CustomFormBuilder::FORM_CLASSES do %>
-    <%= tag.h1 fas_icon("champagne-glasses"), class: CustomFormBuilder::TITLE_CLASSES %>
-    <%= tag.h1 t("billing.subscriptions.success.title"), class: CustomFormBuilder::TITLE_CLASSES %>
+  <%= tag.div class: form_classes do %>
+    <%= tag.h1 fas_icon("champagne-glasses"), class: form_title_classes %>
+    <%= tag.h1 t("billing.subscriptions.success.title"), class: form_title_classes %>
 
-    <%= tag.p t("billing.subscriptions.success.description"), class: CustomFormBuilder::LABEL_CLASSES %>
-    <%= tag.p t("billing.subscriptions.success.redirect"), class: [ CustomFormBuilder::LABEL_CLASSES, "mt-2 mb-8" ] %>
+    <%= tag.p t("billing.subscriptions.success.description"), class: form_label_classes %>
+    <%= tag.p t("billing.subscriptions.success.redirect"), class: [ form_label_classes, "mt-2 mb-8" ] %>
 
     <%= pom_button(path: settings_billing_path, method: :get) do %>
       <%= t("billing.subscriptions.success.button") %>

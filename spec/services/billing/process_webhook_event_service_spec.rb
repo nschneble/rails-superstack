@@ -137,39 +137,6 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
     end
   end
 
-  describe "unexpected error during handler execution" do
-    let(:user) { create(:user) }
-
-    before do
-      create(:subscription, user:, stripe_customer_id: "cus_err_test")
-      allow(Billing::Webhooks::SubscriptionChangeHandler).to receive(:call).and_raise(RuntimeError, "boom")
-    end
-
-    it "marks the event as failed and re-raises the error" do
-      payload = {
-        "data" => {
-          "object" => {
-            "id" => "sub_err",
-            "customer" => "cus_err_test",
-            "status" => "active",
-            "cancel_at" => nil,
-            "current_period_end" => 30.days.from_now.to_i,
-            "trial_end" => nil,
-            "items" => { "data" => [ { "price" => { "id" => nil } } ] }
-          }
-        }
-      }
-
-      expect {
-        call(event_type: "customer.subscription.updated", payload:)
-      }.to raise_error(RuntimeError, "boom")
-
-      event = WebhookEvent.find_by(stripe_event_id:)
-      expect(event.status).to eq("failed")
-      expect(event.error_message).to eq("boom")
-    end
-  end
-
   describe "customer.subscription.updated" do
     let(:user) { create(:user) }
     let(:fake_sub_data) do

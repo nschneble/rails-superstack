@@ -1,5 +1,6 @@
 # Sends user account emails, including email change confirmations
 
+# :reek:InstanceVariableAssumption — standard ActionMailer pattern
 class UserMailer < ApplicationMailer
   default from: "no-reply@rails-superstack.dev"
 

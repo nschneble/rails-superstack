@@ -1,11 +1,18 @@
 module Demo
   # Searches and lists MacGuffins with ability-scoped access control
+  # :reek:InstanceVariableAssumption — @query is set by ApplicationController
   class MacGuffinsController < DemoApplicationController
     def index
-      result = MacGuffins::SearchService.call(ability: current_ability, query: @query, page: params[:page], request:)
+      result = MacGuffins::SearchService.call(
+        ability: current_ability,
+        query: @query,
+        page: params[:page],
+        request:
+      )
 
       @pagy, @mac_guffins = result.payload
       @search_unavailable = result.failure?
+
       return unless turbo_frame_request?
 
       render partial: "search"

@@ -14,6 +14,7 @@ class GraphQLController < ApplicationController
 
   protected
 
+  # :reek:ControlParameter — it's a standard Rails override guard clause
   def graphiql_settings(mode = nil)
     return super if mode == :cable
 

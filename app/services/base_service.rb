@@ -1,6 +1,9 @@
 # Abstract base class for all service objects; subclasses implement #call
 
 class BaseService
+  # Can be raised when a service calls fails
+  class ServiceError < StandardError; end
+
   def self.call(...) = new.call(...)
 
   def call(*)

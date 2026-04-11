@@ -3,23 +3,34 @@
 class Settings::RevokeApiTokensController < AuthenticatedController
   include Streamable
 
+  SUCCESS_MESSAGE = I18n.t("settings.api_tokens.flash.revoked")
+
   def destroy
-    api_token = current_user.api_tokens.active.find(params[:id])
+    api_token = active_tokens.find(params[:id])
     api_token.revoke
 
-    respond_to do |format|
-      format.html do
-        redirect_to settings_api_path, notice: t("settings.api_tokens.flash.revoked")
-      end
+    respond_to_revoke_api_token_success(api_token)
+  end
 
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove(api_token),
-          stream_api_token_reveal,
-          stream_empty_api_state(visible: current_user.api_tokens.active.exists?),
-          stream_notification(t("settings.api_tokens.flash.revoked"))
-        ]
-      end
+  private
+
+  def active_tokens
+    @active_tokens ||= current_user.api_tokens.active
+  end
+
+  def respond_to_revoke_api_token_success(api_token)
+    respond_to do |format|
+      format.html { redirect_to settings_api_path, notice: SUCCESS_MESSAGE }
+      format.turbo_stream { render turbo_stream: revoke_stream_actions(api_token) }
     end
+  end
+
+  def revoke_stream_actions(api_token)
+    [
+      turbo_stream.remove(api_token),
+      stream_api_token_reveal,
+      active_tokens.exists? ? stream_nonempty_api_state : stream_empty_api_state,
+      stream_notification(SUCCESS_MESSAGE)
+    ]
   end
 end

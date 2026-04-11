@@ -1,18 +1,34 @@
 [
   {
     "avatar": "key",
-    "visibility": "signed_in_only",
     "description": [
       { "link": "Sign out", "route": "auth_sign_out_path" },
-      { "hidden": ["with", { "link": "Passwordless", "to": "https://github.com/mikker/passwordless" }] }
-    ]
+      {
+        "hidden": [
+          "with",
+          {
+            "link": "Passwordless",
+            "to": "https://github.com/mikker/passwordless"
+          }
+        ]
+      }
+    ],
+    "byline": "",
+    "visibility": "user"
   },
   {
     "avatar": "key",
-    "visibility": "signed_out_only",
     "description": [
       { "link": "Sign in", "route": "auth_sign_in_path" },
-      { "hidden": ["with", { "link": "Passwordless", "to": "https://github.com/mikker/passwordless" }] }
+      {
+        "hidden": [
+          "with",
+          {
+            "link": "Passwordless",
+            "to": "https://github.com/mikker/passwordless"
+          }
+        ]
+      }
     ],
     "byline": [
       "Try",
@@ -20,14 +36,24 @@
       "for a regular user or",
       { "highlight": "admin@superstack.dev" },
       "for an admin"
-    ]
+    ],
+    "visibility": "anonymous"
   },
   {
     "avatar": "trophy",
     "description": [
       "Search",
       { "link": "MacGuffins", "route": "demo_mac_guffins_path" },
-      { "hidden": ["defined with", { "link": "CanCanCan", "to": "https://github.com/CanCanCommunity/cancancan" }, "access rules"] }
+      {
+        "hidden": [
+          "defined with",
+          {
+            "link": "CanCanCan",
+            "to": "https://github.com/CanCanCommunity/cancancan"
+          },
+          "access rules"
+        ]
+      }
     ],
     "byline": [
       "Try visiting the page while",
@@ -37,42 +63,73 @@
       ", and signed in as an",
       { "highlight": "admin" },
       ". You will see different items!"
-    ]
+    ],
+    "visibility": "all"
   },
   {
     "avatar": "share-nodes",
     "description": [
       { "link": "Make API calls", "route": "demo_api_path" },
-      { "hidden": ["with", { "link": "Rails GraphQL", "to": "https://rails-graphql.dev" }] }
-    ]
+      {
+        "hidden": [
+          "with",
+          { "link": "Rails GraphQL", "to": "https://rails-graphql.dev" }
+        ]
+      }
+    ],
+    "byline": "",
+    "visibility": "all"
   },
   {
     "avatar": "user-shield",
     "description": [
       "Open the",
       { "link": "admin dashboard", "route": "admin_path" },
-      { "hidden": ["with", { "link": "SuperAdmin", "to": "https://github.com/ThibautBaissac/super_admin" }] }
-    ]
+      {
+        "hidden": [
+          "with",
+          {
+            "link": "SuperAdmin",
+            "to": "https://github.com/ThibautBaissac/super_admin"
+          }
+        ]
+      }
+    ],
+    "byline": "",
+    "visibility": "all"
   },
   {
     "avatar": "fish-fins",
     "description": [
       "Enable",
       { "link": "feature flags", "route": "flipper_path" },
-      { "hidden": ["with", { "link": "Flipper", "to": "https://www.flippercloud.io" }] }
-    ]
+      {
+        "hidden": [
+          "with",
+          { "link": "Flipper", "to": "https://www.flippercloud.io" }
+        ]
+      }
+    ],
+    "byline": "",
+    "visibility": "all"
   },
   {
     "avatar": "bell",
     "description": [
       "Test",
       { "link": "sending notifications", "route": "notifications_path" },
-      { "hidden": ["with", { "link": "Noticed", "to": "https://github.com/excid3/noticed" }] }
+      {
+        "hidden": [
+          "with",
+          { "link": "Noticed", "to": "https://github.com/excid3/noticed" }
+        ]
+      }
     ],
     "byline": [
       "You need to be signed in as an",
       { "highlight": "admin" },
       "to access feature flags or send notifications"
-    ]
+    ],
+    "visibility": "all"
   }
 ]

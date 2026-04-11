@@ -1,15 +1,39 @@
 module Demo::Themes
   # Creates a Stripe one-time checkout session for purchasing a demo theme
   class CreateCheckoutSessionService < Billing::BillingService
-    def call(user:, theme_key:, success_url:, cancel_url:)
-      theme = Theme.find(theme_key)
+    def call(user:, theme_key:, urls:)
+      check_theme_and_past_purchases(user:, theme_key:)
+      ServiceResult.ok(create_session(user:, theme_key:, urls:))
+    rescue Stripe::StripeError => stripe_error
+      @purchase&.update!(status: :failed)
+      log_error_and_fail(:stripe_error, "Checkout error: #{stripe_error.message}")
+    rescue ServiceError => error
+      ServiceResult.fail(error.message)
+    end
 
-      return ServiceResult.fail(:invalid_theme) unless theme
-      return ServiceResult.fail(:already_purchased) if ThemePurchase.exists?(user:, theme_key:, status: :completed)
+    private
 
-      purchase = ThemePurchase.create!(user:, theme_key:, status: :pending)
-      session = stripe_client.v1.checkout.sessions.create(
-        customer_email: user.email,
+    attr_accessor :theme, :purchase
+
+    def check_theme_and_past_purchases(user:, theme_key:)
+      @theme = Theme.find(theme_key)
+      purchased = ThemePurchase.exists?(user:, theme_key:, status: :completed)
+
+      raise ServiceError, "invalid_theme" unless theme.present?
+      raise ServiceError, "already_purchased" if purchased
+    end
+
+    def create_session(user:, theme_key:, urls:)
+      @purchase = ThemePurchase.create!(user:, theme_key:, status: :pending)
+      session = stripe_client.v1.checkout.sessions.create(checkout_params(user.email, purchase.id, urls))
+
+      @purchase.update!(stripe_checkout_session_id: session.id)
+      session
+    end
+
+    def checkout_params(customer_email, theme_purchase_id, urls)
+      {
+        customer_email:,
         line_items: [ {
           price_data: {
             currency: "usd",
@@ -19,17 +43,10 @@ module Demo::Themes
           quantity: 1
         } ],
         mode: "payment",
-        success_url:,
-        cancel_url:,
-        metadata: { theme_purchase_id: purchase.id }
-      )
-
-      purchase.update!(stripe_checkout_session_id: session.id)
-      ServiceResult.ok(session)
-    rescue Stripe::StripeError => error
-      purchase&.update!(status: :failed)
-      Rails.logger.error("[Demo::Themes] Checkout error: #{error.message}")
-      ServiceResult.fail(:stripe_error, error.message)
+        success_url: urls[:success],
+        cancel_url: urls[:cancel],
+        metadata: { theme_purchase_id: }
+      }
     end
   end
 end

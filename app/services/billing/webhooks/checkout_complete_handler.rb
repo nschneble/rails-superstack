@@ -2,23 +2,28 @@ module Billing
   # Handles checkout complete webhooks by upserting the resulting subscription
   class Webhooks::CheckoutCompleteHandler < BillingService
     def call(payload:)
-      session = payload.dig("data", "object")
+      @session = payload.dig("data", "object")
+      return handle_subscription_checkout if mode == "subscription"
 
-      case session["mode"]
-      when "subscription" then handle_subscription_checkout(session)
-      else
-        handler = self.class.handlers[session["mode"]]
-        handler ? handler.call(session:) : ServiceResult.ok(nil)
-      end
+      handle_purchase_checkout
     end
 
     private
 
-    def handle_subscription_checkout(session)
-      stripe_subscription = stripe_client.v1.subscriptions.retrieve(session["subscription"])
-      stripe_customer_id = session["customer"]
+    def handle_subscription_checkout
+      UpsertSubscriptionService.call(
+        stripe_subscription: stripe_client.v1.subscriptions.retrieve(@session["subscription"]),
+        stripe_customer_id: @session["customer"]
+      )
+    end
 
-      UpsertSubscriptionService.call(stripe_subscription:, stripe_customer_id:)
+    def handle_purchase_checkout
+      handler = self.class.handlers[mode]
+      handler ? handler.call(session: @session) : ServiceResult.ok(nil)
+    end
+
+    def mode
+      @session["mode"]
     end
 
     class << self

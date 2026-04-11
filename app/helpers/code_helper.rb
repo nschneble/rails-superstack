@@ -9,7 +9,7 @@ module CodeHelper
     solarized: { dark: "Solarized (dark)",     light: "Solarized (light)" }
   }
 
-  def highlight_syntax(snippet, syntax = "ruby", theme = :ocean, variant = :dark)
+  def highlight_syntax(snippet, syntax = "ruby", **kwargs)
     return "<pre>Hello, world!</pre>" unless snippet.present?
 
     code = <<~CODE
@@ -18,7 +18,13 @@ module CodeHelper
       ```
     CODE
 
-    theme = THEMES.dig(theme, variant) || THEMES.dig(:ocean, :dark)
-    Commonmarker.to_html(code, plugins: { syntax_highlighter: { theme: theme } })
+    theme = find_theme(kwargs.fetch(:theme, :ocean), kwargs.fetch(:variant, :dark))
+    Commonmarker.to_html(code, plugins: { syntax_highlighter: { theme: } })
+  end
+
+  private
+
+  def find_theme(theme, variant)
+    THEMES.dig(theme, variant) || THEMES.dig(:ocean, :dark)
   end
 end
