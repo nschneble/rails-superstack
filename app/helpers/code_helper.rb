@@ -18,10 +18,13 @@ module CodeHelper
       ```
     CODE
 
-    theme_key  = kwargs.fetch(:theme, :ocean)
-    variant_key = kwargs.fetch(:variant, :dark)
-    theme = THEMES.dig(theme_key, variant_key) || THEMES.dig(:ocean, :dark)
-
+    theme = find_theme(kwargs.fetch(:theme, :ocean), kwargs.fetch(:variant, :dark))
     Commonmarker.to_html(code, plugins: { syntax_highlighter: { theme: } })
+  end
+
+  private
+
+  def find_theme(theme, variant)
+    THEMES.dig(theme, variant) || THEMES.dig(:ocean, :dark)
   end
 end

@@ -9,16 +9,20 @@ class Settings::RevokeApiTokensController < AuthenticatedController
     api_token = active_tokens.find(params[:id])
     api_token.revoke
 
-    respond_to do |format|
-      format.html { redirect_to settings_api_path, notice: SUCCESS_MESSAGE }
-      format.turbo_stream { render turbo_stream: revoke_stream_actions(api_token) }
-    end
+    respond_to_revoke_api_token_success(api_token)
   end
 
   private
 
   def active_tokens
     @active_tokens ||= current_user.api_tokens.active
+  end
+
+  def respond_to_revoke_api_token_success(api_token)
+    respond_to do |format|
+      format.html { redirect_to settings_api_path, notice: SUCCESS_MESSAGE }
+      format.turbo_stream { render turbo_stream: revoke_stream_actions(api_token) }
+    end
   end
 
   def revoke_stream_actions(api_token)

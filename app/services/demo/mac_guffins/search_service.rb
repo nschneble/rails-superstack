@@ -5,10 +5,10 @@ module Demo
 
     # :reek:LongParameterList — distinct search context inputs
     def call(ability:, query:, page:, request:)
-      @searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
-      return empty_result(:ok, page:, request:) if @searchable_ids.empty?
+      searchable_ids = MacGuffin.accessible_by(ability).pluck(:id)
+      return empty_result(:ok, page:, request:) if searchable_ids.empty?
 
-      pagy, results = search_mac_guffins(query:, page:)
+      pagy, results = search_mac_guffins(searchable_ids:, query:, page:)
       ServiceResult.ok([ pagy_with_request(pagy, request), results ])
     rescue Typesense::Error => error
       Rails.logger.error(error.message)
@@ -24,13 +24,13 @@ module Demo
       ServiceResult.new(success?: method == :ok, payload:, error:)
     end
 
-    def search_mac_guffins(query:, page:)
+    def search_mac_guffins(searchable_ids:, query:, page:)
       MacGuffin.search(
         query,
         "name,description",
         page:,
         per_page: PER_PAGE,
-        filter_by: "id:=[#{@searchable_ids.join(",")}]",
+        filter_by: "id:=[#{searchable_ids.join(",")}]",
         sort_by: "name:asc"
       )
     end

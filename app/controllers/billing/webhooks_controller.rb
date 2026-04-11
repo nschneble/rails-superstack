@@ -4,13 +4,16 @@ module Billing
     skip_forgery_protection
 
     def create
-      begin
-        event = Stripe::Webhook.construct_event(payload, sig_header, Figaro.env.stripe_signing_secret)
-        process_webhook_event(event)
-      rescue JSON::ParserError, Stripe::SignatureVerificationError => error
-        Rails.logger.warn(self.class) { "Signature verification failed: #{error.message}" }
-        head :bad_request
-      end
+      process_webhook_event(
+        Stripe::Webhook.construct_event(
+          payload,
+          sig_header,
+          Figaro.env.stripe_signing_secret
+        )
+      )
+    rescue JSON::ParserError, Stripe::SignatureVerificationError => error
+      Rails.logger.warn(self.class) { "Signature verification failed: #{error.message}" }
+      head :bad_request
     end
 
     private
@@ -24,8 +27,9 @@ module Billing
     end
 
     def process_webhook_event(event)
+      stripe_event_id = event.id
       result = ProcessWebhookEventService.call(
-        stripe_event_id: event.id,
+        stripe_event_id:,
         event_type: event.type,
         payload: event.as_json
       )
@@ -33,7 +37,7 @@ module Billing
       if result.success?
         head :ok
       else
-        Rails.logger.error(self.class) { "Processing failed for #{event.id}: #{result.error}" }
+        Rails.logger.error(self.class) { "Processing failed for #{stripe_event_id}: #{result.error}" }
         head :unprocessable_entity
       end
     end

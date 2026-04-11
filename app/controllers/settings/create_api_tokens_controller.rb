@@ -6,17 +6,36 @@ class Settings::CreateApiTokensController < AuthenticatedController
   SUCCESS_MESSAGE = I18n.t("settings.api_tokens.flash.created")
 
   def create
-    api_token = ApiToken.issue!(user: current_user, name: api_token_params[:name])
-
-    respond_to do |format|
-      format.html { session[:api_token_plaintext] = api_token.plaintext_token; redirect_to settings_api_path, notice: SUCCESS_MESSAGE }
-      format.turbo_stream { render turbo_stream: create_stream_actions(api_token) }
-    end
+    respond_to_create_api_token_success(
+      ApiToken.issue!(
+        user: current_user,
+        name: api_token_params[:name]
+      )
+    )
   rescue ActiveRecord::RecordInvalid => error
-    respond_to_api_token_failure(error.record.errors.full_messages.to_sentence)
+    respond_to_create_api_token_failure(
+      error.record.errors.full_messages.to_sentence
+    )
   end
 
   private
+
+  def respond_to_create_api_token_success(api_token)
+    respond_to do |format|
+      format.html do
+        session[:api_token_plaintext] = api_token.plaintext_token
+        redirect_to settings_api_path, notice: SUCCESS_MESSAGE
+      end
+      format.turbo_stream { render turbo_stream: create_stream_actions(api_token) }
+    end
+  end
+
+  def respond_to_create_api_token_failure(error_message)
+    respond_to do |format|
+      format.html { redirect_to settings_api_path, alert: error_message }
+      format.turbo_stream { render turbo_stream: stream_api_form(error_message:), status: :unprocessable_entity }
+    end
+  end
 
   def create_stream_actions(api_token)
     [
@@ -26,13 +45,6 @@ class Settings::CreateApiTokensController < AuthenticatedController
       stream_nonempty_api_state,
       stream_notification(SUCCESS_MESSAGE)
     ]
-  end
-
-  def respond_to_api_token_failure(error_message)
-    respond_to do |format|
-      format.html { redirect_to settings_api_path, alert: error_message }
-      format.turbo_stream { render turbo_stream: stream_api_form(error_message:), status: :unprocessable_entity }
-    end
   end
 
   def api_token_params

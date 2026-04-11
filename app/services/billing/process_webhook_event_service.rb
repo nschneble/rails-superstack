@@ -8,42 +8,33 @@ class Billing::ProcessWebhookEventService < BaseService
   }.freeze
 
   def call(stripe_event_id:, event_type:, payload:)
-    @event = WebhookEvent.find_or_initialize_by(stripe_event_id:)
+    event = WebhookEvent.find_or_initialize_by(stripe_event_id:)
+    process_event(event, event_type:, payload:) unless event.processed?
 
-    unless @event.processed?
-      @handler = HANDLERS[event_type]
-
-      update_event(event_type:, payload:)
-      dispatch_to_handler(payload:) if @handler.present?
-    end
-
-    ServiceResult.ok(@event)
+    ServiceResult.ok(event)
   rescue ActiveRecord::RecordNotUnique
     ServiceResult.ok(WebhookEvent.find_by(stripe_event_id:))
-  rescue RuntimeError, ServiceError => error
-    error_message = error.message
-    @event.update!(status: :failed, error_message:)
-
-    if error.is_a? RuntimeError
-      raise
-    else
-      ServiceResult.fail(error_message)
-    end
+  rescue ServiceError => error
+    event.update!(status: :failed, error_message: error.message)
+    ServiceResult.fail(event.error_message)
   end
 
   private
 
-  def update_event(event_type:, payload:)
-    status = @handler ? :processing : :ignored
+  def process_event(event, event_type:, payload:)
+    handler = HANDLERS[event_type]
+    status = handler ? :processing : :ignored
 
-    @event.assign_attributes(event_type:, payload:, status:)
-    @event.save!
+    event.assign_attributes(event_type:, payload:, status:)
+    event.save!
+
+    dispatch_to_handler(event, handler:, payload:) if handler.present?
   end
 
-  def dispatch_to_handler(payload:)
-    result = @handler.call(payload:)
+  def dispatch_to_handler(event, handler:, payload:)
+    result = handler.call(payload:)
     raise ServiceError, result.error if result.failure?
 
-    @event.update!(status: :processed)
+    event.update!(status: :processed)
   end
 end
