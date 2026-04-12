@@ -37,7 +37,7 @@ DEMO_PATHS=(
   "app/views/layouts/demo"
   "config/initializers/demo"
   "config/locales/demo"
-  "config/routes/development/demo"
+  "config/routes/demo"
   "db/seeds/development/demo"
   "lib/abilities/demo"
   "lib/data/demo"

@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   start = Time.current
 
   paths = [
-    "config/routes/shared/**/*.rb",
-    "config/routes/#{Rails.env}/**/*.rb"
+    "config/routes/**/*.rb"
   ]
 
   paths.each do |pattern|
