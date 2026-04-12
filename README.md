@@ -91,11 +91,12 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 - [What's in a Superstack, Exactly?](#whats-in-a-superstack-exactly)
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
-  - [Code Features](#code-features)
+  - [Core Features](#core-features)
   - [Routes](#routes)
-- [Linting, Testing, and CI](#linting-testing-and-ci)
+- [Linting, Testing, and Code Quality](#linting-testing-and-code-quality)
   - [Linting](#linting)
   - [Testing](#testing)
+  - [Code Quality](#code-quality)
   - [Local CI](#local-ci)
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
@@ -254,21 +255,17 @@ Rails Superstack has been preloaded and configured with the following:
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
 - [Rails AI Agents](https://github.com/ThibautBaissac/rails_ai_agents) (AI agents)
 
-### Code Features
+### Core Features
 
-Just a few highlights to whet the palette.
+What works right out of the box?
 
-| Feature           | Description                                |
-| ----------------- | ------------------------------------------ |
-| Abilities (Roles) | CanCanCan abilities (dynamic)              |
-| Models            | Users, API tokens, subscriptions           |
-| Helpers           | Text, web urls, forms, Font Awesome icons  |
-| Normalizers       | Email addresses                            |
-| Notifiers         | Bulk (toast) and individual (toast, email) |
-| Parsers           | Email addresses, web urls                  |
-| Services          | Stripe billing, email, notifications       |
-| Validators        | Email addresses, web urls                  |
-| View Components   | Clipboard, flash alerts, code snippets     |
+- Creating user accounts and signing in using magic link authentication
+- Creating API tokens and querying the GraphQL API
+- Sending in-app (toast) and email notifications
+- Searching for models using Typesense and Pagy
+- Making Stripe subscriptions and purchases
+
+F*ck yeah, baby.
 
 ### Routes
 
@@ -306,9 +303,9 @@ Just a few highlights to whet the palette.
 | `/demo/themes`      | Shows off Stripe purchases as app themes           |
 | `/demo/welcome`     | Starter page with helpful links                    |
 
-## Linting, Testing, and CI
+## Linting, Testing, and Code Quality
 
-There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
+There's handy binstubs for RuboCop, RSpec, and RubyCritic. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
 
 ### Linting
 
@@ -328,7 +325,19 @@ cd /path/to/your/repo
 bin/rspec
 
 # Open SimpleCov coverage report
-open coverage/index.html
+open simplecov/index.html
+```
+
+### Code Quality
+
+```bash
+cd /path/to/your/repo
+
+# Run code quality analysis
+bin/rubycritic
+
+# Open RubyCritic overview
+open rubycritic/overview.html
 ```
 
 ### Local CI
