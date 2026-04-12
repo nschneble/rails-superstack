@@ -108,6 +108,7 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Subscriptions](#subscriptions)
   - [Purchases](#purchases)
 - [Ephemera](#ephemera)
+  - [Deployment Strategy](#deployment-strategy)
   - [SimpleCov Coverage Badge](#simplecov-coverage-badge)
   - [Cleanup Script](#cleanup-script)
   - [AI Agents](#ai-agents)
@@ -230,6 +231,7 @@ Rails Superstack is a modern Ruby on Rails app, so by default it comes with:
 - [Postgres](https://www.postgresql.org)
 - [Puma](https://puma.io)
 - [RuboCop](https://rubocop.org)
+- [Solid Cache](https://github.com/rails/solid_cache) + [Solid Cable](https://github.com/rails/solid_cable)
 - [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
@@ -351,7 +353,7 @@ bin/ci
 
 GraphQL is a touch different than your vanilla JSON API. The data structures are effectively dynamic, so you can hit a single endpoint to request any sort of data in any sort of order.
 
-An endpoint covers a single GraphQL schema, which could compromise an individual model or literally your entire database. For simplicity and clarity, this repo has two schemas to disambiguate between common and demo endpoints.
+An endpoint covers a single GraphQL schema, which could comprise an individual model or literally your entire database. For simplicity and clarity, this repo has two schemas to disambiguate between common and demo endpoints.
 
 [Learn more about GraphQL](https://graphql.org/learn/)
 
@@ -399,8 +401,9 @@ bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
 
 A response will be nicely formatted JSON data:
 
+`POST /graphql/health`
+
 ```json
-# POST /graphql/health
 {
   "data": {
     "health": {
@@ -474,6 +477,10 @@ Replicate (or edit) these for your own unique Stripe purchases!
 
 ## Ephemera
 
+### Deployment Strategy
+
+Deployment is preconfigured for [Kamal 2](https://kamal-deploy.org). Just update `config/deploy.yml` with your server IP, registry, and secrets before deploying. The [Kamal docs](https://kamal-deploy.org/docs/installation/) are a great starting point.
+
 ### SimpleCov Coverage Badge
 
 When you run RSpec tests, a SimpleCov coverage report is created at `coverage/index.html` in your repo. This is great! The SimpleCov Tailwind gem makes it look buttery smooth. This is better! But the SimpleCov Badger gem? It lets you add a repo badge to your README. This is BEST.
@@ -481,15 +488,20 @@ When you run RSpec tests, a SimpleCov coverage report is created at `coverage/in
 You can follow the [SimpleCov Badger instructions](https://github.com/traels-it/simplecov_badger?tab=readme-ov-file#installation), but it's already configured in Rails Superstack, so you really just need to do three things:
 
 1. Get an API token
-  1. Run `bin/rails simplecov_badger:install` to get an API token
-  2. Set `simplecov_badger_token` in `config/application.yml`
-  3. Add a new GitHub repo secret for `SIMPLECOV_BADGER_TOKEN`
+
+  - Run `bin/rails simplecov_badger:install` to get an API token
+  - Set `simplecov_badger_token` in `config/application.yml`
+  - Add a new GitHub repo secret for `SIMPLECOV_BADGER_TOKEN`
+
 2. Commit to `main` (so CI runs)
-  1. Check the "Run RSpec tests" console output from GitHub CI
-  2. Copy the badge url
+
+  - Check the "Run RSpec tests" console output from GitHub CI
+  - Copy the badge url
+
 3. Update your README
-  1. Add ```![SimpleCov coverage](BADGE_URL)```
-  2. Done!
+
+  - Add ```![SimpleCov coverage](BADGE_URL)```
+  - Done!
 
 ### Cleanup Script
 
