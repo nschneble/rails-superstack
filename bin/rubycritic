@@ -13,4 +13,6 @@ ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
 require "rubygems"
 require "bundler/setup"
 
+ARGV.unshift("--mode-ci", "main") if ENV["GITHUB_EVENT_NAME"] == "pull_request"
+
 load Gem.bin_path("rubycritic", "rubycritic")

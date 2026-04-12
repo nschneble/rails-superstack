@@ -1,6 +1,3 @@
-mode_ci:
-  enabled: true
-  branch: "main"
 path: "rubycritic/"
 coverage_path: "simplecov/"
 no_browser: true
