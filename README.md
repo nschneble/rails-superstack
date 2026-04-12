@@ -9,6 +9,80 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 
 [![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) ![SimpleCov coverage](https://coverage.traels.it/badges/aHR0cHM6Ly9naXRodWIuY29tL25zY2huZWJsZS9yYWlscy1zdXBlcnN0YWNr) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0)
 
+![Rails Superstack demo](public/screenshots/passwordless.gif)
+
+<p align="left">┌─ Click any image to enlarge ─┐</p>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/welcome.jpg">
+        <img src="public/screenshots/welcome.jpg" />
+      </a>
+      <br /><sub><b>Welcome Page</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/superadmin.jpg">
+        <img src="public/screenshots/superadmin.jpg" />
+      </a>
+      <br /><sub><b>SuperAdmin Dashboard</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/resque.jpg">
+        <img src="public/screenshots/resque.jpg" />
+      </a>
+      <br /><sub><b>Resque UI</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/demo.jpg">
+        <img src="public/screenshots/demo.jpg" />
+      </a>
+      <br /><sub><b>Demo Page</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/simplecov.jpg">
+        <img src="public/screenshots/simplecov.jpg" />
+      </a>
+      <br /><sub><b>SimpleCov Report</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/rubycritic.jpg">
+        <img src="public/screenshots/rubycritic.jpg" />
+      </a>
+      <br /><sub><b>RubyCritic Analysis</b></sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/api.gif">
+        <img src="public/screenshots/api.gif" />
+      </a>
+      <br /><sub><em>API Tokens</em></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/stripe.gif">
+        <img src="public/screenshots/stripe.gif" />
+      </a>
+      <br /><sub><em>Stripe Subscriptions</em></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/typesense.gif">
+        <img src="public/screenshots/typesense.gif" />
+      </a>
+      <br /><sub><em>Typesense Search</em></sub>
+    </td>
+  </tr>
+</table>
+
+<p align="right">└─ Click any image to enlarge ─┘</p>
+
+## Table of Contents
+
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Run Rename Script](#run-rename-script)
