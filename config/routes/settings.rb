@@ -7,4 +7,5 @@ namespace :settings do
 end
 
 # Passwordless email updates
-resource :email_change, only: [ :create, :update ]
+post "email_change", to: "email_changes#create", as: :create_email_change
+get  "email_change", to: "email_changes#update", as: :update_email_change
