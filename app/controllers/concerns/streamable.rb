@@ -29,7 +29,7 @@ module Streamable
     turbo_stream.replace(
       "api_tokens_empty",
       partial: "settings/api_tokens/empty",
-      locals: { hidden: true }
+      locals: { hidden: false }
     )
   end
 
@@ -37,7 +37,7 @@ module Streamable
     turbo_stream.replace(
       "api_tokens_empty",
       partial: "settings/api_tokens/empty",
-      locals: { hidden: false }
+      locals: { hidden: true }
     )
   end
 
