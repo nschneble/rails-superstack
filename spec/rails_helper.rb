@@ -18,6 +18,8 @@ require 'rspec/rails'
 require_relative 'support/factory_bot'
 require_relative 'support/shoulda_matchers'
 require_relative 'support/stripe_client_helpers'
+require_relative 'support/capybara'
+require_relative 'support/system_test_helpers'
 require 'passwordless/test_helpers'
 require 'view_component/test_helpers'
 
@@ -82,4 +84,10 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   config.include ViewComponent::TestHelpers, type: :component
+
+  config.before(:each, type: :system) do
+    driven_by :headless_chrome
+  end
+
+  config.include Rails.application.routes.url_helpers, type: :system
 end
