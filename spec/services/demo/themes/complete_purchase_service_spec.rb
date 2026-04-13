@@ -20,5 +20,18 @@ RSpec.describe Demo::Themes::CompletePurchaseService, type: :service do
       expect(result).to be_failure
       expect(result.error).to eq(:purchase_not_found)
     end
+
+    it "returns record_invalid when the update fails" do
+      purchase = create(:demo_theme_purchase, stripe_checkout_session_id: "cs_invalid")
+      allow(Demo::Themes::ThemePurchase).to receive(:find_by).and_return(purchase)
+      allow(purchase).to receive(:update!).and_raise(
+        ActiveRecord::RecordInvalid.new(Demo::Themes::ThemePurchase.new)
+      )
+
+      result = described_class.call(session: { "id" => "cs_invalid", "payment_intent" => "pi_test" })
+
+      expect(result).to be_failure
+      expect(result.error).to eq(:record_invalid)
+    end
   end
 end

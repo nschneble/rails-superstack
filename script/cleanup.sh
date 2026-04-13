@@ -41,9 +41,14 @@ DEMO_PATHS=(
   "db/seeds/development/demo"
   "lib/abilities/demo"
   "lib/data/demo"
+  "spec/components/demo"
+  "spec/controllers/concerns/demo"
   "spec/controllers/demo"
+  "spec/decorators/demo"
   "spec/factories/demo"
+  "spec/mailers/demo"
   "spec/models/demo"
+  "spec/notifiers/demo"
   "spec/services/demo"
 )
 

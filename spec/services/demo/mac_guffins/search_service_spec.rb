@@ -28,6 +28,23 @@ RSpec.describe Demo::MacGuffins::SearchService, type: :service do
     end
   end
 
+  describe "when accessible mac_guffins exist and Typesense succeeds" do
+    before do
+      mac_guffin = create(:mac_guffin, user:, visibility: :open)
+      fake_pagy = Pagy::Offset.new(count: 1, page: 1, limit: 4)
+      allow(Demo::MacGuffin).to receive(:search).and_return([ fake_pagy, [ mac_guffin ] ])
+    end
+
+    it "returns success" do
+      expect(result).to be_success
+    end
+
+    it "returns results in the payload" do
+      _pagy, records = result.payload
+      expect(records).not_to be_empty
+    end
+  end
+
   describe "when Typesense raises an error" do
     before do
       create(:mac_guffin, user:, visibility: :open)

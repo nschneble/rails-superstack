@@ -1,0 +1,35 @@
+require "rails_helper"
+
+RSpec.describe Demo::WelcomeItemDecorator, type: :decorator do
+  subject(:decorator) { item.decorate }
+
+  let(:item) do
+    Demo::WelcomeItem.new(
+      avatar: "trophy",
+      description: [ "Hello", { link: "World", to: "https://example.com" } ],
+      byline: [ { highlight: "note" }, { hidden: [ "more" ] } ],
+      visibility: "all"
+    )
+  end
+
+  describe "#rendered_description" do
+    it "renders plain string segments" do
+      expect(decorator.rendered_description).to include("Hello")
+    end
+
+    it "renders link segments as anchor tags" do
+      expect(decorator.rendered_description).to include("<a")
+      expect(decorator.rendered_description).to include("World")
+    end
+  end
+
+  describe "#rendered_byline" do
+    it "renders highlight segments as span tags" do
+      expect(decorator.rendered_byline).to include("note")
+    end
+
+    it "renders hidden segments wrapped in a span" do
+      expect(decorator.rendered_byline).to include("hidden sm:inline")
+    end
+  end
+end
