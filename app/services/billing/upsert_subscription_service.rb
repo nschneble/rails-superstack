@@ -7,6 +7,8 @@ class Billing::UpsertSubscriptionService < BaseService
 
     subscription.update!(StripeSubscriptionParser.call(stripe_subscription))
     ServiceResult.ok(subscription)
+  rescue StripeSubscriptionParser::UnknownPriceError => error
+    log_error_and_fail(:unknown_price_id, error.message)
   end
 
   private

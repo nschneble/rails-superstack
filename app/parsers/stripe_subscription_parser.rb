@@ -1,6 +1,8 @@
 # Parses a Stripe subscription object
 
 class StripeSubscriptionParser < BaseParser
+  class UnknownPriceError < StandardError; end
+
   def call(value)
     {
       stripe_subscription_id: value.id,
@@ -15,10 +17,14 @@ class StripeSubscriptionParser < BaseParser
   private
 
   def resolve_plan(price_id)
-    plans = {
+    return "free" if price_id.blank?
+
+    {
       Figaro.env.stripe_price_pro_monthly => "pro_monthly",
       Figaro.env.stripe_price_pro_yearly  => "pro_yearly"
-    }.fetch(price_id, "free")
+    }.fetch(price_id)
+  rescue KeyError
+    raise UnknownPriceError, "Unknown Stripe price id: #{price_id}"
   end
 
   def format_timestamp(timestamp)
