@@ -26,7 +26,6 @@ SimpleCov.start do
   add_filter %r{^/app/helpers/simplecov/}
   add_filter %r{^/config/}
   add_filter %r{^/db/}
-  add_filter "/demo/"
 
   add_group "Components", "app/components"
   add_group "Controllers", "app/controllers"
