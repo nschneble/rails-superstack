@@ -10,6 +10,7 @@ module Rescuable
   private
 
   def deny_access(exception)
+    reset_passwordless_redirect_location!(User)
     redirect_back_or_to root_path, alert: exception.message
   end
 
