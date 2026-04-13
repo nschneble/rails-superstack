@@ -57,5 +57,14 @@ RSpec.describe "Email changes", type: :request do
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to be_present
     end
+
+    it "redirects to root with an alert for an invalid token" do
+      allow(Email::ConfirmService).to receive(:call).and_return(ServiceResult.fail(:invalid_link))
+
+      get update_email_change_path, params: { token: "bogus-token" }
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq(I18n.t("email.confirmation.invalid_link"))
+    end
   end
 end

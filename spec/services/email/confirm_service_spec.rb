@@ -76,8 +76,12 @@ RSpec.describe Email::ConfirmService, type: :service do
   describe "missing token" do
     subject(:result) { described_class.call(token: "bogus-token") }
 
-    it "raises ActiveRecord::RecordNotFound" do
-      expect { result }.to raise_error(ActiveRecord::RecordNotFound)
+    it "returns a failure result" do
+      expect(result).to be_failure
+    end
+
+    it "returns invalid_link error" do
+      expect(result.error).to eq("invalid_link")
     end
   end
 end

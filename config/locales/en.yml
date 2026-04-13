@@ -75,6 +75,7 @@ en:
         title: "You're all set!"
   email:
     confirmation:
+      invalid_link: "That confirmation link is invalid"
       link_expired: "That confirmation link has expired"
       link_sent: "We've sent a confirmation link to %{new_email}"
       unavailable: "That email address is already in use"
