@@ -36,12 +36,17 @@
     "description": [
       "Run",
       { "link": "RSpec", "to": "https://rspec.info/" },
-      { "hidden": [
-        " tests with",
-        { "link": "Factory Bot", "to": "https://github.com/thoughtbot/factory_bot_rails" },
-        "and",
-        { "link": "Faker", "to": "https://github.com/faker-ruby/faker" }
-      ] }
+      {
+        "hidden": [
+          " tests with",
+          {
+            "link": "Factory Bot",
+            "to": "https://github.com/thoughtbot/factory_bot_rails"
+          },
+          "and",
+          { "link": "Faker", "to": "https://github.com/faker-ruby/faker" }
+        ]
+      }
     ]
   },
   {
@@ -50,7 +55,10 @@
     "code": "bin/ci",
     "description": [
       { "hidden": ["Ready to merge?"] },
-      { "link": "Run local CI", "to": "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-ci" }
+      {
+        "link": "Run local CI",
+        "to": "https://github.com/nschneble/rails-superstack?tab=readme-ov-file#linting-testing-and-code-quality"
+      }
     ]
   }
 ]
