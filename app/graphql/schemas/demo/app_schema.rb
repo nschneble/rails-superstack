@@ -15,7 +15,7 @@ module  GraphQL::Schemas
       field(:mac_guffins, "MacGuffin", array: true, null: false)
         .authorize(&require_authentication)
         .resolve {
-          Demo::MacGuffin.accessible_by(request.context.current_ability).order(:id)
+          ::Demo::MacGuffin.accessible_by(request.context.current_ability).order(:id)
         }
     end
   end
