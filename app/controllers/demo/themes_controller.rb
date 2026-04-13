@@ -4,7 +4,7 @@ module Demo
     include Redirectable
 
     def index
-      @themes = Themes::ThemePurchase::THEMES
+      @themes = Themes::ThemeDecorator.decorate_collection(Themes::Theme.purchasable)
       @purchases = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
     end
 
