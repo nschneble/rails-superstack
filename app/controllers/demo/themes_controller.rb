@@ -6,6 +6,7 @@ module Demo
     def index
       @themes = Themes::ThemeDecorator.decorate_collection(Themes::Theme.purchasable)
       @purchases = Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
+      @purchases |= [ params[:purchased] ] if params[:purchased].present?
     end
 
     def checkout
