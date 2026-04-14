@@ -56,13 +56,13 @@
       }
     ],
     "byline": [
-      "Try visiting the page while",
+      "Visit the page while",
       { "highlight": "signed out" },
-      ", signed in as a",
+      "and signed in as a",
       { "highlight": "regular user" },
-      ", and signed in as an",
+      "or",
       { "highlight": "admin" },
-      ". You will see different items!"
+      "to see different items!"
     ],
     "visibility": "all"
   },
