@@ -24,7 +24,7 @@ class Pom::CopyToClipboardComponent < Pom::Component
       class: styles_for(align: align, theme: theme),
       data: {
         controller: "clipboard",
-        action: "click->clipboard#copy",
+        action: "click->clipboard#copy mouseenter->clipboard#showTooltip mouseleave->clipboard#hideTooltip",
         clipboard_duration_value: "1000",
         clipboard_emoji_fallback_value: !helpers.font_awesome_available?,
         clipboard_target_selector_value: "##{target}",

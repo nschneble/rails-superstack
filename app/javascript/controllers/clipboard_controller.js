@@ -19,6 +19,8 @@ export default class extends Controller {
     try {
       await navigator.clipboard.writeText(text.trim());
 
+      this.copying = true;
+
       // checks if we should fallback to using emoji when Font Awesome is unavailable
       if (this.emojiFallbackValue) {
         this._showCopiedEmojiIcon();
@@ -28,6 +30,18 @@ export default class extends Controller {
     } catch (error) {
       console.error(`Could not copy to the clipboard: ${error}`);
     }
+  }
+
+  showTooltip() {
+    if (!this.hasTooltipTarget) return;
+    this.tooltipTarget.querySelector("[data-clipboard-label]").textContent =
+      "Copy to clipboard";
+    this.tooltipTarget.classList.remove("opacity-0", "translate-y-1");
+  }
+
+  hideTooltip() {
+    if (!this.hasTooltipTarget || this.copying) return;
+    this.tooltipTarget.classList.add("opacity-0", "translate-y-1");
   }
 
   _resolveText() {
@@ -60,6 +74,7 @@ export default class extends Controller {
       icon.classList.remove("opacity-0", "blur-xs");
 
       if (tooltip) {
+        tooltip.querySelector("[data-clipboard-label]").textContent = "Copied!";
         tooltip.classList.remove("opacity-0", "translate-y-1");
       }
 
@@ -70,6 +85,7 @@ export default class extends Controller {
         setTimeout(() => {
           icon.innerText = "📋";
           icon.classList.remove("opacity-0", "blur-xs");
+          this.copying = false;
         }, 100);
       }, this.durationValue);
     }, 100);
@@ -87,6 +103,7 @@ export default class extends Controller {
       icon.classList.remove("opacity-0", "blur-xs");
 
       if (tooltip) {
+        tooltip.querySelector("[data-clipboard-label]").textContent = "Copied!";
         tooltip.classList.remove("opacity-0", "translate-y-1");
       }
 
@@ -98,6 +115,7 @@ export default class extends Controller {
           icon.classList.remove("fa-circle-check", "text-lime-500");
           icon.classList.add("fa-copy");
           icon.classList.remove("opacity-0", "blur-xs");
+          this.copying = false;
         }, 100);
       }, this.durationValue);
     }, 100);
