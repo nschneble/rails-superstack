@@ -38,7 +38,7 @@ _Nothing here!_
 
 - [RuboCop](https://rubocop.org)
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
-- [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
+- [RSpec](https://rspec.info) + [Capybara](http://teamcapybara.github.io/capybara/) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 - [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 - [RubyCritic](https://github.com/whitesmith/rubycritic) (code quality)
 - [Letter Opener](https://github.com/ryanb/letter_opener) + [Letter Opener Web](https://github.com/fgrehm/letter_opener_web) (preview emails)
