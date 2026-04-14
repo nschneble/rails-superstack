@@ -10,6 +10,12 @@ export default class extends Controller {
     emojiFallback: Boolean,
   };
 
+  connect() {}
+
+  disconnect() {
+    this.copying = false;
+  }
+
   async copy(event) {
     event.preventDefault();
 
