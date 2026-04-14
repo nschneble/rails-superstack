@@ -1,5 +1,6 @@
 require "ostruct"
 require "simplecov"
+require "simplecov_json_formatter"
 require "simplecov_badger"
 require "simplecov-tailwindcss"
 
@@ -8,6 +9,7 @@ require_relative "../app/helpers/simplecov/formatter/custom_formatter"
 SimpleCov.start do
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::TailwindFormatter,
+    SimpleCov::Formatter::JSONFormatter,
     SimpleCov::Formatter::CustomFormatter,
     SimpleCov::Badger::Formatter
   ])
