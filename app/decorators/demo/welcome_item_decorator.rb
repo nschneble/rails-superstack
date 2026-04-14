@@ -27,7 +27,9 @@ class Demo::WelcomeItemDecorator < ApplicationDecorator
 
   def render_hash(part)
     if part.key?(:link)
-      link_to part[:link], part[:to].presence || send(part[:route]), class: "hover:text-amber-400 underline!"
+      link_options = { class: "hover:text-amber-400 underline!" }
+      link_options[:data] = { turbo_method: part[:method].to_sym, turbo_prefetch: false } if part[:method]
+      link_to part[:link], part[:to].presence || send(part[:route]), **link_options
     elsif part.key?(:hidden)
       tag.span render_segments(part[:hidden]), class: "hidden sm:inline"
     elsif part.key?(:highlight)

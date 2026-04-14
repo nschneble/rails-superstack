@@ -2,7 +2,7 @@
   {
     "avatar": "key",
     "description": [
-      { "link": "Sign out", "route": "auth_sign_out_path" },
+      { "link": "Sign out", "route": "auth_sign_out_path", "method": "delete" },
       {
         "hidden": [
           "with",
