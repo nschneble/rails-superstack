@@ -28,6 +28,6 @@ class GraphQLController < ApplicationController
   private
 
   def csrf_exempt_graphql_request?
-    bearer_token.present? || authenticate_by_session(User).blank? || request.content_type&.include?("application/json")
+    bearer_token.present? || current_user.blank?
   end
 end
