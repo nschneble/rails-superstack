@@ -4,10 +4,7 @@ module Abilities::Billing::Subscriptions
   def self.apply(ability, user)
     if user.present?
       ability.can :manage, Subscription, user: user
-    end
-
-    if user&.admin?
-      ability.can :manage, Subscription
+      ability.can :read, Subscription if user.admin?
     end
   end
 end
