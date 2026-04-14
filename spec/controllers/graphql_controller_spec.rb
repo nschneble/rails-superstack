@@ -36,22 +36,19 @@ RSpec.describe GraphQLController, type: :controller do # rubocop:disable RSpec/S
   describe "#csrf_exempt_graphql_request?" do
     it "returns false for a session-authenticated non-JSON request without bearer token" do
       user = create(:user)
-      allow(controller).to receive(:bearer_token).and_return(nil)
-      allow(controller).to receive(:authenticate_by_session).and_return(user)
+      allow(controller).to receive_messages(bearer_token: nil, authenticate_by_session: user)
       request.env["CONTENT_TYPE"] = "text/html"
       expect(controller.send(:csrf_exempt_graphql_request?)).to be(false)
     end
 
     it "returns true for an unauthenticated request with no bearer token" do
-      allow(controller).to receive(:bearer_token).and_return(nil)
-      allow(controller).to receive(:authenticate_by_session).and_return(nil)
+      allow(controller).to receive_messages(bearer_token: nil, authenticate_by_session: nil)
       expect(controller.send(:csrf_exempt_graphql_request?)).to be(true)
     end
 
     it "returns falsy for a session-authenticated request with no content type and no bearer token" do
       user = create(:user)
-      allow(controller).to receive(:bearer_token).and_return(nil)
-      allow(controller).to receive(:authenticate_by_session).and_return(user)
+      allow(controller).to receive_messages(bearer_token: nil, authenticate_by_session: user)
       expect(controller.send(:csrf_exempt_graphql_request?)).to be_falsy
     end
   end
