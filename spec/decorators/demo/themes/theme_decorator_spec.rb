@@ -22,13 +22,13 @@ RSpec.describe Demo::Themes::ThemeDecorator, type: :decorator do
     end
 
     it "renders nil for hash segments without a :link key" do
-      theme = double("Demo::Themes::Theme", price_cents: 1000, image_attribution: [ "Photo by", { alt: "someone" } ])
+      theme = instance_double(Demo::Themes::Theme, price_cents: 1000, image_attribution: [ "Photo by", { alt: "someone" } ])
       result = described_class.new(theme).rendered_image_attribution
       expect(result).to include("Photo by")
     end
 
     it "renders nil for non-string, non-hash segments" do
-      theme = double("Demo::Themes::Theme", price_cents: 1000, image_attribution: [ "Photo by", 42 ])
+      theme = instance_double(Demo::Themes::Theme, price_cents: 1000, image_attribution: [ "Photo by", 42 ])
       result = described_class.new(theme).rendered_image_attribution
       expect(result).to include("Photo by")
     end
