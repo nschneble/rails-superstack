@@ -3,11 +3,11 @@
 <%= tag.div class: "w-full sm:ml-11 mt-[76] mb-[52] pb-[100] text-white overflow-y-scroll" do %>
   <%= tag.div class: "max-w-[650] mx-auto" do %>
 
-    <% if params[:purchased] %>
+    <% if purchased_key.present? && @purchases.include?(purchased_key) %>
       <%= tag.div class: "absolute top-6 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-full max-w-[325] z-20" do %>
         <%= render "shared/notification",
           variant: :notice,
-          message: t("themes.purchased_notice", theme: Demo::Themes::Theme.find(params[:purchased]).name)
+          message: t("themes.purchased_notice", theme: Demo::Themes::Theme.find(purchased_key).name)
         %>
       <% end %>
     <% end %>

@@ -17,7 +17,7 @@ module Demo::Themes
     delegate :name, :price_cents, :description, to: :theme, prefix: true, allow_nil: true
 
     def theme
-      Theme.find(theme_key)&.decorate
+      Theme.find(theme_key)
     end
   end
 end

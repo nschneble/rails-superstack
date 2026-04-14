@@ -1,21 +1,22 @@
-# Resolves a current demo theme from the user's theme purchases
+module Demo
+  # Resolves a current demo theme from the user's theme purchases
+  module Themeable
+    extend ActiveSupport::Concern
 
-module Demo::Themeable
-  extend ActiveSupport::Concern
+    included do
+      helper_method :current_theme, :theme_purchases
+    end
 
-  included do
-    helper_method :current_theme
-  end
+    private
 
-  private
+    def current_theme
+      return Themes::Theme.default if theme_purchases.empty?
 
-  def current_theme
-    return Demo::Themes::Theme.default if purchases.empty?
+      @current_theme ||= Themes::Theme.find(theme_purchases.sample)
+    end
 
-    @current_theme ||= Demo::Themes::Theme.find(purchases.sample)
-  end
-
-  def purchases
-    @purchases ||= Demo::Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
+    def theme_purchases
+      @theme_purchases ||= Themes::ThemePurchase.accessible_by(current_ability).completed.pluck(:theme_key)
+    end
   end
 end
