@@ -5,8 +5,8 @@ module Subscribable
 
   included do
     has_one :subscription, dependent: :destroy
-    delegate :stripe_customer_id, :stripe_subscription_id, to: :subscription, allow_nil: true
-    delegate :plan, to: :subscription, prefix: true, allow_nil: true
+    delegate :stripe_customer_id, :stripe_subscription_id, to: :subscription
+    delegate :plan, to: :subscription, prefix: true
   end
 
   def subscription
