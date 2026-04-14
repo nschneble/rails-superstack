@@ -21,15 +21,6 @@
     ]
   },
   {
-    "icon": "poo",
-    "name": "rubycritic",
-    "code": "bin/rubycritic",
-    "description": [
-      "Check code quality with",
-      { "link": "RubyCritic", "to": "https://github.com/whitesmith/rubycritic" }
-    ]
-  },
-  {
     "icon": "vial-circle-check",
     "name": "rspec",
     "code": "bin/rspec",
@@ -47,6 +38,16 @@
           { "link": "Faker", "to": "https://github.com/faker-ruby/faker" }
         ]
       }
+    ]
+  },
+  {
+    "icon": "poo",
+    "name": "rubycritic",
+    "code": "bin/rubycritic",
+    "description": [
+      "Check",
+      { "hidden": ["code quality with"] },
+      { "link": "RubyCritic", "to": "https://github.com/whitesmith/rubycritic" }
     ]
   },
   {
