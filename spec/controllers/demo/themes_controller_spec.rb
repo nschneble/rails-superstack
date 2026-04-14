@@ -26,6 +26,14 @@ RSpec.describe Demo::ThemesController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
     end
+
+    it "returns ok when a purchased param is present" do
+      user = create(:user)
+      passwordless_sign_in(user)
+
+      get :index, params: { purchased: "midnight_galaxy" }
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe "POST #checkout" do

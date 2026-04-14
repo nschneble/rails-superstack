@@ -21,6 +21,17 @@ RSpec.describe Demo::WelcomeItemDecorator, type: :decorator do
       expect(decorator.rendered_description).to include("<a")
       expect(decorator.rendered_description).to include("World")
     end
+
+    it "includes turbo data attributes when the link has a method" do
+      item = Demo::WelcomeItem.new(
+        avatar: "trophy",
+        description: [ { link: "Delete", to: "https://example.com", method: "delete" } ],
+        byline: [],
+        visibility: "all"
+      )
+      result = item.decorate.rendered_description
+      expect(result).to include("turbo-method")
+    end
   end
 
   describe "#rendered_byline" do
