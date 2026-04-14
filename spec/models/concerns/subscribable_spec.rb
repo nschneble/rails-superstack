@@ -9,6 +9,48 @@ RSpec.describe Subscribable, type: :model do
     end
   end
 
+  describe "#stripe_customer_id" do
+    it "delegates to the subscription" do
+      user = create(:user)
+      create(:subscription, user:, stripe_customer_id: "cus_test123")
+      expect(user.reload.stripe_customer_id).to eq("cus_test123")
+    end
+
+    it "returns nil when subscription is nil" do
+      user = build(:user)
+      allow(user).to receive(:subscription).and_return(nil)
+      expect(user.stripe_customer_id).to be_nil
+    end
+  end
+
+  describe "#stripe_subscription_id" do
+    it "delegates to the subscription" do
+      user = create(:user)
+      create(:subscription, user:, stripe_subscription_id: "sub_test123")
+      expect(user.reload.stripe_subscription_id).to eq("sub_test123")
+    end
+
+    it "returns nil when subscription is nil" do
+      user = build(:user)
+      allow(user).to receive(:subscription).and_return(nil)
+      expect(user.stripe_subscription_id).to be_nil
+    end
+  end
+
+  describe "#subscription_plan" do
+    it "delegates plan to the subscription with prefix" do
+      user = create(:user)
+      create(:subscription, user:, plan: "pro_monthly", status: :active)
+      expect(user.reload.subscription_plan).to eq("pro_monthly")
+    end
+
+    it "returns nil when subscription is nil" do
+      user = build(:user)
+      allow(user).to receive(:subscription).and_return(nil)
+      expect(user.subscription_plan).to be_nil
+    end
+  end
+
   describe "#pro_subscription?" do
     it "returns false when on a free plan" do
       user = create(:user)

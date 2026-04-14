@@ -25,5 +25,23 @@ RSpec.describe Demo::TerminalCommandDecorator, type: :decorator do
     it "renders hidden segments wrapped in a span" do
       expect(decorator.rendered_description).to include("hidden sm:inline")
     end
+
+    it "renders nil for hash segments with no recognized key" do
+      command = Demo::TerminalCommand.new(
+        icon: "terminal", name: "test", code: "bin/test",
+        description: [ "Run", { unknown_key: "ignored" } ]
+      )
+      result = command.decorate.rendered_description
+      expect(result).to include("Run")
+    end
+
+    it "renders nil for non-string, non-hash segments" do
+      command = Demo::TerminalCommand.new(
+        icon: "terminal", name: "test", code: "bin/test",
+        description: [ "Run", 42 ]
+      )
+      result = command.decorate.rendered_description
+      expect(result).to include("Run")
+    end
   end
 end

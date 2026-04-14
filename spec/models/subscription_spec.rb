@@ -67,5 +67,10 @@ RSpec.describe Subscription, type: :model do
       subscription = build(:subscription, status: :active, trial_ends_at: 7.days.from_now)
       expect(subscription.on_trial?).to be(false)
     end
+
+    it "returns falsy when trialing but trial_ends_at is nil" do
+      subscription = build(:subscription, status: :trialing, trial_ends_at: nil)
+      expect(subscription).not_to be_on_trial
+    end
   end
 end

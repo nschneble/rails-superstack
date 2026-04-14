@@ -32,4 +32,17 @@ RSpec.describe Demo::WelcomeItemDecorator, type: :decorator do
       expect(decorator.rendered_byline).to include("hidden sm:inline")
     end
   end
+
+  describe "#rendered_description with an unrecognized hash key" do
+    it "renders nil for hash segments with no recognized key" do
+      item = Demo::WelcomeItem.new(
+        avatar: "trophy",
+        description: [ "Hello", { unknown_key: "ignored" } ],
+        byline: [],
+        visibility: "all"
+      )
+      result = item.decorate.rendered_description
+      expect(result).to include("Hello")
+    end
+  end
 end

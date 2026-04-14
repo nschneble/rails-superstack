@@ -31,6 +31,24 @@ RSpec.describe StripeSubscriptionParser do
     expect(result[:plan]).to eq("free")
   end
 
+  it "maps to free when the subscription has no items" do
+    sub = build_stripe_subscription(price_id: nil)
+    allow(sub.items).to receive(:data).and_return([])
+
+    result = parser.call(sub)
+
+    expect(result[:plan]).to eq("free")
+  end
+
+  it "maps to free when the first item has no price" do
+    sub = build_stripe_subscription(price_id: nil)
+    allow(sub.items.data.first).to receive(:price).and_return(nil)
+
+    result = parser.call(sub)
+
+    expect(result[:plan]).to eq("free")
+  end
+
   it "raises for an unknown price id" do
     expect {
       parser.call(build_stripe_subscription(price_id: "price_unknown"))

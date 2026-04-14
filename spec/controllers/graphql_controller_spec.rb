@@ -30,4 +30,17 @@ RSpec.describe GraphQLController, type: :controller do # rubocop:disable RSpec/S
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe "#graphiql_settings" do
+    it "returns cable settings when mode is :cable" do
+      result = controller.send(:graphiql_settings, :cable)
+      expect(result[:mode]).to eq(:cable)
+    end
+
+    it "returns fetch settings with the configured execute path for other modes" do
+      allow(controller).to receive(:current_config).and_return({ execute_path: "/graphql" })
+      result = controller.send(:graphiql_settings)
+      expect(result).to eq({ mode: :fetch, url: "/graphql" })
+    end
+  end
 end

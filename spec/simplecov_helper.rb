@@ -26,6 +26,7 @@ SimpleCov.start do
 
   add_filter %r{^/app/dashboards/}
   add_filter %r{^/app/helpers/simplecov/}
+  add_filter %r{^/app/views/layouts/application\.html\.erb$}
   add_filter %r{^/config/}
   add_filter %r{^/db/}
 

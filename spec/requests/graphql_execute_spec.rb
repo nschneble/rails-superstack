@@ -9,6 +9,15 @@ RSpec.describe "GraphQL execute", type: :request do
       expect(parsed_body.dig("errors", 0, "message")).to eq("Unauthorized")
       expect(parsed_body.dig("data", "users")).to be_nil
     end
+
+    it "returns 'unauthorized' when the bearer token is invalid" do
+      post "/graphql",
+        params: { query: "{ users { id } }" },
+        headers: { Authorization: "Bearer invalid_token_xyz" }
+
+      expect(response).to have_http_status(:ok)
+      expect(parsed_body.dig("errors", 0, "message")).to eq("Unauthorized")
+    end
   end
 
   describe "Health query" do
