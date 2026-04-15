@@ -14,7 +14,7 @@ class NotificationsController < AuthenticatedController
       redirect_to notifications_path, notice: t("notifications.status.success")
     else
       flash.now.alert = t("notifications.status.#{result.error}")
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 end

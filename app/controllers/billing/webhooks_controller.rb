@@ -38,7 +38,7 @@ module Billing
         head :ok
       else
         Rails.logger.error(self.class) { "Processing failed for #{stripe_event_id}: #{result.error}" }
-        head :unprocessable_entity
+        head :unprocessable_content
       end
     end
   end

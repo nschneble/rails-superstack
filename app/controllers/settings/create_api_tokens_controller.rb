@@ -33,7 +33,7 @@ class Settings::CreateApiTokensController < AuthenticatedController
   def respond_to_create_api_token_failure(error_message)
     respond_to do |format|
       format.html { redirect_to settings_api_path, alert: error_message }
-      format.turbo_stream { render turbo_stream: stream_api_form(error_message:), status: :unprocessable_entity }
+      format.turbo_stream { render turbo_stream: stream_api_form(error_message:), status: :unprocessable_content }
     end
   end
 
