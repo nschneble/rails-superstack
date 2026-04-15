@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = {
     timeout: { type: Number, default: 10000 },
     duration: { type: Number, default: 200 },
+    notificationId: { type: Number, default: 0 },
   };
 
   connect() {
@@ -14,6 +15,11 @@ export default class extends Controller {
     });
 
     this._timer = setTimeout(() => this.dismiss(), this.timeoutValue);
+
+    if (this.notificationIdValue > 0) {
+      const oneYear = 365 * 24 * 60 * 60;
+      document.cookie = `global_notification_id=${this.notificationIdValue}; path=/; max-age=${oneYear}; SameSite=Lax`;
+    }
   }
 
   disconnect() {

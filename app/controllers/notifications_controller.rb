@@ -9,6 +9,8 @@ class NotificationsController < AuthenticatedController
     result = Notifications::BroadcastService.call(message:, actor: current_user)
 
     if result.success?
+      event = NewGlobalNotificationNotifier.newest_first.first
+      set_global_notification_id(event.id) if event
       redirect_to notifications_path, notice: t("notifications.status.success")
     else
       flash.now.alert = t("notifications.status.#{result.error}")
