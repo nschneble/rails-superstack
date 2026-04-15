@@ -19,11 +19,11 @@ module Notifications
     end
 
     def set_global_notification_id(value, expires: 1.year.from_now)
-      cookies.signed[:global_notification_id] = { value:, expires: }
+      cookies[:global_notification_id] = { value:, expires: }
     end
 
     def global_notification_id
-      cookies.signed[:global_notification_id].to_i
+      cookies[:global_notification_id].to_i
     end
   end
 end

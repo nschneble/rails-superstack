@@ -12,9 +12,10 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
   - [Routes](#routes)
-- [Linting, Testing, and CI](#linting-testing-and-ci)
+- [Linting, Testing, and Code Quality](#linting-testing-and-code-quality)
   - [Linting](#linting)
   - [Testing](#testing)
+  - [Code Quality](#code-quality)
   - [Local CI](#local-ci)
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
@@ -76,7 +77,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 
 - [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
-- [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
+- [RSpec](https://rspec.info) + [Capybara](http://teamcapybara.github.io/capybara/) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 - [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 - [RubyCritic](https://github.com/whitesmith/rubycritic) (code quality)
 - [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth + roles)
@@ -91,6 +92,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 - [Noticed](https://github.com/excid3/noticed) (notifications)
 - [Figaro](https://github.com/laserlemon/figaro) (app configuration)
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
+- [Rails AI Agents](https://github.com/ThibautBaissac/rails_ai_agents) (AI agents)
 
 ### Routes
 
@@ -113,7 +115,7 @@ Open [localhost:3000](http://localhost:3000) in your web browser.
 | `/flipper`       | Feature flags        |
 | `/resque`        | Background jobs      |
 
-## Linting, Testing, and CI
+## Linting, Testing, and Code Quality
 
 ### Linting
 
@@ -127,6 +129,18 @@ bin/rubocop
 ```bash
 cd /path/to/your/repo
 bin/rspec
+```
+
+### Code Quality
+
+```bash
+cd /path/to/your/repo
+
+# Run code quality analysis
+bin/rubycritic
+
+# Open RubyCritic overview
+open rubycritic/overview.html
 ```
 
 ### Local CI
@@ -195,8 +209,8 @@ Obtain `stripe_signing_secret` by running `bin/dev --with-stripe`. You'll see te
 # config/application.yml
 
 # replace with your Stripe price ids
-stripe_price_pro_monthly: price_REPLACE_ME
-stripe_price_pro_yearly:  price_REPLACE_ME
+stripe_price_pro_monthly:  price_REPLACE_ME
+stripe_price_pro_yearly:   price_REPLACE_ME
 ```
 
 Update `price_monthly_cents` and `price_yearly_cents` in `app/models/billing/pro_plan.rb` to your product prices.

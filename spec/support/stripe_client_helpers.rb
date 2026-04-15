@@ -1,3 +1,22 @@
+RSpec.shared_context "with Stripe subscription builder" do
+  # rubocop:disable RSpec/VerifiedDoubles
+  def build_stripe_subscription(price_id:, cancel_at: nil, current_period_end: nil, trial_end: nil)
+    sub = double(
+      "Stripe::Subscription",
+      id: "sub_test",
+      status: "active",
+      items: double("items", data: [
+        double("item", price: double("price", id: price_id))
+      ])
+    )
+    allow(sub).to receive(:[]).with("cancel_at").and_return(cancel_at)
+    allow(sub).to receive(:[]).with("current_period_end").and_return(current_period_end)
+    allow(sub).to receive(:[]).with("trial_end").and_return(trial_end)
+    sub
+  end
+  # rubocop:enable RSpec/VerifiedDoubles
+end
+
 RSpec.shared_context "with stubbed Stripe client" do
   let(:fake_subscriptions)     { instance_double(Stripe::SubscriptionService) }
   let(:fake_customers)         { instance_double(Stripe::CustomerService) }

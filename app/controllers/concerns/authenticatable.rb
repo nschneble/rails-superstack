@@ -23,7 +23,7 @@ module Authenticatable
   end
 
   def navigable_request?
-    request.get? && request.format.html? && !turbo_frame_request?
+    request.get? && request.format.html? && !request.xhr? && !turbo_frame_request?
   end
 
   def authenticate_by_token(token)

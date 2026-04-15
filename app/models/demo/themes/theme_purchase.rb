@@ -14,10 +14,10 @@ module Demo::Themes
 
     validates :theme_key, presence: true, inclusion: { in: -> { Theme.purchasable.map(&:key) } }
 
-    delegate :name, :price_cents, :description, to: :theme, prefix: true
+    delegate :name, :price_cents, :description, to: :theme, prefix: true, allow_nil: true
 
     def theme
-      Theme.find(theme_key)&.decorate
+      Theme.find(theme_key)
     end
   end
 end

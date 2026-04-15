@@ -11,6 +11,8 @@ class Email::ConfirmService < BaseService
   rescue ServiceError => error
     @request.destroy
     ServiceResult.fail(error.message)
+  rescue ActiveRecord::RecordNotFound
+    ServiceResult.fail("invalid_link")
   end
 
   private

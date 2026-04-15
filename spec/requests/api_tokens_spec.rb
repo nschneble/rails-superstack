@@ -153,6 +153,19 @@ RSpec.describe "API tokens", type: :request do
       expect(response.body).to include("No tokens")
     end
 
+    it "streams the non-empty api state when active tokens remain after revoking" do
+      user = create(:user)
+      token_to_revoke = create(:api_token, user:, revoked_at: nil)
+      create(:api_token, user:, revoked_at: nil)
+      passwordless_sign_in(user)
+
+      delete settings_revoke_api_token_path(token_to_revoke), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(%(action="replace" target="api_tokens_empty"))
+      expect(response.body).to include(%(action="remove" target="#{ActionView::RecordIdentifier.dom_id(token_to_revoke)}"))
+    end
+
     it "returns not found when the token belongs to another user" do
       user = create(:user)
       other_user_token = create(:api_token)

@@ -1,9 +1,19 @@
-# SuperAdmin dashboard for MacGuffins
+module SuperAdmin
+  # SuperAdmin dashboard for MacGuffins
+  class Demo::MacGuffinDashboard < BaseDashboard
+    # Attributes shown in the table view
+    def collection_attributes
+      %i[id name description user_id visibility]
+    end
 
-class SuperAdmin::Demo::MacGuffinDashboard < SuperAdmin::BaseDashboard
-  resource Demo::MacGuffin
+    # Attributes shown in the detail view
+    def show_attributes
+      %i[id name description user_id visibility]
+    end
 
-  collection_attributes :id, :name, :description, :user_id, :visibility
-  show_attributes :id, :name, :description, :user_id, :visibility
-  form_attributes :description, :name, :user_id, :visibility
+    # Attributes shown in the form
+    def form_attributes
+      %i[name description user_id visibility]
+    end
+  end
 end

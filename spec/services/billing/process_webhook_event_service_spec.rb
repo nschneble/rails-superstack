@@ -177,5 +177,38 @@ RSpec.describe Billing::ProcessWebhookEventService, type: :service do
       expect(result).to be_success
       expect(WebhookEvent.find_by(stripe_event_id:).status).to eq("processed")
     end
+
+    it "marks the event as failed when Stripe returns an unknown price" do
+      allow(fake_subscriptions).to receive(:retrieve).with("sub_updated").and_return(
+        build_stripe_subscription(id: "sub_updated", status: "active", price_id: "price_unknown")
+      )
+
+      payload = { "data" => { "object" => fake_sub_data } }
+      result = call(event_type: "customer.subscription.updated", payload:)
+
+      expect(result).to be_failure
+
+      event = WebhookEvent.find_by(stripe_event_id:)
+      expect(event.status).to eq("failed")
+      expect(event.error_message).to eq("unknown_price_id")
+      expect(user.reload.subscription.plan).to eq("free")
+    end
+  end
+
+  def build_stripe_subscription(id:, status:, price_id:, cancel_at: nil, current_period_end: 30.days.from_now.to_i, trial_end: nil)
+    # rubocop:disable RSpec/VerifiedDoubles
+    subscription = double(
+      "Stripe::Subscription",
+      id:,
+      status:,
+      items: double("items", data: [
+        double("item", price: double("price", id: price_id))
+      ])
+    )
+    # rubocop:enable RSpec/VerifiedDoubles
+    allow(subscription).to receive(:[]).with("cancel_at").and_return(cancel_at)
+    allow(subscription).to receive(:[]).with("current_period_end").and_return(current_period_end)
+    allow(subscription).to receive(:[]).with("trial_end").and_return(trial_end)
+    subscription
   end
 end

@@ -13,5 +13,7 @@ RSpec.describe "Routes loading" do
     end
 
     expect(paths).not_to include("/sent_mail(.:format)")
+    expect(paths).not_to include("/graphiql(.:format)")
+    expect(paths).not_to include("/graphql/describe(.:format)")
   end
 end

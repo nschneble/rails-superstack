@@ -4,7 +4,7 @@ class GraphQLController < ApplicationController
   include Rails::GraphQL::Controller
   include Schemable
 
-  skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :exception, unless: :csrf_exempt_graphql_request?
 
   self.gql_schema = "GraphQL::Schemas::AppSchema"
 
@@ -23,5 +23,11 @@ class GraphQLController < ApplicationController
 
   def gql_context
     super.merge(current_user:, current_ability:)
+  end
+
+  private
+
+  def csrf_exempt_graphql_request?
+    bearer_token.present? || current_user.blank?
   end
 end

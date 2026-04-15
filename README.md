@@ -9,6 +9,80 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 
 [![CI](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml/badge.svg)](https://github.com/nschneble/rails-superstack/actions/workflows/ci.yml) ![SimpleCov coverage](https://coverage.traels.it/badges/aHR0cHM6Ly9naXRodWIuY29tL25zY2huZWJsZS9yYWlscy1zdXBlcnN0YWNr) [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0)
 
+![Rails Superstack demo](public/screenshots/passwordless.gif)
+
+<p align="left">┌─ Click any image to enlarge ─┐</p>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/welcome.jpg">
+        <img src="public/screenshots/welcome.jpg" />
+      </a>
+      <br /><sub><b>Welcome Page</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/superadmin.jpg">
+        <img src="public/screenshots/superadmin.jpg" />
+      </a>
+      <br /><sub><b>SuperAdmin Dashboard</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/resque.jpg">
+        <img src="public/screenshots/resque.jpg" />
+      </a>
+      <br /><sub><b>Resque UI</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/demo.jpg">
+        <img src="public/screenshots/demo.jpg" />
+      </a>
+      <br /><sub><b>Demo Page</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/simplecov.jpg">
+        <img src="public/screenshots/simplecov.jpg" />
+      </a>
+      <br /><sub><b>SimpleCov Report</b></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/rubycritic.jpg">
+        <img src="public/screenshots/rubycritic.jpg" />
+      </a>
+      <br /><sub><b>RubyCritic Analysis</b></sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="public/screenshots/api.gif">
+        <img src="public/screenshots/api.gif" />
+      </a>
+      <br /><sub><em>API Tokens</em></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/stripe.gif">
+        <img src="public/screenshots/stripe.gif" />
+      </a>
+      <br /><sub><em>Stripe Subscriptions</em></sub>
+    </td>
+    <td align="center">
+      <a href="public/screenshots/typesense.gif">
+        <img src="public/screenshots/typesense.gif" />
+      </a>
+      <br /><sub><em>Typesense Search</em></sub>
+    </td>
+  </tr>
+</table>
+
+<p align="right">└─ Click any image to enlarge ─┘</p>
+
+## Table of Contents
+
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Run Rename Script](#run-rename-script)
@@ -17,11 +91,12 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 - [What's in a Superstack, Exactly?](#whats-in-a-superstack-exactly)
   - [Tech Stack](#tech-stack)
   - [Gems and Resources](#gems-and-resources)
-  - [Code Features](#code-features)
+  - [Core Features](#core-features)
   - [Routes](#routes)
-- [Linting, Testing, and CI](#linting-testing-and-ci)
+- [Linting, Testing, and Code Quality](#linting-testing-and-code-quality)
   - [Linting](#linting)
   - [Testing](#testing)
+  - [Code Quality](#code-quality)
   - [Local CI](#local-ci)
 - [GraphQL API](#graphql-api)
   - [Getting Auth Tokens](#getting-auth-tokens)
@@ -33,6 +108,7 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
   - [Subscriptions](#subscriptions)
   - [Purchases](#purchases)
 - [Ephemera](#ephemera)
+  - [Deployment Strategy](#deployment-strategy)
   - [SimpleCov Coverage Badge](#simplecov-coverage-badge)
   - [Cleanup Script](#cleanup-script)
   - [AI Agents](#ai-agents)
@@ -155,6 +231,7 @@ Rails Superstack is a modern Ruby on Rails app, so by default it comes with:
 - [Postgres](https://www.postgresql.org)
 - [Puma](https://puma.io)
 - [RuboCop](https://rubocop.org)
+- [Solid Cache](https://github.com/rails/solid_cache) + [Solid Cable](https://github.com/rails/solid_cable)
 - [Tailwind](https://tailwindcss.com)
 
 ### Gems and Resources
@@ -163,7 +240,7 @@ Rails Superstack has been preloaded and configured with the following:
 
 - [Strong Migrations](https://github.com/ankane/strong_migrations) (catch unsafe migrations)
 - [LogBench](https://github.com/silva96/log_bench) (log viewer)
-- [RSpec](https://rspec.info) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
+- [RSpec](https://rspec.info) + [Capybara](http://teamcapybara.github.io/capybara/) + [Factory Bot](https://github.com/thoughtbot/factory_bot_rails) + [Faker](https://github.com/faker-ruby/faker) (testing)
 - [SimpleCov](https://github.com/simplecov-ruby/simplecov) + [SimpleCov Tailwind](https://simplecov-tailwind.chiefpansancolt.dev/) + [SimpleCov Badger](https://coverage.traels.it/) (code coverage)
 - [RubyCritic](https://github.com/whitesmith/rubycritic) (code quality)
 - [Passwordless](https://github.com/mikker/passwordless) + [CanCanCan](https://github.com/CanCanCommunity/cancancan) (auth + roles)
@@ -180,21 +257,17 @@ Rails Superstack has been preloaded and configured with the following:
 - [Stripe](https://github.com/stripe/stripe-ruby) (payments + subscriptions)
 - [Rails AI Agents](https://github.com/ThibautBaissac/rails_ai_agents) (AI agents)
 
-### Code Features
+### Core Features
 
-Just a few highlights to whet the palette.
+What works right out of the box?
 
-| Feature           | Description                                |
-| ----------------- | ------------------------------------------ |
-| Abilities (Roles) | CanCanCan abilities (dynamic)              |
-| Models            | Users, API tokens, subscriptions           |
-| Helpers           | Text, web urls, forms, Font Awesome icons  |
-| Normalizers       | Email addresses                            |
-| Notifiers         | Bulk (toast) and individual (toast, email) |
-| Parsers           | Email addresses, web urls                  |
-| Services          | Stripe billing, email, notifications       |
-| Validators        | Email addresses, web urls                  |
-| View Components   | Clipboard, flash alerts, code snippets     |
+- Creating user accounts and signing in using magic link authentication
+- Creating API tokens and querying the GraphQL API
+- Sending in-app (toast) and email notifications
+- Searching for models using Typesense and Pagy
+- Making Stripe subscriptions and purchases
+
+F*ck yeah, baby.
 
 ### Routes
 
@@ -232,9 +305,9 @@ Just a few highlights to whet the palette.
 | `/demo/themes`      | Shows off Stripe purchases as app themes           |
 | `/demo/welcome`     | Starter page with helpful links                    |
 
-## Linting, Testing, and CI
+## Linting, Testing, and Code Quality
 
-There's handy binstubs for RSpec and RuboCop. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
+There's handy binstubs for RuboCop, RSpec, and RubyCritic. Local CI will mirror the GitHub workflow that runs when you make commits and merge pull requests.
 
 ### Linting
 
@@ -254,7 +327,19 @@ cd /path/to/your/repo
 bin/rspec
 
 # Open SimpleCov coverage report
-open coverage/index.html
+open simplecov/index.html
+```
+
+### Code Quality
+
+```bash
+cd /path/to/your/repo
+
+# Run code quality analysis
+bin/rubycritic
+
+# Open RubyCritic overview
+open rubycritic/overview.html
 ```
 
 ### Local CI
@@ -268,7 +353,7 @@ bin/ci
 
 GraphQL is a touch different than your vanilla JSON API. The data structures are effectively dynamic, so you can hit a single endpoint to request any sort of data in any sort of order.
 
-An endpoint covers a single GraphQL schema, which could compromise an individual model or literally your entire database. For simplicity and clarity, this repo has two schemas to disambiguate between common and demo endpoints.
+An endpoint covers a single GraphQL schema, which could comprise an individual model or literally your entire database. For simplicity and clarity, this repo has two schemas to disambiguate between common and demo endpoints.
 
 [Learn more about GraphQL](https://graphql.org/learn/)
 
@@ -316,8 +401,9 @@ bin/api-token | xargs -I% curl -s -H 'Content-Type: application/json' \
 
 A response will be nicely formatted JSON data:
 
+`POST /graphql/health`
+
 ```json
-# POST /graphql/health
 {
   "data": {
     "health": {
@@ -391,6 +477,10 @@ Replicate (or edit) these for your own unique Stripe purchases!
 
 ## Ephemera
 
+### Deployment Strategy
+
+Deployment is preconfigured for [Kamal 2](https://kamal-deploy.org). Just update `config/deploy.yml` with your server IP, registry, and secrets before deploying. The [Kamal docs](https://kamal-deploy.org/docs/installation/) are a great starting point.
+
 ### SimpleCov Coverage Badge
 
 When you run RSpec tests, a SimpleCov coverage report is created at `coverage/index.html` in your repo. This is great! The SimpleCov Tailwind gem makes it look buttery smooth. This is better! But the SimpleCov Badger gem? It lets you add a repo badge to your README. This is BEST.
@@ -398,15 +488,20 @@ When you run RSpec tests, a SimpleCov coverage report is created at `coverage/in
 You can follow the [SimpleCov Badger instructions](https://github.com/traels-it/simplecov_badger?tab=readme-ov-file#installation), but it's already configured in Rails Superstack, so you really just need to do three things:
 
 1. Get an API token
-  1. Run `bin/rails simplecov_badger:install` to get an API token
-  2. Set `simplecov_badger_token` in `config/application.yml`
-  3. Add a new GitHub repo secret for `SIMPLECOV_BADGER_TOKEN`
+
+  - Run `bin/rails simplecov_badger:install` to get an API token
+  - Set `simplecov_badger_token` in `config/application.yml`
+  - Add a new GitHub repo secret for `SIMPLECOV_BADGER_TOKEN`
+
 2. Commit to `main` (so CI runs)
-  1. Check the "Run RSpec tests" console output from GitHub CI
-  2. Copy the badge url
+
+  - Check the "Run RSpec tests" console output from GitHub CI
+  - Copy the badge url
+
 3. Update your README
-  1. Add ```![SimpleCov coverage](BADGE_URL)```
-  2. Done!
+
+  - Add ```![SimpleCov coverage](BADGE_URL)```
+  - Done!
 
 ### Cleanup Script
 

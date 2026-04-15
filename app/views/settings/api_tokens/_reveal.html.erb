@@ -3,14 +3,12 @@
     is not stored in plaintext after this view is rendered. %>
 <%# locals: (plaintext_token:) %>
 
-<%= tag.div class: class_names(
-              "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
-              hidden: plaintext_token.blank?
-            ),
-            id: "api_token_reveal" do %>
+<%= tag.div class: "relative w-4/5 sm:w-full max-w-[425] mx-auto mt-4 mb-8 p-3 bg-slate-100 text-slate-900 rounded-md",
+            id: "api_token_reveal",
+            hidden: plaintext_token.blank? do %>
 
   <%= tag.p class: "flex-1 leading-none select-none" do %>
-    <%= tag.span t("settings.api_tokens.created.title"), class: "font-semibold" %>
+    <%= tag.span t("settings.api_tokens.created.title"), class: "block font-semibold" %>
     <%= tag.span t("settings.api_tokens.created.hint"), class: "pl-[1] text-slate-600 text-xs" %>
   <% end %>
 

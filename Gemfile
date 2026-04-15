@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", "~> 8.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -23,9 +23,8 @@ gem "tailwindcss-rails"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+# Use the database-backed adapters for Rails.cache and Action Cable
 gem "solid_cache"
-gem "solid_queue"
 gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -68,7 +67,7 @@ gem "resque-scheduler"
 gem "pom-component"
 
 # Cutting-edge, in-memory search engine for mere mortals [https://github.com/typesense/typesense-rails]
-gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc7"
+gem "typesense-rails", github: "typesense/typesense-rails", ref: "38c4932163fb331ae418a4067a8e486060b9f344"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
 gem "pagy", "~> 43"
@@ -105,7 +104,7 @@ group :development, :test do
   gem "rubocop-factory_bot", require: false
 
   # RSpec testing framework [https://rspec.info/]
-  gem "rspec-rails", "~> 8.0.0"
+  gem "rspec-rails", "~> 8.0"
 
   # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
@@ -129,7 +128,7 @@ group :development do
 
   # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
   gem "letter_opener"
-  gem "letter_opener_web", "~> 3.0"
+  gem "letter_opener_web", github: "fgrehm/letter_opener_web", ref: "ff3b185099bb9a1cbd721929698bed71e533f194"
 end
 
 group :test do
@@ -144,6 +143,6 @@ group :test do
   gem "resque_spec"
 
   # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
-  gem "simplecov", require: false
-  gem "simplecov-tailwindcss", require: false
+  gem "simplecov", require: false, github: "simplecov-ruby/simplecov", ref: "61f85914b8726124fa6364b89ee551baa958b664"
+  gem "simplecov-tailwindcss", require: false, github: "chiefpansancolt/simplecov-tailwindcss", ref: "0922239883d97a22c015e345dd0d1af1d41520e9"
 end

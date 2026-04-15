@@ -14,7 +14,8 @@
 
   <%= tag.button class: "absolute top-0 right-0 text-slate-50/80 hover:text-slate-50/100 transform -translate-x-1/4 translate-y-1/4 cursor-pointer",
                 type: "button",
-                aria: { label: "Dismiss", action: "flash#dismiss" } do %>
+                aria: { label: "Dismiss" },
+                data: { action: "click->flash#dismiss" } do %>
     <%= helpers.fas_icon("circle-xmark") %>
   <% end %>
 <% end %>

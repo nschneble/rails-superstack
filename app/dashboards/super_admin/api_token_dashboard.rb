@@ -1,9 +1,19 @@
-# SuperAdmin dashboard for API tokens
+module SuperAdmin
+  # SuperAdmin dashboard for API tokens
+  class ApiTokenDashboard < BaseDashboard
+    # Attributes shown in the table view
+    def collection_attributes
+      %i[id name expires_at last_used_at revoked_at token_digest user_id]
+    end
 
-class SuperAdmin::ApiTokenDashboard < SuperAdmin::BaseDashboard
-  resource ApiToken
+    # Attributes shown in the detail view
+    def show_attributes
+      %i[id name expires_at last_used_at revoked_at token_digest user_id]
+    end
 
-  collection_attributes :id, :name, :expires_at, :last_used_at, :revoked_at, :token_digest, :user_id
-  show_attributes :id, :name, :expires_at, :last_used_at, :revoked_at, :token_digest, :user_id
-  form_attributes :name, :expires_at, :last_used_at, :revoked_at, :token_digest, :user_id
+    # Attributes shown in the form
+    def form_attributes
+      %i[name expires_at last_used_at revoked_at token_digest user_id]
+    end
+  end
 end

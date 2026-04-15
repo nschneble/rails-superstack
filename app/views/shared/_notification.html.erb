@@ -1,7 +1,9 @@
 <%# Single flash notification rendered by ./_flash.html.erb. `variant` maps to
-    a Pom::FlashComponent style (e.g. :notice, :alert) %>
-<%# locals: (variant:, message:) %>
+    a Pom::FlashComponent style (e.g. :notice, :alert). `notification_id` is
+    forwarded to the Stimulus controller so it can mark the notification as
+    seen client-side, preventing duplicate deliveries. %>
+<%# locals: (variant:, message:, notification_id: nil) %>
 
-<%= pom_flash(variant: variant.to_sym) do %>
+<%= pom_flash(variant: variant.to_sym, data: { flash_notification_id_value: notification_id.to_i }) do %>
   <%= message %>
 <% end %>

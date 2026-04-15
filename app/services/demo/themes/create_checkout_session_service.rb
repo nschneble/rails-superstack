@@ -5,7 +5,7 @@ module Demo::Themes
       check_theme_and_past_purchases(user:, theme_key:)
       ServiceResult.ok(create_session(user:, theme_key:, urls:))
     rescue Stripe::StripeError => stripe_error
-      @purchase&.update!(status: :failed)
+      @purchase.update!(status: :failed)
       log_error_and_fail(:stripe_error, "Checkout error: #{stripe_error.message}")
     rescue ServiceError => error
       ServiceResult.fail(error.message)

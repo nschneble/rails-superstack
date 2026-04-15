@@ -5,12 +5,22 @@ module Subscribable
 
   included do
     has_one :subscription, dependent: :destroy
-    delegate :stripe_customer_id, :stripe_subscription_id, to: :subscription
-    delegate :plan, to: :subscription, prefix: true
   end
 
   def subscription
     super || Subscription.new
+  end
+
+  def stripe_customer_id
+    subscription.stripe_customer_id
+  end
+
+  def stripe_subscription_id
+    subscription.stripe_subscription_id
+  end
+
+  def subscription_plan
+    subscription.plan
   end
 
   def active_subscription?

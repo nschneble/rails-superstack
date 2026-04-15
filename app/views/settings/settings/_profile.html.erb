@@ -2,7 +2,7 @@
     @email_change_request and `current_user`. A pending request disables the
     input and shows the in-flight new email %>
 
-<%= form_with url: email_change_path,
+<%= form_with url: create_email_change_path,
               data: {
                 turbo: "false",
                 controller: "email"

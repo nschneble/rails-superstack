@@ -10,7 +10,7 @@
       <%= tag.p t("billing.plans.subtitle"), class: "text-slate-500 text-lg" %>
     <% end %>
 
-    <%= tag.div class: "grid grid-cols-1 md:grid-cols-3 items-start gap-6" do %>
+    <%= tag.div class: "grid grid-cols-1 md:grid-cols-3 items-start gap-6 mb-20 sm:mb-0" do %>
       <%= pom_subscription_card plan: @free_plan %>
       <% if current_user&.subscription_plan == "pro_monthly" %>
         <%= pom_subscription_card plan: @pro_plan, checkmark_icon: "check-double" %>

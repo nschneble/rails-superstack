@@ -10,7 +10,8 @@ module BulkDeliveryMethods
         partial: "shared/notification",
         locals: {
           message: evaluate_option(:message),
-          variant: evaluate_option(:variant) || :info
+          variant: evaluate_option(:variant) || :info,
+          notification_id: event.id
         }
       )
     end

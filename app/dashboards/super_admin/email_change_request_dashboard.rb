@@ -1,9 +1,19 @@
-# SuperAdmin dashboard for email change requests
+module SuperAdmin
+  # SuperAdmin dashboard for email change requests
+  class EmailChangeRequestDashboard < BaseDashboard
+    # Attributes shown in the table view
+    def collection_attributes
+      %i[id expires_at new_email token user_id]
+    end
 
-class SuperAdmin::EmailChangeRequestDashboard < SuperAdmin::BaseDashboard
-  resource EmailChangeRequest
+    # Attributes shown in the detail view
+    def show_attributes
+      %i[id expires_at new_email token user_id]
+    end
 
-  collection_attributes :id, :expires_at, :new_email, :token, :user_id
-  show_attributes :id, :expires_at, :new_email, :token, :user_id
-  form_attributes :expires_at, :new_email, :token, :user_id
+    # Attributes shown in the form
+    def form_attributes
+      %i[expires_at new_email token user_id]
+    end
+  end
 end

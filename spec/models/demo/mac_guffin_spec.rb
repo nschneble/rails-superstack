@@ -34,4 +34,16 @@ RSpec.describe Demo::MacGuffin, type: :model do
       expect(described_class.visibilities.keys).to match_array(%w[open user admin])
     end
   end
+
+  describe "#pretty_visibility" do
+    it "returns 'Anyone' for open visibility" do
+      mac_guffin = build(:mac_guffin, visibility: :open)
+      expect(mac_guffin.pretty_visibility).to eq("Anyone")
+    end
+
+    it "pluralizes the visibility label for non-open visibilities" do
+      mac_guffin = build(:mac_guffin, visibility: :user)
+      expect(mac_guffin.pretty_visibility).to eq("users")
+    end
+  end
 end

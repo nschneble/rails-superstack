@@ -2,7 +2,7 @@
     purchases are Demo::Themes::ThemePurchase records %>
 
 <%= tag.div class: "grid grid-cols-1 gap-6" do %>
-  <% @themes.each do |key, theme| %>
+  <% @themes.each do |theme| %>
 
     <%= tag.div class: [ "relative flex flex-col items-start gap-4 mb-4 sm:mb-2 p-6 ring-3 rounded-none sm:rounded-xl shadow-xl", theme.selector, theme.border ] do %>
       <%= tag.div class: [ "absolute top-0 left-0 w-full h-full rounded-none sm:rounded-xl opacity-80", theme.background ] %>
@@ -13,14 +13,14 @@
           <%= tag.p theme.description, class: [ "mt-1 text-sm text-balance", theme.text ] %>
 
           <%= tag.p class: [ "mt-2 mb-8 font-bold select-none", theme.highlight ] do %>
-            <% @purchases.include?(key) ? t("themes.purchased") : theme.price_display %>
+            <% @purchases.include?(theme.key) ? t("themes.purchased") : theme.price_display %>
           <% end %>
         <% end %>
 
-        <% unless @purchases.include?(key) %>
+        <% unless @purchases.include?(theme.key) %>
           <%= tag.div class: "shrink-0 mb-10" do %>
             <%= form_with url: demo_theme_checkout_path, method: :post, data: { turbo: false } do |form| %>
-              <%= form.hidden_field :theme_key, value: key %>
+              <%= form.hidden_field :theme_key, value: theme.key %>
               <%= form.submit t("themes.buy_now"), class: [ theme.button, theme.button_text ] %>
             <% end %>
           <% end %>

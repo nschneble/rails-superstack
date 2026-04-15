@@ -67,4 +67,15 @@ RSpec.describe "Global notifications", type: :request do
 
     expect(response.body).not_to include("Old news")
   end
+
+  it "marks unread user notifications as read when the user visits" do
+    user = create(:user)
+    event = Noticed::Event.create!(type: "NewGlobalNotificationNotifier", params: { message: "Test notice" })
+    Noticed::Notification.create!(event:, recipient: user, type: "NewGlobalNotificationNotifier::Notification")
+    passwordless_sign_in(user)
+
+    get root_path
+
+    expect(Noticed::Notification.where(recipient: user, read_at: nil).count).to eq(0)
+  end
 end

@@ -24,6 +24,13 @@ RSpec.describe Demo::Themes::ThemePurchase, type: :model do
     end
   end
 
+  describe "#theme_description" do
+    it "returns the description for a valid theme" do
+      purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+      expect(purchase.theme_description).to be_present
+    end
+  end
+
   describe "#price_cents" do
     it "returns the correct price for midnight_galaxy" do
       purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
@@ -45,6 +52,40 @@ RSpec.describe Demo::Themes::ThemePurchase, type: :model do
     it "can be completed" do
       purchase = create(:demo_theme_purchase, :completed)
       expect(purchase.status).to eq("completed")
+    end
+  end
+
+  describe "#theme" do
+    it "returns the decorated theme for a valid theme_key" do
+      purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+      expect(purchase.theme).to be_present
+    end
+
+    it "returns nil when the theme cannot be found" do
+      purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+      allow(Demo::Themes::Theme).to receive(:find).with("midnight_galaxy").and_return(nil)
+      expect(purchase.theme).to be_nil
+    end
+
+    context "when theme is nil" do
+      before do
+        allow(Demo::Themes::Theme).to receive(:find).and_return(nil)
+      end
+
+      it "returns nil for theme_name" do
+        purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+        expect(purchase.theme_name).to be_nil
+      end
+
+      it "returns nil for theme_price_cents" do
+        purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+        expect(purchase.theme_price_cents).to be_nil
+      end
+
+      it "returns nil for theme_description" do
+        purchase = build(:demo_theme_purchase, theme_key: "midnight_galaxy")
+        expect(purchase.theme_description).to be_nil
+      end
     end
   end
 end

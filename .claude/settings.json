@@ -71,5 +71,9 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/Developer/Repos/rails-superstack/script/statusline.sh"
   }
 }

@@ -18,6 +18,8 @@ require 'rspec/rails'
 require_relative 'support/factory_bot'
 require_relative 'support/shoulda_matchers'
 require_relative 'support/stripe_client_helpers'
+require_relative 'support/capybara'
+require_relative 'support/system_test_helpers'
 require 'passwordless/test_helpers'
 require 'view_component/test_helpers'
 
@@ -34,7 +36,7 @@ require 'view_component/test_helpers'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 # Ensures that the test database schema matches the current schema file.
 # If there are pending migrations it will invoke `db:test:prepare` to
@@ -82,4 +84,10 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   config.include ViewComponent::TestHelpers, type: :component
+
+  config.before(:each, type: :system) do
+    driven_by :headless_chrome
+  end
+
+  config.include Rails.application.routes.url_helpers, type: :system
 end

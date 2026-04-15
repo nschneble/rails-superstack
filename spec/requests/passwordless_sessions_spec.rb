@@ -23,6 +23,16 @@ RSpec.describe "Passwordless sessions", type: :request do
     expect(flash[:notice]).to eq("You're already signed in, sillypants")
   end
 
+  it "allows signed-in users to process a magic link token without blocking them" do
+    user = create(:user)
+    passwordless_sign_in(user)
+    passwordless_session = Passwordless::Session.create!(authenticatable: user)
+
+    get confirm_auth_sign_in_path(id: passwordless_session.identifier, token: passwordless_session.token)
+
+    expect(flash[:notice]).not_to eq("You're already signed in, sillypants")
+  end
+
   it "does not treat bearer token authentication as an existing passwordless session" do
     user = create(:user)
     token = ApiToken.issue!(user:, name: "Spec Token")

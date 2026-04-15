@@ -9,6 +9,15 @@ RSpec.describe "GraphQL execute", type: :request do
       expect(parsed_body.dig("errors", 0, "message")).to eq("Unauthorized")
       expect(parsed_body.dig("data", "users")).to be_nil
     end
+
+    it "returns 'unauthorized' when the bearer token is invalid" do
+      post "/graphql",
+        params: { query: "{ users { id } }" },
+        headers: { Authorization: "Bearer invalid_token_xyz" }
+
+      expect(response).to have_http_status(:ok)
+      expect(parsed_body.dig("errors", 0, "message")).to eq("Unauthorized")
+    end
   end
 
   describe "Health query" do
@@ -19,17 +28,42 @@ RSpec.describe "GraphQL execute", type: :request do
         expect(response).to have_http_status(:ok)
         expect(parsed_body).to eq("data" => { "health" => { "status" => "ok" } })
       end
+
+      it "still returns ok with forgery protection enabled" do
+        with_forgery_protection do
+          post "/graphql", params: { query: "{ health { status } }" }
+        end
+
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body).to eq("data" => { "health" => { "status" => "ok" } })
+      end
     end
   end
 
   describe "User query" do
     context "with session authentication" do
+      it "requires a CSRF token" do
+        user = create(:user)
+
+        passwordless_sign_in(user)
+        with_forgery_protection do
+          post "/graphql", params: { query: "{ users { id email role } }" }
+        end
+
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
       it "returns users ordered by id" do
         user_a = create(:user)
         user_b = create(:user)
 
         passwordless_sign_in(user_a)
-        post "/graphql", params: { query: "{ users { id email role } }" }
+
+        with_forgery_protection do
+          post "/graphql",
+            params: { query: "{ users { id email role } }" },
+            headers: { "X-CSRF-Token" => fetch_csrf_token }
+        end
 
         expect(response).to have_http_status(:ok)
         expect(parsed_body.dig("data", "users")).to include(
@@ -43,7 +77,12 @@ RSpec.describe "GraphQL execute", type: :request do
         admin = create(:user, :admin)
 
         passwordless_sign_in(user)
-        post "/graphql", params: { query: "{ users { id email role } }" }
+
+        with_forgery_protection do
+          post "/graphql",
+            params: { query: "{ users { id email role } }" },
+            headers: { "X-CSRF-Token" => fetch_csrf_token }
+        end
 
         expect(response).to have_http_status(:ok)
         expect(parsed_body.dig("data", "users")).to include(
@@ -59,9 +98,11 @@ RSpec.describe "GraphQL execute", type: :request do
 
         token = ApiToken.issue!(user: user_a, name: "Spec Token")
 
-        post "/graphql",
-          params: { query: "{ users { id email role } }" },
-          headers: { Authorization: "Bearer #{token.plaintext_token}" }
+        with_forgery_protection do
+          post "/graphql",
+            params: { query: "{ users { id email role } }" },
+            headers: { Authorization: "Bearer #{token.plaintext_token}" }
+        end
 
         expect(response).to have_http_status(:ok)
         expect(parsed_body.dig("data", "users")).to include(
@@ -76,9 +117,11 @@ RSpec.describe "GraphQL execute", type: :request do
 
         token = ApiToken.issue!(user:, name: "Admin Spec Token")
 
-        post "/graphql",
-          params: { query: "{ users { id email role } }" },
-          headers: { Authorization: "Bearer #{token.plaintext_token}" }
+        with_forgery_protection do
+          post "/graphql",
+            params: { query: "{ users { id email role } }" },
+            headers: { Authorization: "Bearer #{token.plaintext_token}" }
+        end
 
         expect(response).to have_http_status(:ok)
         expect(parsed_body.dig("data", "users")).to include(
@@ -91,7 +134,20 @@ RSpec.describe "GraphQL execute", type: :request do
 
   private
 
+  def fetch_csrf_token
+    get root_path
+    response.body.match(/<meta name="csrf-token" content="([^"]+)"/).captures.first
+  end
+
   def parsed_body
     JSON.parse(response.body)
+  end
+
+  def with_forgery_protection
+    original = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+    yield
+  ensure
+    ActionController::Base.allow_forgery_protection = original
   end
 end
