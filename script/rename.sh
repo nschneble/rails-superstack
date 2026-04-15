@@ -262,12 +262,12 @@ define_replacement_strings() {
   repo_snake="${repo//-/_}"
   repo_kebab="${repo//_/-}"
   repo_pascal="$(to_pascal_case "$repo")"
-  repo_scream="${repo_snake^^}"
+  repo_scream=$(echo "$repo_snake" | tr '[:lower:]' '[:upper:]')
 
   log "Replacement Strings:" true
 
   if result="$(parse_git_remote_url "$remote_url")"; then
-    log "  - remote url             $remote_url"
+    log "  - remote url          $remote_url"
   fi
 
   log "  - GitHub username     $user"
