@@ -262,6 +262,7 @@ define_replacement_strings() {
   repo_snake="${repo//-/_}"
   repo_kebab="${repo//_/-}"
   repo_pascal="$(to_pascal_case "$repo")"
+  repo_scream="${repo_snake^^}"
 
   log "Replacement Strings:" true
 
@@ -269,12 +270,13 @@ define_replacement_strings() {
     log "  - remote url             $remote_url"
   fi
 
-  log "  - GitHub username        $user"
-  log "  - GitHub repo name       $repo"
-  log "  - repo → Title Case      $repo_title"
-  log "  - repo → snake_case      $repo_snake"
-  log "  - repo → kebab-case      $repo_kebab"
-  log "  - repo → PascalCase      $repo_pascal"
+  log "  - GitHub username     $user"
+  log "  - GitHub repo name    $repo"
+  log "  - repo → Title Case   $repo_title"
+  log "  - repo → snake_case   $repo_snake"
+  log "  - repo → kebab-case   $repo_kebab"
+  log "  - repo → PascalCase   $repo_pascal"
+  log "  - repo → SCREAM_SNAKE $repo_scream"
 
   if ! confirm "Proceed with string replacements across the repo?"; then
     die "Script aborted."
@@ -288,6 +290,7 @@ replace_template_strings() {
   replace_all "rails_superstack" "$repo_snake"
   replace_all "rails-superstack" "$repo_kebab"
   replace_all "RailsSuperstack"  "$repo_pascal"
+  replace_all "RAILS_SUPERSTACK" "$repo_scream"
   replace_all "nschneble"        "$user"
 }
 
