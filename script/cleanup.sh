@@ -30,6 +30,7 @@ DEMO_PATHS=(
   "app/helpers/demo"
   "app/javascript/controllers/demo"
   "app/mailers/demo"
+  "app/models/concerns/demo"
   "app/models/demo"
   "app/notifiers/demo"
   "app/services/demo"
