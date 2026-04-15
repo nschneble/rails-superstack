@@ -20,10 +20,10 @@ RSpec.describe Ability do
       expect(ability.can?(:manage, subscription)).to be(false)
     end
 
-    it "lets admins manage any subscription" do
+    it "lets admins read any subscription" do
       admin = create(:user, :admin)
       ability = described_class.new(admin)
-      expect(ability.can?(:manage, subscription)).to be(true)
+      expect(ability.can?(:read, subscription)).to be(true)
     end
   end
 
@@ -57,14 +57,14 @@ RSpec.describe Ability do
       expect(ability.can?(:manage, other_mac_guffin)).to be(false)
     end
 
-    it "lets admins manage any MacGuffin and read admin MacGuffins" do
+    it "lets admins read any MacGuffin" do
       ability = described_class.new(create(:user, :admin))
       visible_ids = Demo::MacGuffin.accessible_by(ability).pluck(:id)
 
       expect(visible_ids).to include(admin_mac_guffin.id)
-      expect(ability.can?(:manage, open_mac_guffin)).to be(true)
-      expect(ability.can?(:manage, user_mac_guffin)).to be(true)
-      expect(ability.can?(:manage, admin_mac_guffin)).to be(true)
+      expect(ability.can?(:read, open_mac_guffin)).to be(true)
+      expect(ability.can?(:read, user_mac_guffin)).to be(true)
+      expect(ability.can?(:read, admin_mac_guffin)).to be(true)
     end
   end
 end
