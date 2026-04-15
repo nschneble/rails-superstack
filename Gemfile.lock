@@ -1,4 +1,23 @@
 GIT
+  remote: https://github.com/chiefpansancolt/simplecov-tailwindcss.git
+  revision: 0922239883d97a22c015e345dd0d1af1d41520e9
+  ref: 0922239883d97a22c015e345dd0d1af1d41520e9
+  specs:
+    simplecov-tailwindcss (2.3.0)
+      simplecov (~> 0.16)
+
+GIT
+  remote: https://github.com/fgrehm/letter_opener_web.git
+  revision: ff3b185099bb9a1cbd721929698bed71e533f194
+  ref: ff3b185099bb9a1cbd721929698bed71e533f194
+  specs:
+    letter_opener_web (3.0.0)
+      actionmailer (>= 6.1)
+      letter_opener (~> 1.9)
+      railties (>= 6.1)
+      rexml
+
+GIT
   remote: https://github.com/nschneble/gravatar_image_tag.git
   revision: 71b32fcffe461252aa4bb4fb9586ca0797af09ff
   ref: 71b32fcffe461252aa4bb4fb9586ca0797af09ff
@@ -289,11 +308,6 @@ GEM
       logger (~> 1.6)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
-    letter_opener_web (3.0.0)
-      actionmailer (>= 6.1)
-      letter_opener (~> 1.9)
-      railties (>= 6.1)
-      rexml
     lint_roller (1.1.0)
     log_bench (0.7.0)
       curses (~> 1.5)
@@ -586,8 +600,6 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.2)
-    simplecov-tailwindcss (2.3.0)
-      simplecov (~> 0.16)
     simplecov_badger (0.0.5)
       rest-client (~> 2.1.0)
       simplecov (>= 0.18.5)
@@ -712,21 +724,21 @@ DEPENDENCIES
   importmap-rails
   kamal
   letter_opener
-  letter_opener_web (~> 3.0)
+  letter_opener_web!
   log_bench
   noticed
   pagy (~> 43)
   passwordless
-  pg (~> 1.1)
+  pg (~> 1.6.3)
   pom-component
   propshaft
-  puma (>= 5.0)
-  rails (~> 8.1.1)
+  puma (~> 8.0.0)
+  rails (~> 8.1.3)
   rails-graphql!
   resque
   resque-scheduler
   resque_spec
-  rspec-rails (~> 8.0.0)
+  rspec-rails (~> 8.0.4)
   rubocop-factory_bot
   rubocop-performance
   rubocop-rails-omakase
@@ -735,7 +747,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 7.0)
   simplecov
-  simplecov-tailwindcss
+  simplecov-tailwindcss!
   simplecov_badger
   solid_cable
   solid_cache
@@ -837,7 +849,7 @@ CHECKSUMS
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
-  letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
+  letter_opener_web (3.0.0)
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   log_bench (0.7.0) sha256=592b7d01115b9bae3826e1de3635f41ceb52bb1e67f570b3ce0266939dfd8766
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
@@ -945,7 +957,7 @@ CHECKSUMS
   shoulda-matchers (7.0.1) sha256=b4bfd8744c10e0a36c8ac1a687f921ee7e25ed529e50488d61b79a8688749c77
   simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
   simplecov-html (0.13.2) sha256=bd0b8e54e7c2d7685927e8d6286466359b6f16b18cb0df47b508e8d73c777246
-  simplecov-tailwindcss (2.3.0) sha256=e0522c4e00c61d5524ea2e3505427adf2ecdfb667dc6a3b4abb45a9227bee45a
+  simplecov-tailwindcss (2.3.0)
   simplecov_badger (0.0.5) sha256=a9ad2a2421baf393d565012d45e21626e01b9a1e09e01189b654af8072131340
   simplecov_json_formatter (0.1.4) sha256=529418fbe8de1713ac2b2d612aa3daa56d316975d307244399fa4838c601b428
   sin_lru_redux (2.5.2) sha256=feed104c943afaeeecb1ad83f3f63562088b9785a816625c32b2305eccbd9963
