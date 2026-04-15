@@ -47,7 +47,10 @@ SimpleCov.start do
   add_group "Views", "app/views"
 
   enable_coverage :branch
+  enable_coverage :oneshot_line
   enable_coverage_for_eval
+
+  primary_coverage :oneshot_line
 
   track_files "{app,lib}/**/*.rb"
   coverage_dir "simplecov"
