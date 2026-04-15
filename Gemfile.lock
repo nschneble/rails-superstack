@@ -46,9 +46,16 @@ GIT
       turbo-rails (>= 2.0)
 
 GIT
+  remote: https://github.com/simplecov-ruby/simplecov.git
+  revision: 61f85914b8726124fa6364b89ee551baa958b664
+  ref: 61f85914b8726124fa6364b89ee551baa958b664
+  specs:
+    simplecov (0.22.0)
+
+GIT
   remote: https://github.com/typesense/typesense-rails.git
-  revision: a76b6f608a02606a41332b0b3238f287f59df1b9
-  tag: v1.0.0.rc7
+  revision: 38c4932163fb331ae418a4067a8e486060b9f344
+  ref: 38c4932163fb331ae418a4067a8e486060b9f344
   specs:
     typesense-rails (1.0.0.rc7)
       json (>= 1.5.1)
@@ -187,7 +194,6 @@ GEM
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.6.2)
-    docile (1.4.1)
     domain_name (0.6.20240107)
     dotenv (3.2.0)
     draper (4.0.6)
@@ -595,15 +601,9 @@ GEM
     sexp_processor (4.17.5)
     shoulda-matchers (7.0.1)
       activesupport (>= 7.1)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.2)
     simplecov_badger (0.0.5)
       rest-client (~> 2.1.0)
       simplecov (>= 0.18.5)
-    simplecov_json_formatter (0.1.4)
     sin_lru_redux (2.5.2)
     sinatra (4.2.1)
       logger (>= 1.6.0)
@@ -729,16 +729,16 @@ DEPENDENCIES
   noticed
   pagy (~> 43)
   passwordless
-  pg (~> 1.6.3)
+  pg (~> 1.6)
   pom-component
   propshaft
-  puma (~> 8.0.0)
-  rails (~> 8.1.3)
+  puma (~> 8.0)
+  rails (~> 8.1)
   rails-graphql!
   resque
   resque-scheduler
   resque_spec
-  rspec-rails (~> 8.0.4)
+  rspec-rails (~> 8.0)
   rubocop-factory_bot
   rubocop-performance
   rubocop-rails-omakase
@@ -746,7 +746,7 @@ DEPENDENCIES
   rubycritic
   selenium-webdriver
   shoulda-matchers (~> 7.0)
-  simplecov
+  simplecov!
   simplecov-tailwindcss!
   simplecov_badger
   solid_cable
@@ -807,7 +807,6 @@ CHECKSUMS
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   descendants_tracker (0.0.4) sha256=e9c41dd4cfbb85829a9301ea7e7c48c2a03b26f09319db230e6479ccdc780897
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
-  docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
   domain_name (0.6.20240107) sha256=5f693b2215708476517479bf2b3802e49068ad82167bcd2286f899536a17d933
   dotenv (3.2.0) sha256=e375b83121ea7ca4ce20f214740076129ab8514cd81378161f11c03853fe619d
   draper (4.0.6) sha256=e96990bffd4d98806913972f5ae2e6a7e8a5fb5433f17b80fbed7ba99d3c9236
@@ -955,11 +954,9 @@ CHECKSUMS
   selenium-webdriver (4.43.0) sha256=a634377b964b701c6ac0a009ce3a08fa34ec1e1e7fe9a6d57e3088d14529a65c
   sexp_processor (4.17.5) sha256=ae2b48ba98353d5d465ce8759836b7a05f2e12c5879fcd14d7815b026de32f0e
   shoulda-matchers (7.0.1) sha256=b4bfd8744c10e0a36c8ac1a687f921ee7e25ed529e50488d61b79a8688749c77
-  simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
-  simplecov-html (0.13.2) sha256=bd0b8e54e7c2d7685927e8d6286466359b6f16b18cb0df47b508e8d73c777246
+  simplecov (0.22.0)
   simplecov-tailwindcss (2.3.0)
   simplecov_badger (0.0.5) sha256=a9ad2a2421baf393d565012d45e21626e01b9a1e09e01189b654af8072131340
-  simplecov_json_formatter (0.1.4) sha256=529418fbe8de1713ac2b2d612aa3daa56d316975d307244399fa4838c601b428
   sin_lru_redux (2.5.2) sha256=feed104c943afaeeecb1ad83f3f63562088b9785a816625c32b2305eccbd9963
   sinatra (4.2.1) sha256=b7aeb9b11d046b552972ade834f1f9be98b185fa8444480688e3627625377080
   solid_cable (3.0.12) sha256=a168a54731a455d5627af48d8441ea3b554b8c1f6e6cd6074109de493e6b0460

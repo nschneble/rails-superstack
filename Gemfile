@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.6.3"
+gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 8.0.0"
+gem "puma", "~> 8.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -67,7 +67,7 @@ gem "resque-scheduler"
 gem "pom-component"
 
 # Cutting-edge, in-memory search engine for mere mortals [https://github.com/typesense/typesense-rails]
-gem "typesense-rails", github: "typesense/typesense-rails", tag: "v1.0.0.rc7"
+gem "typesense-rails", github: "typesense/typesense-rails", ref: "38c4932163fb331ae418a4067a8e486060b9f344"
 
 # The best pagination Ruby gem [https://github.com/ddnexus/pagy]
 gem "pagy", "~> 43"
@@ -104,7 +104,7 @@ group :development, :test do
   gem "rubocop-factory_bot", require: false
 
   # RSpec testing framework [https://rspec.info/]
-  gem "rspec-rails", "~> 8.0.4"
+  gem "rspec-rails", "~> 8.0"
 
   # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
@@ -143,6 +143,6 @@ group :test do
   gem "resque_spec"
 
   # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
-  gem "simplecov", require: false
+  gem "simplecov", require: false, github: "simplecov-ruby/simplecov", ref: "61f85914b8726124fa6364b89ee551baa958b664"
   gem "simplecov-tailwindcss", require: false, github: "chiefpansancolt/simplecov-tailwindcss", ref: "0922239883d97a22c015e345dd0d1af1d41520e9"
 end
