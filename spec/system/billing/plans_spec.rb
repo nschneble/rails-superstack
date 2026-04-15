@@ -29,7 +29,7 @@ RSpec.describe "Billing plans page", type: :system do
 
       visit billing_plans_path
 
-      expect(page).to have_text("CURRENT PLAN")
+      expect(page).to have_text("Current Plan")
     end
   end
 end

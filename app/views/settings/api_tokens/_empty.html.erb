@@ -2,6 +2,6 @@
     tokens exist (Turbo updates toggle it) %>
 <%# locals: (hidden:) %>
 
-<%= tag.p class: class_names("italic text-xs", hidden: hidden), id: "api_tokens_empty" do %>
+<%= tag.p class: "italic text-xs", id: "api_tokens_empty", hidden: hidden do %>
   <%= t("settings.api_tokens.empty.message") %>
 <% end %>
