@@ -1,7 +1,4 @@
 SuperAdmin.configure do |config|
-  # Number of records per page
-  config.records_per_page = 20
-
   # Maximum depth for nested associations when displaying resources
   # config.max_nested_depth = 2
 
