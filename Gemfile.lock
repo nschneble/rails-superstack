@@ -182,7 +182,7 @@ GEM
     commonmarker (2.8.1-arm64-darwin)
     commonmarker (2.8.1-x86_64-linux)
     commonmarker (2.8.1-x86_64-linux-musl)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     crass (1.0.6)
     csv (3.3.5)
@@ -258,11 +258,11 @@ GEM
       path_expander (~> 2.0)
       prism (~> 1.7)
       sexp_processor (~> 4.0)
-    flipper (1.4.1)
+    flipper (1.4.2)
       concurrent-ruby (< 2)
-    flipper-active_record (1.4.1)
+    flipper-active_record (1.4.2)
       activerecord (>= 4.2, < 9)
-      flipper (~> 1.4.1)
+      flipper (~> 1.4.2)
     flipper-ui (1.4.1)
       erubi (>= 1.0.0, < 2.0.0)
       flipper (~> 1.4.1)
@@ -282,7 +282,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.1.4)
       domain_name (~> 0.5)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     importmap-rails (2.2.3)
@@ -295,7 +295,7 @@ GEM
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.19.4)
+    json (2.20.0)
     kamal (2.11.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -342,7 +342,7 @@ GEM
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0414)
     mini_mime (1.1.5)
-    minitest (6.0.4)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     mono_logger (1.1.2)
@@ -798,7 +798,7 @@ CHECKSUMS
   commonmarker (2.8.1-arm64-darwin) sha256=cf75760122d6e1c3f8626b5a6911636d2e0aaa26fa8dd377fea440a49c854b3e
   commonmarker (2.8.1-x86_64-linux) sha256=c8f2e903c6ee4e2c7e280aa8b49ef37c53202d388e3a2ee06dfdccc8c6fb634f
   commonmarker (2.8.1-x86_64-linux-musl) sha256=9b6305ce47e0d444b77dabf1762bf76085c2f7963b63c25c02ec36edcf06c785
-  concurrent-ruby (1.3.6) sha256=6b56837e1e7e5292f9864f34b69c5a2cbc75c0cf5338f1ce9903d10fa762d5ab
+  concurrent-ruby (1.3.7) sha256=4412caec3a5ea2e5fdc52076724c071a81f2c0593d83b2ac8cbb8ca63b3151b0
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
@@ -829,8 +829,8 @@ CHECKSUMS
   faraday-net_http (3.4.2) sha256=f147758260d3526939bf57ecf911682f94926a3666502e24c69992765875906c
   figaro (1.3.0) sha256=3d44396f080255663f183572d7aefa419fd8936b6fb5cc30f962345a02781396
   flay (2.14.4) sha256=a62d96a51d1da185aa41ba95b696966df9f7d1d91a457709277f24515895de77
-  flipper (1.4.1) sha256=05843240fb3093c7037549e34b046b636c765120f22e0a6268212daf44166e4d
-  flipper-active_record (1.4.1) sha256=5197481ad0976a12c481b1778927d873738640f4023300bdb0d71b6e21245a37
+  flipper (1.4.2) sha256=dca7d65b5ec660b525b6c599e727219ac4994073c855b41b6656b2d91a9cb304
+  flipper-active_record (1.4.2) sha256=ab70aeb78a44d59c690b5538fc269b08d1c2918abb720fe82832ac77fb1dfcd1
   flipper-ui (1.4.1) sha256=b78e5237d52fdd82fbbcb6bfb04a1d2cab6d5861b1e4d1c3b0746ac3de7e0a99
   flog (4.9.4) sha256=12cc054fab7a2cbd2a906514397c4d7788954d530564782d6f14939dc2dfbcbb
   fugit (1.12.1) sha256=5898f478ede9b415f0804e42b8f3fd53f814bd85eebffceebdbc34e1107aaf68
@@ -838,12 +838,12 @@ CHECKSUMS
   gravatar_image_tag (1.2.0)
   http-accept (1.7.0) sha256=c626860682bfbb3b46462f8c39cd470fd7b0584f61b3cc9df5b2e9eb9972a126
   http-cookie (1.1.4) sha256=8dd8011dedcae5f91af2671b7ba878c4a9e89f0f6384790c1f4cdd176f5e3ada
-  i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
+  i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   ice_nine (0.11.2) sha256=5d506a7d2723d5592dc121b9928e4931742730131f22a1a37649df1c1e2e63db
   importmap-rails (2.2.3) sha256=7101be2a4dc97cf1558fb8f573a718404c5f6bcfe94f304bf1f39e444feeb16a
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.17.0) sha256=168c4ddb93d8a361a045c41d92b2952c7a118fa73f23fe14e55609eb7a863aae
-  json (2.19.4) sha256=670a7d333fb3b18ca5b29cb255eb7bef099e40d88c02c80bd42a3f30fe5239ac
+  json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
   kamal (2.11.0) sha256=1408864425e0dec7e0a14d712a3b13f614e9f3a425b7661d3f9d287a51d7dd75
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
@@ -860,7 +860,7 @@ CHECKSUMS
   mime-types (3.7.0) sha256=dcebf61c246f08e15a4de34e386ebe8233791e868564a470c3fe77c00eed5e56
   mime-types-data (3.2026.0414) sha256=461c4c655373a44bd6c5fe54bcf5b7776026ea96e808144b1ec465c4b99148cc
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
-  minitest (6.0.4) sha256=df1304664589d40f46089247fdc451f866b0ce0d7cae1457a15fc1eb7d48dca1
+  minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
   mono_logger (1.1.2) sha256=2e359def7007f5c908aadd953687991fe667995d14ae5f0d10dda76e3e8670f7
   msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
   multi_json (1.20.1) sha256=2f3934e805cc45ef91b551a1f89d0e9191abd06a5e04a2ef09a6a036c452ca6d
