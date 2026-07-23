@@ -1,9 +1,6 @@
 # Throttles abuse-prone unauthenticated/low-cost endpoints: sign-in (which
 # creates a User row and sends a magic-link email per request), email-change
 # confirmation, and the GraphQL endpoint.
-#
-# Rack::Attack itself is required early, in config/application.rb, not here
-# -- see the comment there for why.
 class Rack::Attack
   # Dedicated store so throttle counts aren't tied to the app's cache
   # eviction policy. Production/development use solid_cache/memory_store for
