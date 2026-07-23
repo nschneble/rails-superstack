@@ -17,7 +17,7 @@ module GraphQL::Schemas
       field(:users, "User", array: true, null: false)
         .authorize(&require_authentication)
         .resolve {
-          User.accessible_by(request.context.current_ability).order(:id)
+          User.accessible_by(request.context.current_ability).order(:id).limit(100)
         }
     end
   end

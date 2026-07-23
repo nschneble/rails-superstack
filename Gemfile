@@ -45,6 +45,9 @@ gem "passwordless"
 # The authorization Gem for Ruby on Rails [https://github.com/CanCanCommunity/cancancan]
 gem "cancancan"
 
+# Throttle and block abusive requests [https://github.com/rack/rack-attack]
+gem "rack-attack", require: "rack/attack"
+
 # A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
 gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag", ref: "71b32fcffe461252aa4bb4fb9586ca0797af09ff"
 

@@ -2,6 +2,18 @@ require_relative "boot"
 
 require "rails/all"
 
+# The vendored super_admin engine fork (github.com/nschneble/super_admin,
+# lib/super_admin/engine.rb:46) runs `require "rack-attack"` (hyphen, wrong
+# path -- the gem's real path is "rack/attack") the moment `defined?(Rack::Attack)`
+# is true, in an initializer that always runs once this app also requires
+# Rack::Attack (see the Gemfile). That require path never resolves and
+# crashes boot. This shim directory supplies a `rack-attack.rb` file that
+# just requires the real path, so that broken call succeeds (a harmless
+# no-op re-require) instead of crashing. Needs to be on $LOAD_PATH before
+# that initializer runs, hence here rather than config/initializers/.
+# TODO: remove this and vendor/rack_attack_shim/ once upstream fixes the typo.
+$LOAD_PATH.unshift(File.expand_path("../vendor/rack_attack_shim", __dir__))
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

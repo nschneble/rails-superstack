@@ -53,9 +53,9 @@ RSpec.describe "GraphQL execute", type: :request do
         expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it "returns users ordered by id" do
+      it "returns only the signed-in user's own record" do
         user_a = create(:user)
-        user_b = create(:user)
+        create(:user) # another user must exist to prove they're excluded
 
         passwordless_sign_in(user_a)
 
@@ -66,15 +66,14 @@ RSpec.describe "GraphQL execute", type: :request do
         end
 
         expect(response).to have_http_status(:ok)
-        expect(parsed_body.dig("data", "users")).to include(
-          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
-          { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
+        expect(parsed_body.dig("data", "users")).to contain_exactly(
+          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role }
         )
       end
 
       it "excludes admins when authenticated user is not an admin" do
         user = create(:user)
-        admin = create(:user, :admin)
+        create(:user, :admin) # an admin must exist to prove they're excluded
 
         passwordless_sign_in(user)
 
@@ -85,16 +84,16 @@ RSpec.describe "GraphQL execute", type: :request do
         end
 
         expect(response).to have_http_status(:ok)
-        expect(parsed_body.dig("data", "users")).to include(
+        expect(parsed_body.dig("data", "users")).to contain_exactly(
           { "id" => user.id.to_s, "email" => user.email, "role"  => user.role }
         )
       end
     end
 
     context "with token authentication" do
-      it "returns users ordered by id" do
+      it "returns only the token-owning user's own record" do
         user_a = create(:user)
-        user_b = create(:user)
+        create(:user) # another user must exist to prove they're excluded
 
         token = ApiToken.issue!(user: user_a, name: "Spec Token")
 
@@ -105,9 +104,8 @@ RSpec.describe "GraphQL execute", type: :request do
         end
 
         expect(response).to have_http_status(:ok)
-        expect(parsed_body.dig("data", "users")).to include(
-          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role },
-          { "id" => user_b.id.to_s, "email" => user_b.email, "role" => user_b.role }
+        expect(parsed_body.dig("data", "users")).to contain_exactly(
+          { "id" => user_a.id.to_s, "email" => user_a.email, "role" => user_a.role }
         )
       end
 
@@ -128,6 +126,22 @@ RSpec.describe "GraphQL execute", type: :request do
           { "id" => user.id.to_s, "email" => user.email, "role" => user.role },
           { "id" => admin.id.to_s, "email" => admin.email, "role" => admin.role }
         )
+      end
+
+      it "caps the number of returned users at 100" do
+        user = create(:user, :admin)
+        create_list(:user, 101) # rubocop:disable FactoryBot/ExcessiveCreateList -- must exceed the cap under test
+
+        token = ApiToken.issue!(user:, name: "Admin Spec Token")
+
+        with_forgery_protection do
+          post "/graphql",
+            params: { query: "{ users { id } }" },
+            headers: { Authorization: "Bearer #{token.plaintext_token}" }
+        end
+
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body.dig("data", "users").size).to eq(100)
       end
     end
   end

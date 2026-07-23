@@ -735,6 +735,7 @@ DEPENDENCIES
   pom-component
   propshaft
   puma (~> 8.0)
+  rack-attack
   rails (~> 8.1)
   rails-graphql!
   resque
