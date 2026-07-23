@@ -24,13 +24,16 @@ SuperAdmin.configure do |config|
   config.user_class = "User"
 
   # Authorization
-  # Configure authorization adapter (:auto, :pundit, :cancancan, or :custom)
-  config.authorization_adapter = :cancancan
-
-  # Custom authorization block (when using :custom adapter)
-  # config.authorize_with = proc { |controller|
-  #   redirect_to main_app.root_path unless current_user&.admin?
-  # }
+  # Configure authorization adapter (:auto, :pundit, :proc, or :custom).
+  # NOTE: this app uses CanCanCan (lib/abilities/), but the installed
+  # super_admin gem (0.2.1) has no CancanAdapter -- only default, pundit, and
+  # proc adapters exist. Setting :cancancan here silently no-ops to
+  # DefaultAdapter (which happens to check current_user.admin? directly,
+  # since no super_admin_check is configured below). Using :proc instead
+  # makes that same check explicit rather than relying on an undocumented
+  # fallback. See spec/requests/super_admin_authorization_spec.rb.
+  config.authorization_adapter = :proc
+  config.authorize_with = proc { current_user&.admin? }
 
   # What to do when authorization fails
   config.on_unauthorized = proc { |controller|

@@ -5,7 +5,11 @@ module Billing
     SECONDS_PER_DAY = 86400
     TRIAL_PERIOD_IN_DAYS = FREE_TRIAL_DURATION.to_i / SECONDS_PER_DAY
 
+    ALLOWED_PRICE_IDS = -> { [ Figaro.env.stripe_price_pro_monthly, Figaro.env.stripe_price_pro_yearly ] }
+
     def call(user:, price_id:, urls:)
+      return log_error_and_fail(:invalid_price_id, "Unknown Stripe price id: #{price_id}") unless ALLOWED_PRICE_IDS.call.include?(price_id)
+
       session_params = {
         customer: stripe_customer_id(user),
         line_items: [ { price: price_id, quantity: 1 } ],

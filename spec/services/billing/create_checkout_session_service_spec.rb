@@ -9,7 +9,7 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
   let(:call_args) do
     {
       user:,
-      price_id: "price_test",
+      price_id: "price_monthly_test",
       urls: {
         success: "https://example.com/success",
         cancel:  "https://example.com/cancel"
@@ -18,6 +18,10 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
   end
 
   before do
+    allow(Figaro.env).to receive_messages(
+      stripe_price_pro_monthly: "price_monthly_test",
+      stripe_price_pro_yearly:  "price_yearly_test"
+    )
     allow(fake_customers).to receive(:create).and_return(fake_customer)
     allow(fake_checkout_sessions).to receive(:create).and_return(fake_session)
   end
@@ -76,6 +80,14 @@ RSpec.describe Billing::CreateCheckoutSessionService, type: :service do
       result = described_class.call(**call_args)
       expect(result).to be_failure
       expect(result.error).to eq(:stripe_error)
+    end
+
+    it "returns a failure result for a price_id outside the configured plans" do
+      result = described_class.call(**call_args.merge(price_id: "price_not_a_real_plan"))
+
+      expect(result).to be_failure
+      expect(result.error).to eq(:invalid_price_id)
+      expect(fake_checkout_sessions).not_to have_received(:create)
     end
   end
 end

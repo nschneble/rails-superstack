@@ -34,8 +34,8 @@ GIT
 
 GIT
   remote: https://github.com/nschneble/super_admin.git
-  revision: f77c28bd6e1371d6b84aadbe31c2f2ce9bde67e2
-  ref: f77c28bd6e1371d6b84aadbe31c2f2ce9bde67e2
+  revision: 12f9c8c914ff8d66caebb1186b76a8385b9f1b7f
+  ref: 12f9c8c914ff8d66caebb1186b76a8385b9f1b7f
   specs:
     super_admin (0.2.1)
       csv
@@ -735,6 +735,7 @@ DEPENDENCIES
   pom-component
   propshaft
   puma (~> 8.0)
+  rack-attack
   rails (~> 8.1)
   rails-graphql!
   resque

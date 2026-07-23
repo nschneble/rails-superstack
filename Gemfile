@@ -45,11 +45,14 @@ gem "passwordless"
 # The authorization Gem for Ruby on Rails [https://github.com/CanCanCommunity/cancancan]
 gem "cancancan"
 
+# Throttle and block abusive requests [https://github.com/rack/rack-attack]
+gem "rack-attack", require: "rack/attack"
+
 # A view helper for adding Gravatars to your Ruby on Rails app [https://github.com/nschneble/gravatar_image_tag]
 gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag", ref: "71b32fcffe461252aa4bb4fb9586ca0797af09ff"
 
 # A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
-gem "super_admin", github: "nschneble/super_admin", ref: "f77c28bd6e1371d6b84aadbe31c2f2ce9bde67e2"
+gem "super_admin", github: "nschneble/super_admin", ref: "12f9c8c914ff8d66caebb1186b76a8385b9f1b7f"
 
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
 gem "commonmarker"
