@@ -52,7 +52,7 @@ gem "rack-attack", require: "rack/attack"
 gem "gravatar_image_tag", github: "nschneble/gravatar_image_tag", ref: "71b32fcffe461252aa4bb4fb9586ca0797af09ff"
 
 # A full-featured admin dashboard inspired by Administrate and ActiveAdmin [https://github.com/ThibautBaissac/super_admin]
-gem "super_admin", github: "nschneble/super_admin", ref: "d7a62fa6f89b8c634dbc393b6a7d67397820924f"
+gem "super_admin", github: "nschneble/super_admin", ref: "12f9c8c914ff8d66caebb1186b76a8385b9f1b7f"
 
 # Ruby wrapper for the CommonMark parser [https://github.com/gjtorikian/commonmarker]
 gem "commonmarker"

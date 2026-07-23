@@ -34,8 +34,8 @@ GIT
 
 GIT
   remote: https://github.com/nschneble/super_admin.git
-  revision: d7a62fa6f89b8c634dbc393b6a7d67397820924f
-  ref: d7a62fa6f89b8c634dbc393b6a7d67397820924f
+  revision: 12f9c8c914ff8d66caebb1186b76a8385b9f1b7f
+  ref: 12f9c8c914ff8d66caebb1186b76a8385b9f1b7f
   specs:
     super_admin (0.2.1)
       csv
