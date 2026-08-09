@@ -6,6 +6,12 @@
 
 _Nothing here!_
 
+## [1.0.1] - 2026-08-08
+
+No new features or anything. But Dependabot stresses me out, so I've been
+updating gems for the past few months. I also ran a fully security pass, so
+there's a few genuine improvements there.
+
 ## [1.0.0] - 2026-04-11
 
 ### Added
@@ -51,5 +57,6 @@ _Nothing here!_
 - `bin/cleanup` → _Removes all demo code_
 - `bin/rename` → _Wires up your repo name and origin_
 
-[Unreleased]: https://github.com/nschneble/rails-superstack/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/nschneble/rails-superstack/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/nschneble/rails-superstack/releases/tag/v1.0.1
 [1.0.0]: https://github.com/nschneble/rails-superstack/releases/tag/v1.0.0
