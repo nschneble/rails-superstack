@@ -31,7 +31,7 @@ Rails Superstack is a ready-to-go Ruby on Rails instance with front-end, databas
 - [Bundler](https://bundler.io/) v4.0
 - PostgreSQL 18
 - Redis 8.6
-- Ruby 3.4.7
+- Ruby 3.4.12
 - Typesense Server 30.1
 
 ### Set Up Font Awesome
