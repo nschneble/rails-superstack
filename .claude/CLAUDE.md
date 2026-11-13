@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-- **Ruby** 3.4.12, **[Rails](https://rubyonrails.org)** 8.1.3, **[Postgres](https://www.postgresql.org)** 18
+- **Ruby** 3.4.12, **[Rails](https://rubyonrails.org)** 8.1.4.1, **[Postgres](https://www.postgresql.org)** 18
 - **Front-end:** [Hotwire](https://hotwired.dev) (Turbo + Stimulus), [Tailwind](https://tailwindcss.com), [Pom Component](https://pom-io.github.io/pom-component), [Font Awesome](https://fontawesome.com), [Draper](https://github.com/drapergem/draper) (decorators)
 - **Testing:** [RSpec](https://rspec.info), [Capybara](http://teamcapybara.github.io/capybara/), [Factory Bot](https://github.com/thoughtbot/factory_bot_rails), [Faker](https://github.com/faker-ruby/faker), [SimpleCov](https://github.com/simplecov-ruby/simplecov) (coverage)
 - **Code Quality:** [RuboCop](https://rubocop.org), [RubyCritic](https://github.com/whitesmith/rubycritic)
