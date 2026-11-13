@@ -6,6 +6,11 @@
 
 _Nothing here!_
 
+## [1.0.2] - 2026-11-13
+
+The main jump here is bumping Ruby to 3.4.12 and Rails to 8.1.4.1, along
+with around a dozen security bumps to resolve security advisories.
+
 ## [1.0.1] - 2026-08-08
 
 No new features or anything. But Dependabot stresses me out, so I've been
@@ -57,6 +62,7 @@ there's a few genuine improvements there.
 - `bin/cleanup` → _Removes all demo code_
 - `bin/rename` → _Wires up your repo name and origin_
 
-[Unreleased]: https://github.com/nschneble/rails-superstack/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/nschneble/rails-superstack/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/nschneble/rails-superstack/releases/tag/v1.0.2
 [1.0.1]: https://github.com/nschneble/rails-superstack/releases/tag/v1.0.1
 [1.0.0]: https://github.com/nschneble/rails-superstack/releases/tag/v1.0.0
